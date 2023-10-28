@@ -3,7 +3,7 @@
 
 # Log file
 *.log
-build/f
+build/
 # BlueJ files
 *.ctxt
 
