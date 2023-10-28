@@ -9,19 +9,13 @@
                     </div>
                     <div class="col-sm-6">
                         <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Nuevo Cliente</span></a>
-                        
+
                     </div>
                 </div>
             </div>
             <table class="table table-striped table-hover">
                 <thead>
                 <tr>
-                    <th>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="selectAll">
-								<label for="selectAll"></label>
-							</span>
-                    </th>
                     <th>Nombre</th>
                     <th>Email</th>
                     <th>Direccion</th>
@@ -31,12 +25,7 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox1" name="options[]" value="1">
-								<label for="checkbox1"></label>
-							</span>
-                    </td>
+
                     <td>Thomas Hardy</td>
                     <td>thomashardy@mail.com</td>
                     <td>89 Chiaroscuro Rd, Portland, USA</td>
@@ -47,12 +36,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox2" name="options[]" value="1">
-								<label for="checkbox2"></label>
-							</span>
-                    </td>
+
                     <td>Dominique Perrier</td>
                     <td>dominiqueperrier@mail.com</td>
                     <td>Obere Str. 57, Berlin, Germany</td>
@@ -63,12 +47,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox3" name="options[]" value="1">
-								<label for="checkbox3"></label>
-							</span>
-                    </td>
+
                     <td>Maria Anders</td>
                     <td>mariaanders@mail.com</td>
                     <td>25, rue Lauriston, Paris, France</td>
@@ -79,12 +58,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox4" name="options[]" value="1">
-								<label for="checkbox4"></label>
-							</span>
-                    </td>
+
                     <td>Fran Wilson</td>
                     <td>franwilson@mail.com</td>
                     <td>C/ Araquil, 67, Madrid, Spain</td>
@@ -95,12 +69,6 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox5" name="options[]" value="1">
-								<label for="checkbox5"></label>
-							</span>
-                    </td>
                     <td>Martin Blank</td>
                     <td>martinblank@mail.com</td>
                     <td>Via Monte Bianco 34, Turin, Italy</td>
