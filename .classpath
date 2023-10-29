@@ -9,6 +9,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="E:/eclipse/Data/TPIntegrador_GRUPO_1/mysql-connector-j-8.1.0.jar"/>
-	<classpathentry kind="lib" path="E:/eclipse/apache-tomcat-8.5.94/apache-tomcat-8.5.94" sourcepath="C:/Users/Outlet VL/eclipse-workspace/Servers/apache-tomcat-8.5.94"/>
+	<classpathentry kind="lib" path="E:/eclipse/apache-tomcat-8.5.94/lib/apache-tomcat-8.5.94" sourcepath="C:/Users/Outlet VL/eclipse-workspace/Servers/apache-tomcat-8.5.94"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
