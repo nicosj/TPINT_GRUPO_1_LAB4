@@ -245,15 +245,24 @@ table.table .avatar {
 }
 
 /*  VENTANA DE LISTADO DE CUENTAS */
-.listadoCuentas-div{
+.listadoCuentas-div, .historialCuentas-div{
 	display: flex;
 	justify-content: center;
 	aling-items: center;
 	margin-bottom: 10px;
 }
-.listadoCuentas-titulo{
+.historialCuentas-div{
+	margin-top:40px;
+}
+.listadoCuentas-titulo, .historialCuentas-titulo {
 	display: flex;
 	justify-content: center;
 	aling-items: center;
 	margin-top: 40px;
+}
+.botonHistorialCuentas-div{
+	display: flex;
+	align-items: center;
+	justify-content:center;
+	margin-top: 20px;
 }
