@@ -1,4 +1,4 @@
-<p align="center"> 
+<p style="background-color: #FFF;" align="center"> 
 <img style="background-color: #FFF;width: 250px;" src="https://frgp.cvg.utn.edu.ar/pluginfile.php/1/theme_snap/logo/1697941287/logo-utn-siglas.png">
 </p>
 
@@ -9,9 +9,9 @@
 
 
 ## Integrantes
-- [Ludmila]
-- [Daniel]
-- [Seba]
+- [Boffo Ludmila]
+- [Calicanton Sebastian]
 - [Rodriguez Nicolas]
-- [Erik]
+- [Sucno Daniel]
+- [Vilaplana Erik]
 
