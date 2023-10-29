@@ -66,7 +66,16 @@
                     <input type="text" name="montoInicial" value="10000" readonly>
                 </p>
                 <p>
-                    <!-- Keep the type attribute as "button" -->
+                                <p>
+                    <label>Tipo de Cuenta:</label>
+            <select name="tipoCuenta" id="tipoCuentaSelect">
+                <%-- Define las opciones de tipo de cuenta --%>
+                <option value="TipoCuenta-1">Cuenta en ARS</option>
+                <option value="TipoCuenta-2">Cuenta en USD</option>
+                <option value="TipoCuenta-3">Cuenta en Rupias</option>
+            </select>
+            </p>
+                    <p><!-- Keep the type attribute as "button" -->
                     <button type="button" id="btnCrearCuenta" class="btn btn-create">Crear Cuenta</button>
                 </p>
             </fieldset>
