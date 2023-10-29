@@ -8,7 +8,11 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="E:/eclipse/Data/TPIntegrador_GRUPO_1/mysql-connector-j-8.1.0.jar"/>
-	<classpathentry kind="lib" path="E:/eclipse/apache-tomcat-8.5.94/apache-tomcat-8.5.94" sourcepath="C:/Users/Outlet VL/eclipse-workspace/Servers/apache-tomcat-8.5.94"/>
+	<classpathentry kind="lib" path="D:/ONEDRIVE/OneDrive - frgp.utn.edu.ar/CUARTO CUATRIMESTRE/LABORATORIO 4/TRABAJO FINAL/TPINT_GRUPO_1_LAB4/mysql-connector-j-8.1.0.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v8.5 (2)"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
