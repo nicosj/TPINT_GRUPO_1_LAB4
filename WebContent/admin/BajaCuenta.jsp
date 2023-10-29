@@ -1,12 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-<html lang="en">
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alta de Cuenta</title>
-
-    <style>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Baja de Cuenta</title>
+</head>
+<body>
+<style>
         /* Estilo para el body */
         body {
             font-family: Arial, sans-serif;
@@ -36,9 +37,9 @@
             margin-bottom: 20px;
         }
 
-        /* Estilo para el botón "Crear Cuenta" */
-        .btn-create {
-            background-color: #007bff;
+        /* Estilo para el botón "Eliminar Cuenta" */
+        .btn-delete {
+            background-color: #ff2a00;
             color: #fff;
             border: none;
             padding: 10px 20px;
@@ -54,35 +55,25 @@
 <body>
     <div class="container">
         <form id="accountForm" action="servletHTM" method="post">
-            <h2>Alta de Cuenta</h2>
+            <h2>Baja de Cuenta</h2>
             <fieldset>
-                <legend>Nueva Cuenta</legend>
-                <p>
-                    <label for="cbu">CBU:</label>
-                    <input type="text" name="cbu" value="<%= "generarCBU()" %>" readonly>
-                </p>
-                <p>
-                    <label for="montoInicial">Monto Inicial: $</label>
-                    <input type="text" name="montoInicial" value="10000" readonly>
-                </p>
+                <legend>Seleccione Cuenta a dar de Baja</legend>
+ <p>
+            <label>CBU:</label>
+            <select name="cbu" id="cbuSelect">
+                <%-- Define las opciones de CBU --%>
+                <option value="CBU-1">CBU-123456789</option>
+                <option value="CBU-2">CBU-222333444</option>
+                <option value="CBU-3">CBU-666666666</option>
+            </select>
+        </p>
                 <p>
                     <!-- Keep the type attribute as "button" -->
-                    <button type="button" id="btnCrearCuenta" class="btn btn-create">Crear Cuenta</button>
+                    <button type="button" id="btnEliminarCuenta" class="btn btn-delete">Eliminar Cuenta</button>
                 </p>
             </fieldset>
         </form>
     </div>
 
-   
-
 </body>
-
 </html>
-
-
-
-
-
-
-
-
