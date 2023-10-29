@@ -222,3 +222,23 @@ table.table .avatar {
 .modal form label {
     font-weight: normal;
 }
+
+
+.reportes-titulo{
+	display: flex;
+	justify-content: center;
+	aling-items: center;
+	margin-top: 20px;
+}
+
+.reportes-div{
+	display: flex;
+	justify-content: center;
+	aling-items: center;
+	margin-bottom: 10px;
+}
+.reportes-grupo{
+	margin-top:20x;
+	margin-bottom: 50px;
+}
+
