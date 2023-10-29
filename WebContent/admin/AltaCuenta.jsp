@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h2>Alta de Cuenta</h2>
-	<fieldset>
+	<fieldset style="border: 1px solid #ccc; padding: 10px; margin: 0 auto; width: 300px;">
     <legend>Nueva Cuenta</legend>
 
     <form action="servletHTM" method="post">
