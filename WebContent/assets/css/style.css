@@ -224,6 +224,8 @@ table.table .avatar {
 }
 
 
+/*  VENTANA DE REPORTES */
+
 .reportes-titulo{
 	display: flex;
 	justify-content: center;
@@ -242,3 +244,16 @@ table.table .avatar {
 	margin-bottom: 50px;
 }
 
+/*  VENTANA DE LISTADO DE CUENTAS */
+.listadoCuentas-div{
+	display: flex;
+	justify-content: center;
+	aling-items: center;
+	margin-bottom: 10px;
+}
+.listadoCuentas-titulo{
+	display: flex;
+	justify-content: center;
+	aling-items: center;
+	margin-top: 40px;
+}
