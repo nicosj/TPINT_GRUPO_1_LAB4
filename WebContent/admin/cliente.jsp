@@ -1,4 +1,6 @@
 <jsp:include page="./header.jsp"/>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <div class="container-xl">
     <div class="table-responsive">
         <div class="table-wrapper">
