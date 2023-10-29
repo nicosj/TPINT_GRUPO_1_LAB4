@@ -44,6 +44,22 @@
                 </select>
             </div>
             </div>
+             <div class="row align-items-center">
+                <div class="col-3">
+                <label for="Acreditacion" class="form-label">Seleccionar Cuenta de Acreditacion:</label>
+                </div>
+                <div class="col-6">
+                 <input type="number" class="form-control" id="IdCBU" value="sa">
+            </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-3">
+                <label for="Acreditacion" class="form-label">Importe a transferir:</label>
+                </div>
+                <div class="col-6">
+                 <input type="number" class="form-control" id="ImporteTransferencia" >
+            </div>
+            </div>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmModal">
                 Aceptar
             </button>
