@@ -1,15 +1,15 @@
 <jsp:include page="./header.jsp"/>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<div class="container-xl">
+<div class="container-fluid">
     <div class="table-responsive">
         <div class="table-wrapper">
             <div class="table-title">
                 <div class="row">
-                    <div class="col-sm-2">
+                    <div class="col-sm-6">
                         <h2>ABML <b>Clientes</b></h2>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
                         <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Nuevo Cliente</span></a>
 
                     </div>
@@ -187,8 +187,8 @@
                         <input type="date" class="form-control" id="fechaNacimiento">
                     </div>
                     <div class="form-group">
-                        <label for="direccion">Direcci贸n</label>
-                        <input type="text" class="form-control" id="direccion" placeholder="Direcci贸n">
+                        <label for="direccion">Direcci髇</label>
+                        <input type="text" class="form-control" id="direccion" placeholder="Direcci髇">
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
@@ -201,13 +201,13 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="email">Correo Electr贸nico</label>
-                        <input type="email" class="form-control" id="email" placeholder="Correo Electr贸nico">
+                        <label for="email">Correo Electr髇ico</label>
+                        <input type="email" class="form-control" id="email" placeholder="Correo Electr髇ico">
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="telefono">Tel茅fono</label>
-                            <input type="text" class="form-control" id="telefono" placeholder="Tel茅fono">
+                            <label for="telefono">Tel閒ono</label>
+                            <input type="text" class="form-control" id="telefono" placeholder="Tel閒ono">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="usuario">Usuario</label>
@@ -269,8 +269,8 @@
                         <input type="date" class="form-control" id="fechaNacimiento">
                     </div>
                     <div class="form-group">
-                        <label for="direccion">Direcci贸n</label>
-                        <input type="text" class="form-control" id="direccion" placeholder="Direcci贸n">
+                        <label for="direccion">Direcci髇</label>
+                        <input type="text" class="form-control" id="direccion" placeholder="Direcci髇">
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
@@ -283,13 +283,13 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="email">Correo Electr贸nico</label>
-                        <input type="email" class="form-control" id="email" placeholder="Correo Electr贸nico">
+                        <label for="email">Correo Electr髇ico</label>
+                        <input type="email" class="form-control" id="email" placeholder="Correo Electr髇ico">
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="telefono">Tel茅fono</label>
-                            <input type="text" class="form-control" id="telefono" placeholder="Tel茅fono">
+                            <label for="telefono">Tel閒ono</label>
+                            <input type="text" class="form-control" id="telefono" placeholder="Tel閒ono">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="usuario">Usuario</label>
@@ -319,7 +319,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <p>驴Esta Seguro de bajar a este cliente?</p>
+                    <p>縀sta Seguro de bajar a este cliente?</p>
                     <%--<p class="text-warning"><small>Esta accion no se puede completar.</small></p>--%>
                 </div>
                 <div class="modal-footer">
@@ -330,4 +330,5 @@
         </div>
     </div>
 </div>
+
 <jsp:include page="./footer.jsp"/>

@@ -20,4 +20,8 @@ $(document).ready(function(){
             $("#selectAll").prop("checked", false);
         }
     });
+    
+    $('.btn-expand-collapse').click(function(e) {
+		$('.navbar-primary').toggleClass('collapsed');
+    });
 });
