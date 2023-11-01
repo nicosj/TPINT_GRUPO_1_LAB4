@@ -29,6 +29,6 @@ Create Table `banco`.`usuario`
     foreign key (idCliente) references Cliente(idCliente)
 );
 
-insert into `banco`.`cliente` (`DNI`, `CUIL`, `nombre`, `apellido`, `sexo`, `nacionalidad`, `fechaNacimiento`, `direccion`, `localidad`, `provincia`, `correo`, `telefono`) values ('12345678', '20345678901', 'admin', 'admin', 'M', 'Argentina', '1990-01-01', 'admin', 'admin', 'admin', 'admin', 'admin');
+insert into `banco`.`cliente` (`DNI`, `CUIL`, `nombre`, `apellido`, `sexo`, `nacionalidad`, `fechaNacimiento`, `direccion`, `localidad`, `provincia`, `correo`, `telefono`) values ('12345678', '20345678901', 'admin', 'admin', 'M', 'Argentina', '1990-01-01', 'avenida siempre viva', 'caucete', 'san juan', 'admin@admin', '2644400400');
 insert into `banco`.`usuario` (`usuario`, `clave`, `tipoUsuario`, `idCliente`) values ('admin', 'admin', 1, 1);
 
