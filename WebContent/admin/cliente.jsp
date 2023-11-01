@@ -1,4 +1,6 @@
 <jsp:include page="./header.jsp"/>
+<%@page import="dominio.Cliente"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <div class="container-fluid">
@@ -10,7 +12,7 @@
                         <h2>ABML <b>Clientes</b></h2>
                     </div>
                     <div class="col-sm-6">
-                        <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Nuevo Cliente</span></a>
+                        <a href="#addCliente" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Nuevo Cliente</span></a>
 
                     </div>
                 </div>
@@ -146,10 +148,10 @@
     </div>
 </div>
 <!-- Edit Modal HTML -->
-<div id="addEmployeeModal" class="modal fade">
+<div id="addCliente" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form>
+            <form method="post" action="AltaClienteServlet">
                 <div class="modal-header">
                     <h4 class="modal-title">Agregar Cliente</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -221,7 +223,7 @@
                 </div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                    <input type="submit" class="btn btn-success" value="Agregar">
+                    <input type="submit" class="btn btn-success" name="alta" value="Alta CLiente">
                 </div>
             </form>
         </div>
