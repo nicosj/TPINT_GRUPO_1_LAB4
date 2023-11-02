@@ -4,21 +4,24 @@ import java.sql.Date;
 
 public class Cliente {
 
-  
+	private int idCliente;
     private String dni;
     private String cuil;
     private String nombre;
     private String apellido;
     private String sexo;
     private String nacionalidad;
-    private Date fechaNacimiento;
+    private String fechaNacimiento;
     private String direccion;
     private String localidad;
     private String provincia;
     private String correo;
     private String telefono;
-    
-    public Cliente(String dni, String cuil, String nombre, String apellido, String sexo, String nacionalidad, Date fechaNacimiento, String direccion, String localidad, String provincia, String correo, String telefono) {
+
+    public Cliente() {
+
+    }
+    public Cliente(String dni, String cuil, String nombre, String apellido, String sexo, String nacionalidad, String fechaNacimiento, String direccion, String localidad, String provincia, String correo, String telefono) {
         this.dni = dni;
         this.cuil = cuil;
         this.nombre = nombre;
@@ -33,10 +36,17 @@ public class Cliente {
         this.telefono = telefono;
     }
 
+    public int getIdCLiente() {
+    	return idCliente;
+    }
+    public void setIdCLiente(int idCliente) {
+        this.idCliente = idCliente;
+    }
 
     public String getDNI() {
         return dni;
     }
+
 
     public void setDNI(String dni) {
         this.dni = dni;
@@ -82,11 +92,11 @@ public class Cliente {
         this.nacionalidad = nacionalidad;
     }
 
-    public Date getFechaNacimiento() {
+    public String getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
+    public void setFechaNacimiento(String fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 
@@ -128,5 +138,23 @@ public class Cliente {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "idCliente=" + idCliente +
+                ", dni='" + dni + '\'' +
+                ", cuil='" + cuil + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", sexo='" + sexo + '\'' +
+                ", nacionalidad='" + nacionalidad + '\'' +
+                ", fechaNacimiento=" + fechaNacimiento +
+                ", direccion='" + direccion + '\'' +
+                ", localidad='" + localidad + '\'' +
+                ", provincia='" + provincia + '\'' +
+                ", correo='" + correo + '\'' +
+                ", telefono='" + telefono + '\'' +
+                '}';
     }
 }

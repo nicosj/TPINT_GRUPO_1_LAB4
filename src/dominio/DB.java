@@ -12,11 +12,18 @@ public class DB {
     private static Connection conexion;
 
     private DB() {
+    	 try {
+             Class.forName("com.mysql.jdbc.Driver");
+
+         } catch (ClassNotFoundException e) {
+             // TODO Auto-generated catch block
+             e.printStackTrace();
+         }
         try {
             conexion = DriverManager.getConnection(host, user, pass);
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException("error de conexion a DB");
+           // throw new RuntimeException("error de conexion a DB");
         }
     }
 

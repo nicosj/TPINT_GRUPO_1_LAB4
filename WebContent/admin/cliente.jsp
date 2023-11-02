@@ -35,27 +35,41 @@
                     <th>Accion</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr>
+                <%
+                    ArrayList<Cliente> clientes = null;
+                    if(request.getAttribute("clientes")!=null)
+                    {
+                        clientes = (ArrayList<Cliente>) request.getAttribute("clientes");
+                    }
 
-                    <td>23456789</td> <!-- DNI -->
-                    <td>25-23456789-0</td> <!-- CUIL -->
-                    <td>Maria</td> <!-- Nombre -->
-                    <td>Lopez</td> <!-- Apellido -->
-                    <td>Femenino</td> <!-- Sexo -->
-                    <td>15/05/1985</td> <!-- F. Nac. -->
-                    <td>Avenida Principal 45</td> <!-- Direccion -->
-                    <td>Ciudad B</td> <!-- Localidad -->
-                    <td>Provincia Y</td> <!-- Provincia -->
-                    <td>maria@example.com</td> <!-- Email -->
-                    <td>987-654-3210</td> <!-- Telefono -->
-                    <td>marialopez</td> <!-- Usuario -->
+                %>
+                <tbody>
+                <%
+                    if(clientes!=null)
+                    for(Cliente c: clientes)
+                    {%>
+                <tr>
+				<form method="post" action="altaClienteServlet">
+                    <td><%=c.getDNI()%></td> <!-- DNI -->
+                    <td><%=c.getCUIL()%></td> <!-- CUIL -->
+                    <td><%=c.getNombre()%>></td> <!-- Nombre -->
+                    <td><%=c.getApellido()%></td> <!-- Apellido -->
+                    <td><%=c.getSexo()%></td> <!-- Sexo -->
+                    <td><%=c.getFechaNacimiento()%></td> <!-- F. Nac. -->
+                    <td><%=c.getDireccion()%></td> <!-- Direccion -->
+                    <td><%=c.getLocalidad()%></td> <!-- Localidad -->
+                    <td><%=c.getProvincia()%></td> <!-- Provincia -->
+                    <td><%=c.getCorreo()%></td> <!-- Email -->
+                    <td><%=c.getTelefono()%></td> <!-- Telefono -->
+                    <td><%=c.getNombre()%></td> <!-- Usuario -->
                     <td>
                         <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                         <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                     </td>
+                    </form>
                 </tr>
-                <tr>
+                <%}%>
+          <%--      <tr>
 
                     <td>34567890</td> <!-- DNI -->
                     <td>30-34567890-1</td> <!-- CUIL -->
@@ -129,7 +143,7 @@
                         <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                         <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                     </td>
-                </tr>
+                </tr>--%>
                 </tbody>
             </table>
             <div class="clearfix">
@@ -151,7 +165,7 @@
 <div id="addCliente" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="post" action="AltaClienteServlet">
+            <form method="post" action="altaClienteServlet">
                 <div class="modal-header">
                     <h4 class="modal-title">Agregar Cliente</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -159,66 +173,67 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="dni">DNI</label>
-                        <input type="text" class="form-control" id="dni" placeholder="DNI">
+                        <input type="text" class="form-control" id="dnii" name="dni" placeholder="DNI">
                     </div>
                     <div class="form-group">
                         <label for="cuil">CUIL</label>
-                        <input type="text" class="form-control" id="cuil" placeholder="CUIL">
+                        <input type="text" class="form-control" id="cuili" name="cuil" placeholder="CUIL">
                     </div>
                     <div class="form-group">
                         <label for="nombre">Nombre</label>
-                        <input type="text" class="form-control" id="nombre" placeholder="Nombre">
+                        <input type="text" class="form-control" id="nombrei" name="nombre" placeholder="Nombre">
                     </div>
                     <div class="form-group">
                         <label for="apellido">Apellido</label>
-                        <input type="text" class="form-control" id="apellido" placeholder="Apellido">
+                        <input type="text" class="form-control" id="apellidoi" name="apellido" placeholder="Apellido">
                     </div>
                     <div class="form-group">
                         <label for="sexo">Sexo</label>
-                        <select class="form-control" id="sexo">
-                            <option value="masculino">Masculino</option>
-                            <option value="femenino">Femenino</option>
+                        <select class="form-control" id="sexoi" name="sexo">
+                            <option value="M">Masculino</option>
+                            <option value="F">Femenino</option>
+                            <option value="B">No BInario</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="nacionalidad">Nacionalidad</label>
-                        <input type="text" class="form-control" id="nacionalidad" placeholder="Nacionalidad">
+                        <input type="text" class="form-control" id="nacionalidadi" name="nacionalidad" placeholder="Nacionalidad">
                     </div>
                     <div class="form-group">
                         <label for="fechaNacimiento">Fecha de Nacimiento</label>
-                        <input type="date" class="form-control" id="fechaNacimiento">
+                        <input type="date" class="form-control" id="fechaNacimientoi" name="fechaNacimiento">
                     </div>
                     <div class="form-group">
                         <label for="direccion">Dirección</label>
-                        <input type="text" class="form-control" id="direccion" placeholder="Dirección">
+                        <input type="text" class="form-control" id="direccioni" name="direccion" placeholder="Dirección">
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="localidad">Localidad</label>
-                            <input type="text" class="form-control" id="localidad" placeholder="Localidad">
+                            <input type="text" class="form-control" id="localidadi" name="localidad"  placeholder="Localidad">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="provincia">Provincia</label>
-                            <input type="text" class="form-control" id="provincia" placeholder="Provincia">
+                            <input type="text" class="form-control" id="provinciai" name="provincia" placeholder="Provincia">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="email">Correo Electrónico</label>
-                        <input type="email" class="form-control" id="email" placeholder="Correo Electrónico">
+                        <input type="email" class="form-control" id="emaili" name="correo" placeholder="Correo Electrónico">
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="telefono">Teléfono</label>
-                            <input type="text" class="form-control" id="telefono" placeholder="Teléfono">
+                            <input type="text" class="form-control" id="telefonoi" name="telefono" placeholder="Teléfono">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="usuario">Usuario</label>
-                            <input type="text" class="form-control" id="usuario" placeholder="Usuario">
+                            <input type="text" class="form-control" id="usuarioi" name="usuario" placeholder="Usuario">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="contrasena">Contrasena</label>
-                        <input type="password" class="form-control" id="contrasena" placeholder="Contrasena">
+                        <input type="password" class="form-control" id="contrasenai" name="contrasena" placeholder="Contrasena">
                     </div>
                 </div>
                 <div class="modal-footer">
