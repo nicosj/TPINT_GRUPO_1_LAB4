@@ -51,11 +51,7 @@ public class ClienteDao_Implement implements ClienteDao_Interfaz {
 	        catch (SQLException e) 
 	        {
 	            e.printStackTrace();
-	            try {
-	                ((Connection) conexion).rollback();
-	            } catch (SQLException e1) {
-	                e1.printStackTrace();
-	            }
+	           
 	        }
 	       
 	        
@@ -151,7 +147,7 @@ public class ClienteDao_Implement implements ClienteDao_Interfaz {
 			{
 				e.printStackTrace();
 			}
-			System.out.println(clientes.get(0));
+
 			return clientes;
 	}
 
