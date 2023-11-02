@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class Cliente {
 
-  
+	private int idCliente;
     private String dni;
     private String cuil;
     private String nombre;
@@ -18,8 +18,9 @@ public class Cliente {
     private String correo;
     private String telefono;
     
-    public Cliente(String dni, String cuil, String nombre, String apellido, String sexo, String nacionalidad, Date fechaNacimiento, String direccion, String localidad, String provincia, String correo, String telefono) {
-        this.dni = dni;
+    public Cliente(int idCliente, String dni, String cuil, String nombre, String apellido, String sexo, String nacionalidad, Date fechaNacimiento, String direccion, String localidad, String provincia, String correo, String telefono) {
+    	this.idCliente = idCliente;
+    	this.dni = dni;
         this.cuil = cuil;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -33,8 +34,23 @@ public class Cliente {
         this.telefono = telefono;
     }
 
+    public Cliente() {
+    	// TODO Auto-generated constructor stub
+    }
+    
 
-    public String getDNI() {
+    public int getIdCliente() {
+		return idCliente;
+	}
+
+
+	public void setIdCliente(int idCliente) {
+		this.idCliente = idCliente;
+	}
+
+
+
+	public String getDNI() {
         return dni;
     }
 

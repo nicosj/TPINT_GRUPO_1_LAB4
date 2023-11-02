@@ -1,6 +1,7 @@
 package dao_Implement;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
@@ -115,19 +116,104 @@ public class ClienteDao_Implement implements ClienteDao_Interfaz {
 
 	@Override
 	public boolean delete(Cliente cliente_a_eliminar) {
-		// TODO Auto-generated method stub
-		return false;
+		PreparedStatement statement;
+		Connection conexion = DB.getConexion().getSQLConexion();
+		boolean eliminacionExitosa = false;
+		try 
+		{
+			statement = conexion.prepareStatement(delete);
+			statement.setInt(1, cliente_a_eliminar.getIdCliente());
+			if(statement.executeUpdate()> 0)
+			{
+				conexion.commit();
+				eliminacionExitosa = true;
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return eliminacionExitosa;
 	}
 
 	@Override
 	public List<Cliente> readAll() {
-		// TODO Auto-generated method stub
-		return null;
+
+			PreparedStatement statement;
+			ResultSet resultSet;
+			ArrayList<Cliente> personas = new ArrayList<Cliente>();
+			DB conexion = DB.getConexion();
+			try 
+			{
+				statement = conexion.getSQLConexion().prepareStatement(readall);
+				resultSet = statement.executeQuery();
+				while(resultSet.next())
+				{
+					personas.add(getCliente(resultSet));
+				}
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+			System.out.println(personas.get(0));
+			return personas;
 	}
 
 	@Override
-	public Cliente obtenerPersona(int idCliente) {
-		// TODO Auto-generated method stub
-		return null;
+	public Cliente obtenerCliente(int idCliente) {
+		Cliente cliente = new Cliente();
+		PreparedStatement statement;
+		Connection conexion =DB.getConexion().getSQLConexion();
+		
+		try {
+			 statement = conexion.prepareStatement(query);
+		     statement.setInt(1, idCliente);
+		     
+		     ResultSet resultado = statement.executeQuery();
+
+		        if (resultado.next()) {
+		            cliente.setDNI(resultado.getString("DNI"));
+		            cliente.setCUIL(resultado.getString("CUIL"));
+		            cliente.setNombre(resultado.getString("nombre"));
+		            cliente.setApellido(resultado.getString("apellido"));
+		            cliente.setSexo(resultado.getString("sexo"));
+		            cliente.setNacionalidad(resultado.getString("nacionalidad"));
+		            cliente.setFechaNacimiento(resultado.getDate("fechaNacimiento"));
+		            cliente.setDireccion(resultado.getString("direccion"));
+		            cliente.setLocalidad(resultado.getString("localidad"));
+		            cliente.setProvincia(resultado.getString("provincia"));
+		            cliente.setCorreo(resultado.getString("correo"));
+		            cliente.setTelefono(resultado.getString("telefono"));
+		        }  
+		        
+		        resultado.close();
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		return cliente;
+	}
+	
+	
+	private Cliente getCliente(ResultSet resultSet) throws SQLException
+	{
+		int idCliente = resultSet.getInt("idCliente");
+		String DNI = resultSet.getString("DNI");
+		String CUIL = resultSet.getString("CUIL");
+		String nombre = resultSet.getString("nombre");
+		String apellido = resultSet.getString("apellido");      
+        String nacionalidad = resultSet.getString("nacionalidad");
+        String sexo = resultSet.getString("sexo");
+        Date fechaNacimiento = resultSet.getDate("fechaNacimiento");
+        String direccion = resultSet.getString("direccion");
+        String localidad = resultSet.getString("localidad");
+        String provincia = resultSet.getString("provincia");
+        String correo = resultSet.getString("correo");
+        String telefono = resultSet.getString("telefono");
+        
+        
+		return new Cliente(idCliente, DNI, CUIL, nombre, apellido, nacionalidad, sexo, fechaNacimiento, direccion, localidad, provincia, correo, telefono);
 	}
 }
+
+
