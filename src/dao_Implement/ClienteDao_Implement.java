@@ -141,7 +141,7 @@ public class ClienteDao_Implement implements ClienteDao_Interfaz {
 
 			PreparedStatement statement;
 			ResultSet resultSet;
-			ArrayList<Cliente> personas = new ArrayList<Cliente>();
+			ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 			DB conexion = DB.getConexion();
 			try 
 			{
@@ -149,15 +149,15 @@ public class ClienteDao_Implement implements ClienteDao_Interfaz {
 				resultSet = statement.executeQuery();
 				while(resultSet.next())
 				{
-					personas.add(getCliente(resultSet));
+					clientes.add(getCliente(resultSet));
 				}
 			} 
 			catch (SQLException e) 
 			{
 				e.printStackTrace();
 			}
-			System.out.println(personas.get(0));
-			return personas;
+			System.out.println(clientes.get(0));
+			return clientes;
 	}
 
 	@Override

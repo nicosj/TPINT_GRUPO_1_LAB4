@@ -12,6 +12,16 @@ public class Cuenta {
 	String CBU;
 	double saldo;
 	
+	public Cuenta(String numero_Cuenta, int idCliente, String tipo_Cuenta, Date fecha_Creacion, String CBU,
+			double saldo) {
+		super();
+		this.numero_Cuenta = numero_Cuenta;
+		this.idCliente = idCliente;
+		this.tipo_Cuenta = tipo_Cuenta;
+		this.fecha_Creacion = fecha_Creacion;
+		this.CBU = CBU;
+		this.saldo = saldo;
+	}
 	@Override
 	public String toString() {
 		return "Cuenta [numero_Cuenta=" + numero_Cuenta + ", idCliente=" + idCliente + ", tipo_Cuenta=" + tipo_Cuenta
@@ -66,16 +76,6 @@ public class Cuenta {
 		this.saldo = saldo;
 	}
 
-	public Cuenta(String numero_Cuenta, int idCliente, String tipo_Cuenta, Date fecha_Creacion, String cBU,
-			double saldo) {
-		super();
-		this.numero_Cuenta = numero_Cuenta;
-		this.idCliente = idCliente;
-		this.tipo_Cuenta = tipo_Cuenta;
-		this.fecha_Creacion = fecha_Creacion;
-		CBU = cBU;
-		this.saldo = saldo;
-	}
 	
 	public Cuenta () {};
 	
