@@ -1,12 +1,12 @@
 <jsp:include page="./header.jsp"/>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<div class="container-l">
+<div class="container-fluid">
     <div class="table-responsive">
         <div class="table-wrapper">
             <div class="table-title">
                 <div class="row">
-                    <div class="col-2">
+                    <div class="col-sm-6">
                         <h2>ABML <b>Cuentas Clientes</b></h2>
                     </div>
 

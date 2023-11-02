@@ -59,7 +59,7 @@
                 <legend>Nueva Cuenta</legend>
                 <p>
                     <label for="cbu">CBU:</label>
-                    <input type="text" name="cbu" value="<%= "generarCBU()" %>" readonly>
+                   <input type="text" name="cbu" value="<% if(request.getAttribute("cbu") != null) {request.getAttribute("cbu").toString();} %>" readonly>
                 </p>
                 <p>
                     <label for="montoInicial">Monto Inicial: $</label>
@@ -70,9 +70,8 @@
                     <label>Tipo de Cuenta:</label>
             <select name="tipoCuenta" id="tipoCuentaSelect">
                 <%-- Define las opciones de tipo de cuenta --%>
-                <option value="TipoCuenta-1">Cuenta en ARS</option>
-                <option value="TipoCuenta-2">Cuenta en USD</option>
-                <option value="TipoCuenta-3">Cuenta en Rupias</option>
+                <option value="CA">Caja de Ahorro</option>
+                <option value="CC">Cuenta Corriente</option>
             </select>
             </p>
                     <p><!-- Keep the type attribute as "button" -->

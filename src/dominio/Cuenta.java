@@ -1,19 +1,19 @@
 package dominio;
-
+import java.util.Random;
 import java.sql.Date;
 import java.text.DecimalFormat;
 
 public class Cuenta {
 	
 	String numero_Cuenta;
-	int idCliente;
+	String idCliente;
 	String tipo_Cuenta;
-	Date fecha_Creacion;
+	String fecha_Creacion;
 	String CBU;
-	double saldo;
+	String saldo;
 	
-	public Cuenta(String numero_Cuenta, int idCliente, String tipo_Cuenta, Date fecha_Creacion, String CBU,
-			double saldo) {
+	public Cuenta(String numero_Cuenta, String idCliente, String tipo_Cuenta, String fecha_Creacion, String CBU,
+			String saldo) {
 		super();
 		this.numero_Cuenta = numero_Cuenta;
 		this.idCliente = idCliente;
@@ -22,6 +22,34 @@ public class Cuenta {
 		this.CBU = CBU;
 		this.saldo = saldo;
 	}
+	
+	 public static String generarCBU() {
+	        // Longitud total del CBU
+	        int longitudCBU = 22;
+	        
+	        // Crear un StringBuilder para construir el CBU
+	        StringBuilder cbuBuilder = new StringBuilder();
+
+	        // Agregar los primeros 10 dígitos iguales a 0
+	        for (int i = 0; i < 10; i++) {
+	            cbuBuilder.append("0");
+	        }
+
+	        // Generar aleatoriamente los 12 dígitos restantes
+	        Random random = new Random();
+	        for (int i = 0; i < 12; i++) {
+	            int randomDigit = random.nextInt(10);
+	            cbuBuilder.append(randomDigit);
+	        }
+
+	        // Convertir el StringBuilder a una cadena de texto
+	        String cbu = cbuBuilder.toString();
+
+	        return cbu;
+	    }
+	
+	
+	
 	@Override
 	public String toString() {
 		return "Cuenta [numero_Cuenta=" + numero_Cuenta + ", idCliente=" + idCliente + ", tipo_Cuenta=" + tipo_Cuenta
@@ -36,12 +64,12 @@ public class Cuenta {
 		this.numero_Cuenta = numero_Cuenta;
 	}
 
-	public int getIdCliente() {
+	public String getIdCliente() {
 		return idCliente;
 	}
 
-	public void setIdCliente(int idCliente) {
-		this.idCliente = idCliente;
+	public void setIdCliente(String string) {
+		this.idCliente = string;
 	}
 
 	public String getTipo_Cuenta() {
@@ -52,12 +80,12 @@ public class Cuenta {
 		this.tipo_Cuenta = tipo_Cuenta;
 	}
 
-	public Date getFecha_Creacion() {
+	public String getFecha_Creacion() {
 		return fecha_Creacion;
 	}
 
-	public void setFecha_Creacion(Date fecha_Creacion) {
-		this.fecha_Creacion = fecha_Creacion;
+	public void setFecha_Creacion(String string) {
+		this.fecha_Creacion = string;
 	}
 
 	public String getCBU() {
@@ -68,12 +96,12 @@ public class Cuenta {
 		CBU = cBU;
 	}
 
-	public double getSaldo() {
+	public String getSaldo() {
 		return saldo;
 	}
 
-	public void setSaldo(double saldo) {
-		this.saldo = saldo;
+	public void setSaldo(String string) {
+		this.saldo = string;
 	}
 
 	
