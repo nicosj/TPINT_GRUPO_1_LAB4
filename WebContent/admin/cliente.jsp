@@ -52,7 +52,7 @@
 				<form method="post" action="altaClienteServlet">
                     <td><%=c.getDNI()%></td> <!-- DNI -->
                     <td><%=c.getCUIL()%></td> <!-- CUIL -->
-                    <td><%=c.getNombre()%>></td> <!-- Nombre -->
+                    <td><%=c.getNombre()%></td> <!-- Nombre -->
                     <td><%=c.getApellido()%></td> <!-- Apellido -->
                     <td><%=c.getSexo()%></td> <!-- Sexo -->
                     <td><%=c.getFechaNacimiento()%></td> <!-- F. Nac. -->
@@ -375,7 +375,7 @@
                    
                    
                     
-                    self.off("click").click();    	
+                    //self.off("click").click();    	
                     
                     
                 }

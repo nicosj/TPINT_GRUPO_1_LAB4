@@ -9,7 +9,7 @@ Create TABLE `banco`.`cliente`
     apellido        varchar(50) not null,
     sexo            varchar(1)  not null,
     nacionalidad    varchar(50) not null,
-    fechaNacimiento date        not null,
+    fechaNacimiento varchar(10) not null,
     direccion       varchar(50) not null,
     localidad       varchar(50) not null,
     provincia       varchar(50) not null,
