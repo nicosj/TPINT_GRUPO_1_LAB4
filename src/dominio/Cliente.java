@@ -18,11 +18,15 @@ public class Cliente {
     private String correo;
     private String telefono;
 
+
     public Cliente() {
 
     }
-    public Cliente(String dni, String cuil, String nombre, String apellido, String sexo, String nacionalidad, String fechaNacimiento, String direccion, String localidad, String provincia, String correo, String telefono) {
-        this.dni = dni;
+
+    
+    public Cliente( String dni, String cuil, String nombre, String apellido, String sexo, String nacionalidad, String fechaNacimiento, String direccion, String localidad, String provincia, String correo, String telefono) {
+
+    	this.dni = dni;
         this.cuil = cuil;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -36,6 +40,7 @@ public class Cliente {
         this.telefono = telefono;
     }
 
+
     public int getIdCLiente() {
     	return idCliente;
     }
@@ -43,7 +48,20 @@ public class Cliente {
         this.idCliente = idCliente;
     }
 
-    public String getDNI() {
+    
+
+    public int getIdCliente() {
+		return idCliente;
+	}
+
+
+	public void setIdCliente(int idCliente) {
+		this.idCliente = idCliente;
+	}
+
+
+
+	public String getDNI() {
         return dni;
     }
 

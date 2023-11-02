@@ -2,16 +2,18 @@ package servlets;
 
 
 import dominio.Cliente;
-import dominio.ClienteDao;
+
 
 import java.io.IOException;
-import java.sql.Date;
+
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import dao_Implement.ClienteDao_Implement;
 
 /**
  * Servlet implementation class AltaClienteServlet
@@ -32,8 +34,8 @@ public class altaClienteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-        ClienteDao clienteDao = new ClienteDao();
-		ArrayList<Cliente> clientes = clienteDao.listarClientes();
+		ClienteDao_Implement clienteDao = new ClienteDao_Implement();
+		ArrayList<Cliente> clientes = clienteDao.readAll();
 		request.setAttribute("clientes", clientes);
 		request.getRequestDispatcher("/admin/cliente.jsp").forward(request, response);
 
@@ -65,9 +67,9 @@ public class altaClienteServlet extends HttpServlet {
             Cliente cliente = new Cliente( dni, cuil,  nombre, apellido,  sexo,  nacionalidad,  fechaNacimiento, direccion, localidad, provincia,  correo,  telefono);
             System.out.println("Servlet");
             System.out.println(cliente);
-            ClienteDao clienteDao = new ClienteDao();
+            ClienteDao_Implement clienteDao = new ClienteDao_Implement();
             try{
-                int filas= clienteDao.agregarCliente(cliente);
+                boolean filas= clienteDao.insert(cliente);
                 request.setAttribute("filas", filas);
                 request.getRequestDispatcher("/admin/cliente.jsp").forward(request, response);
             } catch (Exception e) {

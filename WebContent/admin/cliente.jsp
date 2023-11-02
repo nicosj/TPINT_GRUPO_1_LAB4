@@ -238,7 +238,7 @@
                 </div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                    <input type="submit" class="btn btn-success" name="alta" value="Alta CLiente">
+                    <input type="submit" class="btn btn-success" id="altacliente" name="alta"  value="Alta CLiente">
                 </div>
             </form>
         </div>
@@ -349,3 +349,41 @@
 </div>
 
 <jsp:include page="./footer.jsp"/>
+<script>
+    $(document).ready(function(){
+        $('#altacliente').on("click",function(e) {
+            var self = $(this);
+            e.preventDefault();
+            Swal.fire({
+                title: '¿Estas seguro?',
+                text: "No podras revertir esta accion!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Confirmar',
+                
+                
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        'Confirmado!',
+                        'Exito.',
+                        'success'
+                    )
+                   
+                   
+                   
+                    
+                    self.off("click").click();    	
+                    
+                    
+                }
+            })
+            
+            
+        });
+        
+           
+    });
+</script>
