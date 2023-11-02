@@ -240,6 +240,38 @@
                     <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
                     <input type="submit" class="btn btn-success" id="altacliente" name="alta"  value="Alta CLiente">
                 </div>
+                  <%
+                  if(request.getAttribute("filas")!=null){
+                  boolean loco= (boolean)request.getAttribute("filas");
+                   if(loco){
+               	 %>
+                 <script type="text/JavaScript">
+                	Swal.fire({
+                	  
+                	  icon: 'success',
+                	  title: 'Exito, Se inserto cliente',
+                	  showConfirmButton: true,
+                	  timer: 2500
+                	}).then((result) => {
+                    location.href="altaClienteServlet";
+                	})
+                </script>
+                <%} else if(!loco){ %>
+                <script type="text/JavaScript">
+                	Swal.fire({
+                	  
+                	  icon: 'error',
+                	  title: 'Datos duplicados o invalidos.',
+                	  showConfirmButton: true,
+                	  timer: 2500
+                	}).then((result) => {
+                    location.href="altaClienteServlet";
+                	})
+                </script>
+                <%
+                   }
+                   }%>
+              
             </form>
         </div>
     </div>
@@ -366,16 +398,7 @@
                 
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Swal.fire(
-                        'Confirmado!',
-                        'Exito.',
-                        'success'
-                    )
-                   
-                   
-                   
-                    
-                    //self.off("click").click();    	
+                     self.off("click").click();    	
                     
                     
                 }
