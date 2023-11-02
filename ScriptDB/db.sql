@@ -89,3 +89,15 @@ CREATE TABLE `pago_prestamo` (
   CONSTRAINT `FK_numero_Cuenta_Pago` FOREIGN KEY (`numero_Cuenta`) REFERENCES `cuenta` (`numero_Cuenta`),
   CONSTRAINT `FK_Prestamo` FOREIGN KEY (`idPrestamo`) REFERENCES `prestamos` (`idprestamo`)
 );
+
+CREATE TABLE `movimiento` (
+  `idMovimiento` int NOT NULL AUTO_INCREMENT,
+  `numero_Cuenta` varchar(22) not null,
+  `Fecha` date NOT NULL,
+  `Detalle_Concepto` varchar(50) NOT NULL,
+  `Importe` decimal(20,2) NOT NULL,
+  `Tipo_Movimiento` varchar(50) NOT NULL,
+  PRIMARY KEY (`idMovimiento`),
+  FOREIGN KEY (`numero_Cuenta`) REFERENCES `cuenta`(`numero_Cuenta`)
+);
+
