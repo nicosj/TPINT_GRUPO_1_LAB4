@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +21,13 @@ import dominio.Cuenta;
 
 public class BajaCuentaServlet extends HttpServlet {
 	
-    public BajaCuentaServlet() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
+	public BajaCuentaServlet() {
         super();
         
     }
@@ -32,11 +39,8 @@ public class BajaCuentaServlet extends HttpServlet {
 		  Cuenta_NegocioImp negocio = new Cuenta_NegocioImp();
 		  ArrayList<Cuenta> listaCuentas = negocio.listarCuentas(); 
 		  request.setAttribute("cuentas", listaCuentas);
-		  request.getRequestDispatcher("BajaCuenta.jsp").forward(request, response);
-		  for (Cuenta cuenta : listaCuentas) {
-			    System.out.println("Cuenta: " + cuenta.toString());
-			}
-	
+		  RequestDispatcher rd= request.getRequestDispatcher("/BajaCuenta.jsp");
+		  rd.forward(request, response);
 	}
 
 

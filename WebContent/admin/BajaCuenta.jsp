@@ -63,12 +63,13 @@
                 <legend>Seleccione Cuenta a dar de Baja</legend>
  <p>
             <label>CBU:</label>
+                <%ArrayList<Cuenta> listaCuentas; 
+                 if(request.getAttribute("cuentas")!=null)
+                	listaCuentas = (ArrayList<Cuenta>)request.getAttribute("cuentas");
+                 %>
             <select  class="form-control" name="desplegableCbu" id="cbuSelect">
-                <%ArrayList<Cuenta> listaCuentas = (ArrayList<Cuenta>)request.getAttribute("cuentas"); %>
-                <% if(listaCuentas!=null)
-                	for(Cuenta acc :listaCuentas){%>
+                 <% for(Cuenta acc :listaCuentas){%>
                			<option value="<%= acc.getCBU() %>"><%= acc.getCBU() %></option>
-                	<%} %>
               </select>  	
         </p>
                 <p>

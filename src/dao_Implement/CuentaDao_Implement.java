@@ -147,7 +147,11 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 		{
 			e.printStackTrace();
 		}
-		System.out.println(cuentas.get(0));
+		
+	    for (Cuenta cuenta : cuentas) {
+	        System.out.println("Cuenta: " + cuenta.toString());
+	    }
+
 		return cuentas;
 	}
 
