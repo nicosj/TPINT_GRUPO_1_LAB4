@@ -2,7 +2,7 @@ package dominio;
 
 public class Usuario {
 	private int IdUsuario;
-	private String Usuario;
+	private String usuario;
 	private String Clave;
 	private int tipoUsuario;
 	private int IdCliente;
@@ -10,12 +10,16 @@ public class Usuario {
 	public Usuario() {
 
 	}
-	public Usuario(int idUsuario, String Usuario, String Clave, int tipoUsuario, int IdCliente){
+	public Usuario(int idUsuario, String usuario, String Clave, int tipoUsuario, int IdCliente){
 		this.IdUsuario = idUsuario;
-		this.Usuario = Usuario;
+		this.usuario = usuario;
 		this.Clave = Clave;
 		this.tipoUsuario = tipoUsuario;
 		this.IdCliente = IdCliente;
+	}
+	public Usuario(String usuario, String Clave) {
+		this.usuario = usuario;
+		this.Clave = Clave;
 	}
 
 	public int getIdUsuario() {
@@ -27,11 +31,11 @@ public class Usuario {
 	}
 
 	public String getUsuario() {
-		return Usuario;
+		return usuario;
 	}
 
 	public void setUsuario(String usuario) {
-		Usuario = usuario;
+		usuario = usuario;
 	}
 
 	public String getClave() {

@@ -10,6 +10,7 @@ public interface UsuarioDao_Interfaz {
 	public boolean delete(int id);
 	public List<Usuario> readAll();
 	public Usuario readOnce(int id);
+	public Usuario login(Usuario usuario);
 	
 	
 	
