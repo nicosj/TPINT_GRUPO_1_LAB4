@@ -179,6 +179,7 @@ public class ClienteDao_Implement implements ClienteDao_Interfaz {
 		            cliente.setProvincia(resultado.getString("provincia"));
 		            cliente.setCorreo(resultado.getString("correo"));
 		            cliente.setTelefono(resultado.getString("telefono"));
+		            cliente.setEstado(resultado.getBoolean("estado"));
 		        }  
 		        
 		        resultado.close();
@@ -204,9 +205,10 @@ public class ClienteDao_Implement implements ClienteDao_Interfaz {
         String provincia = resultSet.getString("provincia");
         String correo = resultSet.getString("correo");
         String telefono = resultSet.getString("telefono");
+        boolean estado = resultSet.getBoolean("estado");
         
         
-		return new Cliente(DNI, CUIL, nombre, apellido, nacionalidad, sexo, fechaNacimiento, direccion, localidad, provincia, correo, telefono);
+		return new Cliente(DNI, CUIL, nombre, apellido, nacionalidad, sexo, fechaNacimiento, direccion, localidad, provincia, correo, telefono, estado);
 	}
 }
 

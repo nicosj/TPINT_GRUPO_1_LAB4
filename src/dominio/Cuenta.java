@@ -1,7 +1,5 @@
 package dominio;
 import java.util.Random;
-import java.sql.Date;
-import java.text.DecimalFormat;
 import java.time.LocalDate;
 
 public class Cuenta {
@@ -11,11 +9,11 @@ public class Cuenta {
 	private String tipo_Cuenta;
 	private String fecha_Creacion;
 	private String CBU;
-	private String saldo;
+	private double saldo;
 	private boolean estado; 
 	
 	public Cuenta(String numero_Cuenta, String idCliente, String tipo_Cuenta, String fecha_Creacion, String CBU,
-			String saldo, boolean estado) {
+			double saldo, boolean estado) {
 		super();
 		this.numero_Cuenta = numero_Cuenta;
 		this.idCliente = idCliente;
@@ -107,12 +105,12 @@ public class Cuenta {
 		CBU = cBU;
 	}
 
-	public String getSaldo() {
+	public double getSaldo() {
 		return saldo;
 	}
 
-	public void setSaldo(String string) {
-		this.saldo = string;
+	public void setSaldo(double saldo) {
+		this.saldo = saldo;
 	}
 
 	

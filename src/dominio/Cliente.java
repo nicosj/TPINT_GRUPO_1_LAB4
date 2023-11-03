@@ -1,7 +1,5 @@
 package dominio;
 
-import java.sql.Date;
-
 public class Cliente {
 
 	private int idCliente;
