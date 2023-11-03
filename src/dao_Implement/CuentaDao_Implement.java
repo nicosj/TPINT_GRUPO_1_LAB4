@@ -29,11 +29,11 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
         try
         {
             statement =  conexion.prepareStatement(insert);
-            statement.setInt(1, cuenta.getIdCliente());
-            statement.setDate(2, cuenta.getFecha_Creacion());
+            statement.setString(1, cuenta.getIdCliente());
+            statement.setString(2, cuenta.getFecha_Creacion());
             statement.setString(3, cuenta.getTipo_Cuenta());
             statement.setString(4, cuenta.getCBU());
-            statement.setDouble(5, cuenta.getSaldo());
+            statement.setString(5, cuenta.getSaldo());
             statement.setString(6, cuenta.getNumero_Cuenta());
             
             if(statement.executeUpdate() > 0)
@@ -72,11 +72,11 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
             statement = conexion.prepareStatement(update);
 
             statement =  conexion.prepareStatement(insert);
-            statement.setInt(1, cuenta_a_modificar.getIdCliente());
-            statement.setDate(2, cuenta_a_modificar.getFecha_Creacion());
+            statement.setString(1, cuenta_a_modificar.getIdCliente());
+            statement.setString(2, cuenta_a_modificar.getFecha_Creacion());
             statement.setString(3, cuenta_a_modificar.getTipo_Cuenta());
             statement.setString(4, cuenta_a_modificar.getCBU());
-            statement.setDouble(5, cuenta_a_modificar.getSaldo());
+            statement.setString(5, cuenta_a_modificar.getSaldo());
             statement.setString(6, cuenta_a_modificar.getNumero_Cuenta());
             
             if(statement.executeUpdate() > 0)
@@ -128,7 +128,7 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 	}
 
 	@Override
-	public List<Cuenta> readAll() {
+	public ArrayList<Cuenta> readAll() {
 		PreparedStatement statement;
 		ResultSet resultSet;
 		ArrayList<Cuenta> cuentas = new ArrayList<Cuenta>();
@@ -163,11 +163,11 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 		     ResultSet resultado = statement.executeQuery();
 
 		        if (resultado.next()) {
-		        	cuenta.setIdCliente(resultado.getInt("idCliente"));
+		        	cuenta.setIdCliente(resultado.getString("idCliente"));
 		        	cuenta.setTipo_Cuenta(resultado.getString("TipoCuenta"));
 		        	cuenta.setCBU(resultado.getString("CBU"));
-		        	cuenta.setFecha_Creacion(resultado.getDate("FechaCreacion"));
-		        	cuenta.setSaldo(resultado.getDouble("Saldo"));
+		        	cuenta.setFecha_Creacion(resultado.getString("FechaCreacion"));
+		        	cuenta.setSaldo(resultado.getString("Saldo"));
 		            
 		        }  
 		        
@@ -180,11 +180,11 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 	private Cuenta getCuenta(ResultSet resultSet) throws SQLException
 	{
 		String numCuenta = resultSet.getString("numero_Cuenta");
-		int idCliente = resultSet.getInt("idCliente");
-		Date fechaCreacion = resultSet.getDate("FechaCreacion");
+		String idCliente = resultSet.getString("idCliente");
+		String fechaCreacion = resultSet.getString("FechaCreacion");
 		String TipoCuenta = resultSet.getString("TipoCuenta");
 		String CBU = resultSet.getString("CBU");
-		double saldo = resultSet.getDouble("Saldo");
+		String saldo = resultSet.getString("Saldo");
 		
 		
 		return new Cuenta(numCuenta, idCliente, TipoCuenta, fechaCreacion, CBU, saldo);
