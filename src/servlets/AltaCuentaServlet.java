@@ -36,8 +36,9 @@ public class AltaCuentaServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		CuentaDao_Implement cuentaDao = new CuentaDao_Implement();
 		ArrayList<Cuenta> cuentas = cuentaDao.readAll();
+		String cbu = Integer.toString(cuentaDao.getLastCBU()+1);
 		request.setAttribute("cuentas", cuentas);
-		request.setAttribute("cbu", Cuenta.generarCBU());
+		request.setAttribute("cbu", cbu);
 		request.getRequestDispatcher("/admin/AltaCuenta.jsp").forward(request, response);
 		
 		

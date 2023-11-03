@@ -38,13 +38,13 @@ insert into `banco`.`usuario` (`usuario`, `clave`, `tipoUsuario`, `idCliente`) v
 insert into `banco`.`cliente` (`DNI`, `CUIL`, `nombre`, `apellido`, `sexo`, `nacionalidad`, `fechaNacimiento`, `direccion`, `localidad`, `provincia`, `correo`, `telefono`) values ('87654321', '20876543218', 'Ben', 'Tennyson', 'M', 'Argentina', '2005-10-09', 'Av. Cabildo', 'Necochea', 'Buenos Aires', 'Ben10@gmail.com', '0303456');
 insert into `banco`.`usuario` (`usuario`, `clave`, `tipoUsuario`, `idCliente`) values ('Ben10', 'omnitrix', 2, 2);
 
-CREATE TABLE `banco`.`cuenta` (
+CREATE TABLE `cuenta` (
   `idCliente` int DEFAULT NULL,
   `FechaCreacion` date NOT NULL,
   `TipoCuenta` varchar(2) NOT NULL,
   `CBU` varchar(22) NOT NULL,
   `Saldo` decimal(20,2) NOT NULL,
-  `numero_Cuenta` varchar(22) DEFAULT("NULL"),
+  `numero_Cuenta` int auto_increment NOT NULL,
   PRIMARY KEY (`numero_Cuenta`),
   UNIQUE KEY `CBU` (`CBU`),
   KEY `idCliente` (`idCliente`),
@@ -100,4 +100,5 @@ CREATE TABLE `movimiento` (
   PRIMARY KEY (`idMovimiento`),
   FOREIGN KEY (`numero_Cuenta`) REFERENCES `cuenta`(`numero_Cuenta`)
 );
+
 

@@ -2,9 +2,11 @@ package dao_Implement;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -190,4 +192,40 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 		return new Cuenta(numCuenta, idCliente, TipoCuenta, fechaCreacion, CBU, saldo);
 	}
 
+	
+	
+	public int getLastCBU() {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		int lastCBU = 0;
+		Connection conn = null;
+		try{
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/banco","root","root");
+			Statement st = conn.createStatement();
+			
+			ResultSet rs = st.executeQuery("SELECT CBU FROM cuenta\r\n" + 
+					"ORDER BY CBU DESC\r\n" + 
+					"LIMIT 1;");
+			
+			
+			while(rs.next()){
+				
+				lastCBU = rs.getInt("CBU");
+				System.out.println(lastCBU);
+			
+			}
+			conn.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return lastCBU;
+	}
+	
+	
+	
 }

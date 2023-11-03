@@ -53,13 +53,13 @@
 </head>
 <body>
     <div class="container">
-        <form id="accountForm" action="servletHTM" method="post">
+        <form id="accountForm" action="servletHTML" method="post">
             <h2>Alta de Cuenta</h2>
             <fieldset>
                 <legend>Nueva Cuenta</legend>
                 <p>
                     <label for="cbu">CBU:</label>
-                   <input type="text" name="cbu" value="<% if(request.getAttribute("cbu") != null) {request.getAttribute("cbu").toString();} %>" readonly>
+                   <input type="text" name="cbu" value="<%= request.getAttribute("cbu") != null ? request.getAttribute("cbu").toString() : "vacioo" %>" readonly>
                 </p>
                 <p>
                     <label for="montoInicial">Monto Inicial: $</label>

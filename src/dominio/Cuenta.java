@@ -2,6 +2,7 @@ package dominio;
 import java.util.Random;
 import java.sql.Date;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
 
 public class Cuenta {
 	
@@ -18,14 +19,14 @@ public class Cuenta {
 		this.numero_Cuenta = numero_Cuenta;
 		this.idCliente = idCliente;
 		this.tipo_Cuenta = tipo_Cuenta;
-		this.fecha_Creacion = fecha_Creacion;
+		this.fecha_Creacion = LocalDate.now().toString();
 		this.CBU = CBU;
 		this.saldo = saldo;
 	}
 	
 	 public static String generarCBU() {
 	        // Longitud total del CBU
-	        int longitudCBU = 22;
+
 	        
 	        // Crear un StringBuilder para construir el CBU
 	        StringBuilder cbuBuilder = new StringBuilder();
