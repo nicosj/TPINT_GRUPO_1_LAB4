@@ -5,7 +5,7 @@ import dominio.Cliente;
 
 
 import java.io.IOException;
-
+import java.sql.Date;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -63,8 +63,9 @@ public class altaClienteServlet extends HttpServlet {
 			String telefono = request.getParameter("telefono");
 			String usuario = request.getParameter("usuario");
 			String contrasena = request.getParameter("contrasena");
+			boolean estado = true;
 
-            Cliente cliente = new Cliente( dni, cuil,  nombre, apellido,  sexo,  nacionalidad,  fechaNacimiento, direccion, localidad, provincia,  correo,  telefono);
+            Cliente cliente = new Cliente( dni, cuil,  nombre, apellido,  sexo,  nacionalidad,  fechaNacimiento, direccion, localidad, provincia,  correo,  telefono, estado);
             System.out.println("Servlet");
             System.out.println(cliente);
             ClienteDao_Implement clienteDao = new ClienteDao_Implement();

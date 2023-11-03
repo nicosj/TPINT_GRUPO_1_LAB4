@@ -6,15 +6,16 @@ import java.time.LocalDate;
 
 public class Cuenta {
 	
-	String numero_Cuenta;
-	String idCliente;
-	String tipo_Cuenta;
-	String fecha_Creacion;
-	String CBU;
-	String saldo;
+	private String numero_Cuenta;
+	private String idCliente;
+	private String tipo_Cuenta;
+	private String fecha_Creacion;
+	private String CBU;
+	private String saldo;
+	private boolean estado; 
 	
 	public Cuenta(String numero_Cuenta, String idCliente, String tipo_Cuenta, String fecha_Creacion, String CBU,
-			String saldo) {
+			String saldo, boolean estado) {
 		super();
 		this.numero_Cuenta = numero_Cuenta;
 		this.idCliente = idCliente;
@@ -22,9 +23,18 @@ public class Cuenta {
 		this.fecha_Creacion = LocalDate.now().toString();
 		this.CBU = CBU;
 		this.saldo = saldo;
+		this.estado = estado;
 	}
 	
-	 public static String generarCBU() {
+	 public boolean getEstado() {
+		return estado;
+	}
+
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
+
+	public static String generarCBU() {
 	        // Longitud total del CBU
 
 	        

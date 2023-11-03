@@ -50,6 +50,8 @@ CREATE TABLE `cuenta` (
   KEY `idCliente` (`idCliente`),
   CONSTRAINT `cuenta_ibfk_1` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`)
 );
+
+
     
 insert into `banco`.`cuenta` (`idCliente`, `FechaCreacion`, `TipoCuenta`, `CBU`, `Saldo`) values ('2', '2023-11-01', 'CA', '0000000000123456789012', '9500.50');
 
@@ -102,3 +104,22 @@ CREATE TABLE `movimiento` (
 );
 
 
+//** ----------  ALTER
+
+
+ALTER TABLE `banco`.`cuenta`
+ADD COLUMN `estado` boolean DEFAULT true;
+
+
+
+ALTER TABLE `banco`.`cliente`
+ADD COLUMN `estado` boolean DEFAULT true;
+
+
+
+ALTER TABLE `banco`.`prestamos`
+ADD COLUMN `estado` boolean DEFAULT true;
+
+
+ALTER TABLE `banco`.`usuario`
+ADD COLUMN `estado` boolean DEFAULT true;
