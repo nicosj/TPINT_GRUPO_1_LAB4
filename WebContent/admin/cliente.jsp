@@ -251,7 +251,8 @@
                 	  icon: 'success',
                 	  title: 'Exito, Se inserto cliente',
                 	  showConfirmButton: true,
-                	  timer: 2500
+                	  timer: 2500,
+                	  timerProgressBar: true,
                 	}).then((result) => {
                     location.href="altaClienteServlet";
                 	})
@@ -263,7 +264,8 @@
                 	  icon: 'error',
                 	  title: 'Datos duplicados o invalidos.',
                 	  showConfirmButton: true,
-                	  timer: 2500
+                	  timer: 2500,
+                	  timerProgressBar: true,
                 	}).then((result) => {
                     location.href="altaClienteServlet";
                 	})
