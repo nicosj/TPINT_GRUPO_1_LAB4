@@ -36,13 +36,13 @@
 </head>
 <body>
 <div class="login-form">
-    <form action="/examples/actions/confirmation.jsp" method="post">
+    <form action="servlets/LoginServlet" method="get">
         <h2 class="text-center">Entrar</h2>       
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="Usuario" required="required">
+            <input type="text" class="form-control" placeholder="Usuario" required="required" name="usuario">
         </div>
         <div class="form-group">
-            <input type="password" class="form-control" placeholder="Password" required="required">
+            <input type="password" class="form-control" placeholder="Password" required="required" name="clave">
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block">Entrar</button>

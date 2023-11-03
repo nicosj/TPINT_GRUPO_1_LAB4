@@ -1,7 +1,5 @@
 package dominio;
 
-import java.sql.Date;
-
 public class Cliente {
 
 	private int idCliente;
@@ -17,14 +15,19 @@ public class Cliente {
     private String provincia;
     private String correo;
     private String telefono;
+    private boolean estado;
 
 
-    public Cliente() {
+
+
+	public Cliente() {
 
     }
 
     
-    public Cliente(int id, String dni, String cuil, String nombre, String apellido, String sexo, String nacionalidad, String fechaNacimiento, String direccion, String localidad, String provincia, String correo, String telefono) {
+
+    public Cliente(int id, String dni, String cuil, String nombre, String apellido, String sexo, String nacionalidad, String fechaNacimiento, String direccion, String localidad, String provincia, String correo, String telefono,boolean estado) {
+    	
     	this.idCliente=id;
     	this.dni = dni;
         this.cuil = cuil;
@@ -38,26 +41,26 @@ public class Cliente {
         this.provincia = provincia;
         this.correo = correo;
         this.telefono = telefono;
+        this.estado = estado;
     }
 
 
+    public boolean isEstado() {
+    	return estado;
+    }
+    
+    
+    public void setEstado(boolean estado) {
+    	this.estado = estado;
+    }
+    
+    
     public int getIdCLiente() {
     	return idCliente;
     }
     public void setIdCLiente(int idCliente) {
         this.idCliente = idCliente;
     }
-
-    
-
-    public int getIdCliente() {
-		return idCliente;
-	}
-
-
-	public void setIdCliente(int idCliente) {
-		this.idCliente = idCliente;
-	}
 
 
 

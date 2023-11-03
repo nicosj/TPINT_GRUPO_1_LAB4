@@ -1,5 +1,8 @@
+ <%@ page import ="java.util.ArrayList"%>
+ <%@ page import="dominio.Cuenta" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -54,18 +57,20 @@
 </head>
 <body>
     <div class="container">
-        <form id="accountForm" action="servletHTM" method="post">
+        <form id="accountForm" action="BajaCuentaServlet" method="post">
             <h2>Baja de Cuenta</h2>
             <fieldset>
                 <legend>Seleccione Cuenta a dar de Baja</legend>
  <p>
             <label>CBU:</label>
-            <select name="cbu" id="cbuSelect">
-                <%-- Define las opciones de CBU --%>
-                <option value="CBU-1">CBU-123456789</option>
-                <option value="CBU-2">CBU-222333444</option>
-                <option value="CBU-3">CBU-666666666</option>
-            </select>
+                <%ArrayList<Cuenta> listaCuentas; 
+                 if(request.getAttribute("cuentas")!=null)
+                	listaCuentas = (ArrayList<Cuenta>)request.getAttribute("cuentas");
+                 %>
+            <select  class="form-control" name="desplegableCbu" id="cbuSelect">
+                 <% for(Cuenta acc :listaCuentas){%>
+               			<option value="<%= acc.getCBU() %>"><%= acc.getCBU() %></option>
+              </select>  	
         </p>
                 <p>
                     <!-- Keep the type attribute as "button" -->

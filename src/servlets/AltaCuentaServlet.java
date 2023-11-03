@@ -36,8 +36,9 @@ public class AltaCuentaServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		CuentaDao_Implement cuentaDao = new CuentaDao_Implement();
 		ArrayList<Cuenta> cuentas = cuentaDao.readAll();
+		String cbu = Integer.toString(cuentaDao.getLastCBU()+1);
 		request.setAttribute("cuentas", cuentas);
-		request.setAttribute("cbu", Cuenta.generarCBU());
+		request.setAttribute("cbu", cbu);
 		request.getRequestDispatcher("/admin/AltaCuenta.jsp").forward(request, response);
 		
 		
@@ -57,10 +58,17 @@ public class AltaCuentaServlet extends HttpServlet {
 			String FechaCreacion = request.getParameter("FechaCreacion");
 			String TipoCuenta = request.getParameter("TipoCuenta");
 			String CBU = request.getParameter("CBU");
-			String Saldo = request.getParameter("Saldo");
+			String saldo = request.getParameter("Saldo");
+			double saldoParseado = Double.parseDouble(saldo); 
+			boolean estado = true; // *chequear, está agregado para que funcione el constructor
 
 
-            Cuenta cuenta = new Cuenta( idCliente, FechaCreacion, TipoCuenta, CBU, Saldo, numero_Cuenta);
+			//** --- Tener cuidado de no intentar leer las propiedades con un tipo de dato diferente al de la DB
+			//** ---- o saltan las excepciones. Saldo en la DB es decimal
+	
+			
+			
+            Cuenta cuenta = new Cuenta( idCliente, FechaCreacion, TipoCuenta, CBU, numero_Cuenta, saldoParseado, estado);
             System.out.println("Servlet");
             System.out.println(cuenta);
             CuentaDao_Implement cuentaDao = new CuentaDao_Implement();

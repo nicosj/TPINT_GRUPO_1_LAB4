@@ -1,31 +1,40 @@
 package dominio;
 import java.util.Random;
-import java.sql.Date;
-import java.text.DecimalFormat;
+import java.time.LocalDate;
 
 public class Cuenta {
 	
-	String numero_Cuenta;
-	String idCliente;
-	String tipo_Cuenta;
-	String fecha_Creacion;
-	String CBU;
-	String saldo;
+	private String numero_Cuenta;
+	private String idCliente;
+	private String tipo_Cuenta;
+	private String fecha_Creacion;
+	private String CBU;
+	private double saldo;
+	private boolean estado; 
 	
 	public Cuenta(String numero_Cuenta, String idCliente, String tipo_Cuenta, String fecha_Creacion, String CBU,
-			String saldo) {
+			double saldo, boolean estado) {
 		super();
 		this.numero_Cuenta = numero_Cuenta;
 		this.idCliente = idCliente;
 		this.tipo_Cuenta = tipo_Cuenta;
-		this.fecha_Creacion = fecha_Creacion;
+		this.fecha_Creacion = LocalDate.now().toString();
 		this.CBU = CBU;
 		this.saldo = saldo;
+		this.estado = estado;
 	}
 	
-	 public static String generarCBU() {
+	 public boolean getEstado() {
+		return estado;
+	}
+
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
+
+	public static String generarCBU() {
 	        // Longitud total del CBU
-	        int longitudCBU = 22;
+
 	        
 	        // Crear un StringBuilder para construir el CBU
 	        StringBuilder cbuBuilder = new StringBuilder();
@@ -96,12 +105,12 @@ public class Cuenta {
 		CBU = cBU;
 	}
 
-	public String getSaldo() {
+	public double getSaldo() {
 		return saldo;
 	}
 
-	public void setSaldo(String string) {
-		this.saldo = string;
+	public void setSaldo(double saldo) {
+		this.saldo = saldo;
 	}
 
 	
