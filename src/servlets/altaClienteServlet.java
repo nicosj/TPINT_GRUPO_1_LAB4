@@ -64,7 +64,7 @@ public class altaClienteServlet extends HttpServlet {
 			String usuario = request.getParameter("usuario");
 			String contrasena = request.getParameter("contrasena");
 
-            Cliente cliente = new Cliente( dni, cuil,  nombre, apellido,  sexo,  nacionalidad,  fechaNacimiento, direccion, localidad, provincia,  correo,  telefono);
+            Cliente cliente = new Cliente(0, dni, cuil,  nombre, apellido,  sexo,  nacionalidad,  fechaNacimiento, direccion, localidad, provincia,  correo,  telefono);
             System.out.println("Servlet");
             System.out.println(cliente);
             ClienteDao_Implement clienteDao = new ClienteDao_Implement();

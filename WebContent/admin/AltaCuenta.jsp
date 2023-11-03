@@ -59,7 +59,10 @@
                 <legend>Nueva Cuenta</legend>
                 <p>
                     <label for="cbu">CBU:</label>
-                   <input type="text" name="cbu" value="<% if(request.getAttribute("cbu") != null) {request.getAttribute("cbu").toString();} %>" readonly>
+                    <% if(request.getAttribute("cbu") != null) {
+                    	String al=(String)request.getAttribute("cbu");%>
+                   <input type="text" name="cbu" value="<%= al %>" readonly>
+                   <%} %>
                 </p>
                 <p>
                     <label for="montoInicial">Monto Inicial: $</label>

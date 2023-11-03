@@ -204,7 +204,7 @@ public class ClienteDao_Implement implements ClienteDao_Interfaz {
         String telefono = resultSet.getString("telefono");
         
         
-		return new Cliente(DNI, CUIL, nombre, apellido, nacionalidad, sexo, fechaNacimiento, direccion, localidad, provincia, correo, telefono);
+		return new Cliente(idCliente, DNI, CUIL, nombre, apellido, nacionalidad, sexo, fechaNacimiento, direccion, localidad, provincia, correo, telefono);
 	}
 }
 

@@ -24,8 +24,8 @@ public class Cliente {
     }
 
     
-    public Cliente( String dni, String cuil, String nombre, String apellido, String sexo, String nacionalidad, String fechaNacimiento, String direccion, String localidad, String provincia, String correo, String telefono) {
-
+    public Cliente(int id, String dni, String cuil, String nombre, String apellido, String sexo, String nacionalidad, String fechaNacimiento, String direccion, String localidad, String provincia, String correo, String telefono) {
+    	this.idCliente=id;
     	this.dni = dni;
         this.cuil = cuil;
         this.nombre = nombre;

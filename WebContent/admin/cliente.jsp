@@ -20,6 +20,7 @@
             <table class="table table-striped table-hover">
                 <thead>
                 <tr>
+                	<th>ID</th>
                     <th>DNI</th>
                     <th>CUIL</th>
                     <th>Nombre</th>
@@ -50,6 +51,7 @@
                     {%>
                 <tr>
 				<form method="post" action="altaClienteServlet">
+					<td><%=c.getIdCLiente()%></td>
                     <td><%=c.getDNI()%></td> <!-- DNI -->
                     <td><%=c.getCUIL()%></td> <!-- CUIL -->
                     <td><%=c.getNombre()%></td> <!-- Nombre -->
