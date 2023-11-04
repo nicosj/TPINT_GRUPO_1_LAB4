@@ -20,10 +20,10 @@
 				  <li class="list-group-item">movimiento 3</li>
 				  <li class="list-group-item">movimiento 4</li>
 			 </ul>
-		</div>
 		<div class="botonHistorialCuentas-div">
 			<button type="button" class="btn btn-primary btn-sm">Volver atrás</button>
 		</div>		 
+		</div>
 	</form>
 </body>
 </html>

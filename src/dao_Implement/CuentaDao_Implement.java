@@ -14,7 +14,7 @@ import dominio.Cuenta;
 public class CuentaDao_Implement implements CuentaDao_Interfaz {
 
 	private static final String insert = "insert into cuenta (idCliente, FechaCreacion, TipoCuenta, CBU, Saldo, numero_Cuenta, estado) values (?, ? , ?, ?, ?, ?, ?)";
-	private static final String delete = "UPDATE cuenta SET estado = ? where numero_Cuenta = ?";
+	private static final String delete = "UPDATE cuenta SET estado = ? where numero_Cuenta = ? AND estado = 1";
 	private static final String readall = "SELECT * FROM cuenta";	
 	private static final String update = "update idCliente= ?, FechaCreacion=?, TipoCuenta=?, CBU=?, Saldo=?, estado = ?   where numero_Cuenta = ?";
 	private static final String query = "Select * FROM cuenta WHERE numero_Cuenta = ?";
@@ -33,7 +33,7 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
             statement.setString(3, cuenta.getTipo_Cuenta());
             statement.setString(4, cuenta.getCBU());
             statement.setDouble(5, cuenta.getSaldo());
-            statement.setString(6, cuenta.getNumero_Cuenta());
+            statement.setInt(6, cuenta.getNumero_Cuenta());
             statement.setBoolean(7,  cuenta.getEstado());
             
             if(statement.executeUpdate() > 0)
@@ -76,7 +76,7 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
             statement.setString(3, cuenta_a_modificar.getTipo_Cuenta());
             statement.setString(4, cuenta_a_modificar.getCBU());
             statement.setDouble(5, cuenta_a_modificar.getSaldo());
-            statement.setString(6, cuenta_a_modificar.getNumero_Cuenta());
+            statement.setInt(6, cuenta_a_modificar.getNumero_Cuenta());
             statement.setBoolean(7, cuenta_a_modificar.getEstado());
             
             if(statement.executeUpdate() > 0)
@@ -106,7 +106,7 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 	}
 
 	@Override
-	public boolean delete(Cuenta cuenta_a_eliminar) {
+	public boolean delete(int numeroCuenta) {
 		PreparedStatement statement;
 		Connection conexion = DB.getConexion().getSQLConexion();
 		boolean eliminacionExitosa = false;
@@ -114,7 +114,7 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 		{
 			statement = conexion.prepareStatement(delete);
 			 statement.setBoolean(1, false); 
-		     statement.setString(2, cuenta_a_eliminar.getNumero_Cuenta());
+		     statement.setInt(2, numeroCuenta);
 			if(statement.executeUpdate()> 0)
 			{
 				conexion.commit();
@@ -147,9 +147,9 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 		{
 			e.printStackTrace();
 		}
-		
 	    for (Cuenta cuenta : cuentas) {
-	        System.out.println("Cuenta: " + cuenta.toString());
+	    		System.out.println("Cuenta: " + cuenta.toString());	 
+	    	
 	    }
 
 		return cuentas;
@@ -174,7 +174,7 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 		        	cuenta.setFecha_Creacion(resultado.getString("FechaCreacion"));
 		        	cuenta.setSaldo(resultado.getDouble("Saldo"));
 		        	cuenta.setEstado(resultado.getBoolean("estado"));
-		            
+		        	cuenta.setNumero_Cuenta(resultado.getInt("numero_Cuenta"));		            
 		        }  
 		        
 		        resultado.close();
@@ -190,10 +190,10 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 		String TipoCuenta = resultSet.getString("TipoCuenta");
 		String CBU = resultSet.getString("CBU");
 		double saldo = resultSet.getDouble("Saldo");
-		String numCuenta = resultSet.getString("numero_Cuenta");
+		int numCuenta = resultSet.getInt("numero_Cuenta");
 		boolean estado = resultSet.getBoolean("estado");
 		
-		return new Cuenta(numCuenta, idCliente, TipoCuenta, fechaCreacion, CBU, saldo, estado);
+		return new Cuenta( idCliente, numCuenta, TipoCuenta, fechaCreacion, CBU, saldo, estado);
 	}
 
 	
@@ -229,7 +229,5 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 		}
 		return lastCBU;
 	}
-	
-	
 	
 }
