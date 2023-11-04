@@ -43,7 +43,7 @@ public class BajaClienteServlet extends HttpServlet {
 			
 			request.setAttribute("listaC", listaCli);
 			
-			RequestDispatcher re = request.getRequestDispatcher("/BajaCliente.jsp");
+			RequestDispatcher re = request.getRequestDispatcher("/adm_BajaCliente.jsp");
 			re.forward(request,response);
 		}
 	}
