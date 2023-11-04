@@ -1,4 +1,5 @@
 package dao;
+import java.util.ArrayList;
 import java.util.List;
 
 import dominio.*;
@@ -14,6 +15,7 @@ public interface ClienteDao_Interfaz {
 	public Cliente obtenerCliente(int idCliente);
 	
 	public void bajaLogicaCliente(int id);
+	List<Cliente> readAllActivos();
 
 
 }
