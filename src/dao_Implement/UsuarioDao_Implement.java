@@ -9,7 +9,6 @@ import java.util.List;
 
 import dao.DB;
 import dao.UsuarioDao_Interfaz;
-import dominio.Cliente;
 import dominio.Usuario;
 
 public class UsuarioDao_Implement implements UsuarioDao_Interfaz  {
