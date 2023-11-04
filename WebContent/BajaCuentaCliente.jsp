@@ -31,9 +31,10 @@ body {
 </style>
 </head>
 <body>		
-		<form id="accountForm" action="BajaCuentaServlet" method="post">					
-			<input type="button" name="inputCargar" value="Carga">
-		</form>
+		<div class="historialCuentas-div">
+		<a href="BajaCuentaServlet">Mostrar las cuentas</a>
+		</div>
+
 			<%
 			ArrayList<Cuenta> listaCuentas = null;
 			if (request.getAttribute("cuentas") != null) {
@@ -55,7 +56,7 @@ body {
 				    	<form action="BajaCuentaServlet" method="post">
 				        <td ><%= acc.getCBU() %></td>
 				       		<th scope="row"> Numero de cuenta: </th>
-				        <td> <%= acc.getNumero_Cuenta()%> value="<%= acc.getNumero_Cuenta()%>">  </td>
+				        <td> <%= acc.getNumero_Cuenta()%> <input type="hidden" name="numCuenta" value="<%= acc.getNumero_Cuenta()%>">  </td>
 				        <td> <input type="submit" name="btnBajaCuenta" value="Eliminar" class="btn btn-outline-primary"></td>
 				   		</form>
 				    </tr>

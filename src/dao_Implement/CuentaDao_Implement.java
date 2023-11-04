@@ -14,9 +14,9 @@ import dominio.Cuenta;
 public class CuentaDao_Implement implements CuentaDao_Interfaz {
 
 	private static final String insert = "insert into cuenta (idCliente, FechaCreacion, TipoCuenta, CBU, Saldo, numero_Cuenta, estado) values (?, ? , ?, ?, ?, ?, ?)";
-	private static final String delete = "UPDATE cuenta SET estado = ? where numero_Cuenta = ? AND estado = 1";
+	private static final String delete = "UPDATE cuenta SET estado = 0 where numero_Cuenta = ? ";
 	private static final String readall = "SELECT * FROM cuenta";	
-	private static final String update = "update idCliente= ?, FechaCreacion=?, TipoCuenta=?, CBU=?, Saldo=?, estado = ?   where numero_Cuenta = ?";
+	private static final String update = "update idCliente= ?, FechaCreacion = ?, TipoCuenta = ?, CBU=?, Saldo=?, estado = ?   where numero_Cuenta = ?";
 	private static final String query = "Select * FROM cuenta WHERE numero_Cuenta = ?";
 
 	
@@ -113,8 +113,7 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 		try 
 		{
 			statement = conexion.prepareStatement(delete);
-			 statement.setBoolean(1, false); 
-		     statement.setInt(2, numeroCuenta);
+		     statement.setInt(1, numeroCuenta);
 			if(statement.executeUpdate()> 0)
 			{
 				conexion.commit();
@@ -128,6 +127,10 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 		return eliminacionExitosa;
 	}
 
+	
+	
+	
+	
 	@Override
 	public ArrayList<Cuenta> readAll() {
 		PreparedStatement statement;

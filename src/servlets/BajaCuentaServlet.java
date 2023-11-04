@@ -39,9 +39,9 @@ public class BajaCuentaServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		  
-		listaCuentas = negocio.filtrarActivas();
+		listaCuentas = negocio.listarCuentas();
 		request.setAttribute("cuentas", listaCuentas);
-		RequestDispatcher rd = request.getRequestDispatcher("BajaCuentaCliente.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/BajaCuentaCliente.jsp");
 		rd.forward(request, response);
 		  
 	}
@@ -49,15 +49,21 @@ public class BajaCuentaServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-
+		
 		  
 		 if(request.getParameter("btnBajaCuenta")!=null) {
-
-		     listaCuentas = negocio.listarCuentas();  
-			 request.setAttribute("cuentas", listaCuentas);
-			 RequestDispatcher rda = request.getRequestDispatcher("BajaCuentaCliente.jsp");
-			 rda.forward(request, response);
+			 int numeroCuenta= Integer.parseInt(request.getParameter("numCuenta").toString());
+			 boolean bajo= negocio.bajaCuenta(numeroCuenta);
+			 if(bajo) {
+				 System.out.println("Baja exitosa");
+			 }
+			 
 		 }
+		 listaCuentas = negocio.listarCuentas();  
+		 request.setAttribute("cuentas", listaCuentas);
+		 RequestDispatcher rda = request.getRequestDispatcher("BajaCuentaCliente.jsp");
+		 rda.forward(request, response);
+		
 	}
 
 }
