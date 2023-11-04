@@ -24,9 +24,26 @@ public class Cliente {
 
     }
 
-    
+    //Este constructor es para traer un cliente de mysql
+    public Cliente( int id, String dni, String cuil, String nombre, String apellido, String sexo, String nacionalidad, String fechaNacimiento, String direccion, String localidad, String provincia, String correo, String telefono, boolean estado) {
+    	this.idCliente = id;
+    	this.dni = dni;
+        this.cuil = cuil;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.sexo = sexo;
+        this.nacionalidad = nacionalidad;
+        this.fechaNacimiento = fechaNacimiento;
+        this.direccion = direccion;
+        this.localidad = localidad;
+        this.provincia = provincia;
+        this.correo = correo;
+        this.telefono = telefono;
+        this.estado = estado;
+    }
+    //Este constructor es para crear un nuevo Cliente, se diferencian en recibir como parametro idCliente
     public Cliente( String dni, String cuil, String nombre, String apellido, String sexo, String nacionalidad, String fechaNacimiento, String direccion, String localidad, String provincia, String correo, String telefono, boolean estado) {
-
+    	
     	this.dni = dni;
         this.cuil = cuil;
         this.nombre = nombre;

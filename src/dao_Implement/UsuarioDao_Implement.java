@@ -21,6 +21,7 @@ public class UsuarioDao_Implement implements UsuarioDao_Interfaz  {
 	private static final String query = "Select * FROM usuario WHERE idUsuario = ?";
 	private static final String login = "Select * FROM usuario WHERE usuario = ? and clave = ?";
 	
+	
 	@Override
 	public boolean insert(Usuario usuario) {
 		PreparedStatement statement;
@@ -211,6 +212,9 @@ public class UsuarioDao_Implement implements UsuarioDao_Interfaz  {
         
 		return new Usuario(idUsuario, usuario, clave, tipoUsuario, idCliente);
 	}
+	
+	
+	
 	
 	
 }
