@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Baja de Clientes </title>
 </head>
 
 <body>
@@ -32,15 +32,17 @@
 
 	
 	 %>
-	<tr> 
-		<form action="BajaClienteServlet" method="post">
-			<td><%=cli.getIdCLiente() %> <input type="hidden" name="idcliente" value="<%=cli.getIdCLiente() %>"></td>
-			<td><%=cli.getNombre() %></td> 
-			<td><%=cli.getApellido() %></td> 
-			<td><%=cli.getDNI() %></td> 
-			<td> <input type="submit" name="btnEliminarCliente" value="Eliminar"> </td>
-		</form>
-	</tr>
+<tr> 
+    <form action="BajaClienteServlet" method="post">
+        <td><%= cli.getIdCLiente() %> <input type="hidden" name="idcliente" value="<%= cli.getIdCLiente() %>"></td>
+        <td><%= cli.getNombre() %></td> 
+        <td><%= cli.getApellido() %></td> 
+        <td><%= cli.getDNI() %></td> 
+        <td> <input type="submit" name="btnEliminarCliente" value="Eliminar" 
+             onclick="return confirm('¿Está seguro de que desea eliminar el cliente con los siguientes datos?\n\nID: <%= cli.getIdCLiente() %>\nNombre: <%= cli.getNombre() %>\nApellido: <%= cli.getApellido() %>\nDNI: <%= cli.getDNI() %>');">
+    </form>
+</tr>
+
 	<%} %>
 	</table>
 	

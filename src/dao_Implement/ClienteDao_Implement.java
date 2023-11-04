@@ -17,6 +17,7 @@ public class ClienteDao_Implement implements ClienteDao_Interfaz {
 	private static final String insert = "Insert into cliente (DNI, CUIL, nombre, apellido, sexo, nacionalidad, fechaNacimiento, direccion, localidad, provincia, correo, telefono)  values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String delete = "UPDATE cliente SET estado = ? WHERE idCliente = ?";
 	private static final String readall = "SELECT * FROM cliente";	
+	private static final String readallActivos = "SELECT * FROM cliente where estado = 1";	
 	private static final String update = "update cliente set DNI = ?, CUIL = ?, nombre = ?, apellido = ?, sexo = ?, naciolidad = ?, fechaNacimiento = ?, direccion = ?, localidad = ?, provincia = ?, correo = ?, telefono = ? where idCliente = ?";
 	private static final String query = "Select * FROM cliente WHERE idCliente = ?";
 	private static final String bajalogica = "UPDATE cliente SET estado = 0 WHERE idCliente = ?";
@@ -160,7 +161,30 @@ public class ClienteDao_Implement implements ClienteDao_Interfaz {
 	        
 	        }
 	     catch (SQLException e) {
-	        // Considerar el uso de un sistema de logging aqu�
+	        // Considerar el uso de un sistema de logging aqui
+	        e.printStackTrace();
+	    }
+	    return clientes;
+	}
+	@Override
+	public ArrayList<Cliente> readAllActivos() {
+	    ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+	    
+	    
+	    try {
+	    
+	    		
+	    	 Connection conexion = DB.getConexion().getSQLConexion();
+	         PreparedStatement statement = conexion.prepareStatement(readallActivos);
+	         ResultSet resultSet = statement.executeQuery(); 
+
+	        while (resultSet.next()) {
+	            clientes.add(getCliente(resultSet));
+	        }
+	        
+	        }
+	     catch (SQLException e) {
+	        // Considerar el uso de un sistema de logging aqui
 	        e.printStackTrace();
 	    }
 	    return clientes;
@@ -250,7 +274,7 @@ public class ClienteDao_Implement implements ClienteDao_Interfaz {
 		    
 
 		    if (exito) {
-		        System.out.println("La baja l�gica del cliente con id " + id + " se realiz� correctamente.");
+		        System.out.println("La baja logica del cliente con id " + id + " se realizo correctamente.");
 		    } else {
 		        System.out.println("No se pudo realizar la baja l�gica del cliente con id " + id);
 		    }
