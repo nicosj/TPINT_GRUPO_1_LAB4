@@ -5,7 +5,8 @@ import dominio.Cuenta;
 
 
 import java.io.IOException;
-
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +19,7 @@ import dao_Implement.CuentaDao_Implement;
 /**
  * Servlet implementation class AltaCuentaServlet
  */
-@WebServlet("/admin/altaCuentaServlet")
+@WebServlet("/AltaCuentaServlet")
 public class AltaCuentaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -34,12 +35,14 @@ public class AltaCuentaServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		System.out.println("ServletGet");
 		CuentaDao_Implement cuentaDao = new CuentaDao_Implement();
 		ArrayList<Cuenta> cuentas = cuentaDao.readAll();
-		String cbu = Integer.toString(cuentaDao.getLastCBU()+1);
+		
+		String cbu = Cuenta.generarCBU();
 		request.setAttribute("cuentas", cuentas);
 		request.setAttribute("cbu", cbu);
-		request.getRequestDispatcher("/admin/AltaCuenta.jsp").forward(request, response);
+		request.getRequestDispatcher("/AltaCuenta.jsp").forward(request, response);
 		
 		
 
@@ -51,32 +54,28 @@ public class AltaCuentaServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
-		if(request.getParameter("alta")!=null){
+		if(request.getParameter("btnCrearCuenta")!=null){
 
-			String num = request.getParameter("numero_Cuenta");
-			int numero_Cuenta = Integer.parseInt(num);
-			String idCliente = request.getParameter("idCliente");
-			String FechaCreacion = request.getParameter("FechaCreacion");
-			String TipoCuenta = request.getParameter("TipoCuenta");
-			String CBU = request.getParameter("CBU");
-			String saldo = request.getParameter("Saldo");
-			double saldoParseado = Double.parseDouble(saldo); 
-			boolean estado = true; // *chequear, está agregado para que funcione el constructor
-
+			System.out.println("Servletpost");
+			String TipoCuenta = request.getParameter("tipoCuenta");
+			String CBU = request.getParameter("cbu");
+			Double saldo = Double.parseDouble(request.getParameter("saldo"));
+			String FechaCreacion= LocalDate.now().toString();
+			Boolean Estado = true;
 
 			//** --- Tener cuidado de no intentar leer las propiedades con un tipo de dato diferente al de la DB
 			//** ---- o saltan las excepciones. Saldo en la DB es decimal
 	
 			
 			
-            Cuenta cuenta = new Cuenta( idCliente, numero_Cuenta, FechaCreacion, TipoCuenta, CBU, saldoParseado, estado);
-            System.out.println("Servlet");
+            Cuenta cuenta = new Cuenta( TipoCuenta, FechaCreacion,CBU, saldo, Estado);
+            
             System.out.println(cuenta);
             CuentaDao_Implement cuentaDao = new CuentaDao_Implement();
             try{
                 boolean filas= cuentaDao.insert(cuenta);
                 request.setAttribute("filas", filas);
-                request.getRequestDispatcher("/admin/AltaCuenta.jsp").forward(request, response);
+                request.getRequestDispatcher("/AltaCuenta.jsp").forward(request, response);
             } catch (Exception e) {
                 e.printStackTrace();
             }
