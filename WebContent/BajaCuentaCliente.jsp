@@ -14,27 +14,29 @@
 
 	<style>
 /* Estilo para el body */
-body {
-	font-family: Arial, sans-serif;
-	background-color: #f0f0f0;
-	margin: 0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	min-height: 100vh;
-}
-.div-tabla{
-	display:flex;
-	justify-content: center;
-	aling-items: center;
-}
+	body {
+		font-family: Arial, sans-serif;
+		background-color: #f0f0f0;
+		margin: 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		min-height: 100vh;
+	}
+	.div-tabla{
+		display:block;
+		justify-content: center;
+		aling-items: center;
+	}
+	.div.tabla a{
+		margin-top: 50px;
+		margin-bottom: 20px; 
+		justify-content:center;
+	}
 </style>
 </head>
-<body>		
-		<div class="historialCuentas-div">
-		<a href="BajaCuentaServlet">Mostrar las cuentas</a>
-		</div>
-
+<body>		<div class="div-tabla">
+			<a href="BajaCuentaServlet">Mostrar las cuentas</a>
 			<%
 			ArrayList<Cuenta> listaCuentas = null;
 			if (request.getAttribute("cuentas") != null) {
@@ -49,22 +51,24 @@ body {
 				    <%
 				    if (listaCuentas != null) {
 				        for (Cuenta acc : listaCuentas) {
-				        	if(acc.getEstado())
+				        	if(acc.getEstado()){
 				    %>
-				  
-				    <tr>
-				    	<form action="BajaCuentaServlet" method="post">
-				        <td ><%= acc.getCBU() %></td>
-				       		<th scope="row"> Numero de cuenta: </th>
-				        <td> <%= acc.getNumero_Cuenta()%> <input type="hidden" name="numCuenta" value="<%= acc.getNumero_Cuenta()%>">  </td>
-				        <td> <input type="submit" name="btnBajaCuenta" value="Eliminar" class="btn btn-outline-primary"></td>
-				   		</form>
-				    </tr>
-				    <%
+						  
+						    <tr>
+						    	<form action="BajaCuentaServlet" method="post">
+						        <td ><%= acc.getCBU() %></td>
+						       		<th scope="row"> Numero de cuenta: </th>
+						        <td> <%= acc.getNumero_Cuenta()%> <input type="hidden" name="numCuenta" value="<%= acc.getNumero_Cuenta()%>">  </td>
+						        <td> <input type="submit" name="btnBajaCuenta" value="Eliminar" class="btn btn-outline-primary"></td>
+						   		</form>
+						    </tr>
+						    <%
+						    }
 				        }
 				    }
 				    %>
 				</table>
-		</div>	
+			</div>	
+		</div>
 </body>
 </html>

@@ -20,16 +20,6 @@ public class Cuenta_NegocioImp implements Cuenta_Negocio {
 			return  cuenta.readAll();
 			
 		}
-		public ArrayList<Cuenta> filtrarActivas(){
-			ArrayList<Cuenta> filtradas = new ArrayList<Cuenta>();
-			ArrayList<Cuenta> total = cuenta.readAll();
-			for(Cuenta acc : total) {
-				if(acc.getEstado()) {
-					filtradas.add(acc);
-				}
-			}
-			return filtradas;
-		}
 }
 
 

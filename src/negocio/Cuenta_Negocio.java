@@ -8,5 +8,4 @@ public interface Cuenta_Negocio {
 
 	public boolean bajaCuenta(int numCuenta);
 	public ArrayList<Cuenta> listarCuentas();
-	public ArrayList<Cuenta> filtrarActivas();
 }
