@@ -35,7 +35,7 @@ public class Usuario {
 	}
 
 	public void setUsuario(String usuario) {
-		usuario = usuario;
+		this.usuario = usuario;
 	}
 
 	public String getClave() {

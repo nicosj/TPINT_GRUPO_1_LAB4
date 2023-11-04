@@ -53,7 +53,8 @@ public class AltaCuentaServlet extends HttpServlet {
 		//doGet(request, response);
 		if(request.getParameter("alta")!=null){
 
-			String numero_Cuenta = request.getParameter("numero_Cuenta");
+			String num = request.getParameter("numero_Cuenta");
+			int numero_Cuenta = Integer.parseInt(num);
 			String idCliente = request.getParameter("idCliente");
 			String FechaCreacion = request.getParameter("FechaCreacion");
 			String TipoCuenta = request.getParameter("TipoCuenta");
@@ -68,7 +69,7 @@ public class AltaCuentaServlet extends HttpServlet {
 	
 			
 			
-            Cuenta cuenta = new Cuenta( idCliente, FechaCreacion, TipoCuenta, CBU, numero_Cuenta, saldoParseado, estado);
+            Cuenta cuenta = new Cuenta( idCliente, numero_Cuenta, FechaCreacion, TipoCuenta, CBU, saldoParseado, estado);
             System.out.println("Servlet");
             System.out.println(cuenta);
             CuentaDao_Implement cuentaDao = new CuentaDao_Implement();

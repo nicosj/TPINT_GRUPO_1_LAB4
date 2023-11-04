@@ -25,6 +25,10 @@ public class BajaCuentaServlet extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	
+	Cuenta_NegocioImp negocio = new Cuenta_NegocioImp();
+	
+	ArrayList<Cuenta> listaCuentas = new ArrayList<Cuenta>();
 
 	public BajaCuentaServlet() {
         super();
@@ -35,22 +39,25 @@ public class BajaCuentaServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		  
-		  Cuenta_NegocioImp negocio = new Cuenta_NegocioImp();
-		  
-		  ArrayList<Cuenta> listaCuentas = new ArrayList<Cuenta>();
-		  listaCuentas.add(new Cuenta("1000", "1", "CC", "11/12/1995", "202020",330, true));
-	      listaCuentas = negocio.listarCuentas();   
-		  request.setAttribute("cuentas", listaCuentas);
-		  RequestDispatcher rd = request.getRequestDispatcher("/admin/BajaCuentaCliente.jsp");
-		  rd.forward(request, response);
-		  
+		listaCuentas = negocio.filtrarActivas();
+		request.setAttribute("cuentas", listaCuentas);
+		RequestDispatcher rd = request.getRequestDispatcher("BajaCuentaCliente.jsp");
+		rd.forward(request, response);
 		  
 	}
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		doGet(request, response);
+
+		  
+		 if(request.getParameter("btnBajaCuenta")!=null) {
+
+		     listaCuentas = negocio.listarCuentas();  
+			 request.setAttribute("cuentas", listaCuentas);
+			 RequestDispatcher rda = request.getRequestDispatcher("BajaCuentaCliente.jsp");
+			 rda.forward(request, response);
+		 }
 	}
 
 }

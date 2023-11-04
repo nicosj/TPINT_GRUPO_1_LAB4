@@ -6,6 +6,7 @@ import dominio.Cuenta;
 
 public interface Cuenta_Negocio {
 
-	public boolean bajaCuenta(Cuenta cuenta_a_eliminar);
+	public boolean bajaCuenta(int numCuenta);
 	public ArrayList<Cuenta> listarCuentas();
+	public ArrayList<Cuenta> filtrarActivas();
 }

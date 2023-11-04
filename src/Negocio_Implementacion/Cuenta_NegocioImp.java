@@ -12,16 +12,23 @@ public class Cuenta_NegocioImp implements Cuenta_Negocio {
     
     
 	@Override
-	public boolean bajaCuenta(Cuenta cuenta_a_eliminar) {
-		boolean estado=false;
-		if(cuenta_a_eliminar.getNumero_Cuenta().trim().length()>0 && cuenta_a_eliminar.getEstado())
-		{
-			estado = cuenta.delete(cuenta_a_eliminar);
-		}
+	public boolean bajaCuenta(int numCuenta) {
+		boolean estado= cuenta.delete(numCuenta);
 		return estado;
 	}
 		public ArrayList<Cuenta> listarCuentas() {
-			return cuenta.readAll();
+			return  cuenta.readAll();
+			
+		}
+		public ArrayList<Cuenta> filtrarActivas(){
+			ArrayList<Cuenta> filtradas = new ArrayList<Cuenta>();
+			ArrayList<Cuenta> total = cuenta.readAll();
+			for(Cuenta acc : total) {
+				if(acc.getEstado()) {
+					filtradas.add(acc);
+				}
+			}
+			return filtradas;
 		}
 }
 
