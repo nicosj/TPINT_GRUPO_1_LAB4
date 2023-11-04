@@ -92,7 +92,7 @@
 
 </html>
 <% }else {
-	response.sendRedirect("../Inicio.jsp");
+	response.sendRedirect("../index.jsp");
 }%>
 
 

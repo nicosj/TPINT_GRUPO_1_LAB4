@@ -54,10 +54,10 @@ public class LoginServlet extends HttpServlet {
 				request.getRequestDispatcher("/client/ListadoCuentasCliente.jsp").forward(request, response);
 			} else {
 				session.setAttribute("admin", usuario);
-				request.getRequestDispatcher("AltaCuenta.jsp").forward(request, response);
+				request.getRequestDispatcher("/admin").forward(request, response);
 			}
 		}else {
-			RequestDispatcher dr = request.getRequestDispatcher("/Inicio.jsp");
+			RequestDispatcher dr = request.getRequestDispatcher("/index.jsp");
 			dr.forward(request, response);
 		}
 	}
