@@ -11,7 +11,19 @@ public class Cuenta {
 	private String CBU;
 	private double saldo;
 	private boolean estado; 
-	
+	//Creacion de Cuenta
+	public Cuenta(String tipo_Cuenta, String fecha_Creacion, String CBU,
+			double saldo, boolean estado) {
+		super();
+
+
+		this.tipo_Cuenta = tipo_Cuenta;
+		this.fecha_Creacion = fecha_Creacion;
+		this.CBU = CBU;
+		this.saldo = saldo;
+		this.estado = estado;
+	}
+	//Consulta de cuenta
 	public Cuenta( String idCliente, int numero_Cuenta, String tipo_Cuenta, String fecha_Creacion, String CBU,
 			double saldo, boolean estado) {
 		super();
