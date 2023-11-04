@@ -209,7 +209,7 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 		int lastCBU = 0;
 		Connection conn = null;
 		try{
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/banco","root","root");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/banco","root","");
 			Statement st = conn.createStatement();
 			
 			ResultSet rs = st.executeQuery("SELECT CBU FROM cuenta\r\n" + 
