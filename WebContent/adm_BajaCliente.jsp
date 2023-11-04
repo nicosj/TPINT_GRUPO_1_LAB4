@@ -10,7 +10,7 @@
 </head>
 
 <body>
-	<form action="BajaClienteServlet" method="post" >
+	<form action="BajaClienteServlet" method="get" >
 		<input type="submit" name="btnMostrarClientes"
 			value="Mostrar Clientes">
 		</form>
@@ -25,14 +25,22 @@
 	%>
 	
 	<table border="1">
-	<tr> <th> Nombre </th><th> Apellido </th><th> DNI </th> </tr>
+	<tr> <th> ID </th><th> Nombre </th><th> Apellido </th><th> DNI </th>  </tr>
 	<%
 	if(listaClientes != null)
 		for(Cliente cli : listaClientes){
 
 	
 	 %>
-	<tr> <td><%=cli.getNombre() %></td> <td><%=cli.getApellido() %></td> <td><%=cli.getDNI() %></td> </tr>
+	<tr> 
+		<form action="BajaClienteServlet" method="post">
+			<td><%=cli.getIdCLiente() %> <input type="hidden" name="idcliente" value="<%=cli.getIdCLiente() %>"></td>
+			<td><%=cli.getNombre() %></td> 
+			<td><%=cli.getApellido() %></td> 
+			<td><%=cli.getDNI() %></td> 
+			<td> <input type="submit" name="btnEliminarCliente" value="Eliminar"> </td>
+		</form>
+	</tr>
 	<%} %>
 	</table>
 	

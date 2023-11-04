@@ -12,5 +12,8 @@ public interface ClienteDao_Interfaz {
 	public boolean delete(Cliente cliente_a_eliminar);
 	public List<Cliente> readAll();
 	public Cliente obtenerCliente(int idCliente);
+	
+	public void bajaLogicaCliente(int id);
+
 
 }

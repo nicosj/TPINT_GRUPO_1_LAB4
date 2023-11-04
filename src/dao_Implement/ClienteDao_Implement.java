@@ -19,6 +19,7 @@ public class ClienteDao_Implement implements ClienteDao_Interfaz {
 	private static final String readall = "SELECT * FROM cliente";	
 	private static final String update = "update cliente set DNI = ?, CUIL = ?, nombre = ?, apellido = ?, sexo = ?, naciolidad = ?, fechaNacimiento = ?, direccion = ?, localidad = ?, provincia = ?, correo = ?, telefono = ? where idCliente = ?";
 	private static final String query = "Select * FROM cliente WHERE idCliente = ?";
+	private static final String bajalogica = "UPDATE cliente SET estado = 0 WHERE idCliente = ?";
 
 	
 	@Override
@@ -48,13 +49,10 @@ public class ClienteDao_Implement implements ClienteDao_Interfaz {
 	                insercionExitosa = true;
 	            }
 	        } 
-	        catch (SQLException e) 
-	        {
-	            e.printStackTrace();
-	           
-	        }
-	       
-	        
+	        catch (SQLException e) {
+				e.printStackTrace();
+
+			}
 	        
 	        return insercionExitosa;
 	    }
@@ -66,7 +64,8 @@ public class ClienteDao_Implement implements ClienteDao_Interfaz {
         try
         {
             statement = conexion.prepareStatement(update);
-
+            
+            
             statement.setString(1,  cliente_a_modificar.getDNI());
             statement.setString(2,  cliente_a_modificar.getCUIL());
             statement.setString(3,  cliente_a_modificar.getNombre());
@@ -79,6 +78,7 @@ public class ClienteDao_Implement implements ClienteDao_Interfaz {
             statement.setString(10,  cliente_a_modificar.getProvincia());
             statement.setString(11,  cliente_a_modificar.getCorreo());
             statement.setString(12,  cliente_a_modificar.getTelefono());
+            
             if(statement.executeUpdate() > 0)
             {
                conexion.commit();
@@ -88,19 +88,9 @@ public class ClienteDao_Implement implements ClienteDao_Interfaz {
         catch (SQLException e) 
         {
             e.printStackTrace();
-            try {
-                conexion.rollback();
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
+           
         }
-        finally {
-            try {
-                 conexion.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+        
 
         return actualizacionExitosa;
     }
@@ -129,7 +119,7 @@ public class ClienteDao_Implement implements ClienteDao_Interfaz {
 		return eliminacionExitosa;
 	}
 
-	@Override
+	/*@Override
 	public ArrayList<Cliente> readAll() {
 
 			PreparedStatement statement;
@@ -151,7 +141,31 @@ public class ClienteDao_Implement implements ClienteDao_Interfaz {
 			}
 
 			return clientes;
+	}*/
+	@Override
+	public ArrayList<Cliente> readAll() {
+	    ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+	    
+	    
+	    try {
+	    
+	    		
+	    	 Connection conexion = DB.getConexion().getSQLConexion();
+	         PreparedStatement statement = conexion.prepareStatement(readall);
+	         ResultSet resultSet = statement.executeQuery(); 
+
+	        while (resultSet.next()) {
+	            clientes.add(getCliente(resultSet));
+	        }
+	        
+	        }
+	     catch (SQLException e) {
+	        // Considerar el uso de un sistema de logging aqu�
+	        e.printStackTrace();
+	    }
+	    return clientes;
 	}
+
 
 	@Override
 	public Cliente obtenerCliente(int idCliente) {
@@ -182,7 +196,7 @@ public class ClienteDao_Implement implements ClienteDao_Interfaz {
 		            cliente.setEstado(resultado.getBoolean("estado"));
 		        }  
 		        
-		        resultado.close();
+		        //resultado.close();
 		} catch(Exception e){
 			e.printStackTrace();
 		}
@@ -209,11 +223,40 @@ public class ClienteDao_Implement implements ClienteDao_Interfaz {
         
         
 
+
 		return new Cliente(idCliente, DNI, CUIL, nombre, apellido, nacionalidad, sexo, fechaNacimiento, direccion, localidad, provincia, correo, telefono, estado);
 
 		//return new Cliente(DNI, CUIL, nombre, apellido, nacionalidad, sexo, fechaNacimiento, direccion, localidad, provincia, correo, telefono, estado);
 
+
 	}
+	
+	public void bajaLogicaCliente(int id) {
+		 PreparedStatement statement;
+		    Connection conexion = DB.getConexion().getSQLConexion();
+		    boolean exito = false;
+		    try {
+		        statement = conexion.prepareStatement(bajalogica);
+		        statement.setInt(1, id);
+		        
+		        if (statement.executeUpdate() > 0) {
+		        	conexion.commit();
+		            exito = true;
+		        }
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    
+		    } 
+		    
+
+		    if (exito) {
+		        System.out.println("La baja l�gica del cliente con id " + id + " se realiz� correctamente.");
+		    } else {
+		        System.out.println("No se pudo realizar la baja l�gica del cliente con id " + id);
+		    }
+		
+	}
+
 }
 
 

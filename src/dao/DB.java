@@ -31,12 +31,14 @@ public class DB {
 		if(instancia == null)
 		{
 			instancia = new DB();
+			System.out.println("public static DB getConexion entro");
 		}
 		return instancia;
 	}
 
 	public Connection getSQLConexion() 
 	{
+		System.out.println("public Connection getSQLConexion entro");
 		return this.connection;
 	}
 	
@@ -44,10 +46,12 @@ public class DB {
 	{
 		try 
 		{
+			System.out.println("public void cerrarConexion TRY entro");
 			this.connection.close();
 		}
 		catch (SQLException e) 
 		{
+			System.out.println("public void cerrarConexion CATCH entro");
 			e.printStackTrace();
 		}
 		instancia = null;

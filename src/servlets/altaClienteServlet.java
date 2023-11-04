@@ -66,9 +66,8 @@ public class altaClienteServlet extends HttpServlet {
 			boolean estado = true;
 
 
+
             Cliente cliente = new Cliente(0, dni, cuil,  nombre, apellido,  sexo,  nacionalidad,  fechaNacimiento, direccion, localidad, provincia,  correo,  telefono, estado);
-
-
 
             System.out.println("Servlet");
             System.out.println(cliente);

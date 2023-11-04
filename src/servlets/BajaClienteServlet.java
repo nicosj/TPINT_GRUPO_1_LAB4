@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao_Implement.ClienteDao_Implement;
+import dao_Implement.UsuarioDao_Implement;
 import dominio.Cliente;
 
 /**
@@ -29,20 +30,29 @@ public class BajaClienteServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		ClienteDao_Implement cli = new ClienteDao_Implement();
+		ArrayList<Cliente> listaCli = cli.readAll();
+		
+		request.setAttribute("listaC", listaCli);
+		
+		RequestDispatcher re = request.getRequestDispatcher("/adm_BajaCliente.jsp");
+		re.forward(request,response);
 	}
 
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getParameter("btnMostrarClientes")!=null) 
+
+		
+		if(request.getParameter("btnEliminarCliente")!=null) 
 		{
+			int id = Integer.parseInt(request.getParameter("idcliente").toString());
 			ClienteDao_Implement cli = new ClienteDao_Implement();
+			cli.bajaLogicaCliente(id);
+		
+			
 			ArrayList<Cliente> listaCli = cli.readAll();
-			
 			request.setAttribute("listaC", listaCli);
-			
 			RequestDispatcher re = request.getRequestDispatcher("/adm_BajaCliente.jsp");
 			re.forward(request,response);
 		}

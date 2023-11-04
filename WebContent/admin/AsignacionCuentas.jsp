@@ -70,11 +70,11 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="Cuenta 1">Cuenta 1</label>
+                        <label for="Cuenta1">Cuenta 1</label>
                         <input type="text" class="form-control" id="Cuenta1" placeholder="Cuenta 1">
                     </div>
                     <div class="form-group">
-                        <label for="Cuenta 2">Cuenta 2</label>
+                        <label for="Cuenta2">Cuenta 2</label>
                         <input type="text" class="form-control" id="Cuenta2" placeholder="Cuenta 2">
                     </div>
                     <div class="form-group">
