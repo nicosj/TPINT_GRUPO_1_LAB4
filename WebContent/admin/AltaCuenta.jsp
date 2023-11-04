@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
+<% if(session.getAttribute("admin") != null) {%>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -86,7 +87,9 @@
 </body>
 
 </html>
-
+<% }else {
+	response.sendRedirect("../Inicio.jsp");
+}%>
 
 
 

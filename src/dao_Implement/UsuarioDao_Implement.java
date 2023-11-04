@@ -14,12 +14,12 @@ import dominio.Usuario;
 
 public class UsuarioDao_Implement implements UsuarioDao_Interfaz  {
 	
-	private static final String insert = "Insert into usuarios (usuario, clave, tipoUsuario, idCliente)  values (?, ?, ?, ?)";
-	private static final String delete = "DELETE FROM usuarios WHERE idUsuario = ?";
-	private static final String readall = "SELECT * FROM Usuarios";	
+	private static final String insert = "Insert into usuario (usuario, clave, tipoUsuario, idCliente)  values (?, ?, ?, ?)";
+	private static final String delete = "DELETE FROM usuario WHERE idUsuario = ?";
+	private static final String readall = "SELECT * FROM usuario";	
 	private static final String update = "update usuarios set usuario = ?, clave = ?, tipoUsuario = ?, idCliente = ?";
-	private static final String query = "Select * FROM usuarios WHERE idUsuario = ?";
-	private static final String login = "Select * FROM usuarios WHERE usuario = ? and clave = ?";
+	private static final String query = "Select * FROM usuario WHERE idUsuario = ?";
+	private static final String login = "Select * FROM usuario WHERE usuario = ? and clave = ?";
 	
 	@Override
 	public boolean insert(Usuario usuario) {
@@ -183,15 +183,14 @@ public class UsuarioDao_Implement implements UsuarioDao_Interfaz  {
 			statement = conexion.prepareStatement(login);
 			statement.setString(1, usuario.getUsuario());
 			statement.setString(2, usuario.getClave());
-			
 			result = statement.executeQuery();
-			
-			if(result.next()) {
+			while(result.next()) {
 				aux.setIdUsuario(result.getInt("idUsuario"));
 				aux.setUsuario(result.getString("usuario"));
 				aux.setClave(result.getString("clave"));
 				aux.setTipoUsuario(result.getInt("tipoUsuario"));
 				aux.setIdCliente(result.getInt("idCliente"));
+				System.out.println(aux.getUsuario());
 			}
 			
 			result.close();
@@ -200,6 +199,7 @@ public class UsuarioDao_Implement implements UsuarioDao_Interfaz  {
 		}
 		return aux;
 	}
+	
 	private Usuario getUsuario(ResultSet resultSet) throws SQLException
 	{
 		int idUsuario = resultSet.getInt("idUsuario");

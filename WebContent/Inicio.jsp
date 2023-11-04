@@ -36,7 +36,7 @@
 </head>
 <body>
 <div class="login-form">
-    <form action="servlets/LoginServlet" method="get">
+    <form action="LoginServlet" method="post">
         <h2 class="text-center">Entrar</h2>       
         <div class="form-group">
             <input type="text" class="form-control" placeholder="Usuario" required="required" name="usuario">
