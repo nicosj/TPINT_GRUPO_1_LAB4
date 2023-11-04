@@ -1,15 +1,15 @@
- <%@ page import ="java.util.ArrayList"%>
- <%@ page import="dominio.Cuenta" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-
+ <%@ page import ="java.util.ArrayList"%>
+ <%@ page import="dominio.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Baja de Cuenta</title>
+<title>Insert title here</title>
 </head>
 <body>
+
 <style>
         /* Estilo para el body */
         body {
@@ -63,13 +63,16 @@
                 <legend>Seleccione Cuenta a dar de Baja</legend>
  <p>
             <label>CBU:</label>
-                <%ArrayList<Cuenta> listaCuentas; 
-                 if(request.getAttribute("cuentas")!=null)
+            <select  name="desplegableCbu">
+                <%  if(request.getAttribute("cuentas")!=null){
+                	ArrayList<Cuenta> listaCuentas = null; 
                 	listaCuentas = (ArrayList<Cuenta>)request.getAttribute("cuentas");
-                 %>
-            <select  class="form-control" name="desplegableCbu" id="cbuSelect">
-                 <% for(Cuenta acc :listaCuentas){%>
-               			<option value="<%= acc.getCBU() %>"><%= acc.getCBU() %></option>
+	               	  if(listaCuentas!=null){
+					  	for(Cuenta acc :listaCuentas){%>
+	               			<option value="<%= acc.getCBU() %>"><%=acc.getCBU() %></option>
+	               		<%}
+					  }
+                } %>		
               </select>  	
         </p>
                 <p>
@@ -79,6 +82,7 @@
             </fieldset>
         </form>
     </div>
+
 
 </body>
 </html>
