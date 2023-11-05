@@ -43,19 +43,9 @@ public class UsuarioDao_Implement implements UsuarioDao_Interfaz  {
         catch (SQLException e) 
         {
             e.printStackTrace();
-            try {
-                ((Connection) conexion).rollback();
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
+        
         }
-        finally {
-            try {
-                ((Connection) conexion).close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+        
         
         return insercionExitosa;
 	}
@@ -82,19 +72,9 @@ public class UsuarioDao_Implement implements UsuarioDao_Interfaz  {
         catch (SQLException e) 
         {
             e.printStackTrace();
-            try {
-                conexion.rollback();
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
+        
         }
-        finally {
-            try {
-                 conexion.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+        
 
         return actualizacionExitosa;
 	}

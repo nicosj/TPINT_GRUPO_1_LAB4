@@ -51,13 +51,13 @@ public class LoginServlet extends HttpServlet {
 			session = request.getSession();
 			if (usuario.getTipoUsuario() == 2) {
 				session.setAttribute("client", usuario);
-				request.getRequestDispatcher("/client/ListadoCuentasCliente.jsp").forward(request, response);
+				request.getRequestDispatcher("/client").forward(request, response);
 			} else {
 				session.setAttribute("admin", usuario);
-				request.getRequestDispatcher("AltaCuenta.jsp").forward(request, response);
+				request.getRequestDispatcher("/admin").forward(request, response);
 			}
 		}else {
-			RequestDispatcher dr = request.getRequestDispatcher("/Inicio.jsp");
+			RequestDispatcher dr = request.getRequestDispatcher("/index.jsp");
 			dr.forward(request, response);
 		}
 	}

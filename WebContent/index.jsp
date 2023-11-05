@@ -51,7 +51,7 @@
 
         </div>        
     </form>
-    <p class="text-center"><a href="#">Crear Cuenta</a></p>
+    <%--<p class="text-center"><a href="#">Crear Cuenta</a></p>--%>
 </div>
 </body>
 </html>                                		
