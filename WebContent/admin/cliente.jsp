@@ -29,7 +29,9 @@
                     <th>CUIL</th>
                     <th>Nombre</th>
                     <th>Apellido</th>
-                    <th>Sexo</th>
+
+					<th>Nacionalidad</th>
+					<th>Sexo</th>
                     <th>F. Nac.</th>
                     <th>Direccion</th>
                     <th>Localidad</th>
@@ -61,6 +63,7 @@
                     <td><%=c.getNombre()%></td> <!-- Nombre -->
                     <td><%=c.getApellido()%></td> <!-- Apellido -->
                     <td><%=c.getSexo()%></td> <!-- Sexo -->
+					<td><%=c.getNacionalidad()%></td> <!-- Nacionalidad -->
                     <td><%=c.getFechaNacimiento()%></td> <!-- F. Nac. -->
                     <td><%=c.getDireccion()%></td> <!-- Direccion -->
                     <td><%=c.getLocalidad()%></td> <!-- Localidad -->
@@ -71,8 +74,27 @@
 
 
                     <td>
-                        <a href="#editEmployeeModal" id="<%=c.getIdCLiente()%>" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                        <a href="#deleteEmployeeModal" id="<%=c.getIdCLiente()%>" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                        <a href="#editEmployeeModal" id="<%=c.getIdCLiente()%>" class="edit" data-toggle="modal"
+						   onclick="parametr(`<%=c.getDNI()%>`,
+								   `<%=c.getCUIL()%>`,
+								   `<%=c.getNombre()%>`,
+								   `<%=c.getApellido()%>`,
+								   `<%=c.getSexo()%>`,
+								   `<%=c.getNacionalidad()%>`,
+								   `<%=c.getFechaNacimiento()%>`,
+								   `<%=c.getDireccion()%>`,
+								   `<%=c.getLocalidad()%>`,
+								   `<%=c.getProvincia()%>`,
+								   `<%=c.getCorreo()%>`,
+								   `<%=c.getTelefono()%>`,
+								   )"
+						><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                        <a href="#deleteEmployeeModal" id="<%=c.getIdCLiente()%>"
+						   onclick="paramDel(`<%=c.getIdCLiente()%>`,
+								   `<%=c.getNombre()%>`,
+								   `<%=c.getApellido()%>`,
+											)"
+						   class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
 
                     </td>
                     
@@ -112,25 +134,25 @@
 				<div class="modal-body">
 					<div class="form-group">
 						<label for="dni">DNI</label> <input type="text"
-							class="form-control" id="dnii" name="dni" placeholder="DNI">
+							class="form-control" id="dni" name="dni" placeholder="DNI">
 					</div>
 					<div class="form-group">
 						<label for="cuil">CUIL</label> <input type="text"
-							class="form-control" id="cuili" name="cuil" placeholder="CUIL">
+							class="form-control" id="cuil" name="cuil" placeholder="CUIL">
 					</div>
 					<div class="form-group">
 						<label for="nombre">Nombre</label> <input type="text"
-							class="form-control" id="nombrei" name="nombre"
+							class="form-control" id="nombre" name="nombre"
 							placeholder="Nombre">
 					</div>
 					<div class="form-group">
 						<label for="apellido">Apellido</label> <input type="text"
-							class="form-control" id="apellidoi" name="apellido"
+							class="form-control" id="apellido" name="apellido"
 							placeholder="Apellido">
 					</div>
 					<div class="form-group">
 						<label for="sexo">Sexo</label> <select class="form-control"
-							id="sexoi" name="sexo">
+							id="sexo" name="sexo">
 							<option value="M">Masculino</option>
 							<option value="F">Femenino</option>
 							<option value="B">No BInario</option>
@@ -138,51 +160,51 @@
 					</div>
 					<div class="form-group">
 						<label for="nacionalidad">Nacionalidad</label> <input type="text"
-							class="form-control" id="nacionalidadi" name="nacionalidad"
+							class="form-control" id="nacionalidad" name="nacionalidad"
 							placeholder="Nacionalidad">
 					</div>
 					<div class="form-group">
 						<label for="fechaNacimiento">Fecha de Nacimiento</label> <input
-							type="date" class="form-control" id="fechaNacimientoi"
+							type="date" class="form-control" id="fechaNacimiento"
 							name="fechaNacimiento">
 					</div>
 					<div class="form-group">
 						<label for="direccion">Dirección</label> <input type="text"
-							class="form-control" id="direccioni" name="direccion"
+							class="form-control" id="direccion" name="direccion"
 							placeholder="Dirección">
 					</div>
 					<div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="localidad">Localidad</label> <input type="text"
-								class="form-control" id="localidadi" name="localidad"
+								class="form-control" id="localidad" name="localidad"
 								placeholder="Localidad">
 						</div>
 						<div class="form-group col-md-6">
 							<label for="provincia">Provincia</label> <input type="text"
-								class="form-control" id="provinciai" name="provincia"
+								class="form-control" id="provincia" name="provincia"
 								placeholder="Provincia">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="email">Correo Electrónico</label> <input type="email"
-							class="form-control" id="emaili" name="correo"
+							class="form-control" id="email" name="correo"
 							placeholder="Correo Electrónico">
 					</div>
 					<div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="telefono">Teléfono</label> <input type="text"
-								class="form-control" id="telefonoi" name="telefono"
+								class="form-control" id="telefono" name="telefono"
 								placeholder="Teléfono">
 						</div>
 						<div class="form-group col-md-6">
 							<label for="usuario">Usuario</label> <input type="text"
-								class="form-control" id="usuarioi" name="usuario"
+								class="form-control" id="usuario" name="usuario"
 								placeholder="Usuario">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="contrasena">Contrasena</label> <input type="password"
-							class="form-control" id="contrasenai" name="contrasena"
+							class="form-control" id="contrasena" name="contrasena"
 							placeholder="Contrasena">
 					</div>
 				</div>
@@ -252,7 +274,7 @@
 		<div class="modal-content">
 
 			<form method="post" action="ModificarClienteServlet">
-						<input type="hidden" name="idCliente" id="idCliente" />
+				<input type="hidden" name="idCliente" id="idCliente" />
 
 				<div class="modal-header">
 					<h4 class="modal-title">Editar Cliente</h4>
@@ -261,78 +283,78 @@
 				</div>
 				<div class="modal-body">
 					<div class="form-group">
-						<label for="dni">DNI</label> <input type="text"
-							class="form-control" id="dnii" name="dni" placeholder="DNI">
+						<label for="dnie">DNI</label> <input type="text"
+							class="form-control" id="dnie" name="dni" placeholder="DNI">
 					</div>
 					<div class="form-group">
-						<label for="cuil">CUIL</label> <input type="text"
-							class="form-control" id="cuili" name="cuil" placeholder="CUIL">
+						<label for="cuile">CUIL</label> <input type="text"
+							class="form-control" id="cuile" name="cuil" placeholder="CUIL">
 					</div>
 					<div class="form-group">
-						<label for="nombre">Nombre</label> <input type="text"
-							class="form-control" id="nombrei" name="nombre"
+						<label for="nombree">Nombre</label> <input type="text"
+							class="form-control" id="nombree" name="nombre"
 							placeholder="Nombre">
 					</div>
 					<div class="form-group">
-						<label for="apellido">Apellido</label> <input type="text"
-							class="form-control" id="apellidoi" name="apellido"
+						<label for="apellidoe">Apellido</label> <input type="text"
+							class="form-control" id="apellidoe" name="apellido"
 							placeholder="Apellido">
 					</div>
 					<div class="form-group">
-						<label for="sexo">Sexo</label> <select class="form-control"
-							id="sexoi" name="sexo">
+						<label for="sexoe">Sexo</label> <select class="form-control"
+							id="sexoe" name="sexo">
 							<option value="M">Masculino</option>
 							<option value="F">Femenino</option>
 							<option value="B">No BInario</option>
 						</select>
 					</div>
 					<div class="form-group">
-						<label for="nacionalidad">Nacionalidad</label> <input type="text"
-							class="form-control" id="nacionalidadi" name="nacionalidad"
+						<label for="nacionalidade">Nacionalidad</label> <input type="text"
+							class="form-control" id="nacionalidade" name="nacionalidad"
 							placeholder="Nacionalidad">
 					</div>
 					<div class="form-group">
-						<label for="fechaNacimiento">Fecha de Nacimiento</label> <input
-							type="date" class="form-control" id="fechaNacimientoi"
+						<label for="fechaNacimientoe">Fecha de Nacimiento</label> <input
+							type="date" class="form-control" id="fechaNacimientoe"
 							name="fechaNacimiento">
 					</div>
 					<div class="form-group">
-						<label for="direccion">Dirección</label> <input type="text"
-							class="form-control" id="direccioni" name="direccion"
+						<label for="direccione">Dirección</label> <input type="text"
+							class="form-control" id="direccione" name="direccion"
 							placeholder="Dirección">
 					</div>
 					<div class="form-row">
 						<div class="form-group col-md-6">
-							<label for="localidad">Localidad</label> <input type="text"
-								class="form-control" id="localidadi" name="localidad"
+							<label for="localidade">Localidad</label> <input type="text"
+								class="form-control" id="localidade" name="localidad"
 								placeholder="Localidad">
 						</div>
 						<div class="form-group col-md-6">
-							<label for="provincia">Provincia</label> <input type="text"
-								class="form-control" id="provinciai" name="provincia"
+							<label for="provinciae">Provincia</label> <input type="text"
+								class="form-control" id="provinciae" name="provincia"
 								placeholder="Provincia">
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="email">Correo Electrónico</label> <input type="email"
-							class="form-control" id="emaili" name="correo"
+						<label for="emaile">Correo Electrónico</label> <input type="email"
+							class="form-control" id="emaile" name="correo"
 							placeholder="Correo Electrónico">
 					</div>
 					<div class="form-row">
 						<div class="form-group col-md-6">
-							<label for="telefono">Teléfono</label> <input type="text"
-								class="form-control" id="telefonoi" name="telefono"
+							<label for="telefonoe">Teléfono</label> <input type="text"
+								class="form-control" id="telefonoe" name="telefono"
 								placeholder="Teléfono">
 						</div>
 						<div class="form-group col-md-6">
-							<label for="usuario">Usuario</label> <input type="text"
-								class="form-control" id="usuarioi" name="usuario"
+							<label for="usuarioe">Usuario</label> <input type="text"
+								class="form-control" id="usuarioe" name="usuario"
 								placeholder="Usuario">
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="contrasena">Contrasena</label> <input type="password"
-							class="form-control" id="contrasenai" name="contrasena"
+						<label for="contrasenae">Contrasena</label> <input type="password"
+							class="form-control" id="contrasenae" name="contrasena"
 							placeholder="Contrasena">
 					</div>
 
@@ -341,6 +363,7 @@
 					<input type="button" class="btn btn-default" data-dismiss="modal"
 						value="Cancel"> <input type="submit" name ="btnModificar" class="btn btn-info"
 						value="Guardar">
+				</div>
 				</div>
 			</form>
 		</div>
@@ -351,19 +374,20 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<form method="post" action="BajaClienteServlet">
+				<input type="hidden" name="idCliente" id="idClienteb" />
 				<div class="modal-header">
 					<h4 class="modal-title">Dar de baja Cliente</h4>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">
-					<p>¿Esta Seguro de bajar a este cliente?</p>
+					<p>¿Esta Seguro de bajar a este cliente? <span id="datos"></span></p>
 					<%--<p class="text-warning"><small>Esta accion no se puede completar.</small></p>--%>
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default"  data-dismiss="modal"
 						value="Cancel"> <input type="submit"
-						class="btn btn-danger" value="Borrar">
+						class="btn btn-danger" name="btnEliminarCliente" value="Borrar">
 				</div>
 			</form>
 		</div>
@@ -397,6 +421,7 @@
                     
                 }
             })
+
             
             
             
@@ -404,11 +429,43 @@
         
         $('.edit').on("click",function(){
         	var self = $(this).attr("id");
-        	$("#idCliente").val(self);
+        	$("#idClienteb").val(self);
         	//alert(self);
         	
         	
         })
+
            
     });
+	function paramDel(id, nombre, apaellido){
+		$("#idClienteb").val(id);
+		$("#datos").empty();
+		$("#datos").append("<h2>"+nombre+" "+apaellido +"</h2>");
+	}
+	function parametr(dni,
+					  cuil,
+					  nombre,
+					  apellido,
+					  nacionalidad,
+					  sexo,
+					  fechaNacimiento,
+					  direccion,
+					  localidad,
+					  provincia,
+					  correo,
+					  telefono
+	){
+		$("#dnie").val(dni);
+		$("#cuile").val(cuil);
+		$("#nombree").val(nombre);
+		$("#apellidoe").val(apellido);
+		$("#nacionalidade").val(nacionalidad);
+		$("#sexoe").val(sexo);
+		$("#fechaNacimientoe").val(fechaNacimiento);
+		$("#direccione").val(direccion);
+		$("#localidade").val(localidad);
+		$("#provinciae").val(provincia);
+		$("#emaile").val(correo);
+		$("#telefonoe").val(telefono);
+	}
 </script>

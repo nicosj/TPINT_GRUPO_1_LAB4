@@ -1,7 +1,8 @@
+<jsp:include page="header.jsp" />
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-<% if(session.getAttribute("admin") != null) {%>
-<html lang="en">
+
+
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,26 +10,19 @@
 
     <style>
         /* Estilo para el body */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+       
 
         /* Estilo para el contenedor */
-        .container {
+         .containered {
             background-color: #ffffff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
             border-radius: 5px;
             padding: 20px;
             max-width: 400px;
             width: 100%;
+            margin: auto;
         }
-
+    
         /* Estilo para el fieldset */
         fieldset {
             border: 1px solid #ccc;
@@ -51,24 +45,23 @@
             background-color: #0056b3;
         }
     </style>
-</head>
-<body>
-    <div class="container">
-        <form id="accountForm" action="servletHTML" method="post">
+
+    <div class="containered">
+        <form id="accountForm" action="AltaCuentaServlet" method="post">
             <h2>Alta de Cuenta</h2>
             <fieldset>
                 <legend>Nueva Cuenta</legend>
                 <p>
                     <label for="cbu">CBU:</label>
-                    <% if(request.getAttribute("cbu") != null) {
-                    	String al=(String)request.getAttribute("cbu");%>
-                   <input type="text" name="cbu" value="<%= al %>" readonly>
+                    <%if(request.getAttribute("cbu")!=null){
+                    	String nuevoCBU =(String)request.getAttribute("cbu");%>
+                    
+                   <input type="text" name="cbu" value="<%=nuevoCBU %>" readonly>
                    <%} %>
-
                 </p>
                 <p>
                     <label for="montoInicial">Monto Inicial: $</label>
-                    <input type="text" name="montoInicial" value="10000" readonly>
+                    <input type="number" name="saldo" value="10000" readonly>
                 </p>
                 <p>
                                 <p>
@@ -80,24 +73,12 @@
             </select>
             </p>
                     <p><!-- Keep the type attribute as "button" -->
-                    <button type="button" id="btnCrearCuenta" class="btn btn-create">Crear Cuenta</button>
+                    <button type="submit" id="btnCrearCuenta" name="btnCrearCuenta" class="btn btn-create">Crear Cuenta</button>
                 </p>
             </fieldset>
         </form>
     </div>
 
-   
 
-</body>
-
-</html>
-<% }else {
-	response.sendRedirect("../index.jsp");
-}%>
-
-
-
-
-
-
+<jsp:include page="./footer.jsp" />
 

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.omg.PortableServer.ID_ASSIGNMENT_POLICY_ID;
 
+import Negocio_Implementacion.Cuenta_NegocioImp;
 import dao_Implement.CuentaDao_Implement;
 
 /**
@@ -23,6 +24,7 @@ import dao_Implement.CuentaDao_Implement;
 @WebServlet("/admin/EditCuentaServlet")
 public class EditCuentaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
 
     /**
      * Default constructor. 
@@ -31,9 +33,10 @@ public class EditCuentaServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	Cuenta_NegocioImp negocio = new Cuenta_NegocioImp();
+	
+	ArrayList<Cuenta> listaCuentas = new ArrayList<Cuenta>();
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		CuentaDao_Implement cuentaDao = new CuentaDao_Implement();
@@ -57,25 +60,35 @@ public class EditCuentaServlet extends HttpServlet {
             	CuentaDao_Implement cuentaDao = new CuentaDao_Implement();
             	cuenta2= cuentaDao.obtenerCuenta(idCuenta);
             	request.setAttribute("cuenta", cuenta2);
-
+            	 request.getRequestDispatcher("/admin/ListadoCuentas.jsp").forward(request, response);
 			} catch (Exception e) {
 				
 				// TODO: handle exception
 			}
 		}
 	if(request.getParameter("btnEdit")!=null){
-		cuenta.setNumero_Cuenta(Integer.parseInt(request.getParameter("numero_Cuenta")));
+		cuenta.setNumero_Cuenta(request.getParameter("numero_Cuenta"));
 		cuenta.setFecha_Creacion(request.getParameter("FechaCreacion"));
 		cuenta.setTipo_Cuenta(request.getParameter("TipoCuenta"));
 		cuenta.setCBU(request.getParameter("CBU"));
 		cuenta.setSaldo(Double.parseDouble(request.getParameter("Saldo")));
-		cuenta.setNumero_Cuenta(Integer.parseInt(request.getParameter("numero_Cuenta")));
+		cuenta.setNumero_Cuenta(request.getParameter("numero_Cuenta"));
 		cuenta.setEstado(Boolean.parseBoolean(request.getParameter("Estado")));
 			
+		
+		
+		if (request.getParameter("btnBajaCuenta") != null) {
+		   
+			int numeroCuenta= Integer.parseInt(request.getParameter("numCuenta").toString());		    
+		    boolean bajo = negocio.bajaCuenta(numeroCuenta);
+		    if (bajo) {
+		        System.out.println("Baja exitosa");
+		    }
+		    listaCuentas = negocio.listarCuentas();
+		    request.setAttribute("cuentas", listaCuentas);
+		    request.getRequestDispatcher("/admin/ListadoCuentas.jsp").forward(request, response);
+		}
 
-
-
-           
 
             System.out.println("Servlet");
             System.out.println(cuenta);
@@ -83,7 +96,7 @@ public class EditCuentaServlet extends HttpServlet {
             try{
             	Cuenta cuenta2= new Cuenta();
             	cuenta2= cuentaDao.obtenerCuenta(idCuenta);
-                boolean filas= cuentaDao.insert(cuenta);
+                boolean filas= cuentaDao.update(cuenta);
                 request.setAttribute("filas", filas);
             } catch (Exception e) {
                 e.printStackTrace();
