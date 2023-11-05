@@ -19,7 +19,7 @@ import dao_Implement.CuentaDao_Implement;
 /**
  * Servlet implementation class AltaCuentaServlet
  */
-@WebServlet("/AltaCuentaServlet")
+@WebServlet("/EditCuentaServlet")
 public class AltaCuentaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -57,25 +57,28 @@ public class AltaCuentaServlet extends HttpServlet {
 		if(request.getParameter("btnCrearCuenta")!=null){
 
 			System.out.println("Servletpost");
+			String numero_Cuenta = request.getParameter("numero_Cuenta");
+			String idCliente= request.getParameter("idCliente");
 			String TipoCuenta = request.getParameter("tipoCuenta");
 			String CBU = request.getParameter("cbu");
 			Double saldo = Double.parseDouble(request.getParameter("saldo"));
 			String FechaCreacion= LocalDate.now().toString();
 			Boolean Estado = true;
 
+			
+			
 			//** --- Tener cuidado de no intentar leer las propiedades con un tipo de dato diferente al de la DB
 			//** ---- o saltan las excepciones. Saldo en la DB es decimal
 	
 			
 			
-            Cuenta cuenta = new Cuenta( TipoCuenta, FechaCreacion,CBU, saldo, Estado);
+            Cuenta cuenta = new Cuenta( numero_Cuenta, idCliente, TipoCuenta, FechaCreacion,CBU, saldo, Estado);
             
             System.out.println(cuenta);
             CuentaDao_Implement cuentaDao = new CuentaDao_Implement();
-            try{
-                boolean filas= cuentaDao.insert(cuenta);
-                request.setAttribute("filas", filas);
-                request.getRequestDispatcher("/AltaCuenta.jsp").forward(request, response);
+            try {
+                boolean rowsUpdated = cuentaDao.update(cuenta); // Implement the update method in your DAO
+                request.setAttribute("rowsUpdated", rowsUpdated);
             } catch (Exception e) {
                 e.printStackTrace();
             }

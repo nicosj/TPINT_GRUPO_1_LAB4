@@ -40,7 +40,7 @@
                     for(Cuenta c: cuentas)
                     {%>
                 <tr>
-				<form method="post" action="altaClienteServlet">
+				<form method="post" action="EditCuentaServlet">
 					<td><%=c.getIdCliente()%></td>
                     <td><%=c.getFecha_Creacion()%></td> 
                     <td><%=c.getTipo_Cuenta()%></td> 
@@ -51,8 +51,19 @@
 
                     <td>
                     <form action="EditCuentaServlet" method="post">
-                    <input name="numero_Cuenta" value=<%=c.getNumero_Cuenta() %> type="hidden">
-                        <a type="submit" name="btnTraerid" href="#editCuentaModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+
+                        <a href="#editCuentaModal" class="edit" data-toggle="modal"
+   onclick="populateEditModal(
+       '<%=c.getIdCliente()%>',
+       '<%=c.getFecha_Creacion()%>',
+       '<%=c.getTipo_Cuenta()%>',
+       '<%=c.getCBU()%>',
+       '<%=c.getSaldo()%>',
+       '<%=c.getNumero_Cuenta()%>',
+       '<%=c.getEstado()%>'
+   )">
+   <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+</a>
                         </form>
                         <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                     </td>
@@ -83,8 +94,8 @@
 <div id="editCuentaModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="post" action="EditarCuentaServlet">
-            		<input type="hidden" name="numero_Cuenta" id="numero_Cuenta" />
+            <form method="post" action="EditCuentaServlet">
+ 
                 <div class="modal-header">
                     <h4 class="modal-title">Editar Cuentas</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -149,4 +160,17 @@
         </div>
     </div>
 </div>
+
+<script>
+function populateEditModal(idCliente, FechaCreacion, TipoCuenta, CBU, Saldo, numero_Cuenta, Estado) {
+    // Populate the form fields in the modal with the values
+    document.getElementById("idCliente").value = idCliente;
+    document.getElementById("FechaCreacion").value = FechaCreacion;
+    document.getElementById("TipoCuenta").value = TipoCuenta;
+    document.getElementById("CBU").value = CBU;
+    document.getElementById("Saldo").value = Saldo;
+    document.getElementById("numero_Cuenta").value =numero_Cuenta;
+    document.getElementById("Estado").value = Estado;
+}
+</script>
 <jsp:include page="./footer.jsp"/>

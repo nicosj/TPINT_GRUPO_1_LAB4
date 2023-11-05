@@ -57,19 +57,19 @@ public class EditCuentaServlet extends HttpServlet {
             	CuentaDao_Implement cuentaDao = new CuentaDao_Implement();
             	cuenta2= cuentaDao.obtenerCuenta(idCuenta);
             	request.setAttribute("cuenta", cuenta2);
-
+            	 request.getRequestDispatcher("/admin/ListadoCuentas.jsp").forward(request, response);
 			} catch (Exception e) {
 				
 				// TODO: handle exception
 			}
 		}
 	if(request.getParameter("btnEdit")!=null){
-		cuenta.setNumero_Cuenta(Integer.parseInt(request.getParameter("numero_Cuenta")));
+		cuenta.setNumero_Cuenta(request.getParameter("numero_Cuenta"));
 		cuenta.setFecha_Creacion(request.getParameter("FechaCreacion"));
 		cuenta.setTipo_Cuenta(request.getParameter("TipoCuenta"));
 		cuenta.setCBU(request.getParameter("CBU"));
 		cuenta.setSaldo(Double.parseDouble(request.getParameter("Saldo")));
-		cuenta.setNumero_Cuenta(Integer.parseInt(request.getParameter("numero_Cuenta")));
+		cuenta.setNumero_Cuenta(request.getParameter("numero_Cuenta"));
 		cuenta.setEstado(Boolean.parseBoolean(request.getParameter("Estado")));
 			
 
@@ -83,7 +83,7 @@ public class EditCuentaServlet extends HttpServlet {
             try{
             	Cuenta cuenta2= new Cuenta();
             	cuenta2= cuentaDao.obtenerCuenta(idCuenta);
-                boolean filas= cuentaDao.insert(cuenta);
+                boolean filas= cuentaDao.update(cuenta);
                 request.setAttribute("filas", filas);
             } catch (Exception e) {
                 e.printStackTrace();
