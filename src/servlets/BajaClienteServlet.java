@@ -20,15 +20,14 @@ import dominio.Cliente;
 @WebServlet("/admin/BajaClienteServlet")
 public class BajaClienteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
 
-    public BajaClienteServlet() {
-        super();
+	public BajaClienteServlet() {
+		super();
 
-    }
-
+	}
 
 	@Override
+<<<<<<< HEAD
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ClienteDao_Implement cli = new ClienteDao_Implement();
 		ArrayList<Cliente> listaCli = cli.readAll();
@@ -38,23 +37,39 @@ public class BajaClienteServlet extends HttpServlet {
 		RequestDispatcher re = request.getRequestDispatcher("/admin/adm_BajaCliente.jsp");
 		re.forward(request,response);
 	}
+=======
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		if (request.getParameter("btnMostrarClientes") != null) {
+			ClienteDao_Implement cli = new ClienteDao_Implement();
+			ArrayList<Cliente> listaCli = cli.readAllActivos();
 
+			request.setAttribute("listaC", listaCli);
+>>>>>>> 65248cfff45046c31b5893a78d36f9c763aff0f1
+
+			RequestDispatcher re = request.getRequestDispatcher("/adm_BajaCliente.jsp");
+			re.forward(request, response);
+		}
+	}
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-		
-		if(request.getParameter("btnEliminarCliente")!=null) 
-		{
+		if (request.getParameter("btnEliminarCliente") != null) {
 			int id = Integer.parseInt(request.getParameter("idcliente").toString());
 			ClienteDao_Implement cli = new ClienteDao_Implement();
 			cli.bajaLogicaCliente(id);
-		
-			
-			ArrayList<Cliente> listaCli = cli.readAll();
+
+			ArrayList<Cliente> listaCli = cli.readAllActivos();
 			request.setAttribute("listaC", listaCli);
+<<<<<<< HEAD
 			RequestDispatcher re = request.getRequestDispatcher("/admin/adm_BajaCliente.jsp");
 			re.forward(request,response);
+=======
+			RequestDispatcher re = request.getRequestDispatcher("/adm_BajaCliente.jsp");
+			re.forward(request, response);
+>>>>>>> 65248cfff45046c31b5893a78d36f9c763aff0f1
 		}
 	}
 
