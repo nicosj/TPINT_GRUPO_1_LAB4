@@ -89,7 +89,7 @@
 								   )"
 						><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                         <a href="#deleteEmployeeModal" id="<%=c.getIdCLiente()%>"
-						   onclick="paramDel(`<%=c.getDNI()%>`,
+						   onclick="paramDel(`<%=c.getIdCLiente()%>`,
 								   `<%=c.getNombre()%>`,
 								   `<%=c.getApellido()%>`,
 											)"
@@ -373,7 +373,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<form method="post" action="BajaClienteServlet">
-				<input type="hidden" name="idCliente" id="idCliente" />
+				<input type="hidden" name="idCliente" id="idClienteb" />
 				<div class="modal-header">
 					<h4 class="modal-title">Dar de baja Cliente</h4>
 					<button type="button" class="close" data-dismiss="modal"
@@ -386,7 +386,7 @@
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default"  data-dismiss="modal"
 						value="Cancel"> <input type="submit"
-						class="btn btn-danger" value="Borrar">
+						class="btn btn-danger" name="btnEliminarCliente" value="Borrar">
 				</div>
 			</form>
 		</div>
@@ -424,15 +424,16 @@
         
         $('.edit').on("click",function(){
         	var self = $(this).attr("id");
-        	$("#idCliente").val(self);
+        	$("#idClienteb").val(self);
         	//alert(self);
         	
         	
         })
+
            
     });
 	function paramDel(id, nombre, apaellido){
-		$("#idCliente").val(id);
+		$("#idClienteb").val(id);
 		$("#datos").empty();
 		$("#datos").append("<h2>"+nombre+" "+apaellido +"</h2>");
 	}

@@ -47,15 +47,12 @@ public class BajaClienteServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		if (request.getParameter("btnEliminarCliente") != null) {
-			int id = Integer.parseInt(request.getParameter("idcliente").toString());
+			int id = Integer.parseInt(request.getParameter("idCliente").toString());
 			ClienteDao_Implement cli = new ClienteDao_Implement();
 			cli.bajaLogicaCliente(id);
+			request.setAttribute("filas", true);
+			request.getRequestDispatcher("/admin/cliente.jsp").forward(request, response);
 
-			ArrayList<Cliente> listaCli = cli.readAllActivos();
-			request.setAttribute("listaC", listaCli);
-
-			RequestDispatcher re = request.getRequestDispatcher("/admin/adm_BajaCliente.jsp");
-			re.forward(request,response);
 
 		}
 	}
