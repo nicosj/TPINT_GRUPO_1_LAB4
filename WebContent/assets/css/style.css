@@ -373,3 +373,9 @@ table.table .avatar {
 	justify-content:center;
 	margin-top: 20px;
 }
+
+ul .dist{
+    display: flex;
+    margin-left: 10px;
+
+}

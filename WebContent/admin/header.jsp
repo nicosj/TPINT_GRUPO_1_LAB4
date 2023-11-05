@@ -37,24 +37,18 @@
   <a href="#" class="btn-expand-collapse"><span class="glyphicon glyphicon-menu-left"></span> <-</a>
   <ul class="navbar-nav navbar-primary-menu">
     <li >
-      <a class="nav-link" href="altaClienteServlet"><span class="glyphicon glyphicon-user"></span><span class="nav-label">Clientes</span></a>
+      <a class="nav-link" href="altaClienteServlet"><span class="glyphicon glyphicon-user"></span><span class="nav-label">ABML Clientes</span></a>
+
+      <a class="nav-link" ><span class="glyphicon glyphicon-minus"></span><span class="nav-label">Cuentas</span></a>
         <ul class="navbar-nav navbar-primary-menu">
-            <li>
-                <a class="nav-link" href="BajaClienteServlet"><span class="glyphicon glyphicon-user"></span><span class="nav-label"nav-label">Alta</span></a>
+            <li class="dist">
+                <a class="nav-link"   href="AltaCuentaServlet"><span class="	glyphicon glyphicon-plus"></span><span class="nav-label">Alta</span></a>
             </li>
-            <li>
-                <a class="nav-link" href="ListadoClienteServlet"><span class="glyphicon glyphicon-user"></span><span class="nav-label">Listado</span></a>
+            <li class="dist">
+                <a class="nav-link"  href="EditCuentaServlet"><span class="glyphicon glyphicon-list-alt"></span><span class="nav-label">Listado</span></a>
             </li>
-        </ul>
-    
-    
-      <a class="nav-link" href="AltaCuentaServlet"><span class="glyphicon glyphicon-list-alt"></span><span class="nav-label">Cuentas</span></a>
-        <ul class="navbar-nav navbar-primary-menu">
-            <li>
-                <a class="nav-link" href="AltaCuentaServlet"><span class="glyphicon glyphicon-list-alt"></span><span class="nav-label">Alta</span></a>
-            </li>
-            <li>
-                <a class="nav-link" href="BajaCuentaServlet"><span class="glyphicon glyphicon-list-alt"></span><span class="nav-label">Listado</span></a>
+            <li class="dist">
+                <a class="nav-link"  href="BajaCuentaServlet"><span class="glyphicon glyphicon-remove"></span><span class="nav-label">Baja</span></a>
             </li>
     
       <a class="nav-link" href="#"><span class="glyphicon glyphicon-th-list"></span><span class="nav-label">Movimientos</span></a>
