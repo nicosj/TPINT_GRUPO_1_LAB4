@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.omg.PortableServer.ID_ASSIGNMENT_POLICY_ID;
+
 import dao_Implement.CuentaDao_Implement;
 
 /**
@@ -47,35 +49,42 @@ public class EditCuentaServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
-	if(request.getParameter("alta")!=null){
+		Cuenta cuenta = new Cuenta();
+		int idCuenta = Integer.parseInt(request.getParameter("numero_Cuenta"));
+		if(request.getParameter("btnTraerid")!=null) {
+			try {
+            	Cuenta cuenta2= new Cuenta();
+            	CuentaDao_Implement cuentaDao = new CuentaDao_Implement();
+            	cuenta2= cuentaDao.obtenerCuenta(idCuenta);
+            	request.setAttribute("cuenta", cuenta2);
 
-			String dni = request.getParameter("dni");
-			String cuil = request.getParameter("cuil");
-			String nombre = request.getParameter("nombre");
-			String apellido = request.getParameter("apellido");
-			String sexo = request.getParameter("sexo");
-			String nacionalidad = request.getParameter("nacionalidad");
-			String fechaNacimiento = request.getParameter("fechaNacimiento");
-			String direccion = request.getParameter("direccion");
-			String localidad = request.getParameter("localidad");
-			String provincia = request.getParameter("provincia");
-			String correo = request.getParameter("correo");
-			String telefono = request.getParameter("telefono");
-			String usuario = request.getParameter("usuario");
-			String contrasena = request.getParameter("contrasena");
-			boolean estado = true;
+			} catch (Exception e) {
+				
+				// TODO: handle exception
+			}
+		}
+	if(request.getParameter("btnEdit")!=null){
+		cuenta.setNumero_Cuenta(Integer.parseInt(request.getParameter("numero_Cuenta")));
+		cuenta.setFecha_Creacion(request.getParameter("FechaCreacion"));
+		cuenta.setTipo_Cuenta(request.getParameter("TipoCuenta"));
+		cuenta.setCBU(request.getParameter("CBU"));
+		cuenta.setSaldo(Double.parseDouble(request.getParameter("Saldo")));
+		cuenta.setNumero_Cuenta(Integer.parseInt(request.getParameter("numero_Cuenta")));
+		cuenta.setEstado(Boolean.parseBoolean(request.getParameter("Estado")));
+			
 
 
 
-            Cuenta cuenta = new Cuenta();
+           
 
             System.out.println("Servlet");
             System.out.println(cuenta);
             CuentaDao_Implement cuentaDao = new CuentaDao_Implement();
             try{
+            	Cuenta cuenta2= new Cuenta();
+            	cuenta2= cuentaDao.obtenerCuenta(idCuenta);
                 boolean filas= cuentaDao.insert(cuenta);
                 request.setAttribute("filas", filas);
-                request.getRequestDispatcher("/admin/ListadoCuenta.jsp").forward(request, response);
             } catch (Exception e) {
                 e.printStackTrace();
             }
