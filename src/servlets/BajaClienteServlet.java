@@ -17,7 +17,7 @@ import dominio.Cliente;
 /**
  * Servlet implementation class BajaClienteServlet
  */
-@WebServlet("/BajaClienteServlet")
+@WebServlet("/admin/BajaClienteServlet")
 public class BajaClienteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -35,7 +35,7 @@ public class BajaClienteServlet extends HttpServlet {
 		
 		request.setAttribute("listaC", listaCli);
 		
-		RequestDispatcher re = request.getRequestDispatcher("/adm_BajaCliente.jsp");
+		RequestDispatcher re = request.getRequestDispatcher("/admin/adm_BajaCliente.jsp");
 		re.forward(request,response);
 	}
 
@@ -53,7 +53,7 @@ public class BajaClienteServlet extends HttpServlet {
 			
 			ArrayList<Cliente> listaCli = cli.readAll();
 			request.setAttribute("listaC", listaCli);
-			RequestDispatcher re = request.getRequestDispatcher("/adm_BajaCliente.jsp");
+			RequestDispatcher re = request.getRequestDispatcher("/admin/adm_BajaCliente.jsp");
 			re.forward(request,response);
 		}
 	}

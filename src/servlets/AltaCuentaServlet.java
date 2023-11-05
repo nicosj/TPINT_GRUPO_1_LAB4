@@ -19,7 +19,7 @@ import dao_Implement.CuentaDao_Implement;
 /**
  * Servlet implementation class AltaCuentaServlet
  */
-@WebServlet("/AltaCuentaServlet")
+@WebServlet("/admin/AltaCuentaServlet")
 public class AltaCuentaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -42,7 +42,7 @@ public class AltaCuentaServlet extends HttpServlet {
 		String cbu = Cuenta.generarCBU();
 		request.setAttribute("cuentas", cuentas);
 		request.setAttribute("cbu", cbu);
-		request.getRequestDispatcher("/AltaCuenta.jsp").forward(request, response);
+		request.getRequestDispatcher("/admin/AltaCuenta.jsp").forward(request, response);
 		
 		
 

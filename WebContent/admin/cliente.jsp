@@ -53,7 +53,7 @@
                     for(Cliente c: clientes)
                     {%>
                 <tr>
-				<form method="post" action="altaClienteServlet">
+				
 					<td><%=c.getIdCLiente()%></td>
                     <td><%=c.getDNI()%></td> <!-- DNI -->
                     <td><%=c.getCUIL()%></td> <!-- CUIL -->
@@ -67,11 +67,11 @@
                     <td><%=c.getCorreo()%></td> <!-- Email -->
                     <td><%=c.getTelefono()%></td> <!-- Telefono -->
                     <td><%=c.getNombre()%></td> <!-- Usuario -->
-                    <td>
-                        <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                    <td>                   
+                    	<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                         <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                     </td>
-                    </form>
+                    
                 </tr>
                 <%}%>
 
@@ -232,7 +232,7 @@
 <div id="editEmployeeModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form>
+			<form method="post" action="EditarClienteServlet">
 				<div class="modal-header">
 					<h4 class="modal-title">Editar Cliente</h4>
 					<button type="button" class="close" data-dismiss="modal"
@@ -316,7 +316,7 @@
 <div id="deleteEmployeeModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form>
+			<form method="post" action="BajaClienteServlet">
 				<div class="modal-header">
 					<h4 class="modal-title">Dar de baja Cliente</h4>
 					<button type="button" class="close" data-dismiss="modal"
@@ -327,7 +327,7 @@
 					<%--<p class="text-warning"><small>Esta accion no se puede completar.</small></p>--%>
 				</div>
 				<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-dismiss="modal"
+					<input type="button" class="btn btn-default"  data-dismiss="modal"
 						value="Cancel"> <input type="submit"
 						class="btn btn-danger" value="Borrar">
 				</div>

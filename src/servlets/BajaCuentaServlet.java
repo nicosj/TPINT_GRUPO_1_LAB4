@@ -16,7 +16,7 @@ import dominio.Cuenta;
 /**
  * Servlet implementation class BajaCuentaServlet
  */
-@WebServlet("/BajaCuentaServlet")
+@WebServlet("/admin/BajaCuentaServlet")
 
 public class BajaCuentaServlet extends HttpServlet {
 	
@@ -41,7 +41,7 @@ public class BajaCuentaServlet extends HttpServlet {
 		  
 		listaCuentas = negocio.filtrarActivas();
 		request.setAttribute("cuentas", listaCuentas);
-		RequestDispatcher rd = request.getRequestDispatcher("BajaCuentaCliente.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/admin/BajaCuentaCliente.jsp");
 		rd.forward(request, response);
 		  
 	}
@@ -55,7 +55,7 @@ public class BajaCuentaServlet extends HttpServlet {
 
 		     listaCuentas = negocio.listarCuentas();  
 			 request.setAttribute("cuentas", listaCuentas);
-			 RequestDispatcher rda = request.getRequestDispatcher("BajaCuentaCliente.jsp");
+			 RequestDispatcher rda = request.getRequestDispatcher("/admin/BajaCuentaCliente.jsp");
 			 rda.forward(request, response);
 		 }
 	}
