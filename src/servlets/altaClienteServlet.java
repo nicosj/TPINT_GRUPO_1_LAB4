@@ -75,7 +75,7 @@ public class altaClienteServlet extends HttpServlet {
             UsuarioDao_Implement usuarioDao = new UsuarioDao_Implement();
             try{
                 int idCliente= clienteDao.insert(cliente);
-                Usuario us = new Usuario(0,usuario, contrasena,1, idCliente);
+                Usuario us = new Usuario(0,usuario, contrasena,2, idCliente);
                 usuarioDao.insert(us);
                 request.setAttribute("filas", true);
                 request.getRequestDispatcher("/admin/cliente.jsp").forward(request, response);

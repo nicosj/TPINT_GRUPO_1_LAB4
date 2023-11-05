@@ -1,3 +1,4 @@
+<% if(session.getAttribute("admin") != null) {%>
 <jsp:include page="./header.jsp" />
 <%@page import="dominio.Cliente"%>
 <%@page import="java.util.ArrayList"%>
@@ -370,6 +371,10 @@
 </div>
 
 <jsp:include page="./footer.jsp" />
+<% }else {
+	response.sendRedirect("../index.jsp");
+}%>
+
 <script>
     $(document).ready(function(){
         $('#altacliente').on("click",function(e) {

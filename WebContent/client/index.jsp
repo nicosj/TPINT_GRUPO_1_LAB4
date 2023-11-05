@@ -1,3 +1,4 @@
+<% if(session.getAttribute("client") != null) {%>
 <jsp:include page="./header.jsp" />
 <%@page import="dominio.Cliente"%>
 <%@page import="java.util.ArrayList"%>
@@ -22,3 +23,6 @@
 
 
 <jsp:include page="./footer.jsp" />
+<% }else {
+	response.sendRedirect("../index.jsp");
+}%>

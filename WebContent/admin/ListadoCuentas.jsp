@@ -1,3 +1,4 @@
+<% if(session.getAttribute("admin") != null) {%>
 <jsp:include page="./header.jsp"/>
 <%@page import="dominio.Cuenta"%>
 <%@page import="java.util.ArrayList"%>
@@ -150,3 +151,6 @@
     </div>
 </div>
 <jsp:include page="./footer.jsp"/>
+<% }else {
+	response.sendRedirect("../index.jsp");
+}%>

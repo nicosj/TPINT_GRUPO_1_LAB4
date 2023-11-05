@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@page import="dominio.Usuario"%>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -23,10 +24,10 @@
     <div class="collapse navbar-collapse" id="navbar">
       <ul class="nav navbar-nav navbar-user  ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="#"><span class="glyphicon glyphicon-user"></span> Cosme Fulanito</a>
+          <a class="nav-link" href="#"><span class="glyphicon glyphicon-user"></span><%= (((Usuario)session.getAttribute("client")).getUsuario()) %></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#about"><span class="glyphicon glyphicon-log-out"></span> salir</a>
+          <a class="nav-link" href="../Logout.jsp"><span class="glyphicon glyphicon-log-out"></span>Salir</a>
         </li>
       </ul>
     </div>
