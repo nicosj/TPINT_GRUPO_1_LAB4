@@ -50,7 +50,10 @@
                     <td><%=c.getEstado()%></td> 
 
                     <td>
-                        <a href="#editCuentaModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                    <form action="EditCuentaServlet" method="post">
+                    <input name="numero_Cuenta" value=<%=c.getNumero_Cuenta() %> type="hidden">
+                        <a type="submit" name="btnTraerid" href="#editCuentaModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                        </form>
                         <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                     </td>
                     </form>
@@ -119,7 +122,7 @@
                     </div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                    <input type="submit" class="btn btn-info" value="Guardar">
+                    <input type="submit" name="btnEdit" class="btn btn-info" value="Guardar">
                 </div>
             </form>
         </div>
