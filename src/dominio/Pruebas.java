@@ -8,7 +8,7 @@ public class Pruebas {
 
 	    public static void main(String[] args) {
 	      
-	        Cuenta_NegocioImp negocio = new Cuenta_NegocioImp();
+	       /* Cuenta_NegocioImp negocio = new Cuenta_NegocioImp();
 	        ArrayList<Cuenta> listaCuentas = negocio.filtrarActivas();
 	        if(listaCuentas == null) {
 	        	System.out.println("Lista vacia");
@@ -19,5 +19,7 @@ public class Pruebas {
 	        	System.out.println(acc.getEstado());
 	        	
 	        }
+	        */
 	    }
+	    
 	}
