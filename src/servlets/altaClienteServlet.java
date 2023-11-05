@@ -2,7 +2,7 @@ package servlets;
 
 
 import dominio.Cliente;
-
+import dominio.Usuario;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao_Implement.ClienteDao_Implement;
+import dao_Implement.UsuarioDao_Implement;
 
 /**
  * Servlet implementation class AltaClienteServlet
@@ -68,13 +69,15 @@ public class altaClienteServlet extends HttpServlet {
 
 
             Cliente cliente = new Cliente(0, dni, cuil,  nombre, apellido,  sexo,  nacionalidad,  fechaNacimiento, direccion, localidad, provincia,  correo,  telefono, estado);
-
             System.out.println("Servlet");
             System.out.println(cliente);
             ClienteDao_Implement clienteDao = new ClienteDao_Implement();
+            UsuarioDao_Implement usuarioDao = new UsuarioDao_Implement();
             try{
-                boolean filas= clienteDao.insert(cliente);
-                request.setAttribute("filas", filas);
+                int idCliente= clienteDao.insert(cliente);
+                Usuario us = new Usuario(0,usuario, contrasena,1, idCliente);
+                usuarioDao.insert(us);
+                request.setAttribute("filas", true);
                 request.getRequestDispatcher("/admin/cliente.jsp").forward(request, response);
             } catch (Exception e) {
                 e.printStackTrace();

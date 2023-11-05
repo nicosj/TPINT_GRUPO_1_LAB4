@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -24,14 +25,14 @@ public class ClienteDao_Implement implements ClienteDao_Interfaz {
 
 	
 	@Override
-		public boolean insert(Cliente cliente) {
+		public int insert(Cliente cliente) {
 
 	        PreparedStatement statement;
 	        Connection conexion = DB.getConexion().getSQLConexion();
-	        boolean insercionExitosa = false;
+	        int idGenerado = -1;
 	        try
 	        {
-	            statement =  conexion.prepareStatement(insert);
+	            statement =  conexion.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
 	            statement.setString(1,cliente.getDNI());
 	            statement.setString(2,cliente.getCUIL());
 	            statement.setString(3,cliente.getNombre());
@@ -46,8 +47,11 @@ public class ClienteDao_Implement implements ClienteDao_Interfaz {
 	            statement.setString(12,cliente.getTelefono());
 	            if(statement.executeUpdate() > 0)
 	            {
+	            	ResultSet rs = statement.getGeneratedKeys();
+	            	if(rs.next()) {
+	            		idGenerado = rs.getInt(1);
+	            	}
 	                ((Connection) conexion).commit();
-	                insercionExitosa = true;
 	            }
 	        } 
 	        catch (SQLException e) {
@@ -55,7 +59,7 @@ public class ClienteDao_Implement implements ClienteDao_Interfaz {
 
 			}
 	        
-	        return insercionExitosa;
+	        return idGenerado;
 	    }
 	@Override
 	public boolean update(Cliente cliente_a_modificar) {
