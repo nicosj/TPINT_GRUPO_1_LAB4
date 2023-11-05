@@ -2,6 +2,7 @@
 <jsp:include page="./header.jsp" />
 <%@page import="dominio.Cliente"%>
 <%@page import="java.util.ArrayList"%>
+<%@ page import="dominio.Usuario" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <div class="container-fluid">
@@ -44,16 +45,22 @@
                 </thead>
                 <%
                     ArrayList<Cliente> clientes = null;
-                    if(request.getAttribute("clientes")!=null)
-                    {
+					ArrayList<Usuario> usuario = null;
+                    if(request.getAttribute("clientes")!=null && request.getAttribute("usuarios")!=null)
+					{
+				
                         clientes = (ArrayList<Cliente>) request.getAttribute("clientes");
+						usuario = (ArrayList<Usuario>) request.getAttribute("usuarios");
                     }
 
                 %>
                 <tbody>
                 <%
-                    if(clientes!=null)
-                    for(Cliente c: clientes)
+                    if(clientes!=null&&usuario!=null)
+                    for(Cliente c: clientes){
+						for(Usuario u: usuario){
+						if(u.getIdCliente() == c.getIdCLiente() && (u.getTipoUsuario()== 2) && c.isEstado())
+
                     {%>
                 <tr>
 				
@@ -70,9 +77,7 @@
                     <td><%=c.getProvincia()%></td> <!-- Provincia -->
                     <td><%=c.getCorreo()%></td> <!-- Email -->
                     <td><%=c.getTelefono()%></td> <!-- Telefono -->
-                    <td><%=c.getNombre()%></td> <!-- Usuario -->
-
-
+                    <td><%=u.getUsuario()%></td> <!-- Usuario -->
                     <td>
                         <a href="#editEmployeeModal" id="<%=c.getIdCLiente()%>" class="edit" data-toggle="modal"
 						   onclick="parametr(`<%=c.getDNI()%>`,
@@ -99,7 +104,9 @@
                     </td>
                     
                 </tr>
-                <%}%>
+                <%}
+					}
+					}%>
 
 				</tbody>
 			</table>

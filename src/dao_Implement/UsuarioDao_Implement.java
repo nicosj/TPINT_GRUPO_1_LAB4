@@ -1,9 +1,6 @@
 package dao_Implement;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,7 +97,7 @@ public class UsuarioDao_Implement implements UsuarioDao_Interfaz  {
 		return eliminacionExitosa;
 	}
 	@Override
-	public List<Usuario> readAll() {
+	public ArrayList<Usuario> readAll() {
 		PreparedStatement statement;
 		ResultSet resultSet;
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();

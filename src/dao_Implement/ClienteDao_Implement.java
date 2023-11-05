@@ -15,7 +15,7 @@ import dao.DB;
 import dominio.Cliente;
 
 public class ClienteDao_Implement implements ClienteDao_Interfaz {
-	private static final String insert = "Insert into cliente (DNI, CUIL, nombre, apellido, sexo, nacionalidad, fechaNacimiento, direccion, localidad, provincia, correo, telefono)  values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String insert = "Insert into cliente (DNI, CUIL, nombre, apellido, sexo, nacionalidad, fechaNacimiento, direccion, localidad, provincia, correo, telefono,estado)  values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
 	private static final String delete = "UPDATE cliente SET estado = ? WHERE idCliente = ?";
 	private static final String readall = "SELECT * FROM cliente";	
 	private static final String readallActivos = "SELECT * FROM cliente where estado = 1";	
@@ -45,6 +45,7 @@ public class ClienteDao_Implement implements ClienteDao_Interfaz {
 	            statement.setString(10,cliente.getProvincia());
 	            statement.setString(11,cliente.getCorreo());
 	            statement.setString(12,cliente.getTelefono());
+	            statement.setInt(13,cliente.isEstado()?1:0);
 	            if(statement.executeUpdate() > 0)
 	            {
 	            	ResultSet rs = statement.getGeneratedKeys();

@@ -36,8 +36,11 @@ public class altaClienteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		ClienteDao_Implement clienteDao = new ClienteDao_Implement();
+		UsuarioDao_Implement usuarioDao = new UsuarioDao_Implement();
 		ArrayList<Cliente> clientes = clienteDao.readAll();
+		ArrayList<Usuario> usuarios = usuarioDao.readAll();
 		request.setAttribute("clientes", clientes);
+		request.setAttribute("usuarios", usuarios);
 		request.getRequestDispatcher("/admin/cliente.jsp").forward(request, response);
 
 	}
