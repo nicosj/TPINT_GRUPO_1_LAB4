@@ -429,13 +429,6 @@
         	
         	
         })
-		$('.borrar').on("click",function(){
-			var self = $(this).attr("id");
-			$("#idCliente").val(self);
-			//alert(self);
-
-
-		})
            
     });
 	function paramDel(id, nombre, apaellido){
@@ -462,13 +455,11 @@
 		$("#apellidoe").val(apellido);
 		$("#nacionalidade").val(nacionalidad);
 		$("#sexoe").val(sexo);
-
 		$("#fechaNacimientoe").val(fechaNacimiento);
 		$("#direccione").val(direccion);
 		$("#localidade").val(localidad);
 		$("#provinciae").val(provincia);
 		$("#emaile").val(correo);
 		$("#telefonoe").val(telefono);
-
 	}
 </script>
