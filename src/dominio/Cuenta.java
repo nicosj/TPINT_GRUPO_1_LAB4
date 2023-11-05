@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class Cuenta {
 	
-	private int numero_Cuenta;
+	private String numero_Cuenta;
 	private String idCliente;
 	private String tipo_Cuenta;
 	private String fecha_Creacion;
@@ -24,13 +24,13 @@ public class Cuenta {
 		this.estado = estado;
 	}
 	//Consulta de cuenta
-	public Cuenta( String idCliente, int numero_Cuenta, String tipo_Cuenta, String fecha_Creacion, String CBU,
+	public Cuenta( String idCliente, String numero_Cuenta, String tipo_Cuenta, String fecha_Creacion, String CBU,
 			double saldo, boolean estado) {
 		super();
 		this.numero_Cuenta = numero_Cuenta;
 		this.idCliente = idCliente;
 		this.tipo_Cuenta = tipo_Cuenta;
-		this.fecha_Creacion = LocalDate.now().toString();
+		this.fecha_Creacion = fecha_Creacion;
 		this.CBU = CBU;
 		this.saldo = saldo;
 		this.estado = estado;
@@ -77,11 +77,11 @@ public class Cuenta {
 				+ ", fecha_Creacion=" + fecha_Creacion + ", CBU=" + CBU + ", saldo=" + saldo + "]";
 	}
 
-	public int getNumero_Cuenta() {
+	public String getNumero_Cuenta() {
 		return numero_Cuenta;
 	}
 
-	public void setNumero_Cuenta(int numero_Cuenta) {
+	public void setNumero_Cuenta(String numero_Cuenta) {
 		this.numero_Cuenta = numero_Cuenta;
 	}
 
