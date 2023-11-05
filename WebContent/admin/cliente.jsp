@@ -68,8 +68,8 @@
                     <td><%=c.getTelefono()%></td> <!-- Telefono -->
                     <td><%=c.getNombre()%></td> <!-- Usuario -->
                     <td>
-                        <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                        <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                        <a href="#editEmployeeModal" id="<%=c.getIdCLiente()%>" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                        <a href="#deleteEmployeeModal" id="<%=c.getIdCLiente()%>" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                     </td>
                     </form>
                 </tr>
@@ -94,11 +94,12 @@
 		</div>
 	</div>
 </div>
-<!-- Edit Modal HTML -->
+<!-- ADD Modal HTML -->
 <div id="addCliente" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<form method="post" action="altaClienteServlet">
+	
 				<div class="modal-header">
 					<h4 class="modal-title">Agregar Cliente</h4>
 					<button type="button" class="close" data-dismiss="modal"
@@ -196,7 +197,20 @@
                 	Swal.fire({
                 	  
                 	  icon: 'success',
-                	  title: 'Exito, Se inserto cliente',
+                	  <%if(request.getParameter("crud")!=null)
+                	  {
+                		  if(request.getParameter("crud") == "mod"){
+                		  
+                		  
+                		  %>
+                	  title: 'Exito, Se modifico cliente',
+                	  <%}else{
+                	  	
+                	  
+                	  %>
+                	title: 'Exito, Se inserto cliente',
+                	<%}}%>
+                	  
                 	  showConfirmButton: true,
                 	  timer: 2500,
                 	  timerProgressBar: true,
@@ -232,7 +246,8 @@
 <div id="editEmployeeModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form>
+			<form method="post" action="ModificarClienteServlet">
+						<input type="hidden" name="idCliente" id="idCliente" />
 				<div class="modal-header">
 					<h4 class="modal-title">Editar Cliente</h4>
 					<button type="button" class="close" data-dismiss="modal"
@@ -241,71 +256,84 @@
 				<div class="modal-body">
 					<div class="form-group">
 						<label for="dni">DNI</label> <input type="text"
-							class="form-control" id="dni" placeholder="DNI">
+							class="form-control" id="dnii" name="dni" placeholder="DNI">
 					</div>
 					<div class="form-group">
 						<label for="cuil">CUIL</label> <input type="text"
-							class="form-control" id="cuil" placeholder="CUIL">
+							class="form-control" id="cuili" name="cuil" placeholder="CUIL">
 					</div>
 					<div class="form-group">
 						<label for="nombre">Nombre</label> <input type="text"
-							class="form-control" id="nombre" placeholder="Nombre">
+							class="form-control" id="nombrei" name="nombre"
+							placeholder="Nombre">
 					</div>
 					<div class="form-group">
 						<label for="apellido">Apellido</label> <input type="text"
-							class="form-control" id="apellido" placeholder="Apellido">
+							class="form-control" id="apellidoi" name="apellido"
+							placeholder="Apellido">
 					</div>
 					<div class="form-group">
 						<label for="sexo">Sexo</label> <select class="form-control"
-							id="sexo">
-							<option value="masculino">Masculino</option>
-							<option value="femenino">Femenino</option>
+							id="sexoi" name="sexo">
+							<option value="M">Masculino</option>
+							<option value="F">Femenino</option>
+							<option value="B">No BInario</option>
 						</select>
 					</div>
 					<div class="form-group">
 						<label for="nacionalidad">Nacionalidad</label> <input type="text"
-							class="form-control" id="nacionalidad" placeholder="Nacionalidad">
+							class="form-control" id="nacionalidadi" name="nacionalidad"
+							placeholder="Nacionalidad">
 					</div>
 					<div class="form-group">
 						<label for="fechaNacimiento">Fecha de Nacimiento</label> <input
-							type="date" class="form-control" id="fechaNacimiento">
+							type="date" class="form-control" id="fechaNacimientoi"
+							name="fechaNacimiento">
 					</div>
 					<div class="form-group">
 						<label for="direccion">Dirección</label> <input type="text"
-							class="form-control" id="direccion" placeholder="Dirección">
+							class="form-control" id="direccioni" name="direccion"
+							placeholder="Dirección">
 					</div>
 					<div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="localidad">Localidad</label> <input type="text"
-								class="form-control" id="localidad" placeholder="Localidad">
+								class="form-control" id="localidadi" name="localidad"
+								placeholder="Localidad">
 						</div>
 						<div class="form-group col-md-6">
 							<label for="provincia">Provincia</label> <input type="text"
-								class="form-control" id="provincia" placeholder="Provincia">
+								class="form-control" id="provinciai" name="provincia"
+								placeholder="Provincia">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="email">Correo Electrónico</label> <input type="email"
-							class="form-control" id="email" placeholder="Correo Electrónico">
+							class="form-control" id="emaili" name="correo"
+							placeholder="Correo Electrónico">
 					</div>
 					<div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="telefono">Teléfono</label> <input type="text"
-								class="form-control" id="telefono" placeholder="Teléfono">
+								class="form-control" id="telefonoi" name="telefono"
+								placeholder="Teléfono">
 						</div>
 						<div class="form-group col-md-6">
 							<label for="usuario">Usuario</label> <input type="text"
-								class="form-control" id="usuario" placeholder="Usuario">
+								class="form-control" id="usuarioi" name="usuario"
+								placeholder="Usuario">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="contrasena">Contrasena</label> <input type="password"
-							class="form-control" id="contrasena" placeholder="Contrasena">
+							class="form-control" id="contrasenai" name="contrasena"
+							placeholder="Contrasena">
 					</div>
-				</div>
+
+
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal"
-						value="Cancel"> <input type="submit" class="btn btn-info"
+						value="Cancel"> <input type="submit" name ="btnModificar" class="btn btn-info"
 						value="Guardar">
 				</div>
 			</form>
@@ -361,8 +389,16 @@
             })
             
             
+            
         });
         
+        $('.edit').on("click",function(){
+        	var self = $(this).attr("id");
+        	$("#idCliente").val(self);
+        	//alert(self);
+        	
+        	
+        })
            
     });
 </script>
