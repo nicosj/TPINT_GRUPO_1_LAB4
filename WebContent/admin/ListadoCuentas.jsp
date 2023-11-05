@@ -161,7 +161,9 @@
         </div>
     </div>
 </div>
+
 <jsp:include page="./footer.jsp"/>
+
 <script>
 function populateEditModal(idCliente, FechaCreacion, TipoCuenta, CBU, Saldo, numero_Cuenta, Estado) {
     // Populate the form fields in the modal with the values
@@ -180,7 +182,7 @@ $(document).on("click", ".delete", function () {
 });
 
 </script>
-<jsp:include page="./footer.jsp"/>
+
 <% }else {
 	response.sendRedirect("../index.jsp");
 }%>
