@@ -76,19 +76,6 @@ public class EditCuentaServlet extends HttpServlet {
 		cuenta.setEstado(Boolean.parseBoolean(request.getParameter("Estado")));
 			
 		
-		
-		if (request.getParameter("btnBajaCuenta") != null) {
-		   
-			int numeroCuenta= Integer.parseInt(request.getParameter("numCuenta").toString());		    
-		    boolean bajo = negocio.bajaCuenta(numeroCuenta);
-		    if (bajo) {
-		        System.out.println("Baja exitosa");
-		    }
-		    listaCuentas = negocio.listarCuentas();
-		    request.setAttribute("cuentas", listaCuentas);
-		    request.getRequestDispatcher("/admin/ListadoCuentas.jsp").forward(request, response);
-		}
-
 
             System.out.println("Servlet");
             System.out.println(cuenta);

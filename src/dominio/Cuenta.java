@@ -1,6 +1,5 @@
 package dominio;
 import java.util.Random;
-import java.time.LocalDate;
 
 public class Cuenta {
 	

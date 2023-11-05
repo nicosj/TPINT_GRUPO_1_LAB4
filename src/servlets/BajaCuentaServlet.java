@@ -38,13 +38,7 @@ public class BajaCuentaServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		  
-		listaCuentas = negocio.listarCuentas();
-		request.setAttribute("cuentas", listaCuentas);
 
-		RequestDispatcher rd = request.getRequestDispatcher("/admin/BajaCuentaCliente.jsp");
-		rd.forward(request, response);
-		  
 	}
 
 
@@ -62,7 +56,7 @@ public class BajaCuentaServlet extends HttpServlet {
 		 }
 		 listaCuentas = negocio.listarCuentas();  
 		 request.setAttribute("cuentas", listaCuentas);
-		 RequestDispatcher rda = request.getRequestDispatcher("/admin/BajaCuentaCliente.jsp");
+		 RequestDispatcher rda = request.getRequestDispatcher("/admin/ListadoCuentas.jsp");
 		 rda.forward(request, response);
 		
 	}

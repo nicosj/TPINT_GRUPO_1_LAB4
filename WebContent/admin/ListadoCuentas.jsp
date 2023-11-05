@@ -66,7 +66,10 @@
    <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
 </a>
                         </form>
-                        <a href="#deleteEmployeeModal" class="delete" data-toggle="modal" data-numcuenta="<%=c.getNumero_Cuenta()%>"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                        <a href="#deleteEmployeeModal" class="delete" data-toggle="modal" onclick="deleteModal(
+						       '<%=c.getNumero_Cuenta()%>',
+						   )"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>                       
+                       </a>
                     </td>
                     </form>
                 </tr>
@@ -174,10 +177,9 @@ function populateEditModal(idCliente, FechaCreacion, TipoCuenta, CBU, Saldo, num
     document.getElementById("Estado").value = Estado;
 }
 
-$(document).on("click", ".delete", function () {
-    var numCuenta = $(this).data('numcuenta');
-    $("#deleteNumCuenta").val(numCuenta);
-});
+function deleteModal(numero_Cuenta) {
+    document.getElementById("deleteNumCuenta").value =numero_Cuenta;
+}
 
 </script>
 <jsp:include page="./footer.jsp"/>
