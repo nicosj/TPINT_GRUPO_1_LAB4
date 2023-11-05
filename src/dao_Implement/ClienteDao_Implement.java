@@ -18,7 +18,7 @@ public class ClienteDao_Implement implements ClienteDao_Interfaz {
 	private static final String delete = "UPDATE cliente SET estado = ? WHERE idCliente = ?";
 	private static final String readall = "SELECT * FROM cliente";	
 	private static final String readallActivos = "SELECT * FROM cliente where estado = 1";	
-	private static final String update = "update cliente set DNI = ?, CUIL = ?, nombre = ?, apellido = ?, sexo = ?, naciolidad = ?, fechaNacimiento = ?, direccion = ?, localidad = ?, provincia = ?, correo = ?, telefono = ? where idCliente = ?";
+	private static final String update = "update cliente set DNI = ?, CUIL = ?, nombre = ?, apellido = ?, sexo = ?, nacionalidad = ?, fechaNacimiento = ?, direccion = ?, localidad = ?, provincia = ?, correo = ?, telefono = ? where idCliente = ?";
 	private static final String query = "Select * FROM cliente WHERE idCliente = ?";
 	private static final String bajalogica = "UPDATE cliente SET estado = 0 WHERE idCliente = ?";
 
@@ -79,6 +79,7 @@ public class ClienteDao_Implement implements ClienteDao_Interfaz {
             statement.setString(10,  cliente_a_modificar.getProvincia());
             statement.setString(11,  cliente_a_modificar.getCorreo());
             statement.setString(12,  cliente_a_modificar.getTelefono());
+            statement.setInt(13, cliente_a_modificar.getIdCLiente());
             
             if(statement.executeUpdate() > 0)
             {
