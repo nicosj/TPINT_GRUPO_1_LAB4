@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao_Implement.ClienteDao_Implement;
+import dao_Implement.UsuarioDao_Implement;
 import dominio.Cliente;
+import dominio.Usuario;
 
 /**
  * Servlet implementation class ModificarClienteServlet
@@ -53,14 +55,17 @@ public class ModificarClienteServlet extends HttpServlet {
 
 
             Cliente cliente = new Cliente(idCliente, dni, cuil,  nombre, apellido,  sexo,  nacionalidad,  fechaNacimiento, direccion, localidad, provincia,  correo,  telefono, estado);
-
+			Usuario user = new Usuario( );
+			user.setUsuario(usuario);
+			user.setClave(contrasena);
             System.out.println("Servlet");
             System.out.println(cliente);
             ClienteDao_Implement clienteDao = new ClienteDao_Implement();
-            
+			UsuarioDao_Implement usuarioDao = new UsuarioDao_Implement();
             
             try{
                 boolean filas= clienteDao.update(cliente);
+				boolean filas2= usuarioDao.update(user);
                 request.setAttribute("filas", filas);
                 request.setAttribute("crud", "mod");
                 request.getRequestDispatcher("/admin/cliente.jsp").forward(request, response);

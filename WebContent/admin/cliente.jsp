@@ -92,6 +92,7 @@
 								   `<%=c.getProvincia()%>`,
 								   `<%=c.getCorreo()%>`,
 								   `<%=c.getTelefono()%>`,
+								   `<%=u.getUsuario()%>`
 								   )"
 						><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                         <a href="#deleteEmployeeModal" id="<%=c.getIdCLiente()%>"
@@ -460,7 +461,8 @@
 					  localidad,
 					  provincia,
 					  correo,
-					  telefono
+					  telefono,
+					  usuario
 	){
 		$("#dnie").val(dni);
 		$("#cuile").val(cuil);
@@ -474,5 +476,7 @@
 		$("#provinciae").val(provincia);
 		$("#emaile").val(correo);
 		$("#telefonoe").val(telefono);
+		$("#usuarioe").val(usuario);
+
 	}
 </script>

@@ -13,7 +13,7 @@ public class UsuarioDao_Implement implements UsuarioDao_Interfaz  {
 	private static final String insert = "Insert into usuario (usuario, clave, tipoUsuario, idCliente)  values (?, ?, ?, ?)";
 	private static final String delete = "DELETE FROM usuario WHERE idUsuario = ?";
 	private static final String readall = "SELECT * FROM usuario";	
-	private static final String update = "update usuarios set usuario = ?, clave = ?, tipoUsuario = ?, idCliente = ?";
+	private static final String update = "update usuario set clave = ? where usuario = ?";
 	private static final String query = "Select * FROM usuario WHERE idUsuario = ?";
 	private static final String login = "Select * FROM usuario WHERE usuario = ? and clave = ?";
 	
@@ -54,11 +54,9 @@ public class UsuarioDao_Implement implements UsuarioDao_Interfaz  {
         try
         {
             statement = conexion.prepareStatement(update);
+			statement.setString(1,  usuario.getClave());
+            statement.setString(2,  usuario.getUsuario());
 
-            statement.setString(1,  usuario.getUsuario());
-            statement.setString(2,  usuario.getClave());
-            statement.setInt(3,  usuario.getTipoUsuario());
-            statement.setInt(4,  usuario.getIdCliente());
 
             if(statement.executeUpdate() > 0)
             {
