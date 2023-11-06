@@ -33,8 +33,9 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
             statement.setString(3, cuenta.getTipo_Cuenta());
             statement.setString(4, cuenta.getCBU());
             statement.setDouble(5, cuenta.getSaldo());
-            statement.setBoolean(6,  cuenta.getEstado());
-            statement.setString(7, cuenta.getNumero_Cuenta());
+            statement.setString(6, cuenta.getNumero_Cuenta());
+            statement.setInt(7,  cuenta.getEstado()?1:0);
+            
             if(statement.executeUpdate() > 0)
             {
                 ((Connection) conexion).commit();
@@ -44,19 +45,9 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
         catch (SQLException e) 
         {
             e.printStackTrace();
-            try {
-                ((Connection) conexion).rollback();
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
+        
         }
-        finally {
-            try {
-                ((Connection) conexion).close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+        
         
         return insercionExitosa;
 	}
@@ -88,19 +79,9 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
         catch (SQLException e) 
         {
             e.printStackTrace();
-            try {
-                conexion.rollback();
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
+        
         }
-        finally {
-            try {
-                 conexion.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+        
 
         return actualizacionExitosa;
 	}
@@ -180,7 +161,7 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 		        	cuenta.setNumero_Cuenta(resultado.getString("numero_Cuenta"));		            
 		        }  
 		        
-		        resultado.close();
+		        
 		} catch(Exception e){
 			e.printStackTrace();
 		}
@@ -226,7 +207,7 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 				System.out.println(lastCBU);
 			
 			}
-			conn.close();
+			
 		}catch(Exception e){
 			e.printStackTrace();
 		}

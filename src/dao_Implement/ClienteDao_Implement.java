@@ -21,6 +21,7 @@ public class ClienteDao_Implement implements ClienteDao_Interfaz {
 	private static final String readallActivos = "SELECT * FROM cliente where estado = 1";	
 	private static final String update = "update cliente set DNI = ?, CUIL = ?, nombre = ?, apellido = ?, sexo = ?, nacionalidad = ?, fechaNacimiento = ?, direccion = ?, localidad = ?, provincia = ?, correo = ?, telefono = ? where idCliente = ?";
 	private static final String query = "Select * FROM cliente WHERE idCliente = ?";
+	private static final String queryDni = "Select * FROM cliente WHERE DNI = ?";
 	private static final String bajalogica = "UPDATE cliente SET estado = 0 WHERE idCliente = ?";
 
 	
@@ -227,6 +228,42 @@ public class ClienteDao_Implement implements ClienteDao_Interfaz {
 		        }  
 		        
 		        //resultado.close();
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		return cliente;
+	}
+	
+	@Override
+	public Cliente obtenerClienteDni(String dni) {
+		Cliente cliente = new Cliente();
+		PreparedStatement statement;
+		Connection conexion =DB.getConexion().getSQLConexion();
+
+		try {
+			statement = conexion.prepareStatement(queryDni);
+			statement.setString(1, dni);
+
+			ResultSet resultado = statement.executeQuery();
+
+			if (resultado.next()) {
+				cliente.setIdCLiente(resultado.getInt("idCliente"));
+				cliente.setDNI(resultado.getString("DNI"));
+				cliente.setCUIL(resultado.getString("CUIL"));
+				cliente.setNombre(resultado.getString("nombre"));
+				cliente.setApellido(resultado.getString("apellido"));
+				cliente.setSexo(resultado.getString("sexo"));
+				cliente.setNacionalidad(resultado.getString("nacionalidad"));
+				cliente.setFechaNacimiento(resultado.getString("fechaNacimiento"));
+				cliente.setDireccion(resultado.getString("direccion"));
+				cliente.setLocalidad(resultado.getString("localidad"));
+				cliente.setProvincia(resultado.getString("provincia"));
+				cliente.setCorreo(resultado.getString("correo"));
+				cliente.setTelefono(resultado.getString("telefono"));
+				cliente.setEstado(resultado.getBoolean("estado"));
+			}
+
+			//resultado.close();
 		} catch(Exception e){
 			e.printStackTrace();
 		}

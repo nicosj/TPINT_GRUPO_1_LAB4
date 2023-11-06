@@ -68,6 +68,27 @@ public class Cuenta {
 
 	        return cbu;
 	    }
+	public static String generarCuenta() {
+        // Longitud total del CBU
+
+        
+        // Crear un StringBuilder para construir el CBU
+        StringBuilder cbuBuilder = new StringBuilder();
+
+        // Agregar los primeros 10 dígitos iguales a 0
+        
+        // Generar aleatoriamente los 12 dígitos restantes
+        Random random = new Random();
+        for (int i = 0; i < 12; i++) {
+            int randomDigit = random.nextInt(10);
+            cbuBuilder.append(randomDigit);
+        }
+
+        // Convertir el StringBuilder a una cadena de texto
+        String cuenta= cbuBuilder.toString();
+
+        return cuenta;
+    }
 	
 	
 	

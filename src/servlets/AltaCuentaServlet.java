@@ -1,6 +1,8 @@
 package servlets;
 
 
+import dao_Implement.ClienteDao_Implement;
+import dominio.Cliente;
 import dominio.Cuenta;
 
 
@@ -56,11 +58,23 @@ public class AltaCuentaServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
+		if(request.getParameter("getCliente")!=null){
+			Cliente cliente = new Cliente();
+			ClienteDao_Implement clienteDao = new ClienteDao_Implement();
+			cliente= clienteDao.obtenerClienteDni(request.getParameter("dni"));
+			System.out.println("altacuenta");
+			System.out.println(cliente);
+			request.setAttribute("cliente", cliente);
+			String cbu = Cuenta.generarCBU();
+			request.setAttribute("cbu", cbu);
+			request.getRequestDispatcher("/admin/AltaCuenta.jsp").forward(request, response);
+
+		}
 		if(request.getParameter("btnCrearCuenta")!=null){
 
 			System.out.println("Servletpost");
 			String numero_Cuenta = request.getParameter("numero_Cuenta");
-			String idCliente= request.getParameter("idCliente");
+			String idCliente= request.getParameter("idcliente");
 			String TipoCuenta = request.getParameter("tipoCuenta");
 			String CBU = request.getParameter("cbu");
 			Double saldo = Double.parseDouble(request.getParameter("saldo"));
@@ -74,13 +88,14 @@ public class AltaCuentaServlet extends HttpServlet {
 	
 			
 			
-            Cuenta cuenta = new Cuenta( numero_Cuenta, idCliente, TipoCuenta, FechaCreacion,CBU, saldo, Estado);
+            Cuenta cuenta = new Cuenta(idCliente, Cuenta.generarCuenta() , TipoCuenta, FechaCreacion,CBU, saldo, Estado);
             
             System.out.println(cuenta);
             CuentaDao_Implement cuentaDao = new CuentaDao_Implement();
             try {
-                boolean rowsUpdated = cuentaDao.update(cuenta); // Implement the update method in your DAO
+                boolean rowsUpdated = cuentaDao.insert(cuenta); // Implement the update method in your DAO
                 request.setAttribute("rowsUpdated", rowsUpdated);
+				request.getRequestDispatcher("/admin/AltaCuenta.jsp").forward(request, response);
             } catch (Exception e) {
                 e.printStackTrace();
             }

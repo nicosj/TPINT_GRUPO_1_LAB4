@@ -1,7 +1,7 @@
 <jsp:include page="header.jsp" />
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 
-
+<%@page import="dominio.Cliente"%>
 
 <head>
     <meta charset="UTF-8">
@@ -47,21 +47,43 @@
     </style>
 
     <div class="containered">
+        <h2>Alta de Cuenta</h2>
+        <form action="AltaCuentaServlet" method="post">
+            <fieldset>
+                <legend>Buscar Cliente</legend>
+                <p>
+                    <label for="dni">DNI:</label>
+            <input type="text" id="dni" name="dni" placeholder="Dni" required>
+            <input type="submit" value="Buscar" name="getCliente">
+                </fieldset>
+        </form>
         <form id="accountForm" action="AltaCuentaServlet" method="post">
-            <h2>Alta de Cuenta</h2>
+
             <fieldset>
                 <legend>Nueva Cuenta</legend>
+                <p>
+                    <label for="dni">DNI:</label>
+                    <%
+                    if(request.getAttribute("cliente")!=null){
+                    	Cliente cliente =(Cliente)request.getAttribute("cliente");
+                    	%>
+					<input type="hidden" name="idcliente" value="<%=cliente.getIdCLiente() %>" readonly/>
+                   <input type="text" name="dni" value="<%=cliente.getDNI() %>" readonly/>
+                    <input type="text" name="nombre" placeholder="Nombre" value="<%=cliente.getNombre() %>" readonly/>
+
+                   <%} %>
+                </p>
                 <p>
                     <label for="cbu">CBU:</label>
                     <%if(request.getAttribute("cbu")!=null){
                     	String nuevoCBU =(String)request.getAttribute("cbu");%>
                     
-                   <input type="text" name="cbu" value="<%=nuevoCBU %>" readonly>
+                   <input type="text" name="cbu" id="cbu" value="<%=nuevoCBU %>" readonly>
                    <%} %>
                 </p>
                 <p>
                     <label for="montoInicial">Monto Inicial: $</label>
-                    <input type="number" name="saldo" value="10000" readonly>
+                    <input type="number" id="montoInicial" name="saldo" value="10000" readonly>
                 </p>
                 <p>
                                 <p>
