@@ -87,14 +87,14 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 	}
 
 	@Override
-	public boolean delete(int numeroCuenta) {
+	public boolean delete(String numeroCuenta) {
 		PreparedStatement statement;
 		Connection conexion = DB.getConexion().getSQLConexion();
 		boolean eliminacionExitosa = false;
 		try 
 		{
 			statement = conexion.prepareStatement(delete);
-		     statement.setInt(1, numeroCuenta);
+		     statement.setString(1, numeroCuenta);
 			if(statement.executeUpdate()> 0)
 			{
 				conexion.commit();

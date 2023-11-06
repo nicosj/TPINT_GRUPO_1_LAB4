@@ -6,6 +6,7 @@ import dominio.Cuenta;
 
 public interface Cuenta_Negocio {
 
-	public boolean bajaCuenta(int numCuenta);
+	public boolean bajaCuenta(String numCuenta);
 	public ArrayList<Cuenta> listarCuentas();
+	
 }

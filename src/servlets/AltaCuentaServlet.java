@@ -7,7 +7,6 @@ import dominio.Cuenta;
 
 
 import java.io.IOException;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -95,7 +94,11 @@ public class AltaCuentaServlet extends HttpServlet {
             try {
                 boolean rowsUpdated = cuentaDao.insert(cuenta); // Implement the update method in your DAO
                 request.setAttribute("rowsUpdated", rowsUpdated);
+
 				request.getRequestDispatcher("/admin/AltaCuenta.jsp").forward(request, response);
+
+            	//request.getRequestDispatcher("/admin/ListadoCuentas.jsp").forward(request, response);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -38,13 +38,7 @@ public class BajaCuentaServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		  
-		listaCuentas = negocio.listarCuentas();
-		request.setAttribute("cuentas", listaCuentas);
 
-		RequestDispatcher rd = request.getRequestDispatcher("/admin/BajaCuentaCliente.jsp");
-		rd.forward(request, response);
-		  
 	}
 
 
@@ -53,7 +47,7 @@ public class BajaCuentaServlet extends HttpServlet {
 		  
 		 if(request.getParameter("btnBajaCuenta")!=null) {
 			 Cuenta_NegocioImp negocio = new Cuenta_NegocioImp();
-			 int numeroCuenta= Integer.parseInt(request.getParameter("numCuenta").toString());
+			 String numeroCuenta= request.getParameter("numCuenta");
 			 boolean bajo= negocio.bajaCuenta(numeroCuenta);
 			 if(bajo) {
 				 System.out.println("Baja exitosa");
@@ -62,7 +56,7 @@ public class BajaCuentaServlet extends HttpServlet {
 		 }
 		 listaCuentas = negocio.listarCuentas();  
 		 request.setAttribute("cuentas", listaCuentas);
-		 RequestDispatcher rda = request.getRequestDispatcher("/admin/BajaCuentaCliente.jsp");
+		 RequestDispatcher rda = request.getRequestDispatcher("/admin/ListadoCuentas.jsp");
 		 rda.forward(request, response);
 		
 	}

@@ -436,7 +436,7 @@
         
         $('.edit').on("click",function(){
         	var self = $(this).attr("id");
-        	$("#idClienteb").val(self);
+        	$("#idCliente").val(self);
         	//alert(self);
         	
         	

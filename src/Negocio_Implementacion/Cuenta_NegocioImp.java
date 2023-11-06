@@ -12,14 +12,17 @@ public class Cuenta_NegocioImp implements Cuenta_Negocio {
     
     
 	@Override
-	public boolean bajaCuenta(int numCuenta) {
+	public boolean bajaCuenta(String numCuenta) {
 		boolean estado= cuenta.delete(numCuenta);
 		return estado;
 	}
+	
 		public ArrayList<Cuenta> listarCuentas() {
 			return  cuenta.readAll();
 			
 		}
+		
+		
 }
 
 
