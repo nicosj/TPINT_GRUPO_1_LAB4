@@ -109,6 +109,8 @@ public class MovimientoDao implements MovimientoDao_Imp {
 	}
 
 	
+	
+	
 
 	
 	private Movimiento obtenerMovimiento(ResultSet resultSet) throws SQLException
