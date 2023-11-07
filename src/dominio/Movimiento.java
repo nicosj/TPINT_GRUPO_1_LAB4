@@ -2,20 +2,20 @@ package dominio;
 
 import java.sql.Date;
 
-public class Movimientos {
+public class Movimiento {
 
-  private int idMovimiento;
+  private String idMovimiento;
   private String numero_Cuenta;
-  private Date fechaMovimiento;
+  private String fechaMovimiento;
   private String detalleConcepto;
   private double importeMovimiento;
   private String tipoMovimiento;
   
   
   
-	  public Movimientos() {};
+	  public Movimiento() {};
 	  
-	public Movimientos(int idMovimiento, String numero_Cuenta, Date fechaMovimiento, String detalleConcepto,
+	public Movimiento(String idMovimiento, String numero_Cuenta, String fechaMovimiento, String detalleConcepto,
 			double importeMovimiento, String tipoMovimiento) {
 		super();
 		this.idMovimiento = idMovimiento;
@@ -25,10 +25,10 @@ public class Movimientos {
 		this.importeMovimiento = importeMovimiento;
 		this.tipoMovimiento = tipoMovimiento;
 	}
-	public int getIdMovimiento() {
+	public String getIdMovimiento() {
 		return idMovimiento;
 	}
-	public void setIdMovimiento(int idMovimiento) {
+	public void setIdMovimiento(String idMovimiento) {
 		this.idMovimiento = idMovimiento;
 	}
 	public String getNumero_Cuenta() {
@@ -37,10 +37,10 @@ public class Movimientos {
 	public void setNumero_Cuenta(String numero_Cuenta) {
 		this.numero_Cuenta = numero_Cuenta;
 	}
-	public Date getFechaMovimiento() {
+	public String getFechaMovimiento() {
 		return fechaMovimiento;
 	}
-	public void setFechaMovimiento(Date fechaMovimiento) {
+	public void setFechaMovimiento(String fechaMovimiento) {
 		this.fechaMovimiento = fechaMovimiento;
 	}
 	public String getDetalleConcepto() {
