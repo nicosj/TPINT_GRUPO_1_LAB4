@@ -60,7 +60,7 @@ public class EditCuentaServlet extends HttpServlet {
             	CuentaDao_Implement cuentaDao = new CuentaDao_Implement();
             	cuenta2= cuentaDao.obtenerCuenta(idCuenta);
             	request.setAttribute("cuenta", cuenta2);
-            	 request.getRequestDispatcher("/admin/ListadoCuentas.jsp").forward(request, response);
+            	request.getRequestDispatcher("/admin/ListadoCuentas.jsp").forward(request, response);
 			} catch (Exception e) {
 				
 				// TODO: handle exception

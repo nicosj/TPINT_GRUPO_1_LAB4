@@ -13,7 +13,7 @@ public class MovimientoNegocio_Imp implements Movimiento_Negocio{
 		ArrayList<Movimiento> listado = movimientos.readAll();
 		ArrayList<Movimiento> filtrado = new ArrayList<Movimiento>();
 		for(Movimiento mov : listado) {
-			if(mov.getNumero_Cuenta() == numeroCuenta) {
+			if(mov.getNumero_Cuenta().equals(numeroCuenta)) {
 				filtrado.add(mov);
 			}
 		}

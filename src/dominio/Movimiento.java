@@ -4,7 +4,13 @@ import java.sql.Date;
 
 public class Movimiento {
 
-  private String idMovimiento;
+  @Override
+	public String toString() {
+		return "Movimiento [idMovimiento=" + idMovimiento + ", numero_Cuenta=" + numero_Cuenta + ", fechaMovimiento="
+				+ fechaMovimiento + ", detalleConcepto=" + detalleConcepto + ", importeMovimiento=" + importeMovimiento
+				+ ", tipoMovimiento=" + tipoMovimiento + "]";
+	}
+private String idMovimiento;
   private String numero_Cuenta;
   private String fechaMovimiento;
   private String detalleConcepto;

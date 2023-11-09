@@ -13,7 +13,7 @@ public class MovimientoDao implements MovimientoDao_Imp {
 
 	private static final String insert =  "insert into cuenta (idMovimiento, numero_Cuenta, Fecha, Detalle_Concepto, Importe, Tipo_Movimiento) values (?, ? , ?, ?, ?, ?)";
 	private static final String readall = "SELECT * FROM Movimiento";	
-	private static final String update = "update cuenta set numero_Cuento= ?, Fecha = ?, Detalle_Concepto = ?, Importe = ?, Tipo_Movimiento = ?   where idMovimiento = ?";
+	private static final String update = "update cuenta set numero_Cuenta= ?, Fecha = ?, Detalle_Concepto = ?, Importe = ?, Tipo_Movimiento = ?   where idMovimiento = ?";
 	private static final String historialCuentas = "Select * FROM Movimiento WHERE numero_Cuenta = ?";
 
 	
@@ -120,11 +120,11 @@ public class MovimientoDao implements MovimientoDao_Imp {
 		String detalleConcepto = resultSet.getString("Detalle_Concepto");
 		String numCuenta = resultSet.getString("numero_Cuenta");
 		String tipoMovimiento = resultSet.getString("Tipo_Movimiento");
-		double importe = resultSet.getDouble("Saldo");
+		double importe = resultSet.getDouble("Importe");
 
 		
 		
-		return new Movimiento(idMovimiento, fecha, detalleConcepto, numCuenta, importe, tipoMovimiento);
+		return new Movimiento(idMovimiento, numCuenta, fecha, detalleConcepto, importe, tipoMovimiento);
 	}
 
 
@@ -141,11 +141,12 @@ public class MovimientoDao implements MovimientoDao_Imp {
 		     ResultSet resultado = statement.executeQuery();
 
 		        if (resultado.next()) {
-		        	movimiento.setImporteMovimiento(resultado.getDouble("Importe"));
-		        	movimiento.setDetalleConcepto(resultado.getString("Detalle_Concepto"));
+		        	movimiento.setIdMovimiento(resultado.getString("idMovimiento"));
 		        	movimiento.setNumero_Cuenta(resultado.getString("numero_Cuenta"));
-		        	movimiento.setTipoMovimiento(resultado.getString("idCuenta"));  
 		        	movimiento.setFechaMovimiento(resultado.getString("Fecha"));
+		        	movimiento.setDetalleConcepto(resultado.getString("Detalle_Concepto"));
+		        	movimiento.setImporteMovimiento(resultado.getDouble("Importe"));
+		        	movimiento.setTipoMovimiento(resultado.getString("TipoMovimiento"));
 		        }  
 		        
 		        
