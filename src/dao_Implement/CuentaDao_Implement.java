@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
+
 import dao.CuentaDao_Interfaz;
 import dao.DB;
 import dominio.Cuenta;
@@ -18,7 +20,7 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 	private static final String readall = "SELECT * FROM cuenta";	
 	private static final String update = "update cuenta set idCliente= ?, FechaCreacion = ?, TipoCuenta = ?, CBU=?, Saldo=?, estado = ?   where numero_Cuenta = ?";
 	private static final String query = "Select * FROM cuenta WHERE numero_Cuenta = ?";
-
+	private static final String queryGetAcountByClientId = "Select * FROM cliente c inner join cuenta cu on cu.idCliente = c.idCliente WHERE c.idCliente = ?";
 	
 	@Override
 	public boolean insert(Cuenta cuenta) {
@@ -167,6 +169,37 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 		}
 		return cuenta;
 	}
+	
+	public List<Cuenta> obtenerCuentaByClientId(int idCliente) {
+		Cuenta cuenta = new Cuenta();
+		ArrayList<Cuenta> cuentas = new ArrayList<Cuenta>(); 
+		PreparedStatement statement;
+		Connection conexion =DB.getConexion().getSQLConexion();
+		
+		try {
+			 statement = conexion.prepareStatement(queryGetAcountByClientId);
+		     statement.setInt(1, idCliente);
+		     
+		     ResultSet resultado = statement.executeQuery();
+
+		        if (resultado.next()) {
+		        	cuenta.setIdCliente(resultado.getString("idCliente"));
+		        	cuenta.setTipo_Cuenta(resultado.getString("TipoCuenta"));
+		        	cuenta.setCBU(resultado.getString("CBU"));
+		        	cuenta.setFecha_Creacion(resultado.getString("FechaCreacion"));
+		        	cuenta.setSaldo(resultado.getDouble("Saldo"));
+		        	cuenta.setEstado(resultado.getBoolean("estado"));
+		        	cuenta.setNumero_Cuenta(resultado.getString("numero_Cuenta"));	
+		        	
+		        	cuentas.add(cuenta);
+		        }  
+		        
+		        resultado.close();
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		return cuentas;
+	}
 	private Cuenta getCuenta(ResultSet resultSet) throws SQLException
 	{
 		String idCliente = resultSet.getString("idCliente");
@@ -179,7 +212,7 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 		
 		return new Cuenta( idCliente, numCuenta, TipoCuenta, fechaCreacion, CBU, saldo, estado);
 	}
-
+	
 	
 	
 	public int getLastCBU() {
