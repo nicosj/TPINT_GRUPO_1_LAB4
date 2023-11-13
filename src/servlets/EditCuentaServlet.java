@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.omg.PortableServer.ID_ASSIGNMENT_POLICY_ID;
+//import org.omg.PortableServer.ID_ASSIGNMENT_POLICY_ID;
 
 import Negocio_Implementacion.Cuenta_NegocioImp;
 import dao_Implement.CuentaDao_Implement;

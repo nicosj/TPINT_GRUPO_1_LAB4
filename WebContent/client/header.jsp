@@ -38,7 +38,7 @@
   <a href="#" class="btn-expand-collapse"><span class="glyphicon glyphicon-menu-left"></span> <-</a>
   <ul class="navbar-nav navbar-primary-menu">
     <li >
-      <a class="nav-link" href="#"><span class="glyphicon glyphicon-user"></span><span class="nav-label">Clientes</span></a>
+      <a class="nav-link" href="TransferenciasServlet"><span class="glyphicon glyphicon-user"></span><span class="nav-label">Transferencias</span></a>
     
     
       <a class="nav-link" href="#"><span class="glyphicon glyphicon-list-alt"></span><span class="nav-label">Cuentas</span></a>
