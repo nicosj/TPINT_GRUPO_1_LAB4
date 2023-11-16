@@ -2,18 +2,51 @@ package dominio;
 
 import java.sql.Date;
 
-public class Prestamos {
+public class Prestamo {
 	
 	private int idPrestamo;
 	private String numero_Cuenta;
-	private Date fechaPedido;
+	private String fechaPedido;
+	private double importeCuota;
 	private double totalImporte;
-	private int cuota;
+	private int cuotas;
 	private int idIntereses;
+	private int estado;
 	
-	public Prestamos() { };
+
+
+	public Prestamo() { };
 	
 	
+	public int getCuotas() {
+		return cuotas;
+	}
+
+
+
+	public void setCuotas(int cuotas) {
+		this.cuotas = cuotas;
+	}
+	
+	
+	public double getImporteCuota() {
+		return importeCuota;
+	}
+
+
+	public void setImporteCuota(double importeCuota) {
+		this.importeCuota = importeCuota;
+	}
+	
+	public int getEstado() {
+		return estado;
+	}
+
+
+	public void setEstado(int estado) {
+		this.estado = estado;
+	}
+
 	public int getIdPrestamo() {
 		return idPrestamo;
 	}
@@ -26,10 +59,10 @@ public class Prestamos {
 	public void setNumero_Cuenta(String numero_Cuenta) {
 		this.numero_Cuenta = numero_Cuenta;
 	}
-	public Date getFechaPedido() {
+	public String getFechaPedido() {
 		return fechaPedido;
 	}
-	public void setFechaPedido(Date fechaPedido) {
+	public void setFechaPedido(String fechaPedido) {
 		this.fechaPedido = fechaPedido;
 	}
 	public double getTotalImporte() {
@@ -38,12 +71,6 @@ public class Prestamos {
 	public void setTotalImporte(double totalImporte) {
 		this.totalImporte = totalImporte;
 	}
-	public int getCuota() {
-		return cuota;
-	}
-	public void setCuota(int cuota) {
-		this.cuota = cuota;
-	}
 	public int getIdIntereses() {
 		return idIntereses;
 	}
@@ -51,15 +78,18 @@ public class Prestamos {
 		this.idIntereses = idIntereses;
 	}
 	
-	public Prestamos(int idPrestamo, String numero_Cuenta, Date fechaPedido, double totalImporte, int cuota,
-			int idIntereses) {
+	public Prestamo(int idPrestamo, String numero_Cuenta, String fechaPedido, double importeCuota,double totalImporte, int cuotas,
+			int idIntereses, int estado) {
 		super();
 		this.idPrestamo = idPrestamo;
 		this.numero_Cuenta = numero_Cuenta;
 		this.fechaPedido = fechaPedido;
 		this.totalImporte = totalImporte;
-		this.cuota = cuota;
 		this.idIntereses = idIntereses;
+		this.importeCuota = importeCuota;
+		this.cuotas = cuotas;
+		this.estado = estado;
+		
 	}
 	
 	

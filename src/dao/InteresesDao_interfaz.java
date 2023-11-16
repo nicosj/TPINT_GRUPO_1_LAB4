@@ -11,4 +11,5 @@ public interface InteresesDao_interfaz {
 	boolean delete(Intereses interes_a_eliminar);
 	public Intereses obtenerInteres(int idInteres);
 	public boolean insert(Intereses interes);
+	public Intereses obtenerInteresByCuota(int cuota);
 }
