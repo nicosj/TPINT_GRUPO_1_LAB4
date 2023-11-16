@@ -42,14 +42,11 @@ public class SolicitudPrestamoServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		int idClient = ((Usuario)session.getAttribute("client")).getIdCliente();
-		InteresesDao_Implement daoIntImplement = new InteresesDao_Implement();
 		CuentaDao_Implement daoCuentaImplement = new CuentaDao_Implement();
 		
-		List<Intereses> intereses =  daoIntImplement.readAll();
 		List<Cuenta> cuentas = daoCuentaImplement.obtenerCuentaByClientId(idClient);
 		
 		System.out.println(cuentas.get(0).getNumero_Cuenta());
-		request.setAttribute("intereses", intereses);
 		request.setAttribute("cuentas", cuentas);
 		request.getRequestDispatcher("/client/SolicitudPrestamo.jsp").forward(request, response);
 	}
@@ -70,10 +67,6 @@ public class SolicitudPrestamoServlet extends HttpServlet {
 		
 		Prestamo prestamo = new Prestamo();
 		PrestamoDao_Implement prestamoDaoImpl = new PrestamoDao_Implement();
-		Intereses interes = new Intereses(); 
-		InteresesDao_Implement interesDaoImpl = new InteresesDao_Implement();
-		
-		interes = interesDaoImpl.obtenerInteresByCuota(Integer.parseInt(request.getParameter("cantCuotas")));
 		
 		LocalDate fechaHoy = LocalDate.now();
 
@@ -85,7 +78,6 @@ public class SolicitudPrestamoServlet extends HttpServlet {
 		prestamo.setImporteCuota(importCuota);
 		prestamo.setFechaPedido(fechaFormateada);
 		prestamo.setCuotas(Integer.parseInt(request.getParameter("cantCuotas")));
-		prestamo.setIdIntereses(interes.getidInteres());
 		prestamo.setEstado(1);
 		
 		prestamoDaoImpl.insert(prestamo);

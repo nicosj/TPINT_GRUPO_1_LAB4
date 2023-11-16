@@ -5,7 +5,6 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <% if(session.getAttribute("client") != null) {%>
-<% if(request.getAttribute("intereses") != null) {%>
 
 <html>
 <head>
@@ -25,11 +24,9 @@
             <div class="mb-3">
                 <label for="cuotas" class="form-label">Cantidad de Cuotas</label>
                 <select class="form-select" id="cuotas" onchange="calculateFinalAmount()" name="interes">
-                	<% List<Intereses> intereses = (List<Intereses>)request.getAttribute("intereses"); %>
-                	<% for(Intereses interes : intereses) {%>
-                		<option value="<%= interes.getPorcentaje() %>" label="<%= interes.getCuotas()%>"></option>
-                	<% } %>
-                    
+                		<option value="10" label="6"></option>
+                		<option value="20" label="12"></option>
+                		<option value="30" label="18"></option>              
                 </select>
                 <label id="interesesLabel" for="cuotas" class="form-label" ></label>
                 <input id="cantCuotas" name="cantCuotas" style="display: none;">
@@ -116,9 +113,6 @@
 	</script>
 </body>
 </html>
-<%} else{
-	response.sendRedirect("SolicitudPrestamoServlet");
-}%>
 <% }else {
 	response.sendRedirect("../index.jsp");
 }%>

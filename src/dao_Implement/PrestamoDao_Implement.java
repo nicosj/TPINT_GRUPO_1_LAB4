@@ -11,7 +11,7 @@ import dominio.Prestamo;
 
 public class PrestamoDao_Implement implements PrestamoDao_Interfaz{
 	
-	final static String insert = "insert into prestamos (numero_Cuenta, Importe_Cuota, Fecha_Pedido, Importe_Total, Cuotas, idIntereses, estado) values (?, ?, ?, ?, ?, ?, ?)";
+	final static String insert = "insert into prestamos (numero_Cuenta, Importe_Cuota, Fecha_Pedido, Importe_Total, Cuotas, estado) values (?, ?, ?, ?, ?, ?)";
 
 	@Override
 	public boolean insert(Prestamo prestamo) {
@@ -26,8 +26,7 @@ public class PrestamoDao_Implement implements PrestamoDao_Interfaz{
             statement.setString(3, prestamo.getFechaPedido());
             statement.setDouble(4, prestamo.getTotalImporte());
             statement.setDouble(5, prestamo.getCuotas());
-            statement.setInt(6, prestamo.getIdIntereses());
-            statement.setInt(7, prestamo.getEstado());
+            statement.setInt(6, prestamo.getEstado());
             
             if(statement.executeUpdate() > 0)
             {

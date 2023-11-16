@@ -10,7 +10,6 @@ public class Prestamo {
 	private double importeCuota;
 	private double totalImporte;
 	private int cuotas;
-	private int idIntereses;
 	private int estado;
 	
 
@@ -71,21 +70,14 @@ public class Prestamo {
 	public void setTotalImporte(double totalImporte) {
 		this.totalImporte = totalImporte;
 	}
-	public int getIdIntereses() {
-		return idIntereses;
-	}
-	public void setIdIntereses(int idIntereses) {
-		this.idIntereses = idIntereses;
-	}
 	
 	public Prestamo(int idPrestamo, String numero_Cuenta, String fechaPedido, double importeCuota,double totalImporte, int cuotas,
-			int idIntereses, int estado) {
+			int estado) {
 		super();
 		this.idPrestamo = idPrestamo;
 		this.numero_Cuenta = numero_Cuenta;
 		this.fechaPedido = fechaPedido;
 		this.totalImporte = totalImporte;
-		this.idIntereses = idIntereses;
 		this.importeCuota = importeCuota;
 		this.cuotas = cuotas;
 		this.estado = estado;
