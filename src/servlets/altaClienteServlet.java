@@ -69,6 +69,18 @@ public class altaClienteServlet extends HttpServlet {
 			String contrasena = request.getParameter("contrasena");
 			boolean estado = true;
 
+			// Validando espacios vacios
+	        if (dni.trim().isEmpty() || cuil.trim().isEmpty() || nombre.trim().isEmpty()
+	                || apellido.trim().isEmpty() || sexo.trim().isEmpty()
+	                || nacionalidad.trim().isEmpty() || fechaNacimiento.trim().isEmpty()
+	                || direccion.trim().isEmpty() || localidad.trim().isEmpty()
+	                || provincia.trim().isEmpty() || correo.trim().isEmpty()
+	                || telefono.trim().isEmpty() || usuario.trim().isEmpty() || contrasena.trim().isEmpty()) {
+	            // Mensaje de error
+	        	 request.setAttribute("errorMessage", "Por favor complete todos los campos");
+	            request.getRequestDispatcher("/admin/cliente.jsp").forward(request, response);
+	            return;
+	        }
 
 
             Cliente cliente = new Cliente(0, dni, cuil,  nombre, apellido,  sexo,  nacionalidad,  fechaNacimiento, direccion, localidad, provincia,  correo,  telefono, estado);
