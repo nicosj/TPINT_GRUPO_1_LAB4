@@ -123,3 +123,14 @@ ADD COLUMN `estado` boolean DEFAULT true;
 
 ALTER TABLE `banco`.`usuario`
 ADD COLUMN `estado` boolean DEFAULT true;
+
+
+ALTER TABLE `banco`.`prestamos` 
+DROP FOREIGN KEY `FK_Intereses`;
+ALTER TABLE `banco`.`prestamos` 
+DROP COLUMN `idIntereses`,
+DROP INDEX `FK_Intereses_idx` ;
+;
+
+DROP TABLE `banco`.`intereses`;
+

@@ -10,6 +10,7 @@ import java.util.List;
 import dao.DB;
 import dao.InteresesDao_interfaz;
 import dominio.Cliente;
+import dominio.Cuenta;
 import dominio.Intereses;
 
 public class InteresesDao_Implement implements InteresesDao_interfaz {
@@ -18,6 +19,7 @@ public class InteresesDao_Implement implements InteresesDao_interfaz {
 	private static final String readall = "SELECT * FROM intereses";	
 	private static final String update = "update interes set  Cuota = ?, Porcentaje = ? where idinteres = ?";
 	private static final String query = "Select * FROM cliente WHERE idinteres = ?";
+	private static final String queryCuota = "Select * FROM intereses WHERE cuotas = ?";
 	
 	
 	@Override
@@ -107,6 +109,29 @@ public class InteresesDao_Implement implements InteresesDao_interfaz {
 	public Intereses obtenerInteres(int idInteres) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Intereses obtenerInteresByCuota(int cuota) {
+		Intereses interes = new Intereses();
+		PreparedStatement statement;
+		Connection conexion =DB.getConexion().getSQLConexion();
+		
+		try {
+			 statement = conexion.prepareStatement(queryCuota);
+		     statement.setInt(1, cuota);
+		     
+		     ResultSet resultado = statement.executeQuery();
+
+		        if (resultado.next()) {
+		        	
+		        	interes = getInteres(resultado);
+		        }  
+		        
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		return interes;
 	}
 
 	@Override
