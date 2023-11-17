@@ -19,7 +19,7 @@
         <form id="loanForm" action="SolicitudPrestamoServlet" method="post">
             <div class="mb-3">
                 <label for="monto" class="form-label">Monto a Solicitar (ARS)</label>
-                <input type="number" class="form-control" id="monto" placeholder="Monto en ARS" oninput="calculateFinalAmount()" name="monto">
+                <input required type="number" class="form-control" id="monto" placeholder="Monto en ARS" oninput="calculateFinalAmount()" name="monto">
             </div>
             <div class="mb-3">
                 <label for="cuotas" class="form-label">Cantidad de Cuotas</label>
@@ -100,10 +100,11 @@
 			
 			console.log(interest/100);
 			console.log(cuotas);
+			console.log((amount * (interest/100)));
 			
 			finalAmount.value = total;
-			finalAmountModal.innerHTML = "Monto final: " + total + "$";
-			montoCuotasModal.innerHTML = "Monto por cuota a pagar: " + ((amount * (interest/100))/cuotas).toFixed(2) + "$";
+			finalAmountModal.innerHTML = "Monto final con intereses: " + total + "$";
+			montoCuotasModal.innerHTML = "Monto por cuota a pagar: " + ((amount + (amount * (interest/100)))/cuotas).toFixed(2) + "$";
 			interesesLabel.innerHTML = "Intereses fijos: " + interest + "%";
 			document.getElementById("cantCuotas").value = cuotas;
 			
