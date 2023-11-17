@@ -514,3 +514,22 @@
 
     }
 </script>
+
+<%
+    // Check if there is an error message attribute
+    String errorMessage = (String) request.getAttribute("errorMessage");
+    if (errorMessage != null && !errorMessage.isEmpty()) {
+%>
+    <script type="text/javascript">
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: '<%= errorMessage %>',
+            showConfirmButton: true
+        });
+    </script>
+<%
+    }
+    // Clear the error message attribute to avoid displaying it multiple times
+    request.removeAttribute("errorMessage");
+%>
