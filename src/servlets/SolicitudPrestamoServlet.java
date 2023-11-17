@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.logging.Logger;
 
 //import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.ServletException;
@@ -13,11 +14,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.MovimientoDao_Imp;
 import dao_Implement.CuentaDao_Implement;
 import dao_Implement.InteresesDao_Implement;
+import dao_Implement.MovimientoDao;
 import dao_Implement.PrestamoDao_Implement;
 import dominio.Cuenta;
 import dominio.Intereses;
+import dominio.Movimiento;
 import dominio.Prestamo;
 import dominio.Usuario;
 
@@ -55,34 +59,40 @@ public class SolicitudPrestamoServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Llego la peticion!!");
-		System.out.println(request.getParameter("cuenta"));
-		System.out.println(request.getParameter("cantCuotas"));
-		System.out.println(request.getParameter("monto"));
-		System.out.println(request.getParameter("interes"));
-		int cuotas = Integer.parseInt(request.getParameter("cantCuotas"));
-		double intereses = Double.parseDouble(request.getParameter("interes"));
-		double monto = Double.parseDouble(request.getParameter("monto"));
-		double importCuota = (monto + (monto*intereses)) / cuotas;
 		
-		Prestamo prestamo = new Prestamo();
-		PrestamoDao_Implement prestamoDaoImpl = new PrestamoDao_Implement();
+		System.out.println("Llego solicitud de prestamo");
+		try {
+			String cuenta = request.getParameter("cuenta");
+			int cuotas = Integer.parseInt(request.getParameter("cantCuotas"));
+			double intereses = Double.parseDouble(request.getParameter("interes"));
+			double monto = Double.parseDouble(request.getParameter("monto"));
+			double importCuota = (monto + (monto*intereses)) / cuotas;
+			int cantCuotas = Integer.parseInt(request.getParameter("cantCuotas"));
+			
+			Prestamo prestamo = new Prestamo();
+			PrestamoDao_Implement prestamoDaoImpl = new PrestamoDao_Implement();
+			
+			
+			LocalDate fechaHoy = LocalDate.now();
+	        DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	        String fechaFormateada = fechaHoy.format(formato);
+	        
+			prestamo.setNumero_Cuenta(cuenta);
+			prestamo.setTotalImporte(monto);
+			prestamo.setImporteCuota(importCuota);
+			prestamo.setFechaPedido(fechaFormateada);
+			prestamo.setCuotas(cantCuotas);
+			prestamo.setEstado(1);
+			
+			if(prestamoDaoImpl.insert(prestamo)) {
+				System.out.println("Solicitud insertada con exito UWU");
+			}
+			
+			request.getRequestDispatcher("/client").forward(request, response);
+		}catch(Exception ex) {
+			
+		}
 		
-		LocalDate fechaHoy = LocalDate.now();
-
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        String fechaFormateada = fechaHoy.format(formato);
-		
-		prestamo.setNumero_Cuenta(request.getParameter("cuenta"));
-		prestamo.setTotalImporte(monto);
-		prestamo.setImporteCuota(importCuota);
-		prestamo.setFechaPedido(fechaFormateada);
-		prestamo.setCuotas(Integer.parseInt(request.getParameter("cantCuotas")));
-		prestamo.setEstado(1);
-		
-		prestamoDaoImpl.insert(prestamo);
-		
-		request.getRequestDispatcher("/client").forward(request, response);
 		
 	}
 

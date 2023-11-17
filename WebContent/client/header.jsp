@@ -47,6 +47,8 @@
       <a class="nav-link" href="#"><span class="glyphicon glyphicon-th-list"></span><span class="nav-label">Movimientos</span></a>
       
       <a class="nav-link" href="SolicitudPrestamoServlet"><span class="glyphicon glyphicon-th-list"></span><span class="nav-label">Solicitud prestamo</span></a>
+      
+      <a class="nav-link" href="MisDatos"><span class="glyphicon glyphicon-th-list"></span><span class="nav-label">Mis datos</span></a>
     
     
     </li>
