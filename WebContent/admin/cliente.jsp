@@ -238,6 +238,13 @@
                                                                           name="contrasena"
                                                                           placeholder="Contrasena">
                     </div>
+                                       
+                    <div class="form-group">
+                        <label for="contrasena2e">Repetir Contrasena</label> <input type="password"
+                                                                           class="form-control" id="contrasena2e"
+                                                                           name="contrasena2"
+                                                                           placeholder="Asegurese de que las contrasenias coincidan">
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-default" data-dismiss="modal"
@@ -399,7 +406,8 @@
                                                                            class="form-control" id="contrasenae"
                                                                            name="contrasena"
                                                                            placeholder="Contrasena">
-                    </div>
+
+                    
 
 
                     <div class="modal-footer">
@@ -437,6 +445,34 @@
         </div>
     </div>
 </div>
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("Script ejecutado");
+
+    document.getElementById("addCliente").addEventListener("submit", function (event) {
+        console.log("Form enviado");
+
+        var contrasena = document.getElementById("contrasena").value;
+        var contrasena2 = document.getElementById("contrasena2e").value;
+
+        if (contrasena !== contrasena2) {
+            console.log("Las contrasenias no son iguales");
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Las contraseñas no coinciden. Por favor, inténtalo de nuevo.',
+                showConfirmButton: true
+            });
+
+            event.preventDefault(); // Evita que el formulario se envíe
+        }
+    });
+});
+</script>
+
 
 <jsp:include page="./footer.jsp"/>
 <% } else {
