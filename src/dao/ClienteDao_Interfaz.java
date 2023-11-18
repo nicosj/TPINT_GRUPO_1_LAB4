@@ -17,6 +17,6 @@ public interface ClienteDao_Interfaz {
 	public void bajaLogicaCliente(int id);
 	List<Cliente> readAllActivos();
 	Cliente obtenerClienteDni(String dni);
-
+	public Cliente obtenerClienteProvincia(String provincia);
 
 }

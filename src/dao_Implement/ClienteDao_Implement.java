@@ -23,6 +23,7 @@ public class ClienteDao_Implement implements ClienteDao_Interfaz {
 	private static final String query = "Select * FROM cliente WHERE idCliente = ?";
 	private static final String queryDni = "Select * FROM cliente WHERE DNI = ?";
 	private static final String bajalogica = "UPDATE cliente SET estado = 0 WHERE idCliente = ?";
+	private static final String buscarProvincia = "Select * FROM cliente WHERE PROVINCIA =  ?";
 
 	
 	@Override
@@ -323,6 +324,44 @@ public class ClienteDao_Implement implements ClienteDao_Interfaz {
 		    }
 		
 	}
+	
+	
+	public Cliente obtenerClienteProvincia(String provincia) {
+		Cliente cliente = new Cliente();
+		PreparedStatement statement;
+		Connection conexion =DB.getConexion().getSQLConexion();
+
+		try {
+			statement = conexion.prepareStatement(buscarProvincia);
+			statement.setString(1, provincia);
+
+			ResultSet resultado = statement.executeQuery();
+
+			if (resultado.next()) {
+				cliente.setIdCLiente(resultado.getInt("idCliente"));
+				cliente.setDNI(resultado.getString("DNI"));
+				cliente.setCUIL(resultado.getString("CUIL"));
+				cliente.setNombre(resultado.getString("nombre"));
+				cliente.setApellido(resultado.getString("apellido"));
+				cliente.setSexo(resultado.getString("sexo"));
+				cliente.setNacionalidad(resultado.getString("nacionalidad"));
+				cliente.setFechaNacimiento(resultado.getString("fechaNacimiento"));
+				cliente.setDireccion(resultado.getString("direccion"));
+				cliente.setLocalidad(resultado.getString("localidad"));
+				cliente.setProvincia(provincia);
+				cliente.setCorreo(resultado.getString("correo"));
+				cliente.setTelefono(resultado.getString("telefono"));
+				cliente.setEstado(resultado.getBoolean("estado"));
+			}
+
+			//resultado.close();
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		return cliente;
+	}
+	
+	
 
 }
 
