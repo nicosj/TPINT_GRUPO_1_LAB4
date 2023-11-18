@@ -80,7 +80,7 @@ public class AltaCuentaServlet extends HttpServlet {
 			String FechaCreacion= LocalDate.now().toString();
 			Boolean Estado = true;
 
-			
+			 
 			
 			//** --- Tener cuidado de no intentar leer las propiedades con un tipo de dato diferente al de la DB
 			//** ---- o saltan las excepciones. Saldo en la DB es decimal
@@ -91,10 +91,14 @@ public class AltaCuentaServlet extends HttpServlet {
             
             System.out.println(cuenta);
             CuentaDao_Implement cuentaDao = new CuentaDao_Implement();
+            
+            int cuentaCount = cuentaDao.getCuentaCountByClientId(request.getParameter("idcliente"));
+            
+            if (cuentaCount < 3) {
             try {
                 boolean rowsUpdated = cuentaDao.insert(cuenta); // Implement the update method in your DAO
                 request.setAttribute("rowsUpdated", rowsUpdated);
-
+                request.setAttribute("error", "Cuenta creada y asociada correctamente");
 				request.getRequestDispatcher("/admin/AltaCuenta.jsp").forward(request, response);
 
             	//request.getRequestDispatcher("/admin/ListadoCuentas.jsp").forward(request, response);
@@ -103,6 +107,10 @@ public class AltaCuentaServlet extends HttpServlet {
                 e.printStackTrace();
             }
 		}
+		else {System.out.println("uwu");
+            request.setAttribute("error", "El Cliente ya posee 3 cuentas asignadas. No puede asignar una nueva.");
+            request.getRequestDispatcher("/admin/AltaCuenta.jsp").forward(request, response);
+            }
+		}
 	}
-
 }
