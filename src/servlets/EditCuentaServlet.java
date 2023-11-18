@@ -67,6 +67,7 @@ public class EditCuentaServlet extends HttpServlet {
 			}
 		}
 	if(request.getParameter("btnEdit")!=null){
+		cuenta.setIdCliente(request.getParameter("idCliente"));
 		cuenta.setNumero_Cuenta(request.getParameter("numero_Cuenta"));
 		cuenta.setFecha_Creacion(request.getParameter("FechaCreacion"));
 		cuenta.setTipo_Cuenta(request.getParameter("TipoCuenta"));
