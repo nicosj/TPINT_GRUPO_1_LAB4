@@ -420,6 +420,59 @@
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("Script ejecutado");
+
+    document.getElementById("editEmployeeModalForm").addEventListener("submit", function (event) {
+        console.log("Form enviado");
+
+        var nuevoUsuario = document.getElementById("usuarioe").value;
+
+        // Verificar si el nuevo nombre de usuario ya existe
+        verificarNombreUsuario(nuevoUsuario, function (existe) {
+            if (existe) {
+                console.log("El nuevo nombre de usuario ya existe");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'El nuevo nombre de usuario ya está en uso. Por favor, elige otro.',
+                    showConfirmButton: true
+                });
+
+                event.preventDefault(); // Evita que el formulario se envíe
+            } else {
+                // Continuar con el envío del formulario si el nombre de usuario no existe
+                console.log("El nuevo nombre de usuario no existe");
+            }
+        });
+    });
+
+    // Función para verificar la existencia del nombre de usuario
+    function verificarNombreUsuario(usuario, callback) {
+        // Lógica para verificar en la base de datos o en tu servicio
+        // Puedes hacer una solicitud AJAX al servidor para realizar la verificación
+
+        // Ejemplo de código para realizar una solicitud AJAX con jQuery
+        $.ajax({
+            url: "VerificarNombreUsuarioServlet", // Cambia esto al servlet o endpoint correcto
+            method: "POST",
+            data: { usuario: usuario },
+            success: function (response) {
+                // La respuesta debe ser un booleano indicando si el usuario existe o no
+                var existe = response === "true";
+                callback(existe);
+            },
+            error: function () {
+                console.error("Error al verificar el nombre de usuario");
+                // Manejar el error de manera adecuada
+                callback(false); // Suponemos que no existe en caso de error
+            }
+        });
+    }
+});
+</script>
 <!-- Delete Modal HTML -->
 <div id="deleteEmployeeModal" class="modal fade">
     <div class="modal-dialog">

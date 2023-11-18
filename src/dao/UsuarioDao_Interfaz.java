@@ -11,6 +11,7 @@ public interface UsuarioDao_Interfaz {
 	public List<Usuario> readAll();
 	public Usuario readOnce(int id);
 	public Usuario login(Usuario usuario);
+	boolean verificarNombreUsuario(String usuario,int idUsuario);
 	
 	
 	
