@@ -11,7 +11,7 @@
     <style>
         /* Estilo para el body */
        
-
+       
         /* Estilo para el contenedor */
          .containered {
             background-color: #ffffff;

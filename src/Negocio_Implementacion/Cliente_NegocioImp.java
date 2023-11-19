@@ -10,17 +10,21 @@ public class Cliente_NegocioImp {
     ClienteDao_Implement cliente = new ClienteDao_Implement(); 	
     
     
-	public ArrayList<Cliente> listarTodosClientes() {
+	public ArrayList<Cliente> listarClientes() {
 		return  cliente.readAll();
 		
 	}
 	
-	public ArrayList<Cliente> listarClientesFem() {
-		ArrayList<Cliente> lista = cliente.readAll();
+	public ArrayList<Cliente> listarAllGeneros(String provincia){
+	 	 return cliente.obtenerClienteProvincia(provincia);
+	}
+	
+	public ArrayList<Cliente> listarClientesFem(String provincia) {
+		ArrayList<Cliente> lista = cliente.obtenerClienteProvincia(provincia);
 		ArrayList<Cliente> filtradoFem = new ArrayList<Cliente>();
 		
 		for(Cliente cliente : lista) {
-			if(cliente.getSexo().equals("F")) {
+			if(cliente.getSexo().equalsIgnoreCase("F")) {
 				filtradoFem.add(cliente);
 			}
 		}		
@@ -28,12 +32,12 @@ public class Cliente_NegocioImp {
 		return  filtradoFem;
 		
 	}
-	public ArrayList<Cliente> listarClientesMasc() {
-		ArrayList<Cliente> lista = cliente.readAll();
+	public ArrayList<Cliente> listarClientesMasc(String provincia) {
+		ArrayList<Cliente> lista = cliente.obtenerClienteProvincia(provincia);
 		ArrayList<Cliente> filtradoMasc = new ArrayList<Cliente>();
 		
 		for(Cliente cliente : lista) {
-			if(cliente.getSexo().equals("M")) {
+			if(cliente.getSexo().equalsIgnoreCase("M")) {
 				filtradoMasc.add(cliente);
 			}
 		}		
