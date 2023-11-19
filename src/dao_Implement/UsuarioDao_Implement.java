@@ -13,10 +13,10 @@ public class UsuarioDao_Implement implements UsuarioDao_Interfaz  {
 	private static final String insert = "Insert into usuario (usuario, clave, tipoUsuario, idCliente)  values (?, ?, ?, ?)";
 	private static final String delete = "DELETE FROM usuario WHERE idUsuario = ?";
 	private static final String readall = "SELECT * FROM usuario";	
-	private static final String update = "update usuario set clave = ? where usuario = ?";
+	private static final String update = "update usuario set clave = ?, usuario = ? where idCliente = ?";
 	private static final String query = "Select * FROM usuario WHERE idUsuario = ?";
 	private static final String login = "Select * FROM usuario WHERE usuario = ? and clave = ?";
-	
+	private static final String verificarNombreUsuario = "SELECT * FROM usuario WHERE usuario = ? AND idUsuario <> ?";
 	
 	@Override
 	public boolean insert(Usuario usuario) {
@@ -47,7 +47,7 @@ public class UsuarioDao_Implement implements UsuarioDao_Interfaz  {
         return insercionExitosa;
 	}
 	@Override
-	public boolean update(Usuario usuario) {
+	public boolean update(Usuario usuario, int idCliente) {
 		PreparedStatement statement;
 		Connection conexion =DB.getConexion().getSQLConexion();
         boolean actualizacionExitosa = false;
@@ -56,6 +56,7 @@ public class UsuarioDao_Implement implements UsuarioDao_Interfaz  {
             statement = conexion.prepareStatement(update);
 			statement.setString(1,  usuario.getClave());
             statement.setString(2,  usuario.getUsuario());
+            statement.setInt(3, idCliente);
 
 
             if(statement.executeUpdate() > 0)
@@ -187,8 +188,25 @@ public class UsuarioDao_Implement implements UsuarioDao_Interfaz  {
 		return new Usuario(idUsuario, usuario, clave, tipoUsuario, idCliente);
 	}
 	
-	
-	
-	
+	@Override
+	public boolean verificarNombreUsuario(String nuevoUsuario, int idUsuario) {
+	    PreparedStatement statement;
+	    ResultSet resultSet;
+	    Connection conexion = DB.getConexion().getSQLConexion();
+	    boolean existeUsuario = false;
+	    try {
+	        statement = conexion.prepareStatement(verificarNombreUsuario);
+	        statement.setString(1, nuevoUsuario);
+	        statement.setInt(2, idUsuario); // Agregar el id del usuario actual
+
+	        resultSet = statement.executeQuery();
+	        if (resultSet.next()) {
+	            existeUsuario = true;
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return existeUsuario;
+	}
 	
 }

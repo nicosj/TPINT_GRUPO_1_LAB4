@@ -78,7 +78,7 @@ public class Cuenta {
         
         // Generar aleatoriamente los 12 dígitos restantes
         Random random = new Random();
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 8; i++) {
             int randomDigit = random.nextInt(10);
             cbuBuilder.append(randomDigit);
         }

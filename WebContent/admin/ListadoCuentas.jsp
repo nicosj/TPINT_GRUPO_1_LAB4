@@ -98,7 +98,7 @@
 <div id="editCuentaModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="post" action="EditCuentaServlet">
+            <form id="editCuentaForm" method="post" action="EditCuentaServlet" onsubmit="return validateForm()">
  
                 <div class="modal-header">
                     <h4 class="modal-title">Editar Cuentas</h4>
@@ -170,16 +170,38 @@
 
 <script>
 function populateEditModal(idCliente, FechaCreacion, TipoCuenta, CBU, Saldo, numero_Cuenta, Estado) {
-    // Populate the form fields in the modal with the values
+    // Rellena los campos con los valores de la fila elegida
     document.getElementById("idCliente").value = idCliente;
     document.getElementById("FechaCreacion").value = FechaCreacion;
     document.getElementById("TipoCuenta").value = TipoCuenta;
     document.getElementById("CBU").value = CBU;
     document.getElementById("Saldo").value = Saldo;
-    document.getElementById("numero_Cuenta").value =numero_Cuenta;
+    document.getElementById("numero_Cuenta").value = numero_Cuenta;
     document.getElementById("Estado").value = Estado;
-}
 
+    // Updatea el event listener para chequear los campos vacios antes del submit
+    var editForm = document.getElementById("editCuentaForm");
+    editForm.addEventListener("submit", function (event) {
+        // Chequea campos vacios
+        if (!validateForm()) {
+            event.preventDefault(); // evita la carga
+            alert("Por favor, complete todos los campos");
+        }
+    });
+
+
+    $('#editCuentaModal').modal('show');
+}
+function validateForm() {
+    var fields = ["idCliente", "FechaCreacion", "TipoCuenta", "CBU", "Saldo", "numero_Cuenta", "Estado"];
+    for (var i = 0; i < fields.length; i++) {
+        var value = document.getElementById(fields[i]).value;
+        if (value.trim() === "") {
+            return false; // Algun campo vacio
+        }
+    }
+    return true; //Campos llenos
+}
 function deleteModal(numero_Cuenta) {
     document.getElementById("deleteNumCuenta").value =numero_Cuenta;
 }

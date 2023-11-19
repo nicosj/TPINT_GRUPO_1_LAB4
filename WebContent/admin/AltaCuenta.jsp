@@ -11,7 +11,7 @@
     <style>
         /* Estilo para el body */
        
-
+       
         /* Estilo para el contenedor */
          .containered {
             background-color: #ffffff;
@@ -97,10 +97,15 @@
                     <p><!-- Keep the type attribute as "button" -->
                     <button type="submit" id="btnCrearCuenta" name="btnCrearCuenta" class="btn btn-create">Crear Cuenta</button>
                 </p>
+                            <% if (request.getAttribute("error") != null) { %>
+        <div class="error-message">
+            <%= request.getAttribute("error") %>
+        </div>
+    <% } %>
             </fieldset>
+
         </form>
     </div>
-
 
 <jsp:include page="./footer.jsp" />
 

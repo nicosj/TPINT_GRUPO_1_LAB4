@@ -21,7 +21,7 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 	private static final String update = "update cuenta set idCliente= ?, FechaCreacion = ?, TipoCuenta = ?, CBU=?, Saldo=?, estado = ?   where numero_Cuenta = ?";
 	private static final String query = "Select * FROM cuenta WHERE numero_Cuenta = ?";
 	private static final String queryGetAcountByClientId = "Select * FROM cliente c inner join cuenta cu on cu.idCliente = c.idCliente WHERE c.idCliente = ?";
-	
+	private static final String CuentaCountByIdCliente = "SELECT COUNT(*) AS cuenta_count FROM cuenta WHERE idCliente = ? AND estado = 1;";
 	@Override
 	public boolean insert(Cuenta cuenta) {
         PreparedStatement statement;
@@ -247,5 +247,25 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 		return lastCBU;
 	}
 
+	public int getCuentaCountByClientId(String idCliente) {
+	    int cuentaCount = 0;
+	    try {
+	        Connection connection = DB.getConexion().getSQLConexion();
+	        
+	        PreparedStatement statement = connection.prepareStatement(CuentaCountByIdCliente);
+	        statement.setString(1, idCliente);
 
+	        ResultSet resultSet = statement.executeQuery();
+	        if (resultSet.next()) {
+	            cuentaCount = resultSet.getInt("cuenta_count");
+	        }
+
+	        resultSet.close();
+	        statement.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return cuentaCount;
+	}
 }

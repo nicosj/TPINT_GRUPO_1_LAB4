@@ -238,6 +238,13 @@
                                                                           name="contrasena"
                                                                           placeholder="Contrasena">
                     </div>
+                                       
+                    <div class="form-group">
+                        <label for="contrasena2e">Repetir Contrasena</label> <input type="password"
+                                                                           class="form-control" id="contrasena2e"
+                                                                           name="contrasena2"
+                                                                           placeholder="Asegurese de que las contrasenias coincidan">
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-default" data-dismiss="modal"
@@ -399,7 +406,8 @@
                                                                            class="form-control" id="contrasenae"
                                                                            name="contrasena"
                                                                            placeholder="Contrasena">
-                    </div>
+
+                    
 
 
                     <div class="modal-footer">
@@ -412,6 +420,59 @@
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("Script ejecutado");
+
+    document.getElementById("editEmployeeModalForm").addEventListener("submit", function (event) {
+        console.log("Form enviado");
+
+        var nuevoUsuario = document.getElementById("usuarioe").value;
+
+        // Verificar si el nuevo nombre de usuario ya existe
+        verificarNombreUsuario(nuevoUsuario, function (existe) {
+            if (existe) {
+                console.log("El nuevo nombre de usuario ya existe");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'El nuevo nombre de usuario ya está en uso. Por favor, elige otro.',
+                    showConfirmButton: true
+                });
+
+                event.preventDefault(); // Evita que el formulario se envíe
+            } else {
+                // Continuar con el envío del formulario si el nombre de usuario no existe
+                console.log("El nuevo nombre de usuario no existe");
+            }
+        });
+    });
+
+    // Función para verificar la existencia del nombre de usuario
+    function verificarNombreUsuario(usuario, callback) {
+        // Lógica para verificar en la base de datos o en tu servicio
+        // Puedes hacer una solicitud AJAX al servidor para realizar la verificación
+
+        // Ejemplo de código para realizar una solicitud AJAX con jQuery
+        $.ajax({
+            url: "VerificarNombreUsuarioServlet", // Cambia esto al servlet o endpoint correcto
+            method: "POST",
+            data: { usuario: usuario },
+            success: function (response) {
+                // La respuesta debe ser un booleano indicando si el usuario existe o no
+                var existe = response === "true";
+                callback(existe);
+            },
+            error: function () {
+                console.error("Error al verificar el nombre de usuario");
+                // Manejar el error de manera adecuada
+                callback(false); // Suponemos que no existe en caso de error
+            }
+        });
+    }
+});
+</script>
 <!-- Delete Modal HTML -->
 <div id="deleteEmployeeModal" class="modal fade">
     <div class="modal-dialog">
@@ -437,6 +498,34 @@
         </div>
     </div>
 </div>
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("Script ejecutado");
+
+    document.getElementById("addCliente").addEventListener("submit", function (event) {
+        console.log("Form enviado");
+
+        var contrasena = document.getElementById("contrasena").value;
+        var contrasena2 = document.getElementById("contrasena2e").value;
+
+        if (contrasena !== contrasena2) {
+            console.log("Las contrasenias no son iguales");
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Las contraseñas no coinciden. Por favor, inténtalo de nuevo.',
+                showConfirmButton: true
+            });
+
+            event.preventDefault(); // Evita que el formulario se envíe
+        }
+    });
+});
+</script>
+
 
 <jsp:include page="./footer.jsp"/>
 <% } else {
