@@ -84,7 +84,7 @@ public class ModificarClienteServlet extends HttpServlet {
 
             try {
                 boolean filas = clienteDao.update(cliente);
-                boolean filas2 = usuarioDao.update(user);
+                boolean filas2 = usuarioDao.update(user, idCliente);
                 request.setAttribute("filas", filas);
                 request.setAttribute("crud", "mod");
                 request.getRequestDispatcher("/admin/cliente.jsp").forward(request, response);
