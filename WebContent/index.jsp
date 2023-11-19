@@ -47,7 +47,7 @@
 <body>
 <div class="login-form">
     <form action="LoginServlet" method="post">
-        <h2 class="text-center">Entrar</h2>       
+        <h2 class="text-center">Entrar</h2>
         <div class="form-group">
             <input type="text" class="form-control" placeholder="Usuario" required="required" name="usuario">
         </div>

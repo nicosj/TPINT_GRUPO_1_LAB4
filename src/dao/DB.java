@@ -15,7 +15,7 @@ public class DB {
 		{
 
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/banco","root","root");
+			this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/banco","root","");
 
 			this.connection.setAutoCommit(false);
 		}
@@ -31,7 +31,7 @@ public class DB {
 		if(instancia == null)
 		{
 			instancia = new DB();
-			System.out.println("public static DB getConexion entro");
+			System.out.println("public static DB getConexion entro"+ instancia.toString());
 		}
 		return instancia;
 	}
