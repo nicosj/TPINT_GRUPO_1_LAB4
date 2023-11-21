@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <%@page import="dominio.Usuario"%>
+<%
+    session= request.getSession();
+    session.setAttribute("selectC", "selected");
+
+%>
 <html lang="en">
 <head>
     <meta charset="utf-8">

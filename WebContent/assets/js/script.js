@@ -1,5 +1,7 @@
 $(document).ready(function(){
     // Activate tooltip
+    sessionStorage.getItem('currentClass')==="true"?$('.navbar-primary').addClass('collapsed'):$('.navbar-primary').removeClass('collapsed');
+
     $('[data-toggle="tooltip"]').tooltip();
 
     // Select/Deselect checkboxes
@@ -20,10 +22,18 @@ $(document).ready(function(){
             $("#selectAll").prop("checked", false);
         }
     });
-    
-    $('.btn-expand-collapse').click(function(e) {
-		$('.navbar-primary').toggleClass('collapsed');
+
+    $('.btn-expand-collapse').on('click',function(e) {
+        $('.navbar-primary').toggleClass('collapsed');
+        if(sessionStorage.getItem('currentClass')==="true"){
+            sessionStorage.setItem('currentClass', "false");
+        }else {
+            sessionStorage.setItem('currentClass', "true");
+        }
+
+
     });
+
 
 });
 

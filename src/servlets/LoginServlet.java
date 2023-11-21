@@ -50,6 +50,8 @@ public class LoginServlet extends HttpServlet {
 		
 		if (usuario.getUsuario() != null) {
 			session = request.getSession();
+
+
 			if (usuario.getTipoUsuario() == 2) {
 				session.setAttribute("client", usuario);
 				request.getRequestDispatcher("/client").forward(request, response);
@@ -57,6 +59,7 @@ public class LoginServlet extends HttpServlet {
 				session.setAttribute("admin", usuario);
 				request.getRequestDispatcher("/admin").forward(request, response);
 			}
+
 		}else {
 			RequestDispatcher dr = request.getRequestDispatcher("/index.jsp");
 			dr.forward(request, response);
