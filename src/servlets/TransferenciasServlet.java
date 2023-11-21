@@ -1,12 +1,15 @@
 package servlets;
 
+import dominio.Usuario;
+
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.HttpSession;
+import dominio.Usuario;
 /**
  * Servlet implementation class TransferenciasServlet
  */
@@ -27,6 +30,16 @@ public class TransferenciasServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		HttpSession session;
+		session = request.getSession();
+		Usuario client = (Usuario)session.getAttribute("client");
+		if (client == null) {
+			request.getRequestDispatcher("/LoginServlet").forward(request, response);
+		}
+
+		session.setAttribute("clientTrans", client);
+
+
 		request.getRequestDispatcher("/client/Transferencias.jsp").forward(request, response);
 	}
 
