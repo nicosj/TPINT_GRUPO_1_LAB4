@@ -18,8 +18,11 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 	private static final String insert = "insert into cuenta (idCliente, FechaCreacion, TipoCuenta, CBU, Saldo, numero_Cuenta, estado) values (?, ? , ?, ?, ?, ?, ?)";
 	private static final String delete = "UPDATE cuenta SET estado = 0 where numero_Cuenta = ? ";
 	private static final String readall = "SELECT * FROM cuenta";	
+	private static final String readallById = "SELECT * FROM cuenta where idCliente = ? ";
+
 	private static final String update = "update cuenta set idCliente= ?, FechaCreacion = ?, TipoCuenta = ?, CBU=?, Saldo=?, estado = ?   where numero_Cuenta = ?";
 	private static final String query = "Select * FROM cuenta WHERE numero_Cuenta = ?";
+	private static final String queryCbu = "Select * FROM cuenta WHERE CBU = ?";
 	private static final String queryGetAcountByClientId = "Select * FROM cliente c inner join cuenta cu on cu.idCliente = c.idCliente WHERE c.idCliente = ?";
 	private static final String CuentaCountByIdCliente = "SELECT COUNT(*) AS cuenta_count FROM cuenta WHERE idCliente = ? AND estado = 1;";
 	@Override
@@ -142,14 +145,14 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 	}
 
 	@Override
-	public Cuenta obtenerCuenta(int numero_cuenta) {
+	public Cuenta obtenerCuenta(String numero_cuenta) {
 		Cuenta cuenta = new Cuenta();
 		PreparedStatement statement;
 		Connection conexion =DB.getConexion().getSQLConexion();
 		
 		try {
 			 statement = conexion.prepareStatement(query);
-		     statement.setInt(1, numero_cuenta);
+		     statement.setString(1, numero_cuenta);
 		     
 		     ResultSet resultado = statement.executeQuery();
 
@@ -267,5 +270,57 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 	    }
 
 	    return cuentaCount;
+	}
+	@Override
+	public ArrayList<Cuenta> readAllByID(int clientId) {
+		PreparedStatement statement;
+		ResultSet resultSet;
+		ArrayList<Cuenta> cuentas = new ArrayList<Cuenta>();
+		DB conexion = DB.getConexion();
+		try
+		{
+			statement = conexion.getSQLConexion().prepareStatement(readallById);
+			statement.setInt(1, clientId);
+			resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				cuentas.add(getCuenta(resultSet));
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+
+		System.out.println("Cuentas size dao: " + cuentas.size());
+		return cuentas;
+	}
+	@Override
+	public Cuenta obtenerCuentaCbu(String cbu) {
+		Cuenta cuenta = new Cuenta();
+		PreparedStatement statement;
+		Connection conexion =DB.getConexion().getSQLConexion();
+
+		try {
+			statement = conexion.prepareStatement(queryCbu);
+			statement.setString(1, cbu);
+
+			ResultSet resultado = statement.executeQuery();
+
+			if (resultado.next()) {
+				cuenta.setIdCliente(resultado.getString("idCliente"));
+				cuenta.setTipo_Cuenta(resultado.getString("TipoCuenta"));
+				cuenta.setCBU(resultado.getString("CBU"));
+				cuenta.setFecha_Creacion(resultado.getString("FechaCreacion"));
+				cuenta.setSaldo(resultado.getDouble("Saldo"));
+				cuenta.setEstado(resultado.getBoolean("estado"));
+				cuenta.setNumero_Cuenta(resultado.getString("numero_Cuenta"));
+			}
+
+
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		return cuenta;
 	}
 }

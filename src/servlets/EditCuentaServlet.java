@@ -53,7 +53,7 @@ public class EditCuentaServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
 		Cuenta cuenta = new Cuenta();
-		int idCuenta = Integer.parseInt(request.getParameter("numero_Cuenta"));
+		String idCuenta = request.getParameter("numero_Cuenta");
 		if(request.getParameter("btnTraerid")!=null) {
 			try {
             	Cuenta cuenta2= new Cuenta();

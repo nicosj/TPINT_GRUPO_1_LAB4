@@ -84,6 +84,10 @@ public class Cliente {
         return nombre;
     }
 
+    public String getNombreCompleto() {
+        return nombre + " " + apellido;
+    }
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
