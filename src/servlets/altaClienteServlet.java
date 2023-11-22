@@ -83,20 +83,30 @@ public class altaClienteServlet extends HttpServlet {
 	        }
 
 
-            Cliente cliente = new Cliente(0, dni, cuil,  nombre, apellido,  sexo,  nacionalidad,  fechaNacimiento, direccion, localidad, provincia,  correo,  telefono, estado);
-            System.out.println("Servlet");
-            System.out.println(cliente);
-            ClienteDao_Implement clienteDao = new ClienteDao_Implement();
-            UsuarioDao_Implement usuarioDao = new UsuarioDao_Implement();
-            try{
-                int idCliente= clienteDao.insert(cliente);
-                Usuario us = new Usuario(0,usuario, contrasena,2, idCliente);
-                usuarioDao.insert(us);
-                request.setAttribute("filas", true);
-                request.getRequestDispatcher("/admin/cliente.jsp").forward(request, response);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+	        Cliente cliente = new Cliente(0, dni, cuil, nombre, apellido, sexo, nacionalidad, fechaNacimiento, direccion, localidad, provincia, correo, telefono, estado);
+	        System.out.println("Servlet");
+	        System.out.println(cliente);
+	        ClienteDao_Implement clienteDao = new ClienteDao_Implement();
+	        UsuarioDao_Implement usuarioDao = new UsuarioDao_Implement();
+
+	        try {
+	            // Se fija si el usuario ya existe
+	            if (usuarioDao.verificarNombreUsuario(usuario, 0)) {
+	               
+	                request.setAttribute("existeUsuario", true);
+	                request.setAttribute("errorMessage", "El nombre de usuario ya está en uso. Por favor, elija otro.");
+	                request.getRequestDispatcher("/admin/cliente.jsp").forward(request, response);
+	            } else {
+	                // Si no existe, procedemos a crear el nuevo cliente
+	                int idCliente = clienteDao.insert(cliente);
+	                Usuario us = new Usuario(0, usuario, contrasena, 2, idCliente);
+	                usuarioDao.insert(us);
+	                request.setAttribute("filas", true);
+	                request.getRequestDispatcher("/admin/cliente.jsp").forward(request, response);
+	            }
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
 		}
 	}
 

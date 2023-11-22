@@ -20,6 +20,10 @@
                                 class="material-icons">&#xE147;</i> <span>Nuevo Cliente</span></a>
 
                     </div>
+                    
+                    <div>
+                    <input type="text" id="buscador" onkeyup="filtraTabla()" placeholder="Buscar...">
+                    </div>
                 </div>
             </div>
             <table class="table table-striped table-hover">
@@ -59,7 +63,7 @@
                         for (Cliente c : clientes) {
                             for (Usuario u : usuario) {
                                 if (u.getIdCliente() == c.getIdCLiente() && (u.getTipoUsuario() == 2) && c.isEstado()) {%>
-                <tr>
+                <tr class="clientRow">
 
                     <td><%=c.getIdCLiente()%>
                     </td>
@@ -398,7 +402,7 @@
                             <label for="usuarioe">Usuario</label> <input type="text"
                                                                          class="form-control" id="usuarioe"
                                                                          name="usuario"
-                                                                         placeholder="Usuario">
+                                                                         placeholder="Usuario" readonly>
                         </div>
                     </div>
                     <div class="form-group">
@@ -406,6 +410,13 @@
                                                                            class="form-control" id="contrasenae"
                                                                            name="contrasena"
                                                                            placeholder="Contrasena">
+                                                                           
+                    <div class="form-group">
+                        <label for="contrasena2ew">Repetir Contrasena</label> <input type="password"
+                                                                           class="form-control" id="contrasena2ew"
+                                                                           name="contrasena2"
+                                                                           placeholder="Asegurese de que las contrasenias coincidan">
+                    </div>                                                                           
 
                     
 
@@ -420,7 +431,35 @@
         </div>
     </div>
 </div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("Script ejecutado");
 
+    document.getElementById("addCliente").addEventListener("submit", function (event) {
+        console.log("Form enviado");
+
+        var nuevoUsuario = document.getElementById("usuarioe").value;
+
+        // Verificar si el nuevo nombre de usuario ya existe
+        verificarNombreUsuario(nuevoUsuario, function (existe) {
+            if (existe) {
+                console.log("El nuevo nombre de usuario ya existe");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'El nuevo nombre de usuario ya está en uso. Por favor, elige otro.',
+                    showConfirmButton: true
+                });
+
+                event.preventDefault(); // Evita que el formulario se envíe
+            } else {
+                // Continuar con el envío del formulario si el nombre de usuario no existe
+                console.log("El nuevo nombre de usuario no existe");
+            }
+        });
+    });
+
+});
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     console.log("Script ejecutado");
@@ -449,30 +488,28 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // Función para verificar la existencia del nombre de usuario
+    /*// Función para verificar la existencia del nombre de usuario
     function verificarNombreUsuario(usuario, callback) {
-        // Lógica para verificar en la base de datos o en tu servicio
-        // Puedes hacer una solicitud AJAX al servidor para realizar la verificación
 
-        // Ejemplo de código para realizar una solicitud AJAX con jQuery
         $.ajax({
-            url: "VerificarNombreUsuarioServlet", // Cambia esto al servlet o endpoint correcto
+            url: "VerificarNombreUsuarioServlet",
             method: "POST",
             data: { usuario: usuario },
             success: function (response) {
-                // La respuesta debe ser un booleano indicando si el usuario existe o no
+               
                 var existe = response === "true";
                 callback(existe);
             },
             error: function () {
                 console.error("Error al verificar el nombre de usuario");
-                // Manejar el error de manera adecuada
-                callback(false); // Suponemos que no existe en caso de error
+            
+                callback(false); 
             }
         });
-    }
+    }*/
 });
 </script>
+
 <!-- Delete Modal HTML -->
 <div id="deleteEmployeeModal" class="modal fade">
     <div class="modal-dialog">
@@ -500,7 +537,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 
 
-
+<!-- Script para que conicidan las contrasenenias en nuevo cliente -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     console.log("Script ejecutado");
@@ -524,7 +561,32 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+</script><!-- Script para que conicidan las contrasenenias en la funcion de editar -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("Script ejecutado");
+
+    document.getElementById("editEmployeeModal").addEventListener("submit", function (event) {
+        console.log("Form enviado");
+
+        var contrasena = document.getElementById("contrasenae").value;
+        var contrasena2 = document.getElementById("contrasena2ew").value;
+
+        if (contrasena !== contrasena2) {
+            console.log("Las contrasenias no son iguales");
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Las contraseñas no coinciden. Por favor, inténtalo de nuevo.',
+                showConfirmButton: true
+            });
+
+            event.preventDefault(); // Evita que el formulario se envíe
+        }
+    });
+});
 </script>
+
 
 
 <jsp:include page="./footer.jsp"/>
@@ -622,3 +684,47 @@ document.addEventListener("DOMContentLoaded", function () {
     // Clear the error message attribute to avoid displaying it multiple times
     request.removeAttribute("errorMessage");
 %>
+
+<script>
+function filtrarTabla() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("buscador");
+    filter = input.value.toUpperCase();
+    table = document.querySelector(".table-striped table-hover"); 
+
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td");
+        for (var j = 0; j < td.length; j++) {
+            if (td[j]) {
+                txtValue = td[j].textContent || td[j].innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    break; p
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+}
+</script>
+
+<!-- Modal por si existe ya un nombre de usuario -->
+<div id="modalUsuarioExistente" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <p id="errorMessage"></p>
+  </div>
+</div>
+
+<script>
+function openModal(message) {
+  document.getElementById("errorMessage").innerHTML = message;
+  document.getElementById("modalUsuarioExistente").style.display = "block";
+}
+
+function closeModal() {
+  document.getElementById("modalUsuarioExistente").style.display = "none";
+}
+</script>
+
