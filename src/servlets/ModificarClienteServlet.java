@@ -58,7 +58,7 @@ public class ModificarClienteServlet extends HttpServlet {
                 return;
             }
 
-         // Verificar si el nuevo nombre de usuario ya existe
+         /*// Verificar si el nuevo nombre de usuario ya existe
             ClienteDao_Implement clienteDao = new ClienteDao_Implement();
             UsuarioDao_Implement usuarioDao = new UsuarioDao_Implement();
 
@@ -73,13 +73,15 @@ public class ModificarClienteServlet extends HttpServlet {
                 // Redirigir de nuevo a la página de edición con el mensaje de error
                 request.getRequestDispatcher("/admin/cliente.jsp").forward(request, response);
                 return;
-            }
+            }*/
 
-            // Crear instancias de Cliente y Usuario
+       
+            ClienteDao_Implement clienteDao = new ClienteDao_Implement();
+            UsuarioDao_Implement usuarioDao = new UsuarioDao_Implement();
             Cliente cliente = new Cliente(idCliente, dni, cuil, nombre, apellido, sexo, nacionalidad,
                     fechaNacimiento, direccion, localidad, provincia, correo, telefono, estado);
             Usuario user = new Usuario();
-            user.setUsuario(usuario);
+            //user.setUsuario(usuario);
             user.setClave(contrasena);
 
             try {

@@ -2,17 +2,20 @@ package dao_Implement;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import dao.DB;
 import dao.PrestamoDao_Interfaz;
+import dominio.Movimiento;
 import dominio.Prestamo;
 
 public class PrestamoDao_Implement implements PrestamoDao_Interfaz{
 	
-	final static String insert = "insert into prestamos (numero_Cuenta, Importe_Cuota, Fecha_Pedido, Importe_Total, Cuotas, estado) values (?, ?, ?, ?, ?, ?)";
-
+	private final static String insert = "insert into prestamos (numero_Cuenta, Importe_Cuota, Fecha_Pedido, Importe_Total, Cuotas, estado) values (?, ?, ?, ?, ?, ?)";
+	private final static String read = "SELECT * FROM prestamos where Importe_Total >= ?";
 	@Override
 	public boolean insert(Prestamo prestamo) {
 		PreparedStatement statement;
@@ -44,16 +47,47 @@ public class PrestamoDao_Implement implements PrestamoDao_Interfaz{
         return insercionExitosa;
 	}
 
-	@Override
-	public boolean update(Prestamo prestamo_a_modificar) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	@Override
-	public List<Prestamo> readAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Prestamo> readAllMonto(double total) {
+		ArrayList<Prestamo> listaPrestamos = new ArrayList<Prestamo>();
+		PreparedStatement statement;
+		ResultSet resultSet;
+
+		DB conexion = DB.getConexion();
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(read);
+			resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				listaPrestamos.add(obtenerPrestamo(resultSet));
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+	    for (Prestamo prestamo: listaPrestamos) {
+	    		System.out.println("Prestamo: " + prestamo.toString());	 
+	    	
+	    }
+		return listaPrestamos;
+	}	
+	private Prestamo obtenerPrestamo(ResultSet resultSet) throws SQLException
+	{
+
+		 int idPrestamo = resultSet.getInt("idPrestamo");
+		 String numero_Cuenta =resultSet.getString("numero_Cuenta");
+		 String fechaPedido = resultSet.getString("Fecha_Pedido");
+		 double importeCuota = resultSet.getDouble("Importe_Cuota");
+		 double totalImporte = resultSet.getDouble("Importe_Total");
+		 int cuotas = resultSet.getInt("Cuotas");
+		 int estado = resultSet.getInt("estado");
+				
+		
+		return new Prestamo(idPrestamo, numero_Cuenta, fechaPedido, importeCuota, totalImporte, cuotas, estado);
 	}
-	
+
+
 }
