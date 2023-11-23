@@ -13,6 +13,7 @@ public class MovimientoDao implements MovimientoDao_Imp {
 
 	private static final String insert =  "insert into Movimiento (numero_Cuenta, Fecha, Detalle_Concepto, Importe, Tipo_Movimiento) values ( ? , ?, ?, ?, ?)";
 	private static final String readall = "SELECT * FROM Movimiento";	
+	private static final String readallCuentas = "SELECT * FROM Movimiento where numero_Cuenta =?";
 	private static final String update = "update cuenta set numero_Cuenta= ?, Fecha = ?, Detalle_Concepto = ?, Importe = ?, Tipo_Movimiento = ?   where idMovimiento = ?";
 	private static final String historialCuentas = "Select * FROM Movimiento WHERE numero_Cuenta = ?";
 
@@ -155,6 +156,33 @@ public class MovimientoDao implements MovimientoDao_Imp {
 		return movimiento;
 	}
 
+	@Override
+	public ArrayList<Movimiento> readAllMovimientos(String cuentas) {
+		PreparedStatement statement;
+		ResultSet resultSet;
+		ArrayList<Movimiento> listaMovimientos = new ArrayList<Movimiento>();
+		DB conexion = DB.getConexion();
+		try
+		{
+			statement = conexion.getSQLConexion().prepareStatement(readallCuentas);
+			statement.setString(1, cuentas);
+			resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				listaMovimientos.add(obtenerMovimiento(resultSet));
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		for (Movimiento movimientos : listaMovimientos) {
+			System.out.println("Movimientos: " + movimientos.toString());
+
+		}
+
+		return listaMovimientos;
+	}
 
 
 

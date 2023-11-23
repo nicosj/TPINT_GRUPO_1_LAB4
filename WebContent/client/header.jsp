@@ -42,10 +42,7 @@
       <a class="nav-link" href="TransferenciasServlet"><span class="glyphicon glyphicon-user"></span><span class="nav-label">Transferencias</span></a>
     
     
-      <a class="nav-link" href="#"><span class="glyphicon glyphicon-list-alt"></span><span class="nav-label">Cuentas</span></a>
-    
-    
-      <a class="nav-link" href="#"><span class="glyphicon glyphicon-th-list"></span><span class="nav-label">Movimientos</span></a>
+      <a class="nav-link" href="CuentasYMovimientoServlet"><span class="glyphicon glyphicon-list-alt"></span><span class="nav-label">Movimientos</span></a>
       
       <a class="nav-link" href="SolicitudPrestamoServlet"><span class="glyphicon glyphicon-th-list"></span><span class="nav-label">Solicitud prestamo</span></a>
       

@@ -14,11 +14,8 @@
     <div class="row justify-content-center mt-0">
         <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
             <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
-                <h2><strong>Ventana Transferencias
-                    cliente <%= ((Usuario) session.getAttribute("clientTrans")).getIdCliente() %>
-                </strong></h2>
-                <h2><strong>Ventana Transferencias cliente <%= ((ArrayList) session.getAttribute("cuentas")).size() %>
-                </strong></h2>
+                <h2><strong>Ventana Transferencias </strong></h2>
+
                 <%
                     String origen= (String) session.getAttribute("stepOrigen");
                     String destino= (String) session.getAttribute("stepDestino");
@@ -36,7 +33,7 @@
                         <div id="msform">
                             <!-- progressbar -->
                             <ul id="progressbar">
-                                <li id="account" class="active"><strong>Seleccione Cuenta</strong></li>
+                                <li id="account"><strong>Seleccione Cuenta</strong></li>
                                 <li id="personal"><strong>Destino</strong></li>
                                 <li id="payment"><strong>Transferencia</strong></li>
                                 <li id="confirm"><strong>Fin</strong></li>
