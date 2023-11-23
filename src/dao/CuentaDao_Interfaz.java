@@ -13,4 +13,5 @@ public interface CuentaDao_Interfaz {
 	public Cuenta obtenerCuentaCbu(String cbu);
 	boolean delete(String numeroCuenta);
 	 ArrayList<Cuenta> readAllByID(int clientId);
+	boolean ajusteCuenta(String cuenenta, double monto);
 }

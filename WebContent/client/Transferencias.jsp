@@ -27,6 +27,7 @@
                     Cliente clix= (Cliente)session.getAttribute("clientetrans") ;
                     Cuenta cux= (Cuenta) session.getAttribute("cuentatrans");
                     String error=(String)session.getAttribute("errorMessage");
+                    String exito=(String)session.getAttribute("stepFinal");
 
                 %>
 
@@ -163,24 +164,29 @@
                                 <div class="form-card">
                                     <!--Tanferencia  cuentas-->
                                     <% if(session.getAttribute("cuentaOrigen")!=null && session.getAttribute("cuentaDestino")!=null){ %>
+                                    <form action="TransferenciasServlet" method="post">
                                     <div class="form-card text-center">
                                         <h2>Cuenta Origen Seleccionada</h2>
-
+                                        <% if (((Cuenta)session.getAttribute("cuentaOrigen")).getNumero_Cuenta()!=null)%>
                                         <span><%= ((Cuenta)session.getAttribute("cuentaOrigen")).getNumero_Cuenta() %> </span>
                                         <span><%= ((Cuenta)session.getAttribute("cuentaOrigen")).getSaldo() %></span>
                                         <h2>Cuenta Destino</h2>
                                         <span><%= ((Cuenta)session.getAttribute("cuentaDestino")).getNumero_Cuenta() %></span>
                                         <h2>Nombre y apellido</h2>
                                         <h2>Ingrese monto a transferir</h2>
-                                        <input type="number" id="transferencia" name value="">
+                                        <input type="text" id="transferencia" name="valorD" value="">
+                                        <input type="submit" name="pasoTres" class="next action-button" value="Siguiente"/>
                                     </div>
-                                    <% } %>
+                                    </form>
+                                    <% }  %>
+                                    <h2><%= error!=null?error:"transferencia exitosa"%></h2>
+
                                 </div>
                                 <input type="button" name="previous" class="previous action-button-previous"
                                        value="Anterior"/>
-                                <input type="button" name="make_payment" class="next action-button" value="Siguiente"/>
-                            </fieldset>
-                            <fieldset>
+
+                            </fieldset >
+                            <fieldset <% if(exito== "1"){ %> style="display: block;opacity: 1;"<% } else { %> class="desaTrans" <% }%> >
                                 <div class="form-card">
                                     <h2 class="fs-title text-center">Exito !</h2>
                                     <br><br>
@@ -193,7 +199,7 @@
                                     <br><br>
                                     <div class="row justify-content-center">
                                         <div class="col-7 text-center">
-                                            <h5>Transferencia exitosa</h5>
+                                            <h5><%= error!=null?error:"transferencia exitosa"%></h5>
                                         </div>
                                     </div>
                                 </div>

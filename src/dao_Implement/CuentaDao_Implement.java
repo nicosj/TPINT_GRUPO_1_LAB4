@@ -323,4 +323,26 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 		}
 		return cuenta;
 	}
+	@Override
+	public boolean ajusteCuenta(String cuenenta, double monto) {
+		// TODO Auto-generated method stub
+		Cuenta cuenta = new Cuenta();
+		cuenta= obtenerCuenta(cuenenta);
+
+		try {
+			double saldo = cuenta.getSaldo() + monto;
+			cuenta.setSaldo(saldo);
+			if(update(cuenta)) {
+				return true;
+			}
+			else {
+				System.out.println("No se pudo actualizar la cuenta");
+			}
+
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		return false;
+
+	}
 }

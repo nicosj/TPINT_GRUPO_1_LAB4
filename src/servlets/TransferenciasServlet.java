@@ -52,6 +52,7 @@ public class TransferenciasServlet extends HttpServlet {
 		session.setAttribute("stepOrigen", "1");
 		session.setAttribute("stepDestino", "0");
 		session.setAttribute("stepTrans", "0");
+		session.setAttribute("stepFinal", "0");
 		session.setAttribute("cbushow", "0");
 		session.setAttribute("cuentaOrigen",null);
 		session.setAttribute("cuentaDestino",null);
@@ -88,6 +89,7 @@ public class TransferenciasServlet extends HttpServlet {
 			session.setAttribute("stepDestino", "1");
 			session.setAttribute("stepTrans", "0");
 			session.setAttribute("cuentasFiltrada", filtra);
+			session.setAttribute("stepFinal", "0");
 			
 
 		}
@@ -97,11 +99,13 @@ public class TransferenciasServlet extends HttpServlet {
 			Cuenta cuenta = new Cuenta();
 			CuentaDao_Implement cuentaDao = new CuentaDao_Implement();
 			cuenta = cuentaDao.obtenerCuentaCbu(cbu);
-			if(cuenta != null) {
+			System.out.println(cuenta + " verrrrrrrrrrrr");
+			if(cuenta.getNumero_Cuenta() != null) {
 				System.out.println("Cuenta encontrada");
 				Cliente cliente = new Cliente();
 				ClienteDao_Implement clienteDao = new ClienteDao_Implement();
 				cliente = clienteDao.obtenerCliente(Integer.parseInt(cuenta.getIdCliente()));
+
 				System.out.println("Cliente encontrada"+cliente.getNombreCompleto());
 				session.setAttribute("clientetrans", cliente);
 				session.setAttribute("cuentatrans", cuenta);
@@ -110,9 +114,16 @@ public class TransferenciasServlet extends HttpServlet {
 				session.setAttribute("stepOrigen", "0");
 				session.setAttribute("stepDestino", "1");
 				session.setAttribute("stepTrans", "0");
+				session.setAttribute("stepFinal", "0");
+				session.setAttribute("errorMessage", null);
 
 			} else {
-				request.setAttribute("errorMessage", "Cliente no existente");
+				session.setAttribute("cbushow", "1");
+				session.setAttribute("stepOrigen", "0");
+				session.setAttribute("stepDestino", "1");
+				session.setAttribute("stepTrans", "0");
+				session.setAttribute("stepFinal", "0");
+				session.setAttribute("errorMessage", "Cliente no existente");
 			}
 		}
 		else if(request.getParameter("pasoCbu") != null ) {
@@ -131,7 +142,7 @@ public class TransferenciasServlet extends HttpServlet {
 					session.setAttribute("stepDestino", "0");
 					session.setAttribute("cbushow", "0");
 					session.setAttribute("stepTrans", "1");
-
+					session.setAttribute("stepFinal", "0");
 				} else {
 					request.setAttribute("errorMessage", "CBU no encontrado");
 				}
@@ -157,7 +168,7 @@ public class TransferenciasServlet extends HttpServlet {
 				session.setAttribute("stepDestino", "0");
 				session.setAttribute("cbushow", "0");
 				session.setAttribute("stepTrans", "1");
-
+				session.setAttribute("stepFinal", "0");
 
 			} else if (historial != null){
 
@@ -167,7 +178,37 @@ public class TransferenciasServlet extends HttpServlet {
 
 		}
 		else if(request.getParameter("pasoTres") != null ) {
-			System.out.println("Transferir paso 3");
+			System.out.println("Paso 3");
+			System.out.println(request.getParameter("valorD") +" valor test");
+			if(request.getParameter("valorD")!=null) {
+				String valor = request.getParameter("valorD");
+				System.out.println(valor+" valor");
+				if(((Cuenta)session.getAttribute("cuentaOrigen")).getSaldo()>=Double.parseDouble(valor)){
+					session.setAttribute("stepOrigen", "0");
+					session.setAttribute("stepDestino", "0");
+					session.setAttribute("cbushow", "0");
+					session.setAttribute("stepTrans", "0");
+					session.setAttribute("stepFinal", "1");
+
+					CuentaDao_Implement cuentaDao = new CuentaDao_Implement();
+					if(cuentaDao.ajusteCuenta(((Cuenta)session.getAttribute("cuentaOrigen")).getNumero_Cuenta(),-(Double.parseDouble(valor)))){
+						if(cuentaDao.ajusteCuenta(((Cuenta)session.getAttribute("cuentaDestino")).getNumero_Cuenta(),(Double.parseDouble(valor)))){
+							session.setAttribute("errorMessage", null);
+						}else{
+							cuentaDao.ajusteCuenta(((Cuenta)session.getAttribute("cuentaOrigen")).getNumero_Cuenta(),(Double.parseDouble(valor)));
+							session.setAttribute("errorMessage", "Error al transferir");
+						}
+					}
+				}else{
+					session.setAttribute("stepOrigen", "0");
+					session.setAttribute("stepDestino", "0");
+					session.setAttribute("cbushow", "0");
+					session.setAttribute("stepTrans", "1");
+					session.setAttribute("stepFinal", "0");
+					session.setAttribute("errorMessage", "Saldo insuficiente");
+				}
+
+			}
 
 		}
 		request.getRequestDispatcher("/client/Transferencias.jsp").forward(request, response);
