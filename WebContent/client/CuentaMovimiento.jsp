@@ -22,10 +22,10 @@
                         out.println("<form action='CuentasYMovimientoServlet' method='post' class='cuenta' style='cursor: pointer ;' id=" + cuenta.getNumero_Cuenta() + " >");
                         out.println("<div class='card px-0 pt-4 pb-0 mt-3 mb-3'>");
                         out.println("<div class='card-body'>");
-
-                        out.println("<h2>" + cuenta.getNumero_Cuenta() + "</h2>");
-                        out.println("<h1>" + cuenta.getSaldo() + "</h1>");
-                        out.println("<h4>" + cuenta.getEstado() + "</h4>");
+                        out.println("<h2 class='text-center'>Tipo de cuenta: "+ cuenta.getTipo_Cuenta() +"</h2>");
+                        out.println("<h2>Numero de cuenta: " + cuenta.getNumero_Cuenta() + "</h2>");
+                        out.println("<h1>Saldo: $" + cuenta.getSaldo() + "</h1>");
+                        out.println("<h4>CBU: " + cuenta.getCBU() + "</h4>");
                         out.println("<input type='hidden' name='ncuenta' value='" + cuenta.getNumero_Cuenta() + "'/>");
                         out.println("</div>");
                         out.println("</div>");
