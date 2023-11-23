@@ -2,11 +2,13 @@ package servlets;
 
 import dao_Implement.ClienteDao_Implement;
 import dao_Implement.CuentaDao_Implement;
-import dominio.Cliente;
-import dominio.Cuenta;
-import dominio.Usuario;
+import dao_Implement.MovimientoDao;
+import dominio.*;
 
 import java.io.IOException;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Objects;
 import javax.servlet.ServletException;
@@ -38,6 +40,7 @@ public class TransferenciasServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		HttpSession session;
 		session = request.getSession();
+		try {
 		Usuario client = (Usuario)session.getAttribute("client");
 		if (client == null) {
 			request.getRequestDispatcher("/LoginServlet").forward(request, response);
@@ -59,6 +62,9 @@ public class TransferenciasServlet extends HttpServlet {
 		session.setAttribute("cuentatrans",null);
 		session.setAttribute("clientetrans",null);
 		session.setAttribute("error",null);
+		}catch(Exception e) {
+			System.out.println(e.toString());
+		}
 		request.getRequestDispatcher("/client/Transferencias.jsp").forward(request, response);
 	}
 
@@ -70,6 +76,7 @@ public class TransferenciasServlet extends HttpServlet {
 
 		HttpSession session ;
 		session = request.getSession();
+		
 		if(request.getParameter("pasoUno") != null ) {
 			System.out.println("Transferir paso 1");
 			String cuentaOrigen = request.getParameter("cuentasel");
@@ -115,7 +122,7 @@ public class TransferenciasServlet extends HttpServlet {
 				session.setAttribute("stepDestino", "1");
 				session.setAttribute("stepTrans", "0");
 				session.setAttribute("stepFinal", "0");
-				session.setAttribute("errorMessage", null);
+				session.setAttribute("error", null);
 
 			} else {
 				session.setAttribute("cbushow", "1");
@@ -123,7 +130,7 @@ public class TransferenciasServlet extends HttpServlet {
 				session.setAttribute("stepDestino", "1");
 				session.setAttribute("stepTrans", "0");
 				session.setAttribute("stepFinal", "0");
-				session.setAttribute("errorMessage", "Cliente no existente");
+				session.setAttribute("error", "Cliente no existente");
 			}
 		}
 		else if(request.getParameter("pasoCbu") != null ) {
@@ -144,7 +151,7 @@ public class TransferenciasServlet extends HttpServlet {
 					session.setAttribute("stepTrans", "1");
 					session.setAttribute("stepFinal", "0");
 				} else {
-					request.setAttribute("errorMessage", "CBU no encontrado");
+					request.setAttribute("error", "CBU no encontrado");
 				}
 
 			}
@@ -192,11 +199,37 @@ public class TransferenciasServlet extends HttpServlet {
 
 					CuentaDao_Implement cuentaDao = new CuentaDao_Implement();
 					if(cuentaDao.ajusteCuenta(((Cuenta)session.getAttribute("cuentaOrigen")).getNumero_Cuenta(),-(Double.parseDouble(valor)))){
+						
+
 						if(cuentaDao.ajusteCuenta(((Cuenta)session.getAttribute("cuentaDestino")).getNumero_Cuenta(),(Double.parseDouble(valor)))){
-							session.setAttribute("errorMessage", null);
+						
+							DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+							LocalDateTime now = LocalDateTime.now();
+							Movimiento movimiento = new Movimiento();
+							MovimientoDao movimientoDao = new MovimientoDao();
+							//cuenta origen
+							movimiento.setNumero_Cuenta(((Cuenta)session.getAttribute("cuentaOrigen")).getNumero_Cuenta());
+							movimiento.setFechaMovimiento(dtf.format(now).toString());
+							movimiento.setDetalleConcepto("Transferencia");
+							movimiento.setImporteMovimiento(-(Double.parseDouble(valor)));
+							movimiento.setTipoMovimiento("Debito");
+							movimientoDao.insert(movimiento);
+
+							//Destino
+
+							movimiento.setNumero_Cuenta(((Cuenta)session.getAttribute("cuentaDestino")).getNumero_Cuenta());
+							movimiento.setFechaMovimiento(dtf.format(now).toString());
+							movimiento.setDetalleConcepto("Transferencia");
+							movimiento.setImporteMovimiento(Double.parseDouble(valor));
+							movimiento.setTipoMovimiento("Credito");
+
+							movimientoDao.insert(movimiento);
+
+
+							session.setAttribute("error", null);
 						}else{
 							cuentaDao.ajusteCuenta(((Cuenta)session.getAttribute("cuentaOrigen")).getNumero_Cuenta(),(Double.parseDouble(valor)));
-							session.setAttribute("errorMessage", "Error al transferir");
+							session.setAttribute("error", "Error al transferir");
 						}
 					}
 				}else{
@@ -205,7 +238,7 @@ public class TransferenciasServlet extends HttpServlet {
 					session.setAttribute("cbushow", "0");
 					session.setAttribute("stepTrans", "1");
 					session.setAttribute("stepFinal", "0");
-					session.setAttribute("errorMessage", "Saldo insuficiente");
+					session.setAttribute("error", "Saldo insuficiente");
 				}
 
 			}

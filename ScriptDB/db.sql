@@ -134,3 +134,6 @@ DROP INDEX `FK_Intereses_idx` ;
 
 DROP TABLE `banco`.`intereses`;
 
+Alter TABLE `banco`.`movimiento`
+alter column `Fecha` varchar(50) not null;
+

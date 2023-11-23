@@ -11,7 +11,7 @@ import dominio.Movimiento;
 
 public class MovimientoDao implements MovimientoDao_Imp {
 
-	private static final String insert =  "insert into cuenta (idMovimiento, numero_Cuenta, Fecha, Detalle_Concepto, Importe, Tipo_Movimiento) values (?, ? , ?, ?, ?, ?)";
+	private static final String insert =  "insert into Movimiento (numero_Cuenta, Fecha, Detalle_Concepto, Importe, Tipo_Movimiento) values ( ? , ?, ?, ?, ?)";
 	private static final String readall = "SELECT * FROM Movimiento";	
 	private static final String update = "update cuenta set numero_Cuenta= ?, Fecha = ?, Detalle_Concepto = ?, Importe = ?, Tipo_Movimiento = ?   where idMovimiento = ?";
 	private static final String historialCuentas = "Select * FROM Movimiento WHERE numero_Cuenta = ?";
@@ -24,12 +24,11 @@ public class MovimientoDao implements MovimientoDao_Imp {
         try
         {
             statement =  conexion.prepareStatement(insert);
-            statement.setString(1, movimiento.getIdMovimiento());
-            statement.setString(2, movimiento.getNumero_Cuenta());
-            statement.setString(3, movimiento.getFechaMovimiento());
-            statement.setString(4, movimiento.getDetalleConcepto());
-            statement.setDouble(5, movimiento.getImporteMovimiento());
-            statement.setString(6, movimiento.getTipoMovimiento());
+            statement.setString(1, movimiento.getNumero_Cuenta());
+            statement.setString(2, movimiento.getFechaMovimiento());
+            statement.setString(3, movimiento.getDetalleConcepto());
+            statement.setDouble(4, movimiento.getImporteMovimiento());
+            statement.setString(5, movimiento.getTipoMovimiento());
             
             if(statement.executeUpdate() > 0)
             {
