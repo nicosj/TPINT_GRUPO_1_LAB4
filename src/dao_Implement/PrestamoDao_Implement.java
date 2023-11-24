@@ -58,6 +58,7 @@ public class PrestamoDao_Implement implements PrestamoDao_Interfaz{
 		try 
 		{
 			statement = conexion.getSQLConexion().prepareStatement(read);
+			statement.setDouble(1, total);
 			resultSet = statement.executeQuery();
 			while(resultSet.next())
 			{
