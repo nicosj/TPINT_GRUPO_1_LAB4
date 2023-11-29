@@ -3,17 +3,9 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<% if(session.getAttribute("client") != null) {%>
 
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
- 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solicitud de Prestamo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
+<% if(session.getAttribute("client") != null) {%>
+<jsp:include page="./header.jsp" />
 <div class="container">
         <h1 class="mt-5">Solicitud de Prestamo</h1>
         <form id="loanForm" action="SolicitudPrestamoServlet" method="post">
@@ -26,7 +18,7 @@
                 <select class="form-select" id="cuotas" onchange="calculateFinalAmount()" name="interes">
                 		<option value="10" label="6"></option>
                 		<option value="20" label="12"></option>
-                		<option value="30" label="18"></option>              
+                		<option value="30" label="18"></option>
                 </select>
                 <label id="interesesLabel" for="cuotas" class="form-label" ></label>
                 <input id="cantCuotas" name="cantCuotas" style="display: none;">
@@ -37,18 +29,18 @@
                 <% List<Cuenta> cuentas = (List<Cuenta>)request.getAttribute("cuentas"); %>
                 <% for(Cuenta cuenta : cuentas) {%>
                     <option value="<%= cuenta.getNumero_Cuenta() %>">
-                        <strong>Cuenta nÂ° <%= cuenta.getNumero_Cuenta() %></strong><br>
+                        <strong>Cuenta n° <%= cuenta.getNumero_Cuenta() %></strong><br>
                         <span style="font-size: 12px; color: #555;">Saldo actual: <%= cuenta.getSaldo() %>$</span>
                     </option>
                 <% } %>
-                    
+
                 </select>
             </div>
             <div class="mb-3">
                 <label for="costoFinal" class="form-label">Costo final (ARS)</label>
                 <input type="number" class="form-control" id="costoFinal" name="costoFinal" value="" disabled>
             </div>
-            <button type="button" id="acceptButton" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#confirmModal">
+            <button type="button" id="acceptButton" class="btn btn-primary " data-bs-target="modal" data-bs-target="#confirmModal">
                 Aceptar
             </button>
             <button type="button" class="btn btn-secondary">Cancelar</button>
@@ -74,12 +66,8 @@
 	        </div>
 	    </div>
 	</div>
-	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-	<script>
+<jsp:include page="./footer.jsp" />
+	<script type="text/javascript">
 		document.addEventListener('DOMContentLoaded', function() {
 			calculateFinalAmount();
 	    });
@@ -88,7 +76,7 @@
 			document.getElementById("loanForm").submit();
 		})
 		function calculateFinalAmount(){
-			const amount = parseInt(document.getElementById("monto").value);
+			const amount = document.getElementById("monto").value;
 			const interest = document.getElementById("cuotas").value;
 			const cuotas = document.getElementById("cuotas").options[document.getElementById("cuotas").selectedIndex].label;
 			const finalAmount = document.getElementById("costoFinal");
@@ -112,8 +100,7 @@
 		}
 		
 	</script>
-</body>
-</html>
+
 <% }else {
 	response.sendRedirect("../index.jsp");
 }%>
