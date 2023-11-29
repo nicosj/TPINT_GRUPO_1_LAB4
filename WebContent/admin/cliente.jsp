@@ -21,12 +21,10 @@
 
                     </div>
                     
-                    <div>
-                    <input type="text" id="buscador" onkeyup="filtraTabla()" placeholder="Buscar...">
-                    </div>
+
                 </div>
             </div>
-            <table class="table table-striped table-hover">
+            <table  id="tablaConPaginadorYFiltro"  class="display">
                 <thead>
                 <tr>
                     <th>ID</th>
@@ -129,20 +127,7 @@
 
                 </tbody>
             </table>
-            <div class="clearfix">
-                <div class="hint-text">
-                    Mostrar <b>5</b> de <b>25</b> clientes
-                </div>
-                <ul class="pagination">
-                    <li class="page-item disabled"><a href="#">Anterior</a></li>
-                    <li class="page-item"><a href="#" class="page-link">1</a></li>
-                    <li class="page-item"><a href="#" class="page-link">2</a></li>
-                    <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                    <li class="page-item"><a href="#" class="page-link">4</a></li>
-                    <li class="page-item"><a href="#" class="page-link">5</a></li>
-                    <li class="page-item"><a href="#" class="page-link">Siguiente</a></li>
-                </ul>
-            </div>
+
         </div>
     </div>
 </div>
@@ -626,6 +611,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         })
 
+        let table = new DataTable('#tablaConPaginadorYFiltro', {
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+            },
+        });
 
     });
 
@@ -685,7 +675,7 @@ document.addEventListener("DOMContentLoaded", function () {
     request.removeAttribute("errorMessage");
 %>
 
-<script>
+<%--<script>
 function filtrarTabla() {
     var input, filter, table, tr, td, i, txtValue;
     input = document.getElementById("buscador");
@@ -707,7 +697,7 @@ function filtrarTabla() {
         }
     }
 }
-</script>
+</script>--%>
 
 <!-- Modal por si existe ya un nombre de usuario -->
 <div id="modalUsuarioExistente" class="modal">
