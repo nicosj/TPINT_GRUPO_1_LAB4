@@ -58,7 +58,7 @@
     </li>
     <li>
       <a class="nav-link" href="#"><span class="glyphicon glyphicon-th-list"></span><span class="nav-label">Movimientos</span></a>
-    
+
     
     </li>
   </ul>
