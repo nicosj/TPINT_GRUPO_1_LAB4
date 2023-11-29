@@ -15,7 +15,7 @@
 
                 </div>
             </div>
-            <table class="table table-striped table-hover">
+            <table id="tablaConPaginadorYFiltro"  class="display">
                 <thead>
                 <tr>
                     <th>idCliente</th>
@@ -25,6 +25,7 @@
                     <th>Saldo</th>
                     <th>numero_Cuenta</th>
                     <th>Estado</th>
+                    <th>Acciones </th>
                 </tr>
                 </thead>
                 <%
@@ -77,18 +78,7 @@
 				</tbody>
 			</table>
             
-            <div class="clearfix">
-                <div class="hint-text">Mostrar <b>1</b> de <b>25</b> clientes</div>
-                <ul class="pagination">
-                    <li class="page-item disabled"><a href="#">Anterior</a></li>
-                    <li class="page-item"><a href="#" class="page-link">1</a></li>
-                    <li class="page-item"><a href="#" class="page-link">2</a></li>
-                    <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                    <li class="page-item"><a href="#" class="page-link">4</a></li>
-                    <li class="page-item"><a href="#" class="page-link">5</a></li>
-                    <li class="page-item"><a href="#" class="page-link">Siguiente</a></li>
-                </ul>
-            </div>
+            
         </div>
     </div>
 </div>
@@ -210,6 +200,11 @@ function deleteModal(numero_Cuenta) {
 
 
 $(document).ready(function () {
+	let table = new DataTable('#tablaConPaginadorYFiltro', {
+	    language: {
+	        url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+	    },
+	});    
     $('#editar').on("click", function (e) {
         var self = $(this);
         e.preventDefault();
@@ -230,7 +225,7 @@ $(document).ready(function () {
         })
         })});
 
-        
+
 </script>
 
 <% }else {
