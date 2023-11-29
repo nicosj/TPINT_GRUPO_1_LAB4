@@ -61,8 +61,7 @@
        '<%=c.getCBU()%>',
        '<%=c.getSaldo()%>',
        '<%=c.getNumero_Cuenta()%>',
-       '<%=c.getEstado()%>'
-   )">
+       '<%=c.getEstado()%>')">
    <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
 </a>
                         </form>
@@ -114,9 +113,12 @@
                         <input type="text" class="form-control" name="FechaCreacion" id="FechaCreacion" placeholder="FechaCreacion">
                     </div>
                     <div class="form-group">
-                        <label for="TipoCuenta">TipoCuenta</label>
-                        <input type="text" class="form-control" name="TipoCuenta" id="TipoCuenta" placeholder="TipoCuenta">
-                    </div>
+				    <label for="TipoCuenta">TipoCuenta</label>
+ 					   <select class="form-control" name="TipoCuenta" id="TipoCuenta">
+					        <option value="CC">CC</option>
+ 					       <option value="CA">CA</option>
+					    </select>
+					</div>
                     <div class="form-group">
                         <label for="CBU">CBU</label>
                         <input type="text" class="form-control" name="CBU" id="CBU" placeholder="CBU">
@@ -127,7 +129,7 @@
                     </div>
                     <div class="form-group">
                         <label for="numero_Cuenta">numero_Cuenta</label>
-                        <input type="text" class="form-control" name="numero_Cuenta" id="numero_Cuenta" placeholder="numero_Cuenta">
+                        <input type="text" class="form-control" name="numero_Cuenta" id="numero_Cuenta" placeholder="numero_Cuenta" readonly>
                     </div>
                     <div class="form-group">
                         <label for="Estado">Estado</label>
@@ -137,7 +139,7 @@
                     </div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                    <input type="submit" name="btnEdit" class="btn btn-info" value="Guardar">
+                    <input type="submit" name="btnEdit" class="btn btn-info" id="editar" value="Guardar">
                 </div>
             </form>
         </div>
@@ -206,6 +208,29 @@ function deleteModal(numero_Cuenta) {
     document.getElementById("deleteNumCuenta").value =numero_Cuenta;
 }
 
+
+$(document).ready(function () {
+    $('#editar').on("click", function (e) {
+        var self = $(this);
+        e.preventDefault();
+        Swal.fire({
+            title: '¿Estas seguro?',
+            text: "Usted esta por modificar una cuenta!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+	cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirmar',
+
+
+        }).then((result) => {
+            if (result.isConfirmed) {
+                self.off("click").click();
+            }
+        })
+        })});
+
+        
 </script>
 
 <% }else {

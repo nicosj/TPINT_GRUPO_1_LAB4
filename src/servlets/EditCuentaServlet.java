@@ -39,11 +39,12 @@ public class EditCuentaServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
 		CuentaDao_Implement cuentaDao = new CuentaDao_Implement();
 		ArrayList<Cuenta> cuentas = cuentaDao.readAll();
 		request.setAttribute("cuentas", cuentas);
 		request.getRequestDispatcher("/admin/ListadoCuentas.jsp").forward(request, response);
-
+		
 	}
 
 	/**
@@ -60,7 +61,7 @@ public class EditCuentaServlet extends HttpServlet {
             	CuentaDao_Implement cuentaDao = new CuentaDao_Implement();
             	cuenta2= cuentaDao.obtenerCuenta(idCuenta);
             	request.setAttribute("cuenta", cuenta2);
-            	request.getRequestDispatcher("/admin/ListadoCuentas.jsp").forward(request, response);
+            	//request.getRequestDispatcher("/admin/ListadoCuentas.jsp").forward(request, response);
 			} catch (Exception e) {
 				
 				// TODO: handle exception
@@ -86,6 +87,11 @@ public class EditCuentaServlet extends HttpServlet {
             	cuenta2= cuentaDao.obtenerCuenta(idCuenta);
                 boolean filas= cuentaDao.update(cuenta);
                 request.setAttribute("filas", filas);
+                request.setAttribute("updateSuccess", true);
+                ArrayList<Cuenta> cuentas = cuentaDao.readAll();
+        		request.setAttribute("cuentas", cuentas);
+                request.getRequestDispatcher("/admin/ListadoCuentas.jsp").forward(request, response);
+                
             } catch (Exception e) {
                 e.printStackTrace();
             }
