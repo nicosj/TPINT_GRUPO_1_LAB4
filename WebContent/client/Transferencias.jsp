@@ -72,7 +72,7 @@
                                     <select name="tipoTrans" class="tipoTrans" id="tipoTrans">
                                         <option selected > Seleccione tipo de Transferencia</option>
                                         <option value="1"> Entre cuentas propias</option>
-                                  <%--      <option value="2"> A terceros</option>--%>
+
                                         <option value="3"> Nuevo Destinatario</option>
                                     </select>
                                     <%-- :-D cuentas propias--%>
@@ -98,28 +98,7 @@
                                             <input type="submit" name="pasoDos" class="next action-button" value="Siguiente"/>
                                         </form>
                                     </div>
-                                    <%-- :-D historial de transferencias--%>
-                                  <%--  <div class="hiddenHistory">
-                                        <form action="TransferenciasServlet" method="post">
-                                        <h2>Seleccione Historial de transgferencia</h2>
-                                        <select name="historial" id="historial">
-                                            <%
-                                                ArrayList<Cuenta> hcuentas = (ArrayList<Cuenta>) session.getAttribute("cuentas");
 
-                                                if (hcuentas != null) {
-                                                    for (Cuenta cu : hcuentas) {
-                                            %>
-                                            <option value="<%= cu.getNumero_Cuenta() %>"><%= "Tipo de Cuenta: " + cu.getTipo_Cuenta() + "Numero de Cuenta: " + cu.getNumero_Cuenta() + "|"%>
-                                            </option>
-                                            <%
-                                                    }
-                                                }
-                                            %>
-                                        </select>
-
-                                            <input type="submit" name="pasoDos" class="next action-button" value="Siguiente"/>
-                                        </form>
-                                    </div>--%>
                                     <%-- :-D Nuevo destino--%>
                                     <div  <% if(cbushow== "1"){ %> class="cleart" style="display: block;opacity: 1;"<%}else{%> class="hiddenCbu" <% } %> >
 
@@ -193,8 +172,7 @@
                                     <h2><%= error!=null?error:""%></h2>
 
                                 </div>
-                                <input type="button" name="previous" class="previous action-button-previous"
-                                       value="Anterior"/>
+
 
                             </fieldset >
                             <fieldset <% if(pasos== 3){ %> style="display: block;opacity: 1;"<% } else { %> class="desaTrans" <% }%> >
@@ -215,6 +193,11 @@
                                     </div>
                                 </div>
                             </fieldset>
+                            <%--<button type="button" name="previous" class="previous action-button-previous"
+                                   value="Volver"/>--%>
+                            <div <% if(pasos>0){ %> style="display: block;opacity: 1;" <%}else{%>class="desaTrans" <% } %>>
+                                <a id="cancelarFId" class="previous action-button-previous" href="TransferenciasServlet"><span class="nav-label">Volver</span></a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -231,7 +214,7 @@
             e.preventDefault();
             Swal.fire({
                 title: '¿Estas seguro?',
-                text: "Usted esta por hacer una transsferencia!",
+                text: "Usted esta por hacer una transferencia!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -246,6 +229,25 @@
             })
 
 
+        });
+        $('#cancelarFId').on("click", function (e) {
+            var self = $(this);
+            e.preventDefault();
+            Swal.fire({
+                title: '¿Estas seguro?',
+                text: "Usted esta por cancelar la transferencia!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Confirmar',
+
+
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    self.off("click").click();
+                }
+            })
         });
         $('.tipoTrans').change(function () {
             var value = $(this).val();
