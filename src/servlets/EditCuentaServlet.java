@@ -82,15 +82,28 @@ public class EditCuentaServlet extends HttpServlet {
             System.out.println("Servlet");
             System.out.println(cuenta);
             CuentaDao_Implement cuentaDao = new CuentaDao_Implement();
+            int cuentaCount = cuentaDao.getCuentaCountByClientId(request.getParameter("idCliente"));
             try{
+            	
+                
+                if (cuentaCount < 3) {
+            	
             	Cuenta cuenta2= new Cuenta();
             	cuenta2= cuentaDao.obtenerCuenta(idCuenta);
                 boolean filas= cuentaDao.update(cuenta);
                 request.setAttribute("filas", filas);
                 request.setAttribute("updateSuccess", true);
+                
+                
+                }
+                else {
+                	System.out.println("uwu");
+                	 request.setAttribute("errorMessage", "La cuenta no puede asociarse al nuevo cliente, ya posee 3 cuentas asociadas.");
+                }
                 ArrayList<Cuenta> cuentas = cuentaDao.readAll();
         		request.setAttribute("cuentas", cuentas);
                 request.getRequestDispatcher("/admin/ListadoCuentas.jsp").forward(request, response);
+                
                 
             } catch (Exception e) {
                 e.printStackTrace();
