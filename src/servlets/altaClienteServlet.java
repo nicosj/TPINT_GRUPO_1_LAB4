@@ -52,7 +52,7 @@ public class altaClienteServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
 		if(request.getParameter("alta")!=null){
-
+			int id=0;
 			String dni = request.getParameter("dni");
 			String cuil = request.getParameter("cuil");
 			String nombre = request.getParameter("nombre");
@@ -83,7 +83,7 @@ public class altaClienteServlet extends HttpServlet {
 	        }
 
 
-	        Cliente cliente = new Cliente(0, dni, cuil, nombre, apellido, sexo, nacionalidad, fechaNacimiento, direccion, localidad, provincia, correo, telefono, estado);
+	        Cliente cliente = new Cliente(id, dni, cuil, nombre, apellido, sexo, nacionalidad, fechaNacimiento, direccion, localidad, provincia, correo, telefono, estado);
 	        System.out.println("Servlet");
 	        System.out.println(cliente);
 	        ClienteDao_Implement clienteDao = new ClienteDao_Implement();
@@ -91,7 +91,7 @@ public class altaClienteServlet extends HttpServlet {
 
 	        try {
 	            // Se fija si el usuario ya existe
-	            if (usuarioDao.verificarNombreUsuario(usuario, 0)) {
+	            if (usuarioDao.verificarNombreUsuario(usuario, id) && clienteDao.ExisteDNI(dni, id)) {
 	               
 	                request.setAttribute("existeUsuario", true);
 	                request.setAttribute("errorMessage", "El nombre de usuario ya está en uso. Por favor, elija otro.");
