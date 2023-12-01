@@ -57,8 +57,11 @@
                                                 }
                                             %>
                                         </select>
+                                        <div class="marcoNext">
+                                            <input type="submit" class="next action-button" name="pasoUno" value="Siguiente"/>
+                                        </div>
                                     </div>
-                                    <input type="submit" class="next action-button" name="pasoUno" value="Siguiente"/>
+
                                 </form>
 
                                 <%--<input type="submit" name="next" class="next action-button" value="Siguientetest"/>--%>
@@ -94,8 +97,9 @@
                                                     }
                                                 %>
                                             </select>
-
+                                            <div class="marcoNext">
                                             <input type="submit" name="pasoDos" class="next action-button" value="Siguiente"/>
+                                            </div>
                                         </form>
                                     </div>
 
@@ -105,7 +109,9 @@
                                         <form action="TransferenciasServlet" method="post">
                                             <h2>Ingrese Nuevo CBU</h2>
                                             <input type="number" id="cbu" name="cbu" value="">
+                                            <div class="marcoNext">
                                             <input type="submit" name="valida" class="next action-button" value="Buscar"/>
+                                            </div>
                                         </form>
                                         <div>
 
@@ -133,7 +139,9 @@
                                         </div>
                                         <form action="TransferenciasServlet" method="post">
                                             <input type="hidden" name="cbus" value="<%= cux!=null?cux.getNumero_Cuenta():""%>">
+                                            <div class="marcoNext">
                                             <input type="submit" name="pasoCbu" class="next action-button" value="Siguiente"/>
+                                            </div>
                                         </form>
 
                                         </div>
@@ -166,7 +174,9 @@
 
                                         <h2>Ingrese monto a transferir</h2>
                                         <input type="text" class="form-control" id="transferencia" name="valorD" value="">
+                                            <div class="marcoNext">
                                         <input type="submit" name="pasoTres" id="transferirFId" class="next action-button" value="Transferir"/>
+                                            </div>
                                         <h2 <%= error!=null?"class='errors'":"" %>><%= error!=null?error:""%></h2>
                                     </div>
                                     </form>
