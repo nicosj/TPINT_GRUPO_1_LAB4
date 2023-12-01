@@ -59,7 +59,7 @@
 		</ul>
     </li>
     <li>
-      <a class="nav-link" href="#"><span class="glyphicon glyphicon-th-list"></span><span class="nav-label">Movimientos</span></a>
+      <a class="nav-link" href="ReportesMenu.jsp"><span class="glyphicon glyphicon-th-list"></span><span class="nav-label">Reportes</span></a>
 
     
     </li>

@@ -4,6 +4,7 @@
     <%@page import="java.util.ArrayList" %>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<% if(session.getAttribute("admin") != null) {%>
 <html>
 <head>
 <style>
@@ -30,7 +31,7 @@
          	font-family: 'DM Serif Display', serif;
             font-size: 90px;
             font-weight: bold;
-            color: green;
+            color: cornflowerblue;
 
         }
 
@@ -88,7 +89,7 @@
             text-decoration: none;
             padding-left: 200px;
             font-size: 20px; 
-            color: green;
+        	color: cornflowerblue;
             font-weight: 500; 
         }
         .div-final{
@@ -97,7 +98,7 @@
         .div-final h5{
         	font-family: 'Roboto Slab', serif;
         	text-align: center;
-        	color: green;
+       		color: cornflowerblue;
         	padding-left: 300px;
             
         }
@@ -105,14 +106,14 @@
 		.div-final a{
 		    padding-left: 500px;
             font-size: 16px; 
-            color: green;
+       		color: cornflowerblue;
             text-align: center;
             font-family: 'Roboto Slab', serif;
             
 		}
 		 select, label, .btn, table {
 		    font-family: 'Roboto Slab', serif;
-		    font-size: 18px;
+		    font-size: 20px;
 		}
 	.divInicial select,
 	.divControladores {
@@ -175,7 +176,7 @@
 
 	
         <div class="divControladores">
-            <input type="submit" name="btnAceptar" value="Aceptar"  class="btn btn-success" style="padding: 10px 40px;">
+            <input type="submit" name="btnAceptar" value="Aceptar"  class="btn btn-outline-info" style="padding: 10px 40px;">
             <a href="ReporteClienteXProvincia.jsp">Limpiar pantalla</a>
         </div>
      </div>		
@@ -186,7 +187,7 @@
             clientes = (ArrayList<Cliente>) request.getAttribute("listadoClientes");
         %>
    <div class="div-tabla-reporte" id="contenidoTabla">
-        <table class="table table-success table-striped">
+        <table class="table table-primary table-striped">
 
             <thead>
                 <tr>
@@ -239,11 +240,16 @@
 		        if(cantidadClientes>0){ %>
 		        	<h5>Cantidad de clientes total: <%=cantidadClientes%> </h5>
 		        	<a href="index.jsp">Volver atrás</a>
-		       <%}%>
-	      </div> 
+		       <%} else if(cantidadClientes==0 &&  clientes!=null){%>
+		       		<h5>No hay clientes registrados que cumplan con los criterios.</h5>
+		       <%} %>
+		  </div> 
 	</form>
 
 </body>
 </html>
 
+<% }else {
+	response.sendRedirect("../index.jsp");
+}%>
 		<jsp:include page="./footer.jsp" />
