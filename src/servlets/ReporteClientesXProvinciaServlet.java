@@ -46,7 +46,8 @@ public class ReporteClientesXProvinciaServlet extends HttpServlet {
 				request.setAttribute("listadoClientes", clientesFiltrado);
 				request.setAttribute("cantClientes", cantidadClientes);
 				request.getRequestDispatcher("/admin/ReporteClienteXProvincia.jsp").forward(request, response);
-		} 
+		}
+		request.getRequestDispatcher("/admin/ReporteClienteXProvincia.jsp").forward(request, response);
 	}
 
 	/**

@@ -2,9 +2,9 @@
     pageEncoding="ISO-8859-1"%>
     <%@page import="dominio.Cliente" %>
     <%@page import="java.util.ArrayList" %>
-    
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+
+<jsp:include page="./header.jsp" />
+
 <head>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@1&family=Dawning+of+a+New+Day&family=Kanit&family=Nunito:ital,wght@1,200&family=Quicksand&family=Roboto+Slab:wght@500&family=Shadows+Into+Light&display=swap');

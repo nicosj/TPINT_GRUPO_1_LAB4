@@ -42,7 +42,7 @@
 </nav>
 
 <nav class=" navbar-primary ">
-  <a href="#" class="btn-expand-collapse"><span class="glyphicon glyphicon-menu-left"></span> <-</a>
+  <a href="#" class="btn-expand-collapse"><span class="glyphicon glyphicon-menu-left"></span> <-></a>
   <ul class="navbar-nav navbar-primary-menu">
     <li >
       <a class="nav-link" href="altaClienteServlet"><span class="glyphicon glyphicon-user"></span><span class="nav-label">ABML Clientes</span></a>
