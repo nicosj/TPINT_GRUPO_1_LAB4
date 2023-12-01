@@ -83,6 +83,8 @@ public class Prestamo {
 		this.estado = estado;
 		
 	}
+
+
 	
 	
 }
