@@ -10,7 +10,7 @@ public class Prestamo {
 	private double importeCuota;
 	private double totalImporte;
 	private int cuotas;
-	private int estado;
+	private int estado=0;
 	
 
 

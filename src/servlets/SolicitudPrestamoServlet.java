@@ -78,7 +78,7 @@ public class SolicitudPrestamoServlet extends HttpServlet {
 			prestamo.setImporteCuota(importCuota);
 			prestamo.setFechaPedido(fechaFormateada);
 			prestamo.setCuotas(cantCuotas);
-			prestamo.setEstado(1);
+			prestamo.setEstado(0);
 			
 			if(prestamoN.insert(prestamo)) {
 				System.out.println("Solicitud insertada con exito UWU");
