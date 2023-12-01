@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Negocio_Implementacion.Cliente_NegocioImp;
 import dao_Implement.ClienteDao_Implement;
-import dao_Implement.UsuarioDao_Implement;
 import dominio.Cliente;
 
 /**
@@ -48,7 +48,7 @@ public class BajaClienteServlet extends HttpServlet {
 
 		if (request.getParameter("btnEliminarCliente") != null) {
 			int id = Integer.parseInt(request.getParameter("idCliente").toString());
-			ClienteDao_Implement cli = new ClienteDao_Implement();
+			Cliente_NegocioImp cli = new Cliente_NegocioImp();
 			cli.bajaLogicaCliente(id);
 			request.setAttribute("filas", true);
 			request.getRequestDispatcher("/admin/cliente.jsp").forward(request, response);

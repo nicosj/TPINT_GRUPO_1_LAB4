@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import Negocio_Implementacion.Cliente_NegocioImp;
-import dao_Implement.ClienteDao_Implement;
 import dominio.Cliente;
 import dominio.Usuario;
 
@@ -36,11 +35,9 @@ public class MisDatos extends HttpServlet {
 		session = request.getSession();
 		int idCliente = ((Usuario)session.getAttribute("client")).getIdCliente();
 		Cliente cliente = new Cliente();
-		ClienteDao_Implement clienteDaoImpl = new ClienteDao_Implement();
+		Cliente_NegocioImp clienteImpl = new Cliente_NegocioImp();
 		
-		
-		cliente = clienteDaoImpl.obtenerCliente(idCliente);
-		
+		cliente = clienteImpl.obtenerCliente(idCliente);
 		request.setAttribute("clientInformation", cliente);
 		request.getRequestDispatcher("/client/personalInformation.jsp").forward(request, response);
 	}

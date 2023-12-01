@@ -1,8 +1,8 @@
 package servlets;
 
-import dao_Implement.ClienteDao_Implement;
+
 import dao_Implement.CuentaDao_Implement;
-import dao_Implement.MovimientoDao;
+
 import dominio.*;
 
 import java.io.IOException;
@@ -17,6 +17,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import Negocio_Implementacion.Cliente_NegocioImp;
+import Negocio_Implementacion.Cuenta_NegocioImp;
+import Negocio_Implementacion.MovimientoNegocio_Imp;
 import dominio.Usuario;
 /**
  * Servlet implementation class TransferenciasServlet
@@ -48,8 +52,8 @@ public class TransferenciasServlet extends HttpServlet {
 
 		session.setAttribute("clientTrans", client);
 
-		CuentaDao_Implement cuentaDao = new CuentaDao_Implement();
-		ArrayList<Cuenta> cuentas = cuentaDao.readAllByID(client.getIdCliente());
+		Cuenta_NegocioImp cuentaN = new Cuenta_NegocioImp();
+		ArrayList<Cuenta> cuentas = cuentaN.readAllByID(client.getIdCliente());
 		/*Last version*/
 		session.setAttribute("pasos", 0);
 		session.setAttribute("cuentas", cuentas);
@@ -87,8 +91,8 @@ public class TransferenciasServlet extends HttpServlet {
 			}
 			session.setAttribute("cbushow", "0");
 			Cuenta cuentaO = new Cuenta();
-			CuentaDao_Implement cuentaDao = new CuentaDao_Implement();
-			cuentaO = cuentaDao.obtenerCuenta(cuentaOrigen);
+			Cuenta_NegocioImp cuentaN = new Cuenta_NegocioImp();
+			cuentaO = cuentaN.obtenerCuenta(cuentaOrigen);
 			session.setAttribute("cuentaOrigen", cuentaO);
 			session.setAttribute("cuentasFiltrada", filtra);
 			
@@ -100,15 +104,15 @@ public class TransferenciasServlet extends HttpServlet {
 			System.out.println("valida");
 			String cbu = request.getParameter("cbu");
 			Cuenta cuenta = new Cuenta();
-			CuentaDao_Implement cuentaDao = new CuentaDao_Implement();
-			cuenta = cuentaDao.obtenerCuentaCbu(cbu);
+
+			Cuenta_NegocioImp cuentaN = new Cuenta_NegocioImp();			
+			cuenta = cuentaN.obtenerCuentaCbu(cbu);
 			System.out.println(cuenta + " verrrrrrrrrrrr");
 			if(cuenta.getNumero_Cuenta() != null) {
 				System.out.println("Cuenta encontrada");
 				Cliente cliente = new Cliente();
-				ClienteDao_Implement clienteDao = new ClienteDao_Implement();
-				cliente = clienteDao.obtenerCliente(Integer.parseInt(cuenta.getIdCliente()));
-
+				Cliente_NegocioImp clienteN = new Cliente_NegocioImp();	
+				cliente = clienteN.obtenerCliente(Integer.parseInt(cuenta.getIdCliente()));
 				System.out.println("Cliente encontrada"+cliente.getNombreCompleto());
 				session.setAttribute("clientetrans", cliente);
 				session.setAttribute("cuentatrans", cuenta);
@@ -154,9 +158,9 @@ public class TransferenciasServlet extends HttpServlet {
 			String entreCuentas = request.getParameter("entreCuentas");
 			if(entreCuentas != null) {
 				System.out.println("Entre cuentas");
-				Cuenta cuentax = new Cuenta();
-				CuentaDao_Implement cuentaDao = new CuentaDao_Implement();
-				cuentax = cuentaDao.obtenerCuenta(entreCuentas);
+				Cuenta cuentax = new Cuenta();		
+				Cuenta_NegocioImp cuentaN = new Cuenta_NegocioImp();	
+				cuentax = cuentaN.obtenerCuenta(entreCuentas);
 				session.setAttribute("cuentaDestino", cuentax);
 
 				session.setAttribute("cbushow", "0");
@@ -180,22 +184,25 @@ public class TransferenciasServlet extends HttpServlet {
 
 					session.setAttribute("pasos", 3);
 					CuentaDao_Implement cuentaDao = new CuentaDao_Implement();
-					if(cuentaDao.ajusteCuenta(((Cuenta)session.getAttribute("cuentaOrigen")).getNumero_Cuenta(),-(Double.parseDouble(valor)))){
+					Cuenta_NegocioImp cuentaN = new Cuenta_NegocioImp();	
+					
+					if(cuentaN.ajusteCuenta(((Cuenta)session.getAttribute("cuentaOrigen")).getNumero_Cuenta(),-(Double.parseDouble(valor)))){
 						
 
-						if(cuentaDao.ajusteCuenta(((Cuenta)session.getAttribute("cuentaDestino")).getNumero_Cuenta(),(Double.parseDouble(valor)))){
+						if(cuentaN.ajusteCuenta(((Cuenta)session.getAttribute("cuentaDestino")).getNumero_Cuenta(),(Double.parseDouble(valor)))){
 						
 							DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 							LocalDateTime now = LocalDateTime.now();
 							Movimiento movimiento = new Movimiento();
-							MovimientoDao movimientoDao = new MovimientoDao();
+							MovimientoNegocio_Imp movimientoN = new MovimientoNegocio_Imp();
+							
 							//cuenta origen
 							movimiento.setNumero_Cuenta(((Cuenta)session.getAttribute("cuentaOrigen")).getNumero_Cuenta());
 							movimiento.setFechaMovimiento(dtf.format(now).toString());
 							movimiento.setDetalleConcepto("Transferencia");
 							movimiento.setImporteMovimiento(-(Double.parseDouble(valor)));
 							movimiento.setTipoMovimiento("Debito");
-							movimientoDao.insert(movimiento);
+							movimientoN.insert(movimiento);
 
 							//Destino
 
@@ -205,7 +212,7 @@ public class TransferenciasServlet extends HttpServlet {
 							movimiento.setImporteMovimiento(Double.parseDouble(valor));
 							movimiento.setTipoMovimiento("Credito");
 
-							movimientoDao.insert(movimiento);
+							movimientoN.insert(movimiento);
 
 
 							session.setAttribute("error", null);

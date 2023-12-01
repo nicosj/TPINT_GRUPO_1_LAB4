@@ -18,5 +18,6 @@ public interface ClienteDao_Interfaz {
 	List<Cliente> readAllActivos();
 	Cliente obtenerClienteDni(String dni);
 	public ArrayList<Cliente> obtenerClienteProvincia(String provincia);
+	boolean ExisteDNI(String nuevoDNI, int idUsuario);
 
 }

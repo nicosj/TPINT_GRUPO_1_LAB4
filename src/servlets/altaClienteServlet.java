@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao_Implement.ClienteDao_Implement;
-import dao_Implement.UsuarioDao_Implement;
+import Negocio_Implementacion.Cliente_NegocioImp;
+import Negocio_Implementacion.Usuario_NegocioImp;
 
 /**
  * Servlet implementation class AltaClienteServlet
@@ -35,10 +35,12 @@ public class altaClienteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		ClienteDao_Implement clienteDao = new ClienteDao_Implement();
-		UsuarioDao_Implement usuarioDao = new UsuarioDao_Implement();
-		ArrayList<Cliente> clientes = clienteDao.readAll();
-		ArrayList<Usuario> usuarios = usuarioDao.readAll();
+
+		Cliente_NegocioImp cliente = new Cliente_NegocioImp();		
+		Usuario_NegocioImp usuario = new Usuario_NegocioImp();
+		
+		ArrayList<Cliente> clientes = cliente.listarClientes();
+		ArrayList<Usuario> usuarios = usuario.listarUsuarios();
 		request.setAttribute("clientes", clientes);
 		request.setAttribute("usuarios", usuarios);
 		request.getRequestDispatcher("/admin/cliente.jsp").forward(request, response);
@@ -52,7 +54,7 @@ public class altaClienteServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
 		if(request.getParameter("alta")!=null){
-
+			int id=0;
 			String dni = request.getParameter("dni");
 			String cuil = request.getParameter("cuil");
 			String nombre = request.getParameter("nombre");
@@ -83,24 +85,26 @@ public class altaClienteServlet extends HttpServlet {
 	        }
 
 
-	        Cliente cliente = new Cliente(0, dni, cuil, nombre, apellido, sexo, nacionalidad, fechaNacimiento, direccion, localidad, provincia, correo, telefono, estado);
+	        Cliente cliente = new Cliente(id, dni, cuil, nombre, apellido, sexo, nacionalidad, fechaNacimiento, direccion, localidad, provincia, correo, telefono, estado);
 	        System.out.println("Servlet");
 	        System.out.println(cliente);
-	        ClienteDao_Implement clienteDao = new ClienteDao_Implement();
-	        UsuarioDao_Implement usuarioDao = new UsuarioDao_Implement();
+
+	        Usuario_NegocioImp us = new Usuario_NegocioImp();
+	        Cliente_NegocioImp cli = new Cliente_NegocioImp();
 
 	        try {
 	            // Se fija si el usuario ya existe
-	            if (usuarioDao.verificarNombreUsuario(usuario, 0)) {
+	        		
+	            if (us.verificarNombreUsuario(usuario, id) && cli.existeDNI(dni, id)) {
 	               
 	                request.setAttribute("existeUsuario", true);
 	                request.setAttribute("errorMessage", "El nombre de usuario ya está en uso. Por favor, elija otro.");
 	                request.getRequestDispatcher("/admin/cliente.jsp").forward(request, response);
 	            } else {
 	                // Si no existe, procedemos a crear el nuevo cliente
-	                int idCliente = clienteDao.insert(cliente);
-	                Usuario us = new Usuario(0, usuario, contrasena, 2, idCliente);
-	                usuarioDao.insert(us);
+	                int idCliente = cli.insertarCliente(cliente);
+	                Usuario user = new Usuario(0, usuario, contrasena, 2, idCliente);
+	                us.insertarUsuario(user);
 	                request.setAttribute("filas", true);
 	                request.getRequestDispatcher("/admin/cliente.jsp").forward(request, response);
 	            }

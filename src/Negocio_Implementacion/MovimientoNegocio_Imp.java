@@ -8,15 +8,22 @@ import negocio.Movimiento_Negocio;
 
 public class MovimientoNegocio_Imp implements Movimiento_Negocio{
 
-	public ArrayList<Movimiento> listarFiltrado(String numeroCuenta){
-		MovimientoDao movimientos = new MovimientoDao  ();
-		ArrayList<Movimiento> listado = movimientos.readAll();
-		ArrayList<Movimiento> filtrado = new ArrayList<Movimiento>();
+	private MovimientoDao movimientos= new MovimientoDao();
+	
+	public ArrayList<Movimiento> listarFiltrado(String idCliente){
+		ArrayList<Movimiento> listado = movimientos.obtenerMovimientos(idCliente);
 		for(Movimiento mov : listado) {
-			if(mov.getNumero_Cuenta().equals(numeroCuenta)) {
-				filtrado.add(mov);
-			}
+			System.out.println(mov.toString());
 		}
-		return filtrado;
+		return listado;
+	}
+	
+	public ArrayList<Movimiento> readAllMovimientos(String cuentas){
+		return movimientos.readAllMovimientos(cuentas);
+	}
+	
+	public boolean insert(Movimiento mov) {
+		System.out.println(mov.toString());
+		return movimientos.insert(mov);
 	}
 }

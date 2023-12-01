@@ -598,7 +598,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (result.isConfirmed) {
                     self.off("click").click();
                 }
-            })
+            }, );
 
 
         });

@@ -15,13 +15,16 @@ public class MovimientoDao implements MovimientoDao_Imp {
 	private static final String readall = "SELECT * FROM Movimiento";	
 	private static final String readallCuentas = "SELECT * FROM Movimiento where numero_Cuenta =?";
 	private static final String update = "update cuenta set numero_Cuenta= ?, Fecha = ?, Detalle_Concepto = ?, Importe = ?, Tipo_Movimiento = ?   where idMovimiento = ?";
-	private static final String historialCuentas = "Select * FROM Movimiento WHERE numero_Cuenta = ?";
-
+	private static final String historialCuentas =  "SELECT * FROM MOVIMIENTO M "
+	        + "INNER JOIN Cuenta C ON C.numero_Cuenta = M.numero_Cuenta "
+	        + "INNER JOIN Cliente Cli ON Cli.idCliente = C.idCliente "
+	        + "WHERE Cli.idCliente = ?";
 	
 	public boolean insert(Movimiento movimiento) {
         PreparedStatement statement;
         Connection conexion = DB.getConexion().getSQLConexion();
         boolean insercionExitosa = false;
+		System.out.println(movimiento.toString());
         try
         {
             statement =  conexion.prepareStatement(insert);
@@ -129,14 +132,15 @@ public class MovimientoDao implements MovimientoDao_Imp {
 
 
 	@Override
-	public Movimiento obtenerMovimiento(String numero_Cuenta) {
+
+	public Movimiento obtenerMovimiento(String idCliente) {
 		Movimiento movimiento = new Movimiento();
 		PreparedStatement statement;
 		Connection conexion =DB.getConexion().getSQLConexion();
 		
 		try {
 			 statement = conexion.prepareStatement(historialCuentas);
-		     statement.setString(1, numero_Cuenta);
+		     statement.setString(1, idCliente);
 		     
 		     ResultSet resultado = statement.executeQuery();
 
@@ -155,7 +159,6 @@ public class MovimientoDao implements MovimientoDao_Imp {
 		}
 		return movimiento;
 	}
-
 	@Override
 	public ArrayList<Movimiento> readAllMovimientos(String cuentas) {
 		PreparedStatement statement;
@@ -185,7 +188,33 @@ public class MovimientoDao implements MovimientoDao_Imp {
 	}
 
 
+	public ArrayList<Movimiento> obtenerMovimientos(String idCliente) {
+	    ArrayList<Movimiento> movimientos = new ArrayList<>();
+	    PreparedStatement statement;
+	    Connection conexion = DB.getConexion().getSQLConexion();
 
+	    try {
+	        statement = conexion.prepareStatement(historialCuentas);
+	        statement.setString(1, idCliente);
+
+	        try (ResultSet resultado = statement.executeQuery()) {
+	            while (resultado.next()) {
+	                Movimiento movimiento = new Movimiento();
+		        	movimiento.setIdMovimiento(resultado.getString("idMovimiento"));
+		        	movimiento.setNumero_Cuenta(resultado.getString("numero_Cuenta"));
+		        	movimiento.setFechaMovimiento(resultado.getString("Fecha"));
+		        	movimiento.setDetalleConcepto(resultado.getString("Detalle_Concepto"));
+		        	movimiento.setImporteMovimiento(resultado.getDouble("Importe"));
+		        	movimiento.setTipoMovimiento(resultado.getString("Tipo_Movimiento"));
+	                movimientos.add(movimiento);
+	            }
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return movimientos;
+	}
 
 }
 

@@ -24,7 +24,7 @@ public class ClienteDao_Implement implements ClienteDao_Interfaz {
 	private static final String queryDni = "Select * FROM cliente WHERE DNI = ?";
 	private static final String bajalogica = "UPDATE cliente SET estado = 0 WHERE idCliente = ?";
 	private static final String buscarProvincia =  "SELECT * FROM cliente WHERE UPPER(PROVINCIA) = UPPER(?)";
-
+	private static final String DNICountByIdCliente = "SELECT COUNT(*) AS DNI_count FROM cliente WHERE DNI = ? AND idCliente <>?";
 	
 	@Override
 		public int insert(Cliente cliente) {
@@ -362,8 +362,36 @@ public class ClienteDao_Implement implements ClienteDao_Interfaz {
 		return clientes;
 	}
 	
-	
+	@Override
+	public boolean ExisteDNI(String nuevoDNI, int idUsuario) {
+	    PreparedStatement statement;
+	    ResultSet resultSet;
+	    Connection conexion = DB.getConexion().getSQLConexion();
+	    int existeDNI = 0;
+	    boolean Repetido=false;
+	    try {
+	        statement = conexion.prepareStatement(DNICountByIdCliente);
+	        statement.setString(1, nuevoDNI);
+	        statement.setInt(2, idUsuario); // Agregar el id del usuario actual
 
-}
+	        resultSet = statement.executeQuery();
+	        if (resultSet.next()) {
+	            existeDNI = resultSet.getInt("DNI_count");
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    if(existeDNI>0) {
+	    	Repetido=true;
+	    	return Repetido;
+	    }else
+	    {
+	    	return Repetido;
+	    	}
+	    }
+	    
+	}
+
+
 
 

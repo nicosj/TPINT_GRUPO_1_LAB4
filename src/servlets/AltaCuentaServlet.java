@@ -1,7 +1,7 @@
 package servlets;
 
 
-import dao_Implement.ClienteDao_Implement;
+
 import dominio.Cliente;
 import dominio.Cuenta;
 
@@ -15,7 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao_Implement.CuentaDao_Implement;
+import Negocio_Implementacion.Cliente_NegocioImp;
+import Negocio_Implementacion.Cuenta_NegocioImp;
 
 /**
  * Servlet implementation class AltaCuentaServlet
@@ -39,8 +40,9 @@ public class AltaCuentaServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("ServletGet");
-		CuentaDao_Implement cuentaDao = new CuentaDao_Implement();
-		ArrayList<Cuenta> cuentas = cuentaDao.readAll();
+		
+		Cuenta_NegocioImp cuenta = new Cuenta_NegocioImp();
+		ArrayList<Cuenta> cuentas = cuenta.listarCuentas();
 		
 		String cbu = Cuenta.generarCBU();
 		request.setAttribute("cuentas", cuentas);
@@ -59,8 +61,9 @@ public class AltaCuentaServlet extends HttpServlet {
 		//doGet(request, response);
 		if(request.getParameter("getCliente")!=null){
 			Cliente cliente = new Cliente();
-			ClienteDao_Implement clienteDao = new ClienteDao_Implement();
-			cliente= clienteDao.obtenerClienteDni(request.getParameter("dni"));
+			
+			Cliente_NegocioImp clienteN = new Cliente_NegocioImp();
+			cliente= clienteN.obtenerClientePorDNI(request.getParameter("dni"));
 			System.out.println("altacuenta");
 			System.out.println(cliente);
 			request.setAttribute("cliente", cliente);
@@ -89,14 +92,15 @@ public class AltaCuentaServlet extends HttpServlet {
 			
             Cuenta cuenta = new Cuenta(idCliente, Cuenta.generarCuenta() , TipoCuenta, FechaCreacion,CBU, saldo, Estado);
             
-            System.out.println(cuenta);
-            CuentaDao_Implement cuentaDao = new CuentaDao_Implement();
+            System.out.println(cuenta);     
+            Cuenta_NegocioImp cuentaN = new Cuenta_NegocioImp();
             
-            int cuentaCount = cuentaDao.getCuentaCountByClientId(request.getParameter("idcliente"));
+            
+            int cuentaCount = cuentaN.getCuentaCountByClientId(request.getParameter("idcliente"));
             
             if (cuentaCount < 3) {
             try {
-                boolean rowsUpdated = cuentaDao.insert(cuenta); // Implement the update method in your DAO
+                boolean rowsUpdated = cuentaN.insert(cuenta); // Implement the update method in your DAO
                 request.setAttribute("rowsUpdated", rowsUpdated);
                 request.setAttribute("error", "Cuenta creada y asociada correctamente");
 				request.getRequestDispatcher("/admin/AltaCuenta.jsp").forward(request, response);
