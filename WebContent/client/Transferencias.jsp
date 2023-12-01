@@ -14,7 +14,7 @@
     <div class="row justify-content-center mt-0">
         <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
             <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
-                <h2><strong>Ventana Transferencias </strong></h2>
+                <h2  class="marcoTitu" >Ventana Transferencias </h2>
 
                 <%
                     Integer pasos= (Integer) session.getAttribute("pasos");
@@ -43,7 +43,7 @@
                                     <div class="form-card">
                                         <h2 class="fs-title">Cuentas del Usuario</h2>
                                         <label class="pay">Cuenta Origen</label>
-                                        <select class="form-control " name="cuentasel" id=pay>
+                                        <select class="tipoTrans "  name="cuentasel" id=pay>
                                             <%
                                                 ArrayList<Cuenta> cuentas = (ArrayList<Cuenta>) session.getAttribute("cuentas");
 
