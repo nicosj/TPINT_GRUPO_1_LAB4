@@ -171,6 +171,7 @@ public class UsuarioDao_Implement implements UsuarioDao_Interfaz  {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println("asdasd"+aux.getUsuario());
 		return aux;
 	}
 	

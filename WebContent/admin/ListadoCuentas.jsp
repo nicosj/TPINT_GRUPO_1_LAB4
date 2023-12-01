@@ -125,12 +125,14 @@
                         <label for="Estado">Estado</label>
                         <input type="text" class="form-control" name="Estado" id="Estado" placeholder="Estado">
                     </div>
-                    
+                    <div class="error-message" style="color: red;"></div>
                     </div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
                     <input type="submit" name="btnEdit" class="btn btn-info" id="editar" value="Guardar">
                 </div>
+                
+            
             </form>
         </div>
     </div>
@@ -153,6 +155,7 @@
                     <input type="submit" class="btn btn-danger" name="btnBajaCuenta" value="Borrar">
                     <input type="hidden" name="numCuenta" id="deleteNumCuenta">
                 </div>
+
             </form>
         </div>
     </div>
@@ -171,6 +174,14 @@ function populateEditModal(idCliente, FechaCreacion, TipoCuenta, CBU, Saldo, num
     document.getElementById("numero_Cuenta").value = numero_Cuenta;
     document.getElementById("Estado").value = Estado;
 
+    var cuentaCountError = <%= request.getAttribute("cuentaCountError") %>;
+    if (cuentaCountError) {
+        // Display error message in the modal
+        $('#editCuentaModal .error-message').html('Error:  El Cliente ya posee 3 cuentas asignadas.');
+    } else {
+        // Clear any previous error messages
+        $('#editCuentaModal .error-message').html('');
+    }
     // Updatea el event listener para chequear los campos vacios antes del submit
     var editForm = document.getElementById("editCuentaForm");
     editForm.addEventListener("submit", function (event) {
@@ -178,7 +189,7 @@ function populateEditModal(idCliente, FechaCreacion, TipoCuenta, CBU, Saldo, num
         if (!validateForm()) {
             event.preventDefault(); // evita la carga
             alert("Por favor, complete todos los campos");
-        }
+        } 
     });
 
 
@@ -227,6 +238,25 @@ $(document).ready(function () {
 
 
 </script>
+
+<%
+    // Check if there is an error message attribute
+    String errorMessage = (String) request.getAttribute("errorMessage");
+    if (errorMessage != null && !errorMessage.isEmpty()) {
+%>
+    <script type="text/javascript">
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: '<%= errorMessage %>',
+            showConfirmButton: true
+        });
+    </script>
+<%
+    }
+    // Clear the error message attribute to avoid displaying it multiple times
+    request.removeAttribute("errorMessage");
+%>
 
 <% }else {
 	response.sendRedirect("../index.jsp");

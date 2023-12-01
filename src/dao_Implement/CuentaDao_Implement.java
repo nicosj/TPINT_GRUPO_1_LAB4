@@ -324,10 +324,10 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 		return cuenta;
 	}
 	@Override
-	public boolean ajusteCuenta(String cuenenta, double monto) {
+	public boolean ajusteCuenta(String acc, double monto) {
 		// TODO Auto-generated method stub
 		Cuenta cuenta = new Cuenta();
-		cuenta= obtenerCuenta(cuenenta);
+		cuenta= obtenerCuenta(acc);
 
 		try {
 			double saldo = cuenta.getSaldo() + monto;

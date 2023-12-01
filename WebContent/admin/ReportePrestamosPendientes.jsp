@@ -4,9 +4,10 @@
 <%@page import="java.util.ArrayList" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<% if(session.getAttribute("admin") != null) {%>
+
 <html>
 <head>
-
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@1&family=Dawning+of+a+New+Day&family=Kanit&family=Nunito:ital,wght@1,200&family=Quicksand&family=Roboto+Slab:wght@500&family=Shadows+Into+Light&display=swap');
 </style>
@@ -21,7 +22,7 @@
 
     .divInicial {
         margin-top: 40px;
-        padding:40px;
+        padding:60px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -32,13 +33,14 @@
         font-family: 'DM Serif Display', serif;
         font-size: 70px;
         font-weight: bold;
-        color: green;
+        color: cornflowerblue;
     }
 
     .divInicial h3{
-        font-family: 'Nunito', sans-serif;
+    	margin-top: 20px;
+        font-family: 'Roboto', sans-serif;
         font-size: 30px;
-        color: black;
+        color: cornflowerblue;
     }
     .divMonto{
         display: flex;
@@ -76,7 +78,7 @@
         text-align: center;
         text-decoration: none;
         font-size: 20px;
-        color: green;
+        color: cornflowerblue;
         font-weight: 500;
         margin-left: 10px;
     }
@@ -90,13 +92,13 @@
 <body>
     <form method="get" action="ReportePrestamosPendientesServlet" onsubmit="return validarFormulario()">
         <div class="divInicial">
-            <h1>SECCION DE REPORTES II</h1>
+            <h1>Prestamos pendientes</h1>
             <h3>Ingrese un valor. Luego pulse el botón. Debajo podrá visualizar un listado con los prestamos iguales o mayores al monto ingresado y el cliente que lo realizó.</h3>
             <div class="divMonto">
                 <span class="input-group-text">$</span>
                 <input type="text" class="form-control"  name="txtNumber" aria-label="Amount (to the nearest dollar)">
             </div>
-            <input type="submit" name="btnAceptar" value="Aceptar" class="btn btn-outline-success" style="padding-right:50px; padding-left:50px; font-family: 'Roboto Slab', serif; font-size: 18px;">      
+            <input type="submit" name="btnAceptar" value="Aceptar" class="btn btn-outline-info" style="padding-right:50px; padding-left:50px; font-family: 'Roboto Slab', serif; font-size: 18px;">      
         </div>  
 
         <div class="divA">
@@ -108,7 +110,7 @@
             prestamos = (ArrayList<Prestamo>) request.getAttribute("listadoPrestamos");
             %>
             <div class="div-tabla-reporte" id="contenidoTabla">
-                <table class="table table-success table-striped-columns">
+                <table class="table table-primary table-striped-columns">
                     <thead>
                         <tr>
                             <th>N Prestamo</th>
@@ -181,3 +183,7 @@
 
     </body>
     </html>
+
+<% }else {
+	response.sendRedirect("../index.jsp");
+}%>

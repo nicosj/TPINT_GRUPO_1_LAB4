@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 //import org.omg.PortableServer.ID_ASSIGNMENT_POLICY_ID;
 
 import Negocio_Implementacion.Cuenta_NegocioImp;
-import dao_Implement.CuentaDao_Implement;
+
 
 /**
  * Servlet implementation class EditCuentaServlet
@@ -40,8 +40,8 @@ public class EditCuentaServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		CuentaDao_Implement cuentaDao = new CuentaDao_Implement();
-		ArrayList<Cuenta> cuentas = cuentaDao.readAll();
+		Cuenta_NegocioImp cuenta = new Cuenta_NegocioImp();
+		ArrayList<Cuenta> cuentas = cuenta.listarCuentas();
 		request.setAttribute("cuentas", cuentas);
 		request.getRequestDispatcher("/admin/ListadoCuentas.jsp").forward(request, response);
 		
@@ -58,8 +58,8 @@ public class EditCuentaServlet extends HttpServlet {
 		if(request.getParameter("btnTraerid")!=null) {
 			try {
             	Cuenta cuenta2= new Cuenta();
-            	CuentaDao_Implement cuentaDao = new CuentaDao_Implement();
-            	cuenta2= cuentaDao.obtenerCuenta(idCuenta);
+            	Cuenta_NegocioImp cuentaN = new Cuenta_NegocioImp();
+            	cuenta2= cuentaN.obtenerCuenta(idCuenta);
             	request.setAttribute("cuenta", cuenta2);
             	//request.getRequestDispatcher("/admin/ListadoCuentas.jsp").forward(request, response);
 			} catch (Exception e) {
@@ -81,16 +81,27 @@ public class EditCuentaServlet extends HttpServlet {
 
             System.out.println("Servlet");
             System.out.println(cuenta);
-            CuentaDao_Implement cuentaDao = new CuentaDao_Implement();
+            Cuenta_NegocioImp accNegocio = new Cuenta_NegocioImp();
+            int cuentaCount = accNegocio.getCuentaCountByClientId(request.getParameter("idCliente"));
             try{
+            	
+                
+                if (cuentaCount < 3) {
+            	
             	Cuenta cuenta2= new Cuenta();
-            	cuenta2= cuentaDao.obtenerCuenta(idCuenta);
-                boolean filas= cuentaDao.update(cuenta);
+            	cuenta2= accNegocio.obtenerCuenta(idCuenta);
+                boolean filas= accNegocio.update(cuenta);
                 request.setAttribute("filas", filas);
-                request.setAttribute("updateSuccess", true);
-                ArrayList<Cuenta> cuentas = cuentaDao.readAll();
+                request.setAttribute("updateSuccess", true);                               
+                }
+                else {
+                	System.out.println("uwu");
+                	 request.setAttribute("errorMessage", "La cuenta no puede asociarse al nuevo cliente, ya posee 3 cuentas asociadas.");
+                }
+                ArrayList<Cuenta> cuentas = accNegocio.listarCuentas();
         		request.setAttribute("cuentas", cuentas);
                 request.getRequestDispatcher("/admin/ListadoCuentas.jsp").forward(request, response);
+                
                 
             } catch (Exception e) {
                 e.printStackTrace();

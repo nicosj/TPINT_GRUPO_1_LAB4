@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao_Implement.UsuarioDao_Implement;
+import Negocio_Implementacion.Usuario_NegocioImp;
 import dominio.Usuario;
 
 /**
@@ -44,13 +44,12 @@ public class LoginServlet extends HttpServlet {
 		String usua = request.getParameter("usuario");
 		String clave = request.getParameter("clave");
 		
-		UsuarioDao_Implement usuarioDao = new UsuarioDao_Implement();
-
-		usuario = usuarioDao.login(new Usuario(usua, clave));
+		Usuario_NegocioImp usuarioN = new Usuario_NegocioImp();
 		
+		usuario = usuarioN.login(new Usuario(usua, clave));
+		System.out.println(usuario.getUsuario());
 		if (usuario.getUsuario() != null) {
 			session = request.getSession();
-
 
 			if (usuario.getTipoUsuario() == 2) {
 				session.setAttribute("client", usuario);
