@@ -35,7 +35,7 @@
                 %>
             </div>
                 <%-- show data table  debit credit transfer                 --%>
-                <table class="<%= session.getAttribute("movimientos")==null? "hidecla":"table table-striped table-bordered table-hover table-dark" %> ">
+                <table id="tablaConPaginadorYFiltro" class="<%= session.getAttribute("movimientos")==null? "hidecla":"display" %> ">
 
 
                     <%
@@ -77,7 +77,11 @@
 </div>
 
 <jsp:include page="./footer.jsp"/>
-<script type="text/javascript">
+
+<% } else {
+    response.sendRedirect("../index.jsp");
+}%>
+<script >
     $(document).ready(function () {
         $('.hidecla').hide();
         $(".cuenta").click(function () {
@@ -85,11 +89,13 @@
             console.log(id);
             $(this).submit();
         });
-
+        let table = new DataTable('#tablaConPaginadorYFiltro', {
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+                },
+            }
+        );
 
     });
-</script>
 
-<% } else {
-    response.sendRedirect("../index.jsp");
-}%>
+</script>

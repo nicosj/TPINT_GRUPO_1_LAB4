@@ -163,13 +163,15 @@
                                          <%= clix!=null? "<h2>Nombre y Apellido:"+ clix.getNombreCompleto()+"</h2>": "<h2>Cuenta Propia</h2>" %>
                                          <%= clix!=null? "<h3>Cuil:"+ clix.getCUIL()+"</h3>": "" %>
 
+
                                         <h2>Ingrese monto a transferir</h2>
                                         <input type="text" class="form-control" id="transferencia" name="valorD" value="">
                                         <input type="submit" name="pasoTres" id="transferirFId" class="next action-button" value="Transferir"/>
+                                        <h2 <%= error!=null?"class='errors'":"" %>><%= error!=null?error:""%></h2>
                                     </div>
                                     </form>
                                     <% }  }%>
-                                    <h2><%= error!=null?error:""%></h2>
+
 
                                 </div>
 
@@ -195,7 +197,7 @@
                             </fieldset>
                             <%--<button type="button" name="previous" class="previous action-button-previous"
                                    value="Volver"/>--%>
-                            <div <% if(pasos>0){ %> style="display: block;opacity: 1;" <%}else{%>class="desaTrans" <% } %>>
+                            <div <% if(pasos>0 && pasos<=2){ %> style="display: block;opacity: 1;" <%}else{%>class="desaTrans" <% } %>>
                                 <a id="cancelarFId" class="previous action-button-previous" href="TransferenciasServlet"><span class="nav-label">Volver</span></a>
                             </div>
                         </div>

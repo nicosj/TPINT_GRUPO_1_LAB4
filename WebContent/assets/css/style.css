@@ -670,4 +670,13 @@ select.list-dt:focus {
     position: relative;
 }
 
-
+.errors{
+    color: red;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    background: #FFC107;
+}

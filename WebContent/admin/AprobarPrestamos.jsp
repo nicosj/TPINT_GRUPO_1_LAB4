@@ -4,6 +4,7 @@
 <jsp:include page="./header.jsp" />
 <%@page import="dominio.Cuenta"%>
 <%@page import="java.util.ArrayList"%>
+<%@ page import="java.util.Objects" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 	
@@ -65,6 +66,20 @@
                 <form method="post" action="AprobarPrestamosServlet">
                     <td><%=p.getIdPrestamo()%></td>
                     <td><%=p.getNumero_Cuenta()%></td>
+                    <%
+                        for(Cuenta c : cuentas){
+                            if(Objects.equals(c.getNumero_Cuenta(), p.getNumero_Cuenta())){
+                                for(Cliente cl : clientes){
+                                    if(Objects.equals(cl.getIdCLiente(), Integer.parseInt(c.getIdCliente()))){
+                                        %>
+                                        <td><%=cl.getNombreCompleto()%></td>
+                                        <%
+                                    }
+                                }
+                            }
+                        }
+
+                    %>
                     <td><%=p.getFechaPedido()%></td>
                     <td><%=p.getImporteCuota()%></td>
                     <td><%=p.getTotalImporte()%></td>
