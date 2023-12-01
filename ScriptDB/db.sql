@@ -69,11 +69,10 @@ CREATE TABLE `prestamos` (
   `Importe_Cuota` decimal(10,0) NOT NULL,
   `Importe_Total` decimal(10,0) NOT NULL,
   `Cuotas` int NOT NULL,
-  `idIntereses` int NOT NULL,
+  `estado` bit default 0 NOT NULL,
   PRIMARY KEY (`idprestamo`),
   KEY `FK_Intereses_idx` (`idIntereses`),
   KEY `FK_numero_Cuenta_idx` (`numero_Cuenta`),
-  CONSTRAINT `FK_Intereses` FOREIGN KEY (`idIntereses`) REFERENCES `intereses` (`idinteres`),
   CONSTRAINT `FK_numero_Cuenta` FOREIGN KEY (`numero_Cuenta`) REFERENCES `cuenta` (`numero_Cuenta`)
 );
 
@@ -84,7 +83,7 @@ CREATE TABLE `pago_prestamo` (
   `Importe_Cuota` decimal(10,0) NOT NULL,
   `Impote_Restante` decimal(10,0) NOT NULL,
   `Cuotas_Restantes` int NOT NULL,
-  `idPrestamo` int NOT NULL,
+  `estado` int NOT NULL,
   PRIMARY KEY (`idpago_prestamo`),
   KEY `FK_Prestamo_idx` (`idPrestamo`),
   KEY `FK_numero_Cuenta_Pago_idx` (`numero_Cuenta`),
@@ -135,5 +134,8 @@ DROP INDEX `FK_Intereses_idx` ;
 DROP TABLE `banco`.`intereses`;
 
 ALTER TABLE banco.movimiento
-MODIFY COLUMN fecha TEXT NOT NULL 
+MODIFY COLUMN fecha TEXT NOT NULL
+
+ALTER TABLE `banco`.`prestamos`
+modify COLUMN `estado` boolean DEFAULT false;
 

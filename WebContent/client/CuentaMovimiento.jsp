@@ -10,7 +10,7 @@
 
 <div class="container-fluid text-center">
 
-    <h1 > Cuenta y Movimientos</h1>
+    <h1 class="marcoTitu" > Cuenta y Movimientos</h1>
     <div class="row justify-content-center mt-0">
 
         <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
@@ -20,7 +20,7 @@
                     ArrayList<Cuenta> cuentas = (ArrayList<Cuenta>) session.getAttribute("cuentas");
                     for (Cuenta cuenta : cuentas) {
                         out.println("<form action='CuentasYMovimientoServlet' method='post' class='cuenta' style='cursor: pointer ;' id=" + cuenta.getNumero_Cuenta() + " >");
-                        out.println("<div class='card px-0 pt-4 pb-0 mt-3 mb-3'>");
+                        out.println("<div class='card marco px-0 pt-4 pb-0 mt-3 mb-3'>");
                         out.println("<div class='card-body'>");
                         out.println("<h2 class='text-center'>Tipo de cuenta: "+ cuenta.getTipo_Cuenta() +"</h2>");
                         out.println("<h2>Numero de cuenta: " + cuenta.getNumero_Cuenta() + "</h2>");
@@ -35,7 +35,7 @@
                 %>
             </div>
                 <%-- show data table  debit credit transfer                 --%>
-                <table class="<%= session.getAttribute("movimientos")==null? "hidecla":"table table-striped table-bordered table-hover table-dark" %> ">
+                <table id="tablaConPaginadorYFiltro" class="<%= session.getAttribute("movimientos")==null? "hidecla":"display" %> ">
 
 
                     <%
@@ -77,7 +77,11 @@
 </div>
 
 <jsp:include page="./footer.jsp"/>
-<script type="text/javascript">
+
+<% } else {
+    response.sendRedirect("../index.jsp");
+}%>
+<script >
     $(document).ready(function () {
         $('.hidecla').hide();
         $(".cuenta").click(function () {
@@ -85,11 +89,13 @@
             console.log(id);
             $(this).submit();
         });
-
+        let table = new DataTable('#tablaConPaginadorYFiltro', {
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+                },
+            }
+        );
 
     });
-</script>
 
-<% } else {
-    response.sendRedirect("../index.jsp");
-}%>
+</script>
