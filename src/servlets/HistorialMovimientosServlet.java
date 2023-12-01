@@ -10,10 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Negocio_Implementacion.Cliente_NegocioImp;
-import Negocio_Implementacion.Cuenta_NegocioImp;
 import Negocio_Implementacion.MovimientoNegocio_Imp;
 import dominio.Cliente;
-import dominio.Cuenta;
 import dominio.Movimiento;
 
 @WebServlet("/admin/HistorialMovimientosServlet")

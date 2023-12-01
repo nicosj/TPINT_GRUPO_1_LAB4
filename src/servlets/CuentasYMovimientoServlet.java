@@ -11,9 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao_Implement.CuentaDao_Implement;
-import dao_Implement.MovimientoDao;
-import dao_Implement.UsuarioDao_Implement;
+import Negocio_Implementacion.Cuenta_NegocioImp;
+import Negocio_Implementacion.MovimientoNegocio_Imp;
 import dominio.Cuenta;
 import dominio.Movimiento;
 import dominio.Usuario;
@@ -46,8 +45,9 @@ public class CuentasYMovimientoServlet extends HttpServlet {
                 request.getRequestDispatcher("/LoginServlet").forward(request, response);
             }
 
-        CuentaDao_Implement cuentaDao = new CuentaDao_Implement();
-        ArrayList<Cuenta> cuentas = cuentaDao.readAllByID(client.getIdCliente());
+   
+        Cuenta_NegocioImp cuentaN = new Cuenta_NegocioImp();
+        ArrayList<Cuenta> cuentas = cuentaN.readAllByID(client.getIdCliente());
 
         session.setAttribute("cuentas", cuentas);
         session.setAttribute("movimientos", null);
@@ -63,8 +63,9 @@ public class CuentasYMovimientoServlet extends HttpServlet {
 
             String idCuenta = request.getParameter("ncuenta");
             System.out.println("entro mov "+idCuenta);
-            MovimientoDao movimientoDao = new MovimientoDao();
-            ArrayList<Movimiento> movimientos = movimientoDao.readAllMovimientos(idCuenta);
+            
+            MovimientoNegocio_Imp mov = new MovimientoNegocio_Imp();
+            ArrayList<Movimiento> movimientos = mov.readAllMovimientos(idCuenta);
             session.setAttribute("movimientos", movimientos);
             request.getRequestDispatcher("/client/CuentaMovimiento.jsp").forward(request, response);
         }

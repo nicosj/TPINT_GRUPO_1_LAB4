@@ -4,8 +4,9 @@ import java.util.ArrayList;
 
 import dao_Implement.ClienteDao_Implement;
 import dominio.Cliente;
+import negocio.Cliente_Negocio;
 
-public class Cliente_NegocioImp {
+public class Cliente_NegocioImp implements Cliente_Negocio {
 
     ClienteDao_Implement cliente = new ClienteDao_Implement(); 	
     
@@ -45,4 +46,35 @@ public class Cliente_NegocioImp {
 		return  filtradoMasc;
 		
 	}
+	
+	
+    public boolean existeDNI(String nuevoDNI, int idUsuario) {
+        boolean repetido = cliente.ExisteDNI(nuevoDNI, idUsuario);
+        return repetido;
+    }
+	
+    public int insertarCliente(Cliente cli) {
+        int nuevoID = cliente.insert(cli);
+        return nuevoID;
+    }
+    
+    public Cliente obtenerCliente(int idCliente) {
+    	Cliente cli = cliente.obtenerCliente(idCliente);
+    	return cli;
+    }
+    
+    public Cliente obtenerClientePorDNI(String dni) {
+        Cliente cli = cliente.obtenerClienteDni(dni);
+        return cli;
+    }
+    
+    public void bajaLogicaCliente(int id) {
+    	cliente.bajaLogicaCliente(id);	
+    }
+
+	public boolean update(Cliente cliente2) {
+		boolean actualizo = cliente.update(cliente2);
+		return actualizo;
+	}
+
 }

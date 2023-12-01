@@ -7,4 +7,5 @@ import dominio.Prestamo;
 public interface Prestamo_Negocio {
 
 	public ArrayList<Prestamo> listarPrestamosFiltrado (double montoMax);
+	public boolean insert(Prestamo pres);
 }

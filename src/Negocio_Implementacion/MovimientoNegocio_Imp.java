@@ -8,13 +8,23 @@ import negocio.Movimiento_Negocio;
 
 public class MovimientoNegocio_Imp implements Movimiento_Negocio{
 
+	private MovimientoDao movimientos;
+	
 	public ArrayList<Movimiento> listarFiltrado(String idCliente){
-		
-		MovimientoDao movimientos = new MovimientoDao  ();
 		ArrayList<Movimiento> listado = movimientos.obtenerMovimientos(idCliente);
 		for(Movimiento mov : listado) {
 			System.out.println(mov.toString());
 		}
 		return listado;
+	}
+	
+	public ArrayList<Movimiento> readAllMovimientos(String cuentas){
+		return movimientos.readAllMovimientos(cuentas);
+	}
+	
+	public boolean insert(Movimiento mov) {
+		
+		boolean inserto = movimientos.insert(mov);
+		return inserto;
 	}
 }

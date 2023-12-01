@@ -14,11 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.MovimientoDao_Imp;
-import dao_Implement.CuentaDao_Implement;
-import dao_Implement.InteresesDao_Implement;
-import dao_Implement.MovimientoDao;
-import dao_Implement.PrestamoDao_Implement;
+import Negocio_Implementacion.Cuenta_NegocioImp;
+import Negocio_Implementacion.Prestamo_NegocioImp;
 import dominio.Cuenta;
 import dominio.Intereses;
 import dominio.Movimiento;
@@ -46,9 +43,9 @@ public class SolicitudPrestamoServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		int idClient = ((Usuario)session.getAttribute("client")).getIdCliente();
-		CuentaDao_Implement daoCuentaImplement = new CuentaDao_Implement();
-		
-		List<Cuenta> cuentas = daoCuentaImplement.obtenerCuentaByClientId(idClient);
+	
+		Cuenta_NegocioImp cuentaN = new Cuenta_NegocioImp();
+		List<Cuenta> cuentas = cuentaN.obtenerCuentaByClientId(idClient);
 		
 		System.out.println(cuentas.get(0).getNumero_Cuenta());
 		request.setAttribute("cuentas", cuentas);
@@ -70,8 +67,7 @@ public class SolicitudPrestamoServlet extends HttpServlet {
 			int cantCuotas = Integer.parseInt(request.getParameter("cantCuotas"));
 			
 			Prestamo prestamo = new Prestamo();
-			PrestamoDao_Implement prestamoDaoImpl = new PrestamoDao_Implement();
-			
+			Prestamo_NegocioImp prestamoN = new Prestamo_NegocioImp();
 			
 			LocalDate fechaHoy = LocalDate.now();
 	        DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -84,7 +80,7 @@ public class SolicitudPrestamoServlet extends HttpServlet {
 			prestamo.setCuotas(cantCuotas);
 			prestamo.setEstado(1);
 			
-			if(prestamoDaoImpl.insert(prestamo)) {
+			if(prestamoN.insert(prestamo)) {
 				System.out.println("Solicitud insertada con exito UWU");
 			}
 			
