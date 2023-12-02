@@ -85,7 +85,7 @@ public class SolicitudPrestamoServlet extends HttpServlet {
 			int cuotas = Integer.parseInt(request.getParameter("cantCuotas"));
 			double intereses = Double.parseDouble(request.getParameter("interes"));
 			double monto = Double.parseDouble(request.getParameter("monto"));
-			double importCuota = (monto + (monto*intereses)) / cuotas;
+			double importCuota = (monto + (monto*(intereses/100.0))) / cuotas;
 			int cantCuotas = Integer.parseInt(request.getParameter("cantCuotas"));
 			
 			Prestamo prestamo = new Prestamo();

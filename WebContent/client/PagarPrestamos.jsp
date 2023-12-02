@@ -6,7 +6,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 
-<% if(session.getAttribute("cliente") != null) { %>
+<% if(session.getAttribute("client") != null) { %>
 
 <jsp:include page="./header.jsp" />
 
@@ -23,14 +23,11 @@
             <table id="tablaConPaginadorYFiltro" class="display">
                 <thead>
                     <tr>
-                        <th>ID Pago</th>
-                        <th>Numero de Cuenta</th>
-                        <th>Fecha de Pago</th>
-                        <th>Importe de Cuota</th>
-                        <th>Importe Restante</th>
-                        <th>Cuotas Restantes</th>
-                        <th>ID Prestamo</th>
-                        <th>Acciones</th>
+                        <th>Numero de Prestamo</th>
+                        <th>Monto</th>
+                        <th>Fecha</th>
+                        <th>Cantidad de Cuotas</th>
+                        <th>accion</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -47,21 +44,18 @@
                             pagos = (ArrayList<PagoPrestamo>) session.getAttribute("pagos");
                         }
 
-                        
-                        for (PagoPrestamo pago : pagos) {
+
+                        for (Prestamo prestamo : prestamos) {
                     %>
                         <tr>
-                            <td>ID Pago</td>
-                            <td>Numero de Cuenta</td>
-                            <td>Fecha de Pago</td>
-                            <td>$ Importe de Cuota</td>
-                            <td>$ Importe Restante</td>
-                            <td>Cuotas Restantes</td>
-                            <td>ID Prestamo</td>
+                             <td><%= prestamo.getNumero_Cuenta() %></td>
+                             <td><%= prestamo.getTotalImporte() %></td>
+                             <td><%= prestamo.getFechaPedido() %></td>
+                                <td><%= prestamo.getCuotas() %></td>
                             <td>
                                 <form method="post" action="PagarPrestamosServlet">
-                                    <input type="hidden" name="idPrestamo" value="1">
-                                    <button type="submit" class="btn btn-success" name="pagarCuota">💸 Pagar</button>
+                                    <input type="hidden" name="idPrestamo" value="<%= prestamo.getIdPrestamo() %> " >
+                                    <button type="submit" class="btn btn-success" name="pagarCuota" >💸 Pagar </button>
                                 </form>
                             </td>
                         </tr>
@@ -69,6 +63,41 @@
                         }
                     %>
                 </tbody>
+            </table>
+        </div>
+        <div>
+            <table>
+
+                    <thead>
+                    <tr>
+                        <th>Id Prestamo</th>
+                        <th>Fechas de pago</th>
+                        <th>Importe de Cuota</th>
+                        <th>Importe restante</th>
+                        <th>Cuntas Restantes</th>
+                        <th>accion</th>
+                    </tr>
+
+                    </thead>
+                <tbody>
+                <%
+                    ArrayList<PagoPrestamo> prestamox = (ArrayList<PagoPrestamo>)session.getAttribute("prestamoXU");
+                    if(prestamox != null){
+                    for (PagoPrestamo prestamoss : prestamox) {
+                %>
+                <tr>
+                    <td><%= prestamoss.getIdPrestamo() %></td>
+                    <td><%= prestamoss.getFecha_Pago() %></td>
+                    <td><%= prestamoss.getImporte_cuota() %></td>
+                    <td><%= prestamoss.getImporte_restante() %></td>
+                    <td><%= prestamoss.getCuotas_restantes() %></td>
+                </tr>
+                <%
+                    }
+                    }
+                %>
+                </tbody>
+
             </table>
         </div>
     </div>
@@ -85,7 +114,8 @@
     });
 </script>
 
-<% } else {
+<% }
+                    else {
     response.sendRedirect("../index.jsp");
 }%>
 	

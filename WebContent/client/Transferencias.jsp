@@ -175,7 +175,7 @@
                                         <h2>Ingrese monto a transferir</h2>
                                         <input type="text" class="form-control" id="transferencia" name="valorD" value="">
                                             <div class="marcoNext">
-                                        <input type="submit" name="pasoTres" id="transferirFId" class="next action-button" <%=error!=null?"disabled":""%> value="Transferir"/>
+                                        <input type="submit" name="pasoTres" id="transferirFId" class="next action-button"  value="Transferir"/>
                                             </div>
                                         <h2 <%= error!=null?"class='errors'":"" %>><%= error!=null?error:""%></h2>
                                     </div>

@@ -12,17 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import Negocio_Implementacion.Cliente_NegocioImp;
-import Negocio_Implementacion.Cuenta_NegocioImp;
-import Negocio_Implementacion.MovimientoNegocio_Imp;
-import Negocio_Implementacion.Prestamo_NegocioImp;
+import Negocio_Implementacion.*;
 import dao_Implement.ClienteDao_Implement;
 import dao_Implement.CuentaDao_Implement;
+import dao_Implement.PagoPrestamoDao_Implement;
 import dao_Implement.PrestamoDao_Implement;
-import dominio.Cliente;
-import dominio.Cuenta;
-import dominio.Movimiento;
-import dominio.Prestamo;
+import dominio.*;
 
 /**
  * Servlet implementation class AprobarPrestamosServlet
@@ -88,9 +83,10 @@ public class AprobarPrestamosServlet extends HttpServlet {
 		            PrestamoDao_Implement prestamoDao = new PrestamoDao_Implement();
 		            prestamoDao.aprobarPrestamo(Integer.parseInt(idPrestamo));
 					ArrayList<Prestamo> prestamos = (ArrayList<Prestamo>)session.getAttribute("prestamos");
-
+					/* Actualiza el credito a cuenta*/
 					CuentaDao_Implement cuentaDao = new CuentaDao_Implement();
 					cuentaDao.ajusteCuenta(prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo)).findFirst().get().getNumero_Cuenta(), prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo)).findFirst().get().getTotalImporte());
+					/* Genera el movimiento */
 					Movimiento movimiento = new Movimiento();
 					MovimientoNegocio_Imp movimientoN = new MovimientoNegocio_Imp();
 					movimiento.setNumero_Cuenta(prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo)).findFirst().get().getNumero_Cuenta());
@@ -99,6 +95,22 @@ public class AprobarPrestamosServlet extends HttpServlet {
 					movimiento.setImporteMovimiento((prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo)).findFirst().get().getTotalImporte()));
 					movimiento.setTipoMovimiento("Credito");
 					movimientoN.insert(movimiento);
+					/* Actualiza el prestamo */
+					PagoPrestamo_NegocioImp pagoN = new PagoPrestamo_NegocioImp();
+					PagoPrestamo pago = new PagoPrestamo();
+					pago.setNumero_Cuenta(prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo)).findFirst().get().getNumero_Cuenta());
+					pago.setFecha_Pago(dtf.format(now).toString());
+					pago.setImporte_cuota(prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo)).findFirst().get().getImporteCuota());
+					pago.setImporte_restante(prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo)).findFirst().get().getTotalImporte());
+					pago.setCuotas_restantes(prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo)).findFirst().get().getCuotas());
+					pago.setIdPrestamo(Integer.parseInt(idPrestamo));
+					pagoN.insert(pago);//aca no habra que llamar al negocio?
+
+					//Asi estan las columnas tal cual en la base de datos
+					// idpago_prestamo numero_Cuenta Fecha_Pago Importe_Cuota Impote_Restante Cuotas_Restantes idPrestamo
+
+
+
 				} else {
 		            System.out.println("Nulidad al aprobar");
 		        }
@@ -136,7 +148,7 @@ public class AprobarPrestamosServlet extends HttpServlet {
 		session.setAttribute("prestamos", prestamos);
 		
 
-		// Redirige a la p�gina adecuada despu�s de procesar el formulario
+		// Redirige a la p�gina adecuada despues de procesar el formulario
 
 		response.sendRedirect(request.getContextPath() + "/admin/AprobarPrestamos.jsp?resultado=exito");
 		}

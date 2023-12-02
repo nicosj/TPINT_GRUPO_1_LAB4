@@ -107,8 +107,6 @@
     </div>
 </div>
 
-<button id="openModalBtn" class="btn btn-primary">Abrir Modal</button>
-
 <!-- Modal -->
 <div class="modal" tabindex="-1" role="dialog" id="myModal">
     <div class="modal-dialog" role="document">

@@ -72,6 +72,7 @@
     </div>
 
   <div class="redireccion">
+
     <a href="ReporteClienteXProvincia.jsp">I. Ver clientes discriminados por provincia y genero</a>
   </div>
 
@@ -80,7 +81,7 @@
   </div>
 
   <div class="redireccion">
-    <a href="HistorialMovimientos.jsp">III. Movimientos de cada cliente</a>
+    <a href="HistorialMovimientosServlet">III. Movimientos de cada cliente</a>
   </div>
 </body>
 </html>

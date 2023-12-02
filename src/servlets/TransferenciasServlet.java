@@ -116,9 +116,7 @@ public class TransferenciasServlet extends HttpServlet {
 
 				session.setAttribute("clientetrans", cliente);
 				session.setAttribute("cuentatrans", cuenta);
-
 				session.setAttribute("cbushow", "1");
-
 				session.setAttribute("error", null);
 
 			} else {

@@ -139,3 +139,10 @@ MODIFY COLUMN fecha TEXT NOT NULL
 ALTER TABLE `banco`.`prestamos`
 modify COLUMN `estado` boolean DEFAULT false;
 
+ALTER TABLE banco.prestamos
+CHANGE COLUMN Importe_Cuota Importe_Cuota DECIMAL(20,2) NOT NULL ,
+CHANGE COLUMN Importe_Total Importe_Total DECIMAL(20,2) NOT NULL ;
+
+ALTER TABLE banco.pago_prestamo
+CHANGE COLUMN Importe_Cuota Importe_Cuota DECIMAL(20,2) NOT NULL ,
+CHANGE COLUMN Impote_Restante Impote_Restante DECIMAL(20,2) NOT NULL ;
