@@ -20,7 +20,7 @@
                                 class="material-icons">&#xE147;</i> <span>Nuevo Cliente</span></a>
 
                     </div>
-                    
+
 
                 </div>
             </div>
@@ -180,7 +180,7 @@
                     <div class="form-group">
                         <label for="fechaNacimiento">Fecha de Nacimiento</label> <input
                             type="date" class="form-control" id="fechaNacimiento"
-                            name="fechaNacimiento" min="1900-01-01" max="2024-12-31">
+                            name="fechaNacimiento">
                     </div>
                     <div class="form-group">
                         <label for="direccion">Dirección</label> <input type="text"
@@ -196,32 +196,33 @@
                                                                             placeholder="Localidad">
                         </div>
                         <div class="form-group col-md-6">
-                         <label for="provincia">Provincia</label>
-                         <select class="form-control" id="provinciae" name="provincia">
-							<option value="Buenos Aires">Buenos Aires</option>
-							<option value="Catamarca">Catamarca</option>
-							<option value="Chaco">Chaco</option>
-							<option value="Chubut">Chubut</option>
-							<option value="Cordoba">Cordoba</option>
-							<option value="Corrientes">Corrientes</option>
-							<option value="Entre Rios">Entre Rios</option>
-							<option value="Formosa">Formosa</option>
-							<option value="Jujuy">Jujuy</option>
-							<option value="La Pampa">La Pampa</option>
-							<option value="La Rioja">La Rioja</option>
-							<option value="Mendoza">Mendoza</option>
-							<option value="Misiones">Misiones</option>
-							<option value="Neuquen">Neuquen</option>
-							<option value="Rio Negro">Rio Negro</option>
-							<option value="Salta">Salta</option>
-							<option value="San Juan">San Juan</option>
-							<option value="San Luis">San Luis</option>
-							<option value="Santa Cruz">Santa Cruz</option>
-							<option value="Santa Fe">Santa Fe</option>
-							<option value="Santiago Del Estero">Santiago Del Estero</option>
-							<option value="Tierra Del Fuego">Tierra Del Fuego</option>
-							<option value="Tucuman">Tucuman</option>
-					    </select>      
+                            <label for="provincia">Provincia</label>
+                            <select class="form-control" id="provincia" name="provincia">
+                                <option value="Buenos Aires">Buenos Aires</option>
+                                <option value="Catamarca">Catamarca</option>
+                                <option value="Chaco">Chaco</option>
+                                <option value="Chubut">Chubut</option>
+                                <option value="Cordoba">Cordoba</option>
+                                <option value="Corrientes">Corrientes</option>
+                                <option value="Entre Rios">Entre Rios</option>
+                                <option value="Formosa">Formosa</option>
+                                <option value="Jujuy">Jujuy</option>
+                                <option value="La Pampa">La Pampa</option>
+                                <option value="La Rioja">La Rioja</option>
+                                <option value="Mendoza">Mendoza</option>
+                                <option value="Misiones">Misiones</option>
+                                <option value="Neuquen">Neuquen</option>
+                                <option value="Rio Negro">Rio Negro</option>
+                                <option value="Salta">Salta</option>
+                                <option value="San Juan">San Juan</option>
+                                <option value="San Luis">San Luis</option>
+                                <option value="Santa Cruz">Santa Cruz</option>
+                                <option value="Santa Fe">Santa Fe</option>
+                                <option value="Santiago Del Estero">Santiago Del Estero</option>
+                                <option value="Tierra Del Fuego">Tierra Del Fuego</option>
+                                <option value="Tucuman">Tucuman</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="email">Correo Electrónico</label> <input type="email"
@@ -248,12 +249,12 @@
                                                                           name="contrasena"
                                                                           placeholder="Contrasena">
                     </div>
-                                       
+
                     <div class="form-group">
                         <label for="contrasena2e">Repetir Contrasena</label> <input type="password"
-                                                                           class="form-control" id="contrasena2e"
-                                                                           name="contrasena2"
-                                                                           placeholder="Asegurese de que las contrasenias coincidan">
+                                                                                    class="form-control" id="contrasena2e"
+                                                                                    name="contrasena2"
+                                                                                    placeholder="Asegurese de que las contrasenias coincidan">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -385,10 +386,32 @@
                                                                              placeholder="Localidad">
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="provinciae">Provincia</label> <input type="text"
-                                                                             class="form-control" id="provinciae"
-                                                                             name="provincia"
-                                                                             placeholder="Provincia">
+                            <label for="provinciae">Provincia</label>
+                            <select class="form-control" id="provinciae" name="provincia">
+                                <option value="Buenos Aires">Buenos Aires</option>
+                                <option value="Catamarca">Catamarca</option>
+                                <option value="Chaco">Chaco</option>
+                                <option value="Chubut">Chubut</option>
+                                <option value="Cordoba">Cordoba</option>
+                                <option value="Corrientes">Corrientes</option>
+                                <option value="Entre Rios">Entre Rios</option>
+                                <option value="Formosa">Formosa</option>
+                                <option value="Jujuy">Jujuy</option>
+                                <option value="La Pampa">La Pampa</option>
+                                <option value="La Rioja">La Rioja</option>
+                                <option value="Mendoza">Mendoza</option>
+                                <option value="Misiones">Misiones</option>
+                                <option value="Neuquen">Neuquen</option>
+                                <option value="Rio Negro">Rio Negro</option>
+                                <option value="Salta">Salta</option>
+                                <option value="San Juan">San Juan</option>
+                                <option value="San Luis">San Luis</option>
+                                <option value="Santa Cruz">Santa Cruz</option>
+                                <option value="Santa Fe">Santa Fe</option>
+                                <option value="Santiago Del Estero">Santiago Del Estero</option>
+                                <option value="Tierra Del Fuego">Tierra Del Fuego</option>
+                                <option value="Tucuman">Tucuman</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
@@ -416,107 +439,107 @@
                                                                            class="form-control" id="contrasenae"
                                                                            name="contrasena"
                                                                            placeholder="Contrasena">
-                                                                           
-                    <div class="form-group">
-                        <label for="contrasena2ew">Repetir Contrasena</label> <input type="password"
-                                                                           class="form-control" id="contrasena2ew"
-                                                                           name="contrasena2"
-                                                                           placeholder="Asegurese de que las contrasenias coincidan">
-                    </div>                                                                           
 
-                    
+                        <div class="form-group">
+                            <label for="contrasena2ew">Repetir Contrasena</label> <input type="password"
+                                                                                         class="form-control" id="contrasena2ew"
+                                                                                         name="contrasena2"
+                                                                                         placeholder="Asegurese de que las contrasenias coincidan">
+                        </div>
 
 
-                    <div class="modal-footer">
-                        <input type="button" class="btn btn-default" data-dismiss="modal"
-                               value="Cancel"> <input type="submit" name="btnModificar" class="btn btn-info"
-                                                      value="Guardar">
+
+
+                        <div class="modal-footer">
+                            <input type="button" class="btn btn-default" data-dismiss="modal"
+                                   value="Cancel"> <input type="submit" name="btnModificar" class="btn btn-info"
+                                                          value="Guardar">
+                        </div>
                     </div>
-                </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-    console.log("Script ejecutado");
+    document.addEventListener("DOMContentLoaded", function () {
+        console.log("Script ejecutado");
 
-    document.getElementById("addCliente").addEventListener("submit", function (event) {
-        console.log("Form enviado");
+        document.getElementById("addCliente").addEventListener("submit", function (event) {
+            console.log("Form enviado");
 
-        var nuevoUsuario = document.getElementById("usuarioe").value;
+            var nuevoUsuario = document.getElementById("usuarioe").value;
 
-        // Verificar si el nuevo nombre de usuario ya existe
-        verificarNombreUsuario(nuevoUsuario, function (existe) {
-            if (existe) {
-                console.log("El nuevo nombre de usuario ya existe");
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'El nuevo nombre de usuario ya está en uso. Por favor, elige otro.',
-                    showConfirmButton: true
-                });
+            // Verificar si el nuevo nombre de usuario ya existe
+            verificarNombreUsuario(nuevoUsuario, function (existe) {
+                if (existe) {
+                    console.log("El nuevo nombre de usuario ya existe");
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'El nuevo nombre de usuario ya está en uso. Por favor, elige otro.',
+                        showConfirmButton: true
+                    });
 
-                event.preventDefault(); // Evita que el formulario se envíe
-            } else {
-                // Continuar con el envío del formulario si el nombre de usuario no existe
-                console.log("El nuevo nombre de usuario no existe");
-            }
+                    event.preventDefault(); // Evita que el formulario se envíe
+                } else {
+                    // Continuar con el envío del formulario si el nombre de usuario no existe
+                    console.log("El nuevo nombre de usuario no existe");
+                }
+            });
         });
-    });
 
-});
+    });
 
 </script>
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-    console.log("Script ejecutado");
+    document.addEventListener("DOMContentLoaded", function () {
+        console.log("Script ejecutado");
 
-    document.getElementById("editEmployeeModalForm").addEventListener("submit", function (event) {
-        console.log("Form enviado");
+        document.getElementById("editEmployeeModalForm").addEventListener("submit", function (event) {
+            console.log("Form enviado");
 
-        var nuevoUsuario = document.getElementById("usuarioe").value;
+            var nuevoUsuario = document.getElementById("usuarioe").value;
 
-        // Verificar si el nuevo nombre de usuario ya existe
-        verificarNombreUsuario(nuevoUsuario, function (existe) {
-            if (existe) {
-                console.log("El nuevo nombre de usuario ya existe");
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'El nuevo nombre de usuario ya está en uso. Por favor, elige otro.',
-                    showConfirmButton: true
-                });
+            // Verificar si el nuevo nombre de usuario ya existe
+            verificarNombreUsuario(nuevoUsuario, function (existe) {
+                if (existe) {
+                    console.log("El nuevo nombre de usuario ya existe");
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'El nuevo nombre de usuario ya está en uso. Por favor, elige otro.',
+                        showConfirmButton: true
+                    });
 
-                event.preventDefault(); // Evita que el formulario se envíe
-            } else {
-                // Continuar con el envío del formulario si el nombre de usuario no existe
-                console.log("El nuevo nombre de usuario no existe");
-            }
+                    event.preventDefault(); // Evita que el formulario se envíe
+                } else {
+                    // Continuar con el envío del formulario si el nombre de usuario no existe
+                    console.log("El nuevo nombre de usuario no existe");
+                }
+            });
         });
+
+        /*// Función para verificar la existencia del nombre de usuario
+        function verificarNombreUsuario(usuario, callback) {
+
+            $.ajax({
+                url: "VerificarNombreUsuarioServlet",
+                method: "POST",
+                data: { usuario: usuario },
+                success: function (response) {
+
+                    var existe = response === "true";
+                    callback(existe);
+                },
+                error: function () {
+                    console.error("Error al verificar el nombre de usuario");
+
+                    callback(false);
+                }
+            });
+        }*/
     });
-
-    /*// Función para verificar la existencia del nombre de usuario
-    function verificarNombreUsuario(usuario, callback) {
-
-        $.ajax({
-            url: "VerificarNombreUsuarioServlet",
-            method: "POST",
-            data: { usuario: usuario },
-            success: function (response) {
-               
-                var existe = response === "true";
-                callback(existe);
-            },
-            error: function () {
-                console.error("Error al verificar el nombre de usuario");
-            
-                callback(false); 
-            }
-        });
-    }*/
-});
 </script>
 
 <!-- Delete Modal HTML -->
@@ -548,52 +571,52 @@ document.addEventListener("DOMContentLoaded", function () {
 
 <!-- Script para que conicidan las contrasenenias en nuevo cliente -->
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-    console.log("Script ejecutado");
+    document.addEventListener("DOMContentLoaded", function () {
+        console.log("Script ejecutado");
 
-    document.getElementById("addCliente").addEventListener("submit", function (event) {
-        console.log("Form enviado");
+        document.getElementById("addCliente").addEventListener("submit", function (event) {
+            console.log("Form enviado");
 
-        var contrasena = document.getElementById("contrasena").value;
-        var contrasena2 = document.getElementById("contrasena2e").value;
+            var contrasena = document.getElementById("contrasena").value;
+            var contrasena2 = document.getElementById("contrasena2e").value;
 
-        if (contrasena !== contrasena2) {
-            console.log("Las contrasenias no son iguales");
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'Las contraseñas no coinciden. Por favor, inténtalo de nuevo.',
-                showConfirmButton: true
-            });
+            if (contrasena !== contrasena2) {
+                console.log("Las contrasenias no son iguales");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Las contraseñas no coinciden. Por favor, inténtalo de nuevo.',
+                    showConfirmButton: true
+                });
 
-            event.preventDefault(); // Evita que el formulario se envíe
-        }
+                event.preventDefault(); // Evita que el formulario se envíe
+            }
+        });
     });
-});
 </script><!-- Script para que conicidan las contrasenenias en la funcion de editar -->
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-    console.log("Script ejecutado");
+    document.addEventListener("DOMContentLoaded", function () {
+        console.log("Script ejecutado");
 
-    document.getElementById("editEmployeeModal").addEventListener("submit", function (event) {
-        console.log("Form enviado");
+        document.getElementById("editEmployeeModal").addEventListener("submit", function (event) {
+            console.log("Form enviado");
 
-        var contrasena = document.getElementById("contrasenae").value;
-        var contrasena2 = document.getElementById("contrasena2ew").value;
+            var contrasena = document.getElementById("contrasenae").value;
+            var contrasena2 = document.getElementById("contrasena2ew").value;
 
-        if (contrasena !== contrasena2) {
-            console.log("Las contrasenias no son iguales");
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'Las contraseñas no coinciden. Por favor, inténtalo de nuevo.',
-                showConfirmButton: true
-            });
+            if (contrasena !== contrasena2) {
+                console.log("Las contrasenias no son iguales");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Las contraseñas no coinciden. Por favor, inténtalo de nuevo.',
+                    showConfirmButton: true
+                });
 
-            event.preventDefault(); // Evita que el formulario se envíe
-        }
+                event.preventDefault(); // Evita que el formulario se envíe
+            }
+        });
     });
-});
 </script>
 
 
@@ -614,7 +637,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
-		cancelButtonColor: '#d33',
+                cancelButtonColor: '#d33',
                 confirmButtonText: 'Confirmar',
 
 
@@ -685,14 +708,14 @@ document.addEventListener("DOMContentLoaded", function () {
     String errorMessage = (String) request.getAttribute("errorMessage");
     if (errorMessage != null && !errorMessage.isEmpty()) {
 %>
-    <script type="text/javascript">
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: '<%= errorMessage %>',
-            showConfirmButton: true
-        });
-    </script>
+<script type="text/javascript">
+    Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: '<%= errorMessage %>',
+        showConfirmButton: true
+    });
+</script>
 <%
     }
     // Clear the error message attribute to avoid displaying it multiple times
@@ -704,7 +727,7 @@ function filtrarTabla() {
     var input, filter, table, tr, td, i, txtValue;
     input = document.getElementById("buscador");
     filter = input.value.toUpperCase();
-    table = document.querySelector(".table-striped table-hover"); 
+    table = document.querySelector(".table-striped table-hover");
 
     for (i = 0; i < tr.length; i++) {
         td = tr[i].getElementsByTagName("td");
@@ -725,20 +748,19 @@ function filtrarTabla() {
 
 <!-- Modal por si existe ya un nombre de usuario -->
 <div id="modalUsuarioExistente" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <p id="errorMessage"></p>
-  </div>
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <p id="errorMessage"></p>
+    </div>
 </div>
 
 <script>
-function openModal(message) {
-  document.getElementById("errorMessage").innerHTML = message;
-  document.getElementById("modalUsuarioExistente").style.display = "block";
-}
+    function openModal(message) {
+        document.getElementById("errorMessage").innerHTML = message;
+        document.getElementById("modalUsuarioExistente").style.display = "block";
+    }
 
-function closeModal() {
-  document.getElementById("modalUsuarioExistente").style.display = "none";
-}
+    function closeModal() {
+        document.getElementById("modalUsuarioExistente").style.display = "none";
+    }
 </script>
-
