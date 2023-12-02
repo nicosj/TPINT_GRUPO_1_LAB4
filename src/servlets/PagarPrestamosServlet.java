@@ -1,6 +1,8 @@
 package servlets;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -15,18 +17,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
-import Negocio_Implementacion.Cliente_NegocioImp;
-import Negocio_Implementacion.Cuenta_NegocioImp;
-import Negocio_Implementacion.PagoPrestamo_NegocioImp;
-import Negocio_Implementacion.Prestamo_NegocioImp;
+import Negocio_Implementacion.*;
 // TODO import Negocio_Implementacion.PagoPrestamo_NegocioImp;
 import dao_Implement.ClienteDao_Implement;
 import dao_Implement.CuentaDao_Implement;
 import dao_Implement.PrestamoDao_Implement;
-import dominio.Cuenta;
-import dominio.PagoPrestamo;
-import dominio.Prestamo;
-import dominio.Usuario;
+import dominio.*;
 import negocio.PagoPrestamo_Negocio;
 
 /**
@@ -43,7 +39,6 @@ public class PagarPrestamosServlet extends HttpServlet {
     }
 
 
-
     // TODO Generar el negocio "PagoPrestamo_NegocionImp"
     //PagoPrestamo_NegocioImp pago = new PagoPrestamo_NegocioImp();
     ArrayList<PagoPrestamo> listaPagos = new ArrayList<PagoPrestamo>();
@@ -53,18 +48,19 @@ public class PagarPrestamosServlet extends HttpServlet {
         HttpSession session;
         session = request.getSession();
         session.setAttribute("prestamoXU", null);
-        Usuario clix=(Usuario)session.getAttribute("client");
+        Usuario clix = (Usuario) session.getAttribute("client");
 
         Cuenta_NegocioImp cuentaNegocio = new Cuenta_NegocioImp();
 
         ArrayList<Cuenta> cuentas = cuentaNegocio.obtenerCuentaByClientId(clix.getIdCliente());
         PrestamoDao_Implement prestamoDao = new PrestamoDao_Implement();
-        ArrayList<Prestamo> prestamos =new ArrayList<>();
-        for(Cuenta cuenta : cuentas) {
+        ArrayList<Prestamo> prestamos = new ArrayList<>();
+        for (Cuenta cuenta : cuentas) {
             prestamos.addAll(prestamoDao.readAllByCuenta(cuenta.getNumero_Cuenta()));
         }
         session.setAttribute("prestamos", prestamos);
-        System.out.println(prestamos+"prestamos");
+        session.setAttribute("cuentas", cuentas);
+        System.out.println(prestamos + "prestamos");
         request.getRequestDispatcher("/client/PagarPrestamos.jsp").forward(request, response);
     }
 
@@ -75,33 +71,34 @@ public class PagarPrestamosServlet extends HttpServlet {
         HttpSession session;
         session = request.getSession();
         Cuenta_NegocioImp cuentaNegocio = new Cuenta_NegocioImp();
-        Usuario clix=(Usuario)session.getAttribute("client");
+
+        Usuario clix = (Usuario) session.getAttribute("client");
 
         ArrayList<Cuenta> cuentas = cuentaNegocio.obtenerCuentaByClientId(clix.getIdCliente());
         PrestamoDao_Implement prestamoDao = new PrestamoDao_Implement();
 
-        ArrayList<Prestamo> prestamos =new ArrayList<>();
+        ArrayList<Prestamo> prestamos = new ArrayList<>();
 
-        for(Cuenta cuenta : cuentas) {
+        for (Cuenta cuenta : cuentas) {
             prestamos.addAll(prestamoDao.readAllByCuenta(cuenta.getNumero_Cuenta()));
         }
         session.setAttribute("prestamos", prestamos);
+        session.setAttribute("cuentas", cuentas);
         /*Prestmo cuotas*/
         String estadoPrestamo = request.getParameter("estadoPrestamo");
         String idPago = request.getParameter("idPago");
 
-        if(request.getParameter("pagarCuota")!=null){
+        if (request.getParameter("pagarCuota") != null) {
 
-            ArrayList<PagoPrestamo> filtrado=new ArrayList<PagoPrestamo>();
+            ArrayList<PagoPrestamo> filtrado = new ArrayList<PagoPrestamo>();
             /*trae datos*/
             PagoPrestamo_NegocioImp pagoT = new PagoPrestamo_NegocioImp();
 
-            ArrayList<PagoPrestamo> pprestamo=pagoT.readAll();
+            ArrayList<PagoPrestamo> pprestamo = pagoT.readAll();
 
-            for(PagoPrestamo prest : pprestamo)
-            {
+            for (PagoPrestamo prest : pprestamo) {
                 System.out.println(request.getParameter("idPrestamo").trim().equals(String.valueOf(prest.getIdPrestamo()).trim()));
-                if (request.getParameter("idPrestamo").trim().equals(String.valueOf(prest.getIdPrestamo()).trim())){
+                if (request.getParameter("idPrestamo").trim().equals(String.valueOf(prest.getIdPrestamo()).trim())) {
                     //if(request.getParameter("idPrestamo")==String.valueOf(prest.getIdPrestamo())){
                     PagoPrestamo pago = new PagoPrestamo();
                     pago.setIdPago(prest.getIdPago());
@@ -121,40 +118,58 @@ public class PagarPrestamosServlet extends HttpServlet {
             session.setAttribute("prestamoXU", filtrado);
 
         }
-        if( request.getParameter("pagarEstaCuota")!=null){
-            System.out.println(request.getParameter("idEstePrestamo"+"asd666666"));
+        if (request.getParameter("pagarEstaCuota") != null) {
+            System.out.println(request.getParameter("idEstePrestamo" + "asd666666"));
 
 
-            ArrayList<PagoPrestamo> filtradox=(ArrayList<PagoPrestamo>)session.getAttribute("prestamoXU");
+            ArrayList<PagoPrestamo> filtradox = (ArrayList<PagoPrestamo>) session.getAttribute("prestamoXU");
             System.out.println(filtradox);
-            Optional<PagoPrestamo> cuxOptional=filtradox.stream().filter(p->p.getIdPago()==Integer.parseInt(request.getParameter("idEstePrestamo"))).findFirst();
+            Optional<PagoPrestamo> cuxOptional = filtradox.stream().filter(p -> p.getIdPago() == Integer.parseInt(request.getParameter("idEstePrestamo"))).findFirst();
             if (cuxOptional.isPresent()) {
                 request.getParameter("pagarEstaCuota");
                 PagoPrestamo cux = cuxOptional.get();
 
+                Cuenta cufin = cuentaNegocio.obtenerCuenta(request.getParameter("cuotas"));
+                if (cufin.getSaldo() >= cux.getImporte_cuota() ){
 
-                PagoPrestamo_NegocioImp pagoT = new PagoPrestamo_NegocioImp();
-                PagoPrestamo pago = new PagoPrestamo();
-                pago.setIdPago(cux.getIdPago());
-                pago.setNumero_Cuenta(cux.getNumero_Cuenta());
-                pago.setFecha_Pago("2020-10-10");
-                pago.setImporte_cuota(cux.getImporte_cuota());
-                pago.setImporte_restante(cux.getImporte_restante() - cux.getImporte_cuota());
-                pago.setCuotas_restantes(cux.getCuotas_restantes() - 1);
-                pago.setIdPrestamo(cux.getIdPrestamo());
-                if (cux.getIdPrestamo() >= 0)
-                    pagoT.insert(pago);
-                else
-                    session.setAttribute("error", "No se pudo realizar el pago");
 
-                session.setAttribute("prestamoXU", null);
-            }
+                    PagoPrestamo_NegocioImp pagoT = new PagoPrestamo_NegocioImp();
+                    PagoPrestamo pago = new PagoPrestamo();
+                    pago.setIdPago(cux.getIdPago());
+                    pago.setNumero_Cuenta(cux.getNumero_Cuenta());
+                    pago.setFecha_Pago("2020-10-10");
+                    pago.setImporte_cuota(cux.getImporte_cuota());
+                    pago.setImporte_restante(cux.getImporte_restante() - cux.getImporte_cuota());
+                    pago.setCuotas_restantes(cux.getCuotas_restantes() - 1);
+                    pago.setIdPrestamo(cux.getIdPrestamo());
+                    if (cux.getIdPrestamo() >= 0) {
+                        pagoT.insert(pago);
+                        cuentaNegocio.ajusteCuenta(cufin.getNumero_Cuenta(), -(cux.getImporte_cuota()));
+                        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+                        LocalDateTime now = LocalDateTime.now();
+                        Movimiento movimiento = new Movimiento();
+                        MovimientoNegocio_Imp movimientoN = new MovimientoNegocio_Imp();
 
-            /*trae datos*/
+                        //cuenta origen
+                        movimiento.setNumero_Cuenta(cufin.getNumero_Cuenta());
+                        movimiento.setFechaMovimiento(dtf.format(now).toString());
+                        movimiento.setDetalleConcepto("Pago Cuota restantes: " + cux.getCuotas_restantes());
+                        movimiento.setImporteMovimiento(-(cux.getImporte_cuota()));
+                        movimiento.setTipoMovimiento("Debito");
+                        movimientoN.insert(movimiento);
+                    }
+                }
+            } else
+                session.setAttribute("error", "No se pudo realizar el pago");
 
-        }
+             session.setAttribute("prestamoXU", null);
 
-            System.out.println("holu55555555555555");
+
+        /*trae datos*/
+
+    }
+
+        System.out.println("holu55555555555555");
 
 
         /*System.out.println("idPrestamo: " + idPrestamo);
@@ -162,7 +177,9 @@ public class PagarPrestamosServlet extends HttpServlet {
         System.out.println("idPago: " + idPago);*/
 
 
-        request.getRequestDispatcher("/client/PagarPrestamos.jsp").forward(request, response);
-    }
+        request.getRequestDispatcher("/client/PagarPrestamos.jsp").
+
+    forward(request, response);
+}
 
 }

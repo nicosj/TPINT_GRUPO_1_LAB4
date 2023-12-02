@@ -1,9 +1,6 @@
-<%@page import="dominio.PagoPrestamo"%>
 <%@page import="java.util.Objects"%>
-<%@page import="dominio.Prestamo"%>
-<%@page import="dominio.Cliente"%>
-<%@page import="dominio.Cuenta"%>
 <%@page import="java.util.ArrayList"%>
+<%@ page import="dominio.*" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 
 <% if(session.getAttribute("client") != null) { %>
@@ -75,6 +72,7 @@
                         <th>Importe de Cuota</th>
                         <th>Importe restante</th>
                         <th>Cuntas Restantes</th>
+                        <th>Cuentas disponibles</th>
                         <th>accion</th>
                     </tr>
 
@@ -91,8 +89,22 @@
                     <td><%= prestamoss.getImporte_cuota() %></td>
                     <td><%= prestamoss.getImporte_restante() %></td>
                     <td><%= prestamoss.getCuotas_restantes() %></td>
-                    <td>
+
                         <form method="post" action="PagarPrestamosServlet">
+                            <td>
+                                <Select id="cuotas" name="cuotas" class="form-control" required>
+                                    <%
+                                        for (Cuenta cuenta : cuentas) {
+
+                                    %>
+                                    <option value="<%= cuenta.getNumero_Cuenta() %>"><%= cuenta.getNumero_Cuenta() %></option>
+                                    <%
+
+                                        }
+                                    %>
+                                </Select>
+                            </td>
+                            <td>
                             <input type="hidden" name="idEstePrestamo" value="<%= prestamoss.getIdPago()%>"/>
                             <button type="submit" class="btn btn-success" name="pagarEstaCuota" > 💸 PagarEstaCuota </button>
                         </form>
