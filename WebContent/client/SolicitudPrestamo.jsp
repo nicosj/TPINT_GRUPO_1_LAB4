@@ -1,8 +1,8 @@
 <%@page import="dominio.Cuenta"%>
 <%@page import="dominio.Intereses"%>
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 
 <% if(session.getAttribute("client") != null) {%>
 <jsp:include page="./header.jsp" />
@@ -31,7 +31,7 @@
                 <% List<Cuenta> cuentas = (List<Cuenta>)request.getAttribute("cuentas"); %>
                 <% for(Cuenta cuenta : cuentas) {%>
                 <option value="<%= cuenta.getNumero_Cuenta() %>">
-                    <strong>Cuenta n� <%= cuenta.getNumero_Cuenta() %></strong><br>
+                    <strong>Cuenta n� <%= cuenta.getNumero_Cuenta() %></strong><br>
                     <span style="font-size: 12px; color: #555;">Saldo actual: <%= cuenta.getSaldo() %>$</span>
                 </option>
                 <% } %>
@@ -69,30 +69,90 @@
     </div>
 </div>
 
+<button id="openModalBtn" class="btn btn-primary">Abrir Modal</button>
+
+<!-- Modal -->
+<div class="modal" tabindex="-1" role="dialog" id="myModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Error de Validación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="errorMessage"></div>
+        </div>
+    </div>
+</div>
+
+
 <jsp:include page="./footer.jsp" />
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         calculateFinalAmount();
     });
-    document.getElementById("btnAcceptModal").addEventListener("click", function(){
-        console.log("click");
-        document.getElementById("loanForm").submit();
-    })
+    document.getElementById("btnAcceptModal").addEventListener("click", function() {
+        // Validar campos antes de enviar el formulario
+        if (validateFields()) {
+            // Mostrar SweetAlert2 para confirmar la acción
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: '¿Quieres enviar el formulario?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Sí',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById("loanForm").submit();
+                }
+            });
+        }
+    });
+    
+    
+    function validateFields() {
+        const amount = parseInt(document.getElementById("monto").value);
+        const interest = parseInt(document.getElementById("cuotas").value);
+        const cuotas = parseInt(document.getElementById("cuotas").options[document.getElementById("cuotas").selectedIndex].label);
+
+        // Validar monto
+        if (isNaN(amount) || amount <= 0 || !/^\d+$/.test(amountInput.value)) {
+	        showAlert("El monto debe ser un número positivo y no debe contener letras.");
+	        return false;
+	    }
+
+        // Validar cuotas
+        if (![6, 12, 18].includes(interest)) {
+            showAlert("La cantidad de cuotas debe ser 6, 12 o 18.");
+            return false;
+        }
+
+        // Todas las validaciones pasaron
+        return true;
+    }
+
+    function showAlert(message) {
+        Swal.fire({
+            title: 'Error de Validación',
+            text: message,
+            icon: 'error',
+            confirmButtonText: 'Cerrar'
+        });
+    }
+    
     function calculateFinalAmount(){
-        const amount = document.getElementById("monto").value;
-        const interest = document.getElementById("cuotas").value;
-        const cuotas = document.getElementById("cuotas").options[document.getElementById("cuotas").selectedIndex].label;
+        const amount = parseInt(document.getElementById("monto").value);
+        const interest = parseInt(document.getElementById("cuotas").value);
+        const cuotas = parseInt(document.getElementById("cuotas").options[document.getElementById("cuotas").selectedIndex].label);
         const finalAmount = document.getElementById("costoFinal");
         const finalAmountModal = document.getElementById("costoFinalModal");
         const cuotasModal = document.getElementById("cuotasModal");
         const montoCuotasModal = document.getElementById("montoCuotasModal");
         const interesesLabel = document.getElementById("interesesLabel");
-        const total = (amount * (interest/100)) + amount;
-
-        console.log(interest/100);
-        console.log(cuotas);
-        console.log((amount * (interest/100)));
+        const total = ((amount * (interest/100)) + amount);
+		
+        console.log(amount);
 
         finalAmount.value = total;
         finalAmountModal.innerHTML = "Monto final con intereses: " + total + "$";

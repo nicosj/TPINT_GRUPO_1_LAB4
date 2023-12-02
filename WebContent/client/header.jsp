@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <%@page import="dominio.Usuario"%>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Banco LAB - Sistema V1.0</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
