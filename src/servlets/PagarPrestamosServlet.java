@@ -3,6 +3,7 @@ package servlets;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,27 +11,33 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
+
 import Negocio_Implementacion.Cliente_NegocioImp;
 import Negocio_Implementacion.Cuenta_NegocioImp;
 import Negocio_Implementacion.Prestamo_NegocioImp;
+// TODO import Negocio_Implementacion.PagoPrestamo_NegocioImp;
 import dao_Implement.ClienteDao_Implement;
 import dao_Implement.CuentaDao_Implement;
 import dao_Implement.PrestamoDao_Implement;
 import dominio.Cliente;
 import dominio.Cuenta;
+import dominio.PagoPrestamo;
 import dominio.Prestamo;
 
 /**
- * Servlet implementation class AprobarPrestamosServlet
+ * Servlet implementation class PagarPrestamosServlet
  */
-@WebServlet("/admin/AprobarPrestamosServlet")
-public class AprobarPrestamosServlet extends HttpServlet {
+@SuppressWarnings("unused")
+@WebServlet("/client/PagarPrestamosServlet")
+public class PagarPrestamosServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public AprobarPrestamosServlet() {
+    public PagarPrestamosServlet() {
         super();
-
+  
     }
+    
     Cliente_NegocioImp cliente = new Cliente_NegocioImp();
 	ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
     
@@ -40,11 +47,15 @@ public class AprobarPrestamosServlet extends HttpServlet {
     Prestamo_NegocioImp negocioImp = new Prestamo_NegocioImp();
     ArrayList<Prestamo> listaPrestamos = new ArrayList<Prestamo>();
     
+    // TODO Generar el negocio "PagoPrestamo_NegocionImp"
+    //PagoPrestamo_NegocioImp pago = new PagoPrestamo_NegocioImp();
+    ArrayList<PagoPrestamo> listaPagos = new ArrayList<PagoPrestamo>();
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		HttpSession session;
-        session = request.getSession();
 		
+		HttpSession session;
+	    session = request.getSession();
+	    
 		ClienteDao_Implement clienteDao = new ClienteDao_Implement();
 		ArrayList<Cliente> clientes = clienteDao.readAll();
 		
@@ -54,71 +65,42 @@ public class AprobarPrestamosServlet extends HttpServlet {
 		PrestamoDao_Implement prestamoDao = new PrestamoDao_Implement();
 		ArrayList<Prestamo> prestamos = prestamoDao.readAll();
 		
+		//TODO 
+	    //PagoPrestamo_NegocioImp pagoNegocio = new PagoPrestamo_NegocioImp();
+	    //ArrayList<PagoPrestamo> pagos = pagoNegocio.readAll();
+		
 		System.out.println(prestamos + "Prestamosss");
 		System.out.println(clientes + "Clientesss");
 		System.out.println(cuentas + "Cuentasss");
-		
+		//TODO
+		//System.out.println(pagos + "Pagosss");
+	    
 		session.setAttribute("clientes", clientes);
 		session.setAttribute("cuentas", cuentas);
 		session.setAttribute("prestamos", prestamos);
-	
-		request.getRequestDispatcher("/admin/AprobarPrestamos.jsp").forward(request, response);
-
+		//TODO
+		//session.setAttribute("pagos", pagos);
+		
+		request.getRequestDispatcher("/client/PagarPrestamosServlet").forward(request, response);
 	}
 
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		String idPrestamo = request.getParameter("idPrestamo");
 		String estadoPrestamo = request.getParameter("estadoPrestamo");
+		String idPago =request.getParameter("idPago");
 		
 		System.out.println("idPrestamo: " + idPrestamo);
 		System.out.println("estadoPrestamo: " + estadoPrestamo);
+		System.out.println("idPago: " + idPago);
 		
-		if (idPrestamo != null) {
-		    if (request.getParameter("aprobarPrestamo") != null) {
-		        // Acciones para aprobar el préstamo
-		        if ("0".equals(estadoPrestamo)) {
-		            PrestamoDao_Implement prestamoDao = new PrestamoDao_Implement();
-		            prestamoDao.aprobarPrestamo(Integer.parseInt(idPrestamo));
-		        } else {
-		            System.out.println("Nulidad al aprobar");
-		        }
-
-		    } else if (request.getParameter("rechazarPrestamo") != null) {
-		        // Acciones para rechazar el préstamo
-		        if ("1".equals(estadoPrestamo)) {
-		            PrestamoDao_Implement prestamoDao = new PrestamoDao_Implement();
-		            prestamoDao.rechazarPrestamo(Integer.parseInt(idPrestamo));
-		        } else {
-		            System.out.println("Nulidad al rechazar");
-		        }
-		    }
-		} else {
-		    System.out.println("idPrestamo es nulo");
-		}
 		
-		HttpSession session;
-        session = request.getSession();
 		
-		ClienteDao_Implement clienteDao = new ClienteDao_Implement();
-		ArrayList<Cliente> clientes = clienteDao.readAll();
 		
-		CuentaDao_Implement cuentaDao = new CuentaDao_Implement();
-		ArrayList<Cuenta> cuentas = cuentaDao.readAll();
 		
-		PrestamoDao_Implement prestamoDao = new PrestamoDao_Implement();
-		ArrayList<Prestamo> prestamos = prestamoDao.readAll();
-		
-		System.out.println(prestamos + "Prestamosss");
-		System.out.println(clientes + "Clientesss");
-		System.out.println(cuentas + "Cuentasss");
-		
-		session.setAttribute("clientes", clientes);
-		session.setAttribute("cuentas", cuentas);
-		session.setAttribute("prestamos", prestamos);
-		
-
-		
-		response.sendRedirect(request.getContextPath() + "/admin/AprobarPrestamos.jsp?resultado=exito");
-		}
+		request.getRequestDispatcher("/client/PagoPrestamos.jsp").forward(request, response);
 	}
+
+}
