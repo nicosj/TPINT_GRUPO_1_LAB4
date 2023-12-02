@@ -88,6 +88,9 @@ public class AprobarPrestamosServlet extends HttpServlet {
 		            PrestamoDao_Implement prestamoDao = new PrestamoDao_Implement();
 		            prestamoDao.aprobarPrestamo(Integer.parseInt(idPrestamo));
 					ArrayList<Prestamo> prestamos = (ArrayList<Prestamo>)session.getAttribute("prestamos");
+
+					CuentaDao_Implement cuentaDao = new CuentaDao_Implement();
+					cuentaDao.ajusteCuenta(prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo)).findFirst().get().getNumero_Cuenta(), prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo)).findFirst().get().getTotalImporte());
 					Movimiento movimiento = new Movimiento();
 					MovimientoNegocio_Imp movimientoN = new MovimientoNegocio_Imp();
 					movimiento.setNumero_Cuenta(prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo)).findFirst().get().getNumero_Cuenta());
