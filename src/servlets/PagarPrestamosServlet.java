@@ -147,6 +147,7 @@ public class PagarPrestamosServlet extends HttpServlet {
                 else
                     session.setAttribute("error", "No se pudo realizar el pago");
 
+                session.setAttribute("prestamoXU", null);
             }
 
             /*trae datos*/
