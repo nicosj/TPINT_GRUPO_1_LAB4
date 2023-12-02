@@ -412,6 +412,7 @@
                                                       value="Guardar">
                     </div>
                 </div>
+                </div>
             </form>
         </div>
     </div>
@@ -445,6 +446,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
+
+</script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     console.log("Script ejecutado");

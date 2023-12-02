@@ -61,20 +61,24 @@
 
             <fieldset>
                 <legend>Nueva Cuenta</legend>
-                <p>
-                    <label for="dni">DNI:</label>
+                
+
                     <%
                     if(request.getAttribute("cliente")!=null){
                     	Cliente cliente =(Cliente)request.getAttribute("cliente");
                     	%>
-					<input type="hidden" name="idcliente" value="<%=cliente.getIdCLiente() %>" readonly/>
-                   <input type="text" name="dni" value="<%=cliente.getDNI() %>" readonly/>
-                    <input type="text" name="nombre" placeholder="Nombre" value="<%=cliente.getNombre() %>" readonly/>
-
+                    	<p><label for="idcliente">Id Cliente:</label>
+						<input type="text" name="idcliente" value="<%=cliente.getIdCLiente() %>" readonly/></p>
+					 	<p><label for="dni">DNI:</label>
+                   		<input type="text" name="dni" value="<%=cliente.getDNI() %>" readonly/></p>
+                  		<p><label for="nombre">Nombre:</label>
+                    	<input type="text" name="nombre" placeholder="Nombre" value="<%=cliente.getNombre() %>" readonly/></p>
+                     	<p><label for="apellido">Apellido:</label>
+						<input type="text" name="apellido" placeholder="Apellido" value="<%=cliente.getApellido() %>" readonly/></p>
                    <%} %>
-                </p>
+                
                 <p>
-                    <label for="cbu">CBU:</label>
+                    <label for="cbu">Nuevo CBU:</label>
                     <%if(request.getAttribute("cbu")!=null){
                     	String nuevoCBU =(String)request.getAttribute("cbu");%>
                     
@@ -95,7 +99,7 @@
             </select>
             </p>
                     <p><!-- Keep the type attribute as "button" -->
-                    <button type="submit" id="btnCrearCuenta" name="btnCrearCuenta" class="btn btn-create">Crear Cuenta</button>
+                    <button type="submit" id="btnCrearCuenta" name="btnCrearCuenta" class="btn btn-create" onclick="return confirmarCreacionCuenta()">Crear Cuenta</button>
                 </p>
                             <% if (request.getAttribute("error") != null) { %>
         <div class="error-message">
@@ -106,6 +110,17 @@
 
         </form>
     </div>
-
+<script>
+function confirmarCreacionCuenta() {
+    
+var confirmarCrear = confirm("¿Desea crear una nueva cuenta?");
+    
+    if (confirmarCrear) {
+        return true; // Allow form submission
+    } else {
+        return false; // Prevent form submission
+    }
+}
+</script>
 <jsp:include page="./footer.jsp" />
 
