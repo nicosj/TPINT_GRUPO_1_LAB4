@@ -66,7 +66,7 @@
             </table>
         </div>
         <div>
-            <table>
+            <table id="tablaConPaginadorYFiltro" class="display">
 
                     <thead>
                     <tr>
@@ -91,6 +91,12 @@
                     <td><%= prestamoss.getImporte_cuota() %></td>
                     <td><%= prestamoss.getImporte_restante() %></td>
                     <td><%= prestamoss.getCuotas_restantes() %></td>
+                    <td>
+                        <form method="post" action="PagarPrestamosServlet">
+                            <input type="hidden" name="idEstePrestamo" value="<%= prestamoss.getIdPago()%>"/>
+                            <button type="submit" class="btn btn-success" name="pagarEstaCuota" > 💸 PagarEstaCuota </button>
+                        </form>
+                    </td>
                 </tr>
                 <%
                     }

@@ -84,7 +84,12 @@ public class Prestamo {
 		
 	}
 
-
+	@Override
+	public String toString() {
+		return "Prestamo [idPrestamo=" + idPrestamo + ", numero_Cuenta=" + numero_Cuenta + ", fechaPedido="
+				+ fechaPedido + ", importeCuota=" + importeCuota + ", totalImporte=" + totalImporte + ", cuotas="
+				+ cuotas + ", estado=" + estado + "]";
+	}
 	
 	
 }

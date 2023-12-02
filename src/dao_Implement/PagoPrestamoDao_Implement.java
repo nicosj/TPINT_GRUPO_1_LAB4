@@ -3,10 +3,12 @@ package dao_Implement;
 import dao.DB;
 import dao.PagoPrestamoDao;
 import dominio.PagoPrestamo;
+import dominio.Prestamo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class PagoPrestamoDao_Implement implements PagoPrestamoDao {
@@ -47,27 +49,32 @@ public class PagoPrestamoDao_Implement implements PagoPrestamoDao {
     public ArrayList<PagoPrestamo> readAll() {
         PreparedStatement ps;
         ResultSet rs;
-        ArrayList<PagoPrestamo> lista = new ArrayList<PagoPrestamo>();
+        ArrayList<PagoPrestamo> lista = new ArrayList<>();
+        DB conexion = DB.getConexion();
         try {
             System.out.println("asdasd1");
-            ps = DB.getConexion().getSQLConexion().prepareStatement(readall);
+            ps = conexion.getSQLConexion().prepareStatement(readall);
             rs = ps.executeQuery();
             while (rs.next()) {
-                PagoPrestamo pagoPrestamo = new PagoPrestamo();
-                pagoPrestamo.setIdPago(rs.getInt("idpago_prestamo"));
-                pagoPrestamo.setNumero_Cuenta(rs.getString("numero_Cuenta"));
-                pagoPrestamo.setFecha_Pago(rs.getString("Fecha_Pago"));
-                pagoPrestamo.setImporte_cuota(rs.getDouble("Importe_Cuota"));
-                pagoPrestamo.setImporte_restante(rs.getDouble("Impote_Restante"));
-                pagoPrestamo.setCuotas_restantes(rs.getInt("Cuotas_Restantes"));
-                pagoPrestamo.setIdPrestamo(rs.getInt("idPrestamo"));
-                lista.add(pagoPrestamo);
-                System.out.println("asdasd"+lista);
+                lista.add(obtenerPrestamo(rs));
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         System.out.println("asdasd"+lista);
         return lista;
+    }
+    private PagoPrestamo obtenerPrestamo(ResultSet resultSet) throws SQLException
+    {
+
+            int idPrestamo = resultSet.getInt("idpago_prestamo");
+            String numero_Cuenta =resultSet.getString("numero_Cuenta");
+            String fechaPedido = resultSet.getString("Fecha_Pago");
+            double importeCuota = resultSet.getDouble("Importe_Cuota");
+            double totalImporte = resultSet.getDouble("Impote_Restante");
+            int cuotas = resultSet.getInt("Cuotas_Restantes");
+            int estado = resultSet.getInt("IdPrestamo");
+
+            return new PagoPrestamo(idPrestamo, numero_Cuenta, fechaPedido, importeCuota, totalImporte, cuotas, estado);
     }
 }

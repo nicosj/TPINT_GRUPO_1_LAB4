@@ -21,7 +21,8 @@ public class PagoPrestamo_NegocioImp implements PagoPrestamo_Negocio{
 
     @Override
     public ArrayList<PagoPrestamo> readAll() {
-        ArrayList<PagoPrestamo> listado = negocio.readAll();
+        ArrayList<PagoPrestamo> listado=new ArrayList<>();
+        listado = negocio.readAll();
         return listado;
     }
 }

@@ -7,7 +7,7 @@ public class PagoPrestamo {
     private int idPago;
     private String numero_Cuenta;
     private String Fecha_Pago;
-    private Double importe_cuota;
+    private double importe_cuota;
     private double importe_restante;
     private int cuotas_restantes;
     private int idPrestamo;
@@ -17,7 +17,6 @@ public class PagoPrestamo {
 
     public PagoPrestamo(int idPago, String numero_Cuenta, String Fecha_Pago, Double importe_cuota, double importe_restante,
                         int cuotas_restantes, int idPrestamo) {
-        super();
         this.idPago = idPago;
         this.numero_Cuenta = numero_Cuenta;
         this.Fecha_Pago = Fecha_Pago;
@@ -75,8 +74,6 @@ public class PagoPrestamo {
         this.idPrestamo = idPrestamo;
     }
 
-    ;
-
     public Double getImporte_cuota() {
         return importe_cuota;
     }
@@ -85,6 +82,11 @@ public class PagoPrestamo {
         this.importe_cuota = importe_cuota;
     }
 
+    //metodo to String
+    @Override
+    public String toString() {
+        return "PagoPrestamo{" + "idPago=" + idPago + ", numero_Cuenta=" + numero_Cuenta + ", Fecha_Pago=" + Fecha_Pago + ", importe_cuota=" + importe_cuota + ", importe_restante=" + importe_restante + ", cuotas_restantes=" + cuotas_restantes + ", idPrestamo=" + idPrestamo + '}';
+    }
 
 }
 
