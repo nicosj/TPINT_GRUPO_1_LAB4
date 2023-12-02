@@ -74,9 +74,13 @@ public class AprobarPrestamosServlet extends HttpServlet {
 		String estadoPrestamo = request.getParameter("estadoPrestamo");
 		
 		System.out.println("idPrestamo: " + idPrestamo);
+
 		System.out.println("estadoPrestamo: " + idPrestamo);
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
+
+		
+
 		if (idPrestamo != null) {
 		    if (request.getParameter("aprobarPrestamo") != null) {
 		        // Acciones para aprobar el pr�stamo
@@ -130,6 +134,7 @@ public class AprobarPrestamosServlet extends HttpServlet {
 		
 
 		// Redirige a la p�gina adecuada despu�s de procesar el formulario
+
 		response.sendRedirect(request.getContextPath() + "/admin/AprobarPrestamos.jsp?resultado=exito");
 		}
 	}

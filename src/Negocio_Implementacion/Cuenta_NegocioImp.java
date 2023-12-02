@@ -48,8 +48,8 @@ public class Cuenta_NegocioImp implements Cuenta_Negocio {
 	    	return cuenta.readAllByID(clientId);
 	    }
 
-		public List<Cuenta> obtenerCuentaByClientId(int idCliente) {
-	        List<Cuenta> cuentas = cuenta.obtenerCuentaByClientId(idCliente);
+		public ArrayList<Cuenta> obtenerCuentaByClientId(int idCliente) {
+	        ArrayList<Cuenta> cuentas = cuenta.readAllByID(idCliente);
 	        return cuentas;
 		}
 		

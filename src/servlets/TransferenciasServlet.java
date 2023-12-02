@@ -107,13 +107,13 @@ public class TransferenciasServlet extends HttpServlet {
 
 			Cuenta_NegocioImp cuentaN = new Cuenta_NegocioImp();			
 			cuenta = cuentaN.obtenerCuentaCbu(cbu);
-			System.out.println(cuenta + " verrrrrrrrrrrr");
-			if(cuenta.getNumero_Cuenta() != null) {
+
+			if(cuenta.getNumero_Cuenta() != null && !((Cuenta)session.getAttribute("cuentaOrigen")).getCBU().equals(cbu)){
 				System.out.println("Cuenta encontrada");
 				Cliente cliente = new Cliente();
 				Cliente_NegocioImp clienteN = new Cliente_NegocioImp();	
 				cliente = clienteN.obtenerCliente(Integer.parseInt(cuenta.getIdCliente()));
-				System.out.println("Cliente encontrada"+cliente.getNombreCompleto());
+
 				session.setAttribute("clientetrans", cliente);
 				session.setAttribute("cuentatrans", cuenta);
 
@@ -123,8 +123,9 @@ public class TransferenciasServlet extends HttpServlet {
 
 			} else {
 				session.setAttribute("cbushow", "1");
-
-				session.setAttribute("error", "Cliente no existente");
+				session.setAttribute("clientetrans", null);
+				session.setAttribute("cuentatrans", null);
+				session.setAttribute("error", "Cliente no existente o misma cuenta origen");
 			}
 		}
 		else

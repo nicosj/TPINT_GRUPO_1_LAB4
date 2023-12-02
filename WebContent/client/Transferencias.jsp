@@ -110,7 +110,7 @@
                                             <h2>Ingrese Nuevo CBU</h2>
                                             <input type="number" id="cbu" name="cbu" value="">
                                             <div class="marcoNext">
-                                            <input type="submit" name="valida" class="next action-button" value="Buscar"/>
+                                            <input type="submit" name="valida" class="next action-button"  value="Buscar"/>
                                             </div>
                                         </form>
                                         <div>
@@ -140,7 +140,7 @@
                                         <form action="TransferenciasServlet" method="post">
                                             <input type="hidden" name="cbus" value="<%= cux!=null?cux.getNumero_Cuenta():""%>">
                                             <div class="marcoNext">
-                                            <input type="submit" name="pasoCbu" class="next action-button" value="Siguiente"/>
+                                            <input type="submit" name="pasoCbu" class="next action-button" <%=error!=null?"disabled":""%> value="Siguiente"/>
                                             </div>
                                         </form>
 
@@ -175,7 +175,7 @@
                                         <h2>Ingrese monto a transferir</h2>
                                         <input type="text" class="form-control" id="transferencia" name="valorD" value="">
                                             <div class="marcoNext">
-                                        <input type="submit" name="pasoTres" id="transferirFId" class="next action-button" value="Transferir"/>
+                                        <input type="submit" name="pasoTres" id="transferirFId" class="next action-button" <%=error!=null?"disabled":""%> value="Transferir"/>
                                             </div>
                                         <h2 <%= error!=null?"class='errors'":"" %>><%= error!=null?error:""%></h2>
                                     </div>

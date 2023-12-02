@@ -23,7 +23,8 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 	private static final String update = "update cuenta set idCliente= ?, FechaCreacion = ?, TipoCuenta = ?, CBU=?, Saldo=?, estado = ?   where numero_Cuenta = ?";
 	private static final String query = "Select * FROM cuenta WHERE numero_Cuenta = ?";
 	private static final String queryCbu = "Select * FROM cuenta WHERE CBU = ?";
-	private static final String queryGetAcountByClientId = "Select * FROM cliente c inner join cuenta cu on cu.idCliente = c.idCliente WHERE c.idCliente = ?";
+	private static final String queryGetAcountByClientId = "Select * FROM cuenta c inner join cliente cu on cu.idCliente = c.idCliente WHERE c.idCliente = ?";
+
 	private static final String CuentaCountByIdCliente = "SELECT COUNT(*) AS cuenta_count FROM cuenta WHERE idCliente = ? AND estado = 1;";
 	@Override
 	public boolean insert(Cuenta cuenta) {
@@ -173,14 +174,14 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 		return cuenta;
 	}
 	
-	public List<Cuenta> obtenerCuentaByClientId(int idCliente) {
+	public ArrayList<Cuenta> obtenerCuentaByClientId(int idCliente) {
 		Cuenta cuenta = new Cuenta();
-		ArrayList<Cuenta> cuentas = new ArrayList<Cuenta>(); 
+		ArrayList<Cuenta> cuentas = new ArrayList<Cuenta>();
 		PreparedStatement statement;
 		Connection conexion =DB.getConexion().getSQLConexion();
 		
 		try {
-			 statement = conexion.prepareStatement(queryGetAcountByClientId);
+			 statement = conexion.prepareStatement(readallById);
 		     statement.setInt(1, idCliente);
 		     
 		     ResultSet resultado = statement.executeQuery();
@@ -201,6 +202,7 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 		} catch(Exception e){
 			e.printStackTrace();
 		}
+		System.out.println("Cuentas size dao: " + cuentas);
 		return cuentas;
 	}
 	private Cuenta getCuenta(ResultSet resultSet) throws SQLException

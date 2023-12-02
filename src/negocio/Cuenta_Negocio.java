@@ -14,7 +14,7 @@ public interface Cuenta_Negocio {
 	public int getCuentaCountByClientId(String idCliente);	
     public boolean insert(Cuenta acc);    
     public ArrayList<Cuenta> readAllByID(int clientId);
-	public List<Cuenta> obtenerCuentaByClientId(int idCliente);
+	public ArrayList<Cuenta> obtenerCuentaByClientId(int idCliente);
 	public Cuenta obtenerCuentaCbu(String cbu);
 	public boolean ajusteCuenta(String acc, double monto);
 }

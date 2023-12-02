@@ -45,13 +45,19 @@ public class SolicitudPrestamoServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		int idClient = ((Usuario)session.getAttribute("client")).getIdCliente();
-		PrestamoDao_Implement prestamoDao = new PrestamoDao_Implement();
-		ArrayList<Prestamo> prestamos = prestamoDao.readAll();
+
 		Cuenta_NegocioImp cuentaN = new Cuenta_NegocioImp();
-		List<Cuenta> cuentas = cuentaN.obtenerCuentaByClientId(idClient);
-		
-		System.out.println(cuentas.get(0).getNumero_Cuenta());
-		request.setAttribute("cuentas", cuentas);
+		ArrayList<Cuenta> cuentas = cuentaN.obtenerCuentaByClientId(idClient);
+		PrestamoDao_Implement prestamoDao = new PrestamoDao_Implement();
+
+		ArrayList<Prestamo> prestamos=new ArrayList<>();
+		for (Cuenta cuenta : cuentas) {
+            prestamos.addAll(prestamoDao.readAllByCuenta(cuenta.getNumero_Cuenta()));
+        }
+
+		session.setAttribute("cuentas", cuentas);
+		session.setAttribute("prestamos", prestamos);
+		System.out.println(cuentas+"cuentassprestamos");
 		request.getRequestDispatcher("/client/SolicitudPrestamo.jsp").forward(request, response);
 	}
 
@@ -59,7 +65,20 @@ public class SolicitudPrestamoServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		HttpSession session = request.getSession();
+		int idClient = ((Usuario)session.getAttribute("client")).getIdCliente();
+
+		Cuenta_NegocioImp cuentaN = new Cuenta_NegocioImp();
+		ArrayList<Cuenta> cuentas = cuentaN.obtenerCuentaByClientId(idClient);
+		PrestamoDao_Implement prestamoDao = new PrestamoDao_Implement();
+
+		ArrayList<Prestamo> prestamos=new ArrayList<>();
+		for (Cuenta cuenta : cuentas) {
+			prestamos.addAll(prestamoDao.readAllByCuenta(cuenta.getNumero_Cuenta()));
+		}
+
+		session.setAttribute("cuentas", cuentas);
+		session.setAttribute("prestamos", prestamos);
 		System.out.println("Llego solicitud de prestamo");
 		try {
 			String cuenta = request.getParameter("cuenta");
