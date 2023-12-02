@@ -12,8 +12,7 @@ public class Cliente_NegocioImp implements Cliente_Negocio {
     
     
 	public ArrayList<Cliente> listarClientes() {
-		return  cliente.readAll();
-		
+		return  cliente.readAll();	
 	}
 	
 	public ArrayList<Cliente> listarAllGeneros(String provincia){

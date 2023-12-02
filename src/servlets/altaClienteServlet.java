@@ -3,9 +3,14 @@ package servlets;
 
 import dominio.Cliente;
 import dominio.Usuario;
+import excepciones.ExcepcionDni;
+import excepciones.ExcepcionFecha;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,6 +46,7 @@ public class altaClienteServlet extends HttpServlet {
 		
 		ArrayList<Cliente> clientes = cliente.listarClientes();
 		ArrayList<Usuario> usuarios = usuario.listarUsuarios();
+
 		request.setAttribute("clientes", clientes);
 		request.setAttribute("usuarios", usuarios);
 		request.getRequestDispatcher("/admin/cliente.jsp").forward(request, response);
@@ -53,6 +59,8 @@ public class altaClienteServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
+		
+		
 		if(request.getParameter("alta")!=null){
 			int id=0;
 			String dni = request.getParameter("dni");
@@ -70,6 +78,13 @@ public class altaClienteServlet extends HttpServlet {
 			String usuario = request.getParameter("usuario");
 			String contrasena = request.getParameter("contrasena");
 			boolean estado = true;
+
+			if(!esNumero(cuil) || !esNumero(dni) || !esNumero(telefono) || !esTexto(nombre) || 
+			  !esTexto(apellido) || !esTexto(nacionalidad) || !esTexto(localidad) ) {
+	        	 request.setAttribute("errorMessage", "Alguno de los datos cargados era incorrecto. Recuerde completar los campos que se exigen.");
+		         request.getRequestDispatcher("/admin/cliente.jsp").forward(request, response);
+		         return;
+			}
 
 			// Validando espacios vacios
 	        if (dni.trim().isEmpty() || cuil.trim().isEmpty() || nombre.trim().isEmpty()
@@ -98,8 +113,9 @@ public class altaClienteServlet extends HttpServlet {
 	            if (us.verificarNombreUsuario(usuario, id) && cli.existeDNI(dni, id)) {
 	               
 	                request.setAttribute("existeUsuario", true);
-	                request.setAttribute("errorMessage", "El nombre de usuario ya está en uso. Por favor, elija otro.");
+	                request.setAttribute("errorMessage", "El nombre de usuario ya esta en uso. Por favor, elija otro.");
 	                request.getRequestDispatcher("/admin/cliente.jsp").forward(request, response);
+	                throw new ExcepcionDni();
 	            } else {
 	                // Si no existe, procedemos a crear el nuevo cliente
 	                int idCliente = cli.insertarCliente(cliente);
@@ -113,5 +129,12 @@ public class altaClienteServlet extends HttpServlet {
 	        }
 		}
 	}
-
+	
+	//-----------------  FUNCIONES PARA VALIDAR ----------------
+	private boolean esNumero(String str) {
+	    return str.matches("\\d+");
+	}
+	private boolean esTexto(String str) {
+	    return str.matches("[a-zA-Z]+");
+	}
 }

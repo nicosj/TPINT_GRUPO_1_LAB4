@@ -153,7 +153,7 @@
 			<option value="LA RIOJA">La Rioja</option>
 			<option value="MENDOZA">Mendoza</option>
 			<option value="MISIONES">Misiones</option>
-			<option value="NEQUEN">Neuquen</option>
+			<option value="NEUQUEN">Neuquen</option>
 			<option value="RIO NEGRO">Rio Negro</option>
 			<option value="SALTA">Salta</option>
 			<option value="SAN JUAN">San Juan</option>
