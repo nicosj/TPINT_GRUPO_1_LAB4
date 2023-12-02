@@ -1,6 +1,8 @@
 package servlets;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -12,12 +14,14 @@ import javax.servlet.http.HttpSession;
 
 import Negocio_Implementacion.Cliente_NegocioImp;
 import Negocio_Implementacion.Cuenta_NegocioImp;
+import Negocio_Implementacion.MovimientoNegocio_Imp;
 import Negocio_Implementacion.Prestamo_NegocioImp;
 import dao_Implement.ClienteDao_Implement;
 import dao_Implement.CuentaDao_Implement;
 import dao_Implement.PrestamoDao_Implement;
 import dominio.Cliente;
 import dominio.Cuenta;
+import dominio.Movimiento;
 import dominio.Prestamo;
 
 /**
@@ -54,10 +58,6 @@ public class AprobarPrestamosServlet extends HttpServlet {
 		PrestamoDao_Implement prestamoDao = new PrestamoDao_Implement();
 		ArrayList<Prestamo> prestamos = prestamoDao.readAll();
 		
-		System.out.println(prestamos + "Prestamosss");
-		System.out.println(clientes + "Clientesss");
-		System.out.println(cuentas + "Cuentasss");
-		
 		session.setAttribute("clientes", clientes);
 		session.setAttribute("cuentas", cuentas);
 		session.setAttribute("prestamos", prestamos);
@@ -68,24 +68,36 @@ public class AprobarPrestamosServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		HttpSession session;
+		session = request.getSession();
 		String idPrestamo = request.getParameter("idPrestamo");
 		String estadoPrestamo = request.getParameter("estadoPrestamo");
 		
 		System.out.println("idPrestamo: " + idPrestamo);
 		System.out.println("estadoPrestamo: " + idPrestamo);
-		
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+		LocalDateTime now = LocalDateTime.now();
 		if (idPrestamo != null) {
 		    if (request.getParameter("aprobarPrestamo") != null) {
-		        // Acciones para aprobar el préstamo
+		        // Acciones para aprobar el prï¿½stamo
 		        if ("0".equals(estadoPrestamo)) {
 		            PrestamoDao_Implement prestamoDao = new PrestamoDao_Implement();
 		            prestamoDao.aprobarPrestamo(Integer.parseInt(idPrestamo));
-		        } else {
+					ArrayList<Prestamo> prestamos = (ArrayList<Prestamo>)session.getAttribute("prestamos");
+					Movimiento movimiento = new Movimiento();
+					MovimientoNegocio_Imp movimientoN = new MovimientoNegocio_Imp();
+					movimiento.setNumero_Cuenta(prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo)).findFirst().get().getNumero_Cuenta());
+					movimiento.setFechaMovimiento(dtf.format(now).toString());
+					movimiento.setDetalleConcepto("Prestamo Nro: " + idPrestamo);
+					movimiento.setImporteMovimiento((prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo)).findFirst().get().getTotalImporte()));
+					movimiento.setTipoMovimiento("Credito");
+					movimientoN.insert(movimiento);
+				} else {
 		            System.out.println("Nulidad al aprobar");
 		        }
 
 		    } else if (request.getParameter("rechazarPrestamo") != null) {
-		        // Acciones para rechazar el préstamo
+		        // Acciones para rechazar el prï¿½stamo
 		        if ("1".equals(estadoPrestamo)) {
 		            PrestamoDao_Implement prestamoDao = new PrestamoDao_Implement();
 		            prestamoDao.rechazarPrestamo(Integer.parseInt(idPrestamo));
@@ -97,8 +109,7 @@ public class AprobarPrestamosServlet extends HttpServlet {
 		    System.out.println("idPrestamo es nulo");
 		}
 		
-		HttpSession session;
-        session = request.getSession();
+
 		
 		ClienteDao_Implement clienteDao = new ClienteDao_Implement();
 		ArrayList<Cliente> clientes = clienteDao.readAll();
@@ -118,7 +129,7 @@ public class AprobarPrestamosServlet extends HttpServlet {
 		session.setAttribute("prestamos", prestamos);
 		
 
-		// Redirige a la página adecuada después de procesar el formulario
+		// Redirige a la pï¿½gina adecuada despuï¿½s de procesar el formulario
 		response.sendRedirect(request.getContextPath() + "/admin/AprobarPrestamos.jsp?resultado=exito");
 		}
 	}

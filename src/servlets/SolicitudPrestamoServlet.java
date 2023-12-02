@@ -3,6 +3,7 @@ package servlets;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpSession;
 
 import Negocio_Implementacion.Cuenta_NegocioImp;
 import Negocio_Implementacion.Prestamo_NegocioImp;
+import dao_Implement.PrestamoDao_Implement;
 import dominio.Cuenta;
 import dominio.Intereses;
 import dominio.Movimiento;
@@ -43,7 +45,8 @@ public class SolicitudPrestamoServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		int idClient = ((Usuario)session.getAttribute("client")).getIdCliente();
-	
+		PrestamoDao_Implement prestamoDao = new PrestamoDao_Implement();
+		ArrayList<Prestamo> prestamos = prestamoDao.readAll();
 		Cuenta_NegocioImp cuentaN = new Cuenta_NegocioImp();
 		List<Cuenta> cuentas = cuentaN.obtenerCuentaByClientId(idClient);
 		

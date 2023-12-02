@@ -60,6 +60,7 @@
     </li>
     <li>
       <a class="nav-link" href="ReportesMenu.jsp"><span class="glyphicon glyphicon-th-list"></span><span class="nav-label">Reportes</span></a>
+      <a class="nav-link" href="AprobarPrestamosServlet"><span class="glyphicon glyphicon-th-list"></span><span class="nav-label">Estado Prestamos</span></a>
 
     
     </li>

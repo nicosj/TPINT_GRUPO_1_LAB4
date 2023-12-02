@@ -19,6 +19,7 @@ public class PrestamoDao_Implement implements PrestamoDao_Interfaz{
 	private final static String insert = "insert into prestamos (numero_Cuenta, Importe_Cuota, Fecha_Pedido, Importe_Total, Cuotas, estado) values (?, ?, ?, ?, ?, ?)";
 	private final static String read = "SELECT * FROM prestamos where Importe_Total >= ?";
 	private static final String readall = "SELECT * FROM prestamos";
+	private static final String readByCLient = "SELECT * FROM prestamos where numero_Cuenta = ? ";
     private static final String updateEstadoAprobado = "UPDATE prestamos SET estado = ? WHERE idprestamo = ?";
     private static final String updateEstadoRechazado = "UPDATE prestamos SET estado = ? WHERE idprestamo = ?";
     
@@ -156,7 +157,7 @@ public class PrestamoDao_Implement implements PrestamoDao_Interfaz{
         Connection conexion = DB.getConexion().getSQLConexion();
         try {
             statement = conexion.prepareStatement(updateEstadoRechazado);
-            statement.setInt(1, 0);
+            statement.setInt(1, -1);
             statement.setInt(2, idPrestamo);
 
             statement.executeUpdate();
@@ -165,4 +166,31 @@ public class PrestamoDao_Implement implements PrestamoDao_Interfaz{
             e.printStackTrace();
         }
     }
+	@Override
+	public ArrayList<Prestamo> readAllByCuenta(String cuenta) {
+		ArrayList<Prestamo> listaPrestamos = new ArrayList<Prestamo>();
+		PreparedStatement statement;
+		ResultSet resultSet;
+
+		DB conexion = DB.getConexion();
+		try
+		{
+			statement = conexion.getSQLConexion().prepareStatement(readByCLient);
+			statement.setString(1, cuenta);
+			resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				listaPrestamos.add(obtenerPrestamo(resultSet));
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		for (Prestamo prestamo: listaPrestamos) {
+			System.out.println("Prestamo: " + prestamo.toString());
+
+		}
+		return listaPrestamos;
+	}
 }

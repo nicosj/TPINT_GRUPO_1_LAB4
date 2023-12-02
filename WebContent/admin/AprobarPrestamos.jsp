@@ -86,13 +86,13 @@
                     <td><%=p.getImporteCuota()%></td>
                     <td><%=p.getTotalImporte()%></td>
                     <td><%=p.getCuotas()%></td>
-                    <td><%=p.getEstado()%></td>
+                    <td class=""><% if(p.getEstado()==1) out.println("<span  class='badge badge-success'>Aprobado</span>"); else if(p.getEstado()==-1) out.println("<span  class='badge badge-danger'>Rechazado</span>"); else out.println("<span  class='badge badge-Secondary'>Pendiente</span>"); %></td>
 
                     <td>
                         <input type="hidden" name="idPrestamo" value="<%=p.getIdPrestamo()%>">
                         <input type="hidden" name="estadoPrestamo" value="<%=p.getEstado()%>">
-                        <button type="submit" class="btn btn-success" name="aprobarPrestamo">Aprobar</button>
-                        <button type="submit" class="btn btn-warning" name="rechazarPrestamo">Rechazar</button>
+                        <button type="submit"  <%=(p.getEstado()==-1 ||p.getEstado()==1)?"disabled class='btn disabled' ": "class='btn btn-success' "%> name="aprobarPrestamo">Aprobar</button>
+                        <button type="submit"  <%=(p.getEstado()==-1 ||p.getEstado()==1)?"disabled class='btn disabled' ": "class='btn btn-warning' "%> name="rechazarPrestamo">Rechazar</button>
                     </td>
                 </form>
             </tr>
