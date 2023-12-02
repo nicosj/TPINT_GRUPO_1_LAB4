@@ -44,9 +44,11 @@ public class AltaCuentaServlet extends HttpServlet {
 		Cuenta_NegocioImp cuenta = new Cuenta_NegocioImp();
 		ArrayList<Cuenta> cuentas = cuenta.listarCuentas();
 		
-		String cbu = Cuenta.generarCBU();
+		
+		
+		//String cbu = Cuenta.generarCBU();
 		request.setAttribute("cuentas", cuentas);
-		request.setAttribute("cbu", cbu);
+		//request.setAttribute("cbu", cbu);
 		request.getRequestDispatcher("/admin/AltaCuenta.jsp").forward(request, response);
 		
 		
@@ -64,6 +66,9 @@ public class AltaCuentaServlet extends HttpServlet {
 			
 			Cliente_NegocioImp clienteN = new Cliente_NegocioImp();
 			cliente= clienteN.obtenerClientePorDNI(request.getParameter("dni"));
+			if(cliente.getIdCLiente()==0) {
+				request.setAttribute("error", "DNI no asociado a cliente.");
+			}
 			System.out.println("altacuenta");
 			System.out.println(cliente);
 			request.setAttribute("cliente", cliente);

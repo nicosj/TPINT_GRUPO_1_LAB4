@@ -48,8 +48,12 @@
                     <td><%=c.getTipo_Cuenta()%></td> 
                     <td><%=c.getCBU()%></td> 
                     <td><%=c.getSaldo()%></td> 
-                    <td><%=c.getNumero_Cuenta()%></td> 
-                    <td><%=c.getEstado()%></td> 
+                    <td><%=c.getNumero_Cuenta()%></td>
+                    <%if(c.getEstado()){ %> 
+                    <td>Activo</td>
+                    <%}else{ %>
+                    <td>Inactivo</td>
+                    <%} %> 
 
                     <td>
                     <form action="EditCuentaServlet" method="post">
@@ -62,7 +66,7 @@
        '<%=c.getCBU()%>',
        '<%=c.getSaldo()%>',
        '<%=c.getNumero_Cuenta()%>',
-       '<%=c.getEstado()%>')">
+       '<%=c.getEstado()%>' === 'true' ? 'Activo' : 'Inactivo')">
    <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
 </a>
                         </form>

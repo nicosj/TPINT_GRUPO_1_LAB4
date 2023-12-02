@@ -75,7 +75,15 @@ public class EditCuentaServlet extends HttpServlet {
 		cuenta.setCBU(request.getParameter("CBU"));
 		cuenta.setSaldo(Double.parseDouble(request.getParameter("Saldo")));
 		cuenta.setNumero_Cuenta(request.getParameter("numero_Cuenta"));
-		cuenta.setEstado(Boolean.parseBoolean(request.getParameter("Estado")));
+		String activo = request.getParameter("Estado");
+		boolean estado = true;
+		 if(activo.equalsIgnoreCase("activo")) {
+			estado = true;
+		} else {
+			estado=false;
+		}
+		cuenta.setEstado(estado);
+	//	cuenta.setEstado(Boolean.parseBoolean(request.getParameter("Estado")));
 			
 		
 

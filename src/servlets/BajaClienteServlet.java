@@ -21,6 +21,8 @@ import dominio.Cliente;
 public class BajaClienteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	Cliente_NegocioImp negocio = new Cliente_NegocioImp();
+	ArrayList<Cliente> listaClientes= new ArrayList<Cliente>();
 	public BajaClienteServlet() {
 		super();
 
@@ -30,16 +32,7 @@ public class BajaClienteServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		if (request.getParameter("btnMostrarClientes") != null) {
-			ClienteDao_Implement cli = new ClienteDao_Implement();
-			ArrayList<Cliente> listaCli = cli.readAllActivos();
 
-			request.setAttribute("listaC", listaCli);
-
-
-			RequestDispatcher re = request.getRequestDispatcher("/adm_BajaCliente.jsp");
-			re.forward(request, response);
-		}
 	}
 
 	@Override

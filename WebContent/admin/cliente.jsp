@@ -180,7 +180,7 @@
                     <div class="form-group">
                         <label for="fechaNacimiento">Fecha de Nacimiento</label> <input
                             type="date" class="form-control" id="fechaNacimiento"
-                            name="fechaNacimiento">
+                            name="fechaNacimiento" min="1900-01-01" max="2024-12-31">
                     </div>
                     <div class="form-group">
                         <label for="direccion">Dirección</label> <input type="text"
@@ -196,11 +196,32 @@
                                                                             placeholder="Localidad">
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="provincia">Provincia</label> <input type="text"
-                                                                            class="form-control" id="provincia"
-                                                                            name="provincia"
-                                                                            placeholder="Provincia">
-                        </div>
+                         <label for="provincia">Provincia</label>
+                         <select class="form-control" id="provinciae" name="provincia">
+							<option value="Buenos Aires">Buenos Aires</option>
+							<option value="Catamarca">Catamarca</option>
+							<option value="Chaco">Chaco</option>
+							<option value="Chubut">Chubut</option>
+							<option value="Cordoba">Cordoba</option>
+							<option value="Corrientes">Corrientes</option>
+							<option value="Entre Rios">Entre Rios</option>
+							<option value="Formosa">Formosa</option>
+							<option value="Jujuy">Jujuy</option>
+							<option value="La Pampa">La Pampa</option>
+							<option value="La Rioja">La Rioja</option>
+							<option value="Mendoza">Mendoza</option>
+							<option value="Misiones">Misiones</option>
+							<option value="Neuquen">Neuquen</option>
+							<option value="Rio Negro">Rio Negro</option>
+							<option value="Salta">Salta</option>
+							<option value="San Juan">San Juan</option>
+							<option value="San Luis">San Luis</option>
+							<option value="Santa Cruz">Santa Cruz</option>
+							<option value="Santa Fe">Santa Fe</option>
+							<option value="Santiago Del Estero">Santiago Del Estero</option>
+							<option value="Tierra Del Fuego">Tierra Del Fuego</option>
+							<option value="Tucuman">Tucuman</option>
+					    </select>      
                     </div>
                     <div class="form-group">
                         <label for="email">Correo Electrónico</label> <input type="email"
