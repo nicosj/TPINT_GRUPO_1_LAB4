@@ -99,7 +99,7 @@ public class AprobarPrestamosServlet extends HttpServlet {
 					PagoPrestamo_NegocioImp pagoN = new PagoPrestamo_NegocioImp();
 					PagoPrestamo pago = new PagoPrestamo();
 					pago.setNumero_Cuenta(prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo)).findFirst().get().getNumero_Cuenta());
-					pago.setFecha_Pago(dtf.format(now).toString());
+					pago.setFecha_Pago(null);
 					pago.setImporte_cuota(prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo)).findFirst().get().getImporteCuota());
 					pago.setImporte_restante(prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo)).findFirst().get().getTotalImporte());
 					pago.setCuotas_restantes(prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo)).findFirst().get().getCuotas());
