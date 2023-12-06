@@ -3,7 +3,6 @@ package Negocio_Implementacion;
 import java.util.ArrayList;
 
 import dao_Implement.PagoPrestamoDao_Implement;
-import dao_Implement.PrestamoDao_Implement;
 import dominio.PagoPrestamo;
 import negocio.PagoPrestamo_Negocio;
 
@@ -18,9 +17,21 @@ public class PagoPrestamo_NegocioImp implements PagoPrestamo_Negocio{
         boolean inserto = negocio.insert(pago);
         return inserto;
     }
-
+    @Override
+    public boolean update(int id) {
+        boolean upd = negocio.update(id);
+        return upd;
+    }
     @Override
     public ArrayList<PagoPrestamo> readAll() {
+        ArrayList<PagoPrestamo> listado=new ArrayList<>();
+        listado = negocio.readAll();
+        return listado;
+    }
+
+
+    @Override
+    public ArrayList<PagoPrestamo> readAllByID(String IdPrestamo) {
         ArrayList<PagoPrestamo> listado=new ArrayList<>();
         listado = negocio.readAll();
         return listado;

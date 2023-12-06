@@ -9,4 +9,6 @@ public interface PagoPrestamo_Negocio {
 
     public ArrayList<PagoPrestamo> readAll();
 
+    ArrayList<PagoPrestamo> readAllByID(String  IdPrestamo);
+    public boolean update(int id);
 }
