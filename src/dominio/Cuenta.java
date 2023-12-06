@@ -3,31 +3,32 @@ import java.util.Random;
 
 public class Cuenta {
 	
-	private String numero_Cuenta;
-	private String idCliente;
-	private String tipo_Cuenta;
-	private String fecha_Creacion;
-	private String CBU;
-	private double saldo;
-	private boolean estado; 
-	//Creacion de Cuenta
-	public Cuenta(String tipo_Cuenta, String fecha_Creacion, String CBU,
-			double saldo, boolean estado) {
-		super();
+    private String numero_Cuenta;
+    private Cliente cliente; 
+    private String tipo_Cuenta;
+    private String fecha_Creacion;
+    private String CBU;
+    private double saldo;
+    private boolean estado;
 
-
-		this.tipo_Cuenta = tipo_Cuenta;
-		this.fecha_Creacion = fecha_Creacion;
-		this.CBU = CBU;
-		this.saldo = saldo;
-		this.estado = estado;
-	}
+    
 	//Consulta de cuenta
-	public Cuenta( String idCliente, String numero_Cuenta, String tipo_Cuenta, String fecha_Creacion, String CBU,
+    public Cuenta(String numero_Cuenta, Cliente cliente, String tipo_Cuenta, String fecha_Creacion, String CBU,
+            double saldo, boolean estado) {
+	  super();
+	  this.numero_Cuenta = numero_Cuenta;
+	  this.cliente = cliente;
+	  this.tipo_Cuenta = tipo_Cuenta;
+	  this.fecha_Creacion = fecha_Creacion;
+	  this.CBU = CBU;
+	  this.saldo = saldo;
+	  this.estado = estado;
+	}
+    public Cuenta(String tipo_Cuenta, String fecha_Creacion, String CBU,
 			double saldo, boolean estado) {
 		super();
-		this.numero_Cuenta = numero_Cuenta;
-		this.idCliente = idCliente;
+
+
 		this.tipo_Cuenta = tipo_Cuenta;
 		this.fecha_Creacion = fecha_Creacion;
 		this.CBU = CBU;
@@ -92,10 +93,10 @@ public class Cuenta {
 	
 	
 	@Override
-	public String toString() {
-		return "Cuenta [numero_Cuenta=" + numero_Cuenta + ", idCliente=" + idCliente + ", tipo_Cuenta=" + tipo_Cuenta
-				+ ", fecha_Creacion=" + fecha_Creacion + ", CBU=" + CBU + ", saldo=" + saldo + "]";
-	}
+	 public String toString() {
+        return "Cuenta [numero_Cuenta=" + numero_Cuenta + ", cliente=" + cliente + ", tipo_Cuenta=" + tipo_Cuenta
+                + ", fecha_Creacion=" + fecha_Creacion + ", CBU=" + CBU + ", saldo=" + saldo + "]";
+    }
 
 	public String getNumero_Cuenta() {
 		return numero_Cuenta;
@@ -105,13 +106,14 @@ public class Cuenta {
 		this.numero_Cuenta = numero_Cuenta;
 	}
 
-	public String getIdCliente() {
-		return idCliente;
-	}
+	  public Cliente getCliente() {
+	        return cliente;
+	    }
 
-	public void setIdCliente(String string) {
-		this.idCliente = string;
-	}
+	    public void setCliente(Cliente cliente) {
+	        this.cliente = cliente;
+	    }
+
 
 	public String getTipo_Cuenta() {
 		return tipo_Cuenta;
@@ -146,7 +148,9 @@ public class Cuenta {
 	}
 
 	
-	public Cuenta () {};
+	public Cuenta () {}
+
+
 	
 	
 

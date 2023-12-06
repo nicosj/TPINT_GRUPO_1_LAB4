@@ -23,6 +23,7 @@ import dao_Implement.ClienteDao_Implement;
 import dao_Implement.CuentaDao_Implement;
 import dao_Implement.PrestamoDao_Implement;
 import dominio.*;
+import negocio.*;
 import negocio.PagoPrestamo_Negocio;
 
 /**
@@ -77,7 +78,7 @@ public class PagarPrestamosServlet extends HttpServlet {
         ArrayList<Cuenta> cuentas = cuentaNegocio.obtenerCuentaByClientId(clix.getIdCliente());
         PrestamoDao_Implement prestamoDao = new PrestamoDao_Implement();
 
-        ArrayList<Prestamo> prestamos = new ArrayList<>();
+        ArrayList<Prestamo> prestamos = new ArrayList<Prestamo>();
 
         for (Cuenta cuenta : cuentas) {
             prestamos.addAll(prestamoDao.readAllByCuenta(cuenta.getNumero_Cuenta()));
@@ -98,15 +99,15 @@ public class PagarPrestamosServlet extends HttpServlet {
 
             for (PagoPrestamo prest : pprestamo) {
 
-                if (request.getParameter("idPrestamo").trim().equals(String.valueOf(prest.getIdPrestamo()))) {
+                if (request.getParameter("idPrestamo").trim().equals(String.valueOf(prest.getPrestamo().getIdPrestamo()))) {
                     PagoPrestamo pago = new PagoPrestamo();
                     pago.setIdPago(prest.getIdPago());
-                    pago.setNumero_Cuenta(prest.getNumero_Cuenta());
+                    pago.getCuenta().setNumero_Cuenta((prest.getCuenta().getNumero_Cuenta()));
                     pago.setFecha_Pago(null);
                     pago.setImporte_cuota(prest.getImporte_cuota());
                     pago.setImporte_restante(prest.getImporte_restante());
                     pago.setCuotas_restantes(prest.getCuotas_restantes());
-                    pago.setIdPrestamo(prest.getIdPrestamo());
+                    pago.getPrestamo().setIdPrestamo(prest.getPrestamo().getIdPrestamo());
                     filtrado.add(pago);
                     System.out.println("holu3");
                 }
@@ -139,20 +140,20 @@ public class PagarPrestamosServlet extends HttpServlet {
                     PagoPrestamo_NegocioImp pagoT = new PagoPrestamo_NegocioImp();
                     PagoPrestamo pago = new PagoPrestamo();
                     pago.setIdPago(cux.getIdPago());
-                    pago.setNumero_Cuenta(cux.getNumero_Cuenta());
+                    pago.getCuenta().setNumero_Cuenta(cux.getCuenta().getNumero_Cuenta());
                     pago.setFecha_Pago(dtf.format(now).toString());
                     pago.setImporte_cuota(cux.getImporte_cuota());
                     pago.setImporte_restante(cux.getImporte_restante() - cux.getImporte_cuota());
                     pago.setCuotas_restantes(cux.getCuotas_restantes() - 1);
-                    pago.setIdPrestamo(cux.getIdPrestamo());
-                    if (cux.getIdPrestamo() >= 0) {
+                    pago.getPrestamo().setIdPrestamo(cux.getPrestamo().getIdPrestamo());
+                    if (cux.getPrestamo().getIdPrestamo() >= 0) {
                         pagoT.insert(pago);
                         cuentaNegocio.ajusteCuenta(cufin.getNumero_Cuenta(), -(cux.getImporte_cuota()));
 
                         MovimientoNegocio_Imp movimientoN = new MovimientoNegocio_Imp();
 
-                        //cuenta origen
-                        movimiento.setNumero_Cuenta(cufin.getNumero_Cuenta());
+                        Cuenta cuenta = new Cuenta();
+                        movimiento.getCuenta().setNumero_Cuenta(cufin.getNumero_Cuenta());
                         movimiento.setFechaMovimiento(dtf.format(now).toString());
                         movimiento.setDetalleConcepto("Pago Cuota restantes: " + cux.getCuotas_restantes());
                         movimiento.setImporteMovimiento(-(cux.getImporte_cuota()));

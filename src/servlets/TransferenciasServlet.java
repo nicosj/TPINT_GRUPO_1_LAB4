@@ -112,7 +112,7 @@ public class TransferenciasServlet extends HttpServlet {
 				System.out.println("Cuenta encontrada");
 				Cliente cliente = new Cliente();
 				Cliente_NegocioImp clienteN = new Cliente_NegocioImp();	
-				cliente = clienteN.obtenerCliente(Integer.parseInt(cuenta.getIdCliente()));
+				cliente = clienteN.obtenerCliente(cuenta.getCliente().getIdCLiente());
 
 				session.setAttribute("clientetrans", cliente);
 				session.setAttribute("cuentatrans", cuenta);
@@ -184,6 +184,8 @@ public class TransferenciasServlet extends HttpServlet {
 					session.setAttribute("pasos", 3);
 					CuentaDao_Implement cuentaDao = new CuentaDao_Implement();
 					Cuenta_NegocioImp cuentaN = new Cuenta_NegocioImp();	
+					Cuenta cuenta = new Cuenta();
+				
 					
 					if(cuentaN.ajusteCuenta(((Cuenta)session.getAttribute("cuentaOrigen")).getNumero_Cuenta(),-(Double.parseDouble(valor)))){
 						
@@ -196,7 +198,9 @@ public class TransferenciasServlet extends HttpServlet {
 							MovimientoNegocio_Imp movimientoN = new MovimientoNegocio_Imp();
 							
 							//cuenta origen
-							movimiento.setNumero_Cuenta(((Cuenta)session.getAttribute("cuentaOrigen")).getNumero_Cuenta());
+							//movimiento.getCuenta().setNumero_Cuenta(((Cuenta)session.getAttribute("cuentaOrigen")).getNumero_Cuenta());
+							cuenta = (Cuenta)session.getAttribute("cuentaOrigen");
+							movimiento.setCuenta(cuenta);
 							movimiento.setFechaMovimiento(dtf.format(now).toString());
 							movimiento.setDetalleConcepto("Transferencia");
 							movimiento.setImporteMovimiento(-(Double.parseDouble(valor)));
@@ -205,7 +209,9 @@ public class TransferenciasServlet extends HttpServlet {
 
 							//Destino
 
-							movimiento.setNumero_Cuenta(((Cuenta)session.getAttribute("cuentaDestino")).getNumero_Cuenta());
+							//movimiento.getCuenta().setNumero_Cuenta(((Cuenta)session.getAttribute("cuentaDestino")).getNumero_Cuenta());
+							cuenta = (Cuenta)session.getAttribute("cuentaDestino");
+							movimiento.setCuenta(cuenta);
 							movimiento.setFechaMovimiento(dtf.format(now).toString());
 							movimiento.setDetalleConcepto("Transferencia");
 							movimiento.setImporteMovimiento(Double.parseDouble(valor));

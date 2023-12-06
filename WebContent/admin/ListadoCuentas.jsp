@@ -1,6 +1,7 @@
 <% if(session.getAttribute("admin") != null) {%>
 <jsp:include page="./header.jsp"/>
 <%@page import="dominio.Cuenta"%>
+<%@page import="dominio.Cliente"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -43,7 +44,7 @@
                     {%>
                 <tr>
 				<form method="post" action="EditCuentaServlet">
-					<td><%=c.getIdCliente()%></td>
+					<td><%=c.getCliente().getIdCLiente()%></td>
                     <td><%=c.getFecha_Creacion()%></td> 
                     <td><%=c.getTipo_Cuenta()%></td> 
                     <td><%=c.getCBU()%></td> 
@@ -60,7 +61,7 @@
 
                         <a href="#editCuentaModal" class="edit" data-toggle="modal"
    onclick="populateEditModal(
-       '<%=c.getIdCliente()%>',
+       '<%=c.getCliente().getIdCLiente()%>',
        '<%=c.getFecha_Creacion()%>',
        '<%=c.getTipo_Cuenta()%>',
        '<%=c.getCBU()%>',

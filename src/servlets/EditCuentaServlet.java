@@ -1,6 +1,7 @@
 package servlets;
 
 
+import dominio.Cliente;
 import dominio.Cuenta;
 
 
@@ -12,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.ParseConversionEvent;
 
 //import org.omg.PortableServer.ID_ASSIGNMENT_POLICY_ID;
 
@@ -68,7 +70,8 @@ public class EditCuentaServlet extends HttpServlet {
 			}
 		}
 	if(request.getParameter("btnEdit")!=null){
-		cuenta.setIdCliente(request.getParameter("idCliente"));
+		Cliente client = new Cliente();
+		cuenta.getCliente().setIdCLiente(Integer.parseInt(request.getParameter("idCliente")));
 		cuenta.setNumero_Cuenta(request.getParameter("numero_Cuenta"));
 		cuenta.setFecha_Creacion(request.getParameter("FechaCreacion"));
 		cuenta.setTipo_Cuenta(request.getParameter("TipoCuenta"));

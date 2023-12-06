@@ -48,11 +48,11 @@ public class SolicitudPrestamoServlet extends HttpServlet {
 
 		Cuenta_NegocioImp cuentaN = new Cuenta_NegocioImp();
 		ArrayList<Cuenta> cuentas = cuentaN.obtenerCuentaByClientId(idClient);
-		PrestamoDao_Implement prestamoDao = new PrestamoDao_Implement();
+		Prestamo_NegocioImp prestamoNeg = new Prestamo_NegocioImp();
 
 		ArrayList<Prestamo> prestamos=new ArrayList<>();
 		for (Cuenta cuenta : cuentas) {
-            prestamos.addAll(prestamoDao.readAllByCuenta(cuenta.getNumero_Cuenta()));
+			prestamos.addAll(prestamoNeg.readAllByCuenta(cuenta.getNumero_Cuenta()));
         }
 
 		session.setAttribute("cuentas", cuentas);
@@ -70,17 +70,18 @@ public class SolicitudPrestamoServlet extends HttpServlet {
 
 		Cuenta_NegocioImp cuentaN = new Cuenta_NegocioImp();
 		ArrayList<Cuenta> cuentas = cuentaN.obtenerCuentaByClientId(idClient);
-		PrestamoDao_Implement prestamoDao = new PrestamoDao_Implement();
 
+		Prestamo_NegocioImp prestamoNeg = new Prestamo_NegocioImp();
 		ArrayList<Prestamo> prestamos=new ArrayList<>();
 		for (Cuenta cuenta : cuentas) {
-			prestamos.addAll(prestamoDao.readAllByCuenta(cuenta.getNumero_Cuenta()));
+			prestamos.addAll(prestamoNeg.readAllByCuenta(cuenta.getNumero_Cuenta()));
 		}
 
 		session.setAttribute("cuentas", cuentas);
 		session.setAttribute("prestamos", prestamos);
 		System.out.println("Llego solicitud de prestamo");
 		try {
+			Cuenta cuentaProbar = new Cuenta();
 			String cuenta = request.getParameter("cuenta");
 			int cuotas = Integer.parseInt(request.getParameter("cantCuotas"));
 			double intereses = Double.parseDouble(request.getParameter("interes"));
@@ -94,8 +95,8 @@ public class SolicitudPrestamoServlet extends HttpServlet {
 			LocalDate fechaHoy = LocalDate.now();
 	        DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	        String fechaFormateada = fechaHoy.format(formato);
-	        
-			prestamo.setNumero_Cuenta(cuenta);
+	
+			prestamo.getCuenta().setNumero_Cuenta(cuenta);
 			prestamo.setTotalImporte(monto);
 			prestamo.setImporteCuota(importCuota);
 			prestamo.setFechaPedido(fechaFormateada);

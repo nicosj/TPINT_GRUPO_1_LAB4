@@ -123,7 +123,7 @@
                 for (Movimiento movimiento : movimientos) {
             %>
                     <tr>
-                        <td><%= movimiento.getNumero_Cuenta() %></td>
+                        <td><%= movimiento.getCuenta().getNumero_Cuenta() %></td>
                         <td><%= movimiento.getFechaMovimiento() %></td>
                         <td><%= movimiento.getDetalleConcepto() %></td>
                         <td><%= movimiento.getImporteMovimiento() %></td>

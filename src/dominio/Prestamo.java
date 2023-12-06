@@ -5,7 +5,7 @@ import java.sql.Date;
 public class Prestamo {
 	
 	private int idPrestamo;
-	private String numero_Cuenta;
+	private Cuenta cuenta;
 	private String fechaPedido;
 	private double importeCuota;
 	private double totalImporte;
@@ -52,11 +52,11 @@ public class Prestamo {
 	public void setIdPrestamo(int idPrestamo) {
 		this.idPrestamo = idPrestamo;
 	}
-	public String getNumero_Cuenta() {
-		return numero_Cuenta;
+	public Cuenta getCuenta() {
+		return cuenta;
 	}
-	public void setNumero_Cuenta(String numero_Cuenta) {
-		this.numero_Cuenta = numero_Cuenta;
+	public void setCuenta(Cuenta cuenta) {
+		this.cuenta = cuenta;
 	}
 	public String getFechaPedido() {
 		return fechaPedido;
@@ -71,11 +71,11 @@ public class Prestamo {
 		this.totalImporte = totalImporte;
 	}
 	
-	public Prestamo(int idPrestamo, String numero_Cuenta, String fechaPedido, double importeCuota,double totalImporte, int cuotas,
+	public Prestamo(int idPrestamo, Cuenta cuenta, String fechaPedido, double importeCuota,double totalImporte, int cuotas,
 			int estado) {
 		super();
 		this.idPrestamo = idPrestamo;
-		this.numero_Cuenta = numero_Cuenta;
+		this.cuenta = cuenta;
 		this.fechaPedido = fechaPedido;
 		this.totalImporte = totalImporte;
 		this.importeCuota = importeCuota;
@@ -86,7 +86,7 @@ public class Prestamo {
 
 	@Override
 	public String toString() {
-		return "Prestamo [idPrestamo=" + idPrestamo + ", numero_Cuenta=" + numero_Cuenta + ", fechaPedido="
+		return "Prestamo [idPrestamo=" + idPrestamo + ", numero_Cuenta=" + cuenta.getNumero_Cuenta() + ", fechaPedido="
 				+ fechaPedido + ", importeCuota=" + importeCuota + ", totalImporte=" + totalImporte + ", cuotas="
 				+ cuotas + ", estado=" + estado + "]";
 	}

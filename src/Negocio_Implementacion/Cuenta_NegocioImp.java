@@ -62,6 +62,7 @@ public class Cuenta_NegocioImp implements Cuenta_Negocio {
 			boolean ajusto = cuenta.ajusteCuenta(acc, monto);
 			return ajusto;
 		}
+		
 }
 
 

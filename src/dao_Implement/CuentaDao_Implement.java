@@ -11,6 +11,7 @@ import java.util.List;
 
 import dao.CuentaDao_Interfaz;
 import dao.DB;
+import dominio.Cliente;
 import dominio.Cuenta;
 
 public class CuentaDao_Implement implements CuentaDao_Interfaz {
@@ -28,34 +29,29 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 	private static final String CuentaCountByIdCliente = "SELECT COUNT(*) AS cuenta_count FROM cuenta WHERE idCliente = ? AND estado = 1;";
 	@Override
 	public boolean insert(Cuenta cuenta) {
-        PreparedStatement statement;
-        Connection conexion = DB.getConexion().getSQLConexion();
-        boolean insercionExitosa = false;
-        try
-        {
-            statement =  conexion.prepareStatement(insert);
-            statement.setString(1, cuenta.getIdCliente());
-            statement.setString(2, cuenta.getFecha_Creacion());
-            statement.setString(3, cuenta.getTipo_Cuenta());
-            statement.setString(4, cuenta.getCBU());
-            statement.setDouble(5, cuenta.getSaldo());
-            statement.setString(6, cuenta.getNumero_Cuenta());
-            statement.setInt(7,  cuenta.getEstado()?1:0);
-            
-            if(statement.executeUpdate() > 0)
-            {
-                ((Connection) conexion).commit();
-                insercionExitosa = true;
-            }
-        } 
-        catch (SQLException e) 
-        {
-            e.printStackTrace();
-        
-        }
-        
-        
-        return insercionExitosa;
+	    PreparedStatement statement;
+	    Connection conexion = DB.getConexion().getSQLConexion();
+	    boolean insercionExitosa = false;
+
+	    try {
+	        statement = conexion.prepareStatement(insert);
+	        statement.setInt(1, cuenta.getCliente().getIdCLiente());
+	        statement.setString(2, cuenta.getFecha_Creacion());
+	        statement.setString(3, cuenta.getTipo_Cuenta());
+	        statement.setString(4, cuenta.getCBU());
+	        statement.setDouble(5, cuenta.getSaldo());
+	        statement.setString(6, cuenta.getNumero_Cuenta());
+	        statement.setInt(7, cuenta.getEstado() ? 1 : 0);
+
+	        if (statement.executeUpdate() > 0) {
+	            conexion.commit();
+	            insercionExitosa = true;
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return insercionExitosa;
 	}
 
 	@Override
@@ -67,7 +63,7 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
         {
             statement = conexion.prepareStatement(update);
 
-            statement.setString(1, cuenta_a_modificar.getIdCliente());
+            statement.setInt(1, cuenta_a_modificar.getCliente().getIdCLiente());
             statement.setString(2, cuenta_a_modificar.getFecha_Creacion());
             statement.setString(3, cuenta_a_modificar.getTipo_Cuenta());
             statement.setString(4, cuenta_a_modificar.getCBU());
@@ -150,7 +146,7 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 		Cuenta cuenta = new Cuenta();
 		PreparedStatement statement;
 		Connection conexion =DB.getConexion().getSQLConexion();
-		
+		Cliente cliente = new Cliente();
 		try {
 			 statement = conexion.prepareStatement(query);
 		     statement.setString(1, numero_cuenta);
@@ -158,7 +154,8 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 		     ResultSet resultado = statement.executeQuery();
 
 		        if (resultado.next()) {
-		        	cuenta.setIdCliente(resultado.getString("idCliente"));
+		            cliente.setIdCLiente(resultado.getInt("idCliente"));
+		            cuenta.setCliente(cliente);
 		        	cuenta.setTipo_Cuenta(resultado.getString("TipoCuenta"));
 		        	cuenta.setCBU(resultado.getString("CBU"));
 		        	cuenta.setFecha_Creacion(resultado.getString("FechaCreacion"));
@@ -179,7 +176,7 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 		ArrayList<Cuenta> cuentas = new ArrayList<Cuenta>();
 		PreparedStatement statement;
 		Connection conexion =DB.getConexion().getSQLConexion();
-		
+		Cliente cliente = new Cliente();
 		try {
 			 statement = conexion.prepareStatement(readallById);
 		     statement.setInt(1, idCliente);
@@ -187,7 +184,8 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 		     ResultSet resultado = statement.executeQuery();
 
 		        if (resultado.next()) {
-		        	cuenta.setIdCliente(resultado.getString("idCliente"));
+		            cliente.setIdCLiente(resultado.getInt("idCliente"));
+		            cuenta.setCliente(cliente);
 		        	cuenta.setTipo_Cuenta(resultado.getString("TipoCuenta"));
 		        	cuenta.setCBU(resultado.getString("CBU"));
 		        	cuenta.setFecha_Creacion(resultado.getString("FechaCreacion"));
@@ -205,9 +203,12 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 		System.out.println("Cuentas size dao: " + cuentas);
 		return cuentas;
 	}
+
 	private Cuenta getCuenta(ResultSet resultSet) throws SQLException
 	{
-		String idCliente = resultSet.getString("idCliente");
+		Cliente cliente = new Cliente();
+	    cliente.setIdCLiente(resultSet.getInt("idCliente"));
+
 		String fechaCreacion = resultSet.getString("FechaCreacion");
 		String TipoCuenta = resultSet.getString("TipoCuenta");
 		String CBU = resultSet.getString("CBU");
@@ -215,9 +216,8 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 		String numCuenta = resultSet.getString("numero_Cuenta");
 		boolean estado = resultSet.getBoolean("estado");
 		
-		return new Cuenta( idCliente, numCuenta, TipoCuenta, fechaCreacion, CBU, saldo, estado);
+		return new Cuenta( numCuenta, cliente, TipoCuenta, fechaCreacion, CBU, saldo, estado);
 	}
-	
 	
 	
 	public int getLastCBU() {
@@ -302,7 +302,7 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 		Cuenta cuenta = new Cuenta();
 		PreparedStatement statement;
 		Connection conexion =DB.getConexion().getSQLConexion();
-
+		Cliente cliente = new Cliente();
 		try {
 			statement = conexion.prepareStatement(queryCbu);
 			statement.setString(1, cbu);
@@ -310,7 +310,8 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 			ResultSet resultado = statement.executeQuery();
 
 			if (resultado.next()) {
-				cuenta.setIdCliente(resultado.getString("idCliente"));
+	            cliente.setIdCLiente(resultado.getInt("idCliente"));
+	            cuenta.setCliente(cliente);
 				cuenta.setTipo_Cuenta(resultado.getString("TipoCuenta"));
 				cuenta.setCBU(resultado.getString("CBU"));
 				cuenta.setFecha_Creacion(resultado.getString("FechaCreacion"));

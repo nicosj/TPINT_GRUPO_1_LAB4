@@ -5,27 +5,33 @@ import java.sql.Date;
 public class PagoPrestamo {
 
     private int idPago;
-    private String numero_Cuenta;
+    private Cuenta cuenta;
     private String Fecha_Pago;
     private double importe_cuota;
     private double importe_restante;
     private int cuotas_restantes;
-    private int idPrestamo;
+    private Prestamo prestamo;
 
     public PagoPrestamo() {
     }
 
-    public PagoPrestamo(int idPago, String numero_Cuenta, String Fecha_Pago, Double importe_cuota, double importe_restante,
-                        int cuotas_restantes, int idPrestamo) {
+    public PagoPrestamo(int idPago, Cuenta cuenta, String Fecha_Pago, Double importe_cuota, double importe_restante,
+                        int cuotas_restantes, Prestamo prestamo) {
         this.idPago = idPago;
-        this.numero_Cuenta = numero_Cuenta;
+        this.cuenta = cuenta;
         this.Fecha_Pago = Fecha_Pago;
         this.importe_cuota = importe_cuota;
         this.importe_restante = importe_restante;
         this.cuotas_restantes = cuotas_restantes;
-        this.idPrestamo = idPrestamo;
+        this.prestamo = prestamo;
+    }
+    public Cuenta getCuenta() {
+        return cuenta;
     }
 
+    public void setCuenta(Cuenta cuenta) {
+        this.cuenta = cuenta;
+    }
     public int getIdPago() {
         return idPago;
     }
@@ -34,12 +40,12 @@ public class PagoPrestamo {
         this.idPago = idPago;
     }
 
-    public String getNumero_Cuenta() {
-        return numero_Cuenta;
+    public Prestamo getPrestamo() {
+        return prestamo;
     }
 
-    public void setNumero_Cuenta(String numero_Cuenta) {
-        this.numero_Cuenta = numero_Cuenta;
+    public void setPrestamo(Prestamo prestamo) {
+        this.prestamo = prestamo;
     }
 
     public String getFecha_Pago() {
@@ -66,14 +72,6 @@ public class PagoPrestamo {
         this.cuotas_restantes = cuotas_restantes;
     }
 
-    public int getIdPrestamo() {
-        return idPrestamo;
-    }
-
-    public void setIdPrestamo(int idPrestamo) {
-        this.idPrestamo = idPrestamo;
-    }
-
     public Double getImporte_cuota() {
         return importe_cuota;
     }
@@ -85,7 +83,7 @@ public class PagoPrestamo {
     //metodo to String
     @Override
     public String toString() {
-        return "PagoPrestamo{" + "idPago=" + idPago + ", numero_Cuenta=" + numero_Cuenta + ", Fecha_Pago=" + Fecha_Pago + ", importe_cuota=" + importe_cuota + ", importe_restante=" + importe_restante + ", cuotas_restantes=" + cuotas_restantes + ", idPrestamo=" + idPrestamo + '}';
+        return "PagoPrestamo{" + "idPago=" + idPago + ", numero_Cuenta=" + cuenta.getNumero_Cuenta() + ", Fecha_Pago=" + Fecha_Pago + ", importe_cuota=" + importe_cuota + ", importe_restante=" + importe_restante + ", cuotas_restantes=" + cuotas_restantes + ", idPrestamo=" + prestamo.getIdPrestamo()+ '}';
     }
 
 }
