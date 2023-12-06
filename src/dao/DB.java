@@ -15,7 +15,9 @@ public class DB {
 		{
 
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/banco5","root","");
+
+			this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/banco","root","");
+
 
 			this.connection.setAutoCommit(false);
 		}

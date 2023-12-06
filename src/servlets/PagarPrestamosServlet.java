@@ -87,9 +87,9 @@ public class PagarPrestamosServlet extends HttpServlet {
         /*Prestmo cuotas*/
         String estadoPrestamo = request.getParameter("estadoPrestamo");
         String idPago = request.getParameter("idPago");
-
+        System.out.println("test1");
         if (request.getParameter("pagarCuota") != null) {
-
+            System.out.println("test2");
             ArrayList<PagoPrestamo> filtrado = new ArrayList<PagoPrestamo>();
             /*trae datos*/
             PagoPrestamo_NegocioImp pagoT = new PagoPrestamo_NegocioImp();
@@ -97,13 +97,12 @@ public class PagarPrestamosServlet extends HttpServlet {
             ArrayList<PagoPrestamo> pprestamo = pagoT.readAll();
 
             for (PagoPrestamo prest : pprestamo) {
-                System.out.println(request.getParameter("idPrestamo").trim().equals(String.valueOf(prest.getIdPrestamo()).trim()));
-                if (request.getParameter("idPrestamo").trim().equals(String.valueOf(prest.getIdPrestamo()).trim())) {
-                    //if(request.getParameter("idPrestamo")==String.valueOf(prest.getIdPrestamo())){
+
+                if (request.getParameter("idPrestamo").trim().equals(String.valueOf(prest.getIdPrestamo()))) {
                     PagoPrestamo pago = new PagoPrestamo();
                     pago.setIdPago(prest.getIdPago());
                     pago.setNumero_Cuenta(prest.getNumero_Cuenta());
-                    pago.setFecha_Pago("2020-10-10");
+                    pago.setFecha_Pago(null);
                     pago.setImporte_cuota(prest.getImporte_cuota());
                     pago.setImporte_restante(prest.getImporte_restante());
                     pago.setCuotas_restantes(prest.getCuotas_restantes());
@@ -117,27 +116,31 @@ public class PagarPrestamosServlet extends HttpServlet {
             System.out.println("holu4");
             session.setAttribute("prestamoXU", filtrado);
 
+
         }
         if (request.getParameter("pagarEstaCuota") != null) {
             System.out.println(request.getParameter("idEstePrestamo" + "asd666666"));
 
 
             ArrayList<PagoPrestamo> filtradox = (ArrayList<PagoPrestamo>) session.getAttribute("prestamoXU");
-            System.out.println(filtradox);
+            System.out.println(filtradox+"titos system");
             Optional<PagoPrestamo> cuxOptional = filtradox.stream().filter(p -> p.getIdPago() == Integer.parseInt(request.getParameter("idEstePrestamo"))).findFirst();
             if (cuxOptional.isPresent()) {
                 request.getParameter("pagarEstaCuota");
                 PagoPrestamo cux = cuxOptional.get();
 
                 Cuenta cufin = cuentaNegocio.obtenerCuenta(request.getParameter("cuotas"));
+                System.out.println(cufin.getSaldo() + "saldo");
                 if (cufin.getSaldo() >= cux.getImporte_cuota() ){
 
-
+                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+                    LocalDateTime now = LocalDateTime.now();
+                    Movimiento movimiento = new Movimiento();
                     PagoPrestamo_NegocioImp pagoT = new PagoPrestamo_NegocioImp();
                     PagoPrestamo pago = new PagoPrestamo();
                     pago.setIdPago(cux.getIdPago());
                     pago.setNumero_Cuenta(cux.getNumero_Cuenta());
-                    pago.setFecha_Pago("2020-10-10");
+                    pago.setFecha_Pago(dtf.format(now).toString());
                     pago.setImporte_cuota(cux.getImporte_cuota());
                     pago.setImporte_restante(cux.getImporte_restante() - cux.getImporte_cuota());
                     pago.setCuotas_restantes(cux.getCuotas_restantes() - 1);
@@ -145,9 +148,7 @@ public class PagarPrestamosServlet extends HttpServlet {
                     if (cux.getIdPrestamo() >= 0) {
                         pagoT.insert(pago);
                         cuentaNegocio.ajusteCuenta(cufin.getNumero_Cuenta(), -(cux.getImporte_cuota()));
-                        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-                        LocalDateTime now = LocalDateTime.now();
-                        Movimiento movimiento = new Movimiento();
+
                         MovimientoNegocio_Imp movimientoN = new MovimientoNegocio_Imp();
 
                         //cuenta origen

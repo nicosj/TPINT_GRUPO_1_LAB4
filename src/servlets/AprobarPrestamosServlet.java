@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 import Negocio_Implementacion.*;
 import dao_Implement.ClienteDao_Implement;
 import dao_Implement.CuentaDao_Implement;
-import dao_Implement.PagoPrestamoDao_Implement;
+
 import dao_Implement.PrestamoDao_Implement;
 import dominio.*;
 
@@ -30,15 +30,7 @@ public class AprobarPrestamosServlet extends HttpServlet {
         super();
 
     }
-    Cliente_NegocioImp cliente = new Cliente_NegocioImp();
-	ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
-    
-    Cuenta_NegocioImp negocio = new Cuenta_NegocioImp();
-	ArrayList<Cuenta> listaCuentas = new ArrayList<Cuenta>();
-	
-    Prestamo_NegocioImp negocioImp = new Prestamo_NegocioImp();
-    ArrayList<Prestamo> listaPrestamos = new ArrayList<Prestamo>();
-    
+    @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		HttpSession session;
@@ -99,7 +91,7 @@ public class AprobarPrestamosServlet extends HttpServlet {
 					PagoPrestamo_NegocioImp pagoN = new PagoPrestamo_NegocioImp();
 					PagoPrestamo pago = new PagoPrestamo();
 					pago.setNumero_Cuenta(prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo)).findFirst().get().getNumero_Cuenta());
-					pago.setFecha_Pago(dtf.format(now).toString());
+					pago.setFecha_Pago(null);
 					pago.setImporte_cuota(prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo)).findFirst().get().getImporteCuota());
 					pago.setImporte_restante(prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo)).findFirst().get().getTotalImporte());
 					pago.setCuotas_restantes(prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo)).findFirst().get().getCuotas());
@@ -146,6 +138,8 @@ public class AprobarPrestamosServlet extends HttpServlet {
 		session.setAttribute("clientes", clientes);
 		session.setAttribute("cuentas", cuentas);
 		session.setAttribute("prestamos", prestamos);
+		
+
 		
 
 		// Redirige a la p�gina adecuada despues de procesar el formulario

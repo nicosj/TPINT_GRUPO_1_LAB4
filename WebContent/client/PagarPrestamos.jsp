@@ -24,31 +24,40 @@
                         <th>Monto</th>
                         <th>Fecha</th>
                         <th>Cantidad de Cuotas</th>
+                        <th>Importe Total</th>
                         <th>accion</th>
                     </tr>
                 </thead>
                 <tbody>
                     <%
-                        ArrayList<Cliente> clientes = null;
+                        /*ArrayList<Cliente> clientes = null;*/
                         ArrayList<Cuenta> cuentas = null;
                         ArrayList<Prestamo> prestamos = null;
-                        ArrayList<PagoPrestamo> pagos = null;
+                        /*ArrayList<PagoPrestamo> pagos = null;*/
+                        double[] intereses = {0.1, 0.2, 0.3};
+                        int pos = 0;
+                        double montoIntereses = 0;
 
                         if(session.getAttribute("prestamos") != null) {
-                            clientes = (ArrayList<Cliente>) session.getAttribute("clientes");
+
                             prestamos = (ArrayList<Prestamo>) session.getAttribute("prestamos");
                             cuentas = (ArrayList<Cuenta>) session.getAttribute("cuentas");
-                            pagos = (ArrayList<PagoPrestamo>) session.getAttribute("pagos");
+
                         }
 
 
                         for (Prestamo prestamo : prestamos) {
+                            if(prestamo.getCuotas() == 6) pos = 0;
+                            if(prestamo.getCuotas() == 12) pos = 1;
+                            if(prestamo.getCuotas() == 18) pos = 2;
+                            montoIntereses = (prestamo.getTotalImporte()*intereses[pos])+prestamo.getTotalImporte();
                     %>
                         <tr>
                              <td><%= prestamo.getNumero_Cuenta() %></td>
                              <td><%= prestamo.getTotalImporte() %></td>
                              <td><%= prestamo.getFechaPedido() %></td>
                                 <td><%= prestamo.getCuotas() %></td>
+                                <td><%= montoIntereses %></td>
                             <td>
                                 <form method="post" action="PagarPrestamosServlet">
                                     <input type="hidden" name="idPrestamo" value="<%= prestamo.getIdPrestamo() %> " >
@@ -62,8 +71,10 @@
                 </tbody>
             </table>
         </div>
-        <div>
-            <table id="tablaConPaginadorYFiltro" class="display">
+        <%    ArrayList<PagoPrestamo> prestamox = (ArrayList<PagoPrestamo>)session.getAttribute("prestamoXU");%>
+        <div <%=prestamox != null?"class='container' style='display:block;'":"style='display:none;'"%> >
+            <h2 class="marcoTitu">Tabla de Pago de prestamos</h2>
+            <table id="tablaConPaginadorYFiltroo" class="display">
 
                     <thead>
                     <tr>
@@ -79,9 +90,11 @@
                     </thead>
                 <tbody>
                 <%
-                    ArrayList<PagoPrestamo> prestamox = (ArrayList<PagoPrestamo>)session.getAttribute("prestamoXU");
+
+
                     if(prestamox != null){
                     for (PagoPrestamo prestamoss : prestamox) {
+
                 %>
                 <tr>
                     <td><%= prestamoss.getIdPrestamo() %></td>
@@ -89,7 +102,6 @@
                     <td><%= prestamoss.getImporte_cuota() %></td>
                     <td><%= prestamoss.getImporte_restante() %></td>
                     <td><%= prestamoss.getCuotas_restantes() %></td>
-
                         <form method="post" action="PagarPrestamosServlet">
                             <td>
                                 <Select id="cuotas" name="cuotas" class="form-control" required>
@@ -106,7 +118,7 @@
                             </td>
                             <td>
                             <input type="hidden" name="idEstePrestamo" value="<%= prestamoss.getIdPago()%>"/>
-                            <button type="submit" class="btn btn-success" name="pagarEstaCuota" > 💸 PagarEstaCuota </button>
+                            <button type="submit" class="btn btn-success" <%=prestamoss.getFecha_Pago()!=null ?"disabled":""%>  name="pagarEstaCuota" > 💸 PagarEstaCuota </button>
                         </form>
                     </td>
                 </tr>
@@ -123,13 +135,23 @@
 
 <jsp:include page="./footer.jsp" />
 
-<script>
-    // Script para el paginado + buscar
-    let table = new DataTable('#tablaConPaginadorYFiltro', {
-        language: {
-            url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
-        },
+<script >
+    $(document).ready(function () {
+
+        let table = new DataTable('#tablaConPaginadorYFiltro', {
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+                },
+            }
+        );
+        let tableo = new DataTable('#tablaConPaginadorYFiltroo', {
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+                },
+            }
+        );
     });
+
 </script>
 
 <% }
