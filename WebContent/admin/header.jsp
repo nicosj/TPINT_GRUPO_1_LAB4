@@ -58,6 +58,21 @@
             </li>
 		</ul>
     </li>
+
+      <li>
+          <a class="nav-link" ><span class="glyphicon glyphicon-minus"></span><span class="nav-label">Reportes</span></a>
+          <ul class="navbar-nav navbar-primary-menu">
+              <li class="dist">
+                  <a class="nav-link"   href="ReporteClienteXProvinciaServlet"><span class="	glyphicon glyphicon-plus"></span><span class="nav-label">Clientes por provincia y genero</span></a>
+              </li>
+              <li class="dist">
+                  <a class="nav-link"  href="ReportePrestamosPendientesServlet"><span class="glyphicon glyphicon-list-alt"></span><span class="nav-label">Prestamos pendientes</span></a>
+              </li>
+              <li class="dist">
+                  <a class="nav-link"  href="HistorialMovimientosServlet"><span class="glyphicon glyphicon-list-alt"></span><span class="nav-label">Movimiento Clientes</span></a>
+              </li>
+          </ul>
+      </li>
     <li>
       <a class="nav-link" href="ReportesMenu.jsp"><span class="glyphicon glyphicon-th-list"></span><span class="nav-label">Reportes</span></a>
       <a class="nav-link" href="AprobarPrestamosServlet"><span class="glyphicon glyphicon-th-list"></span><span class="nav-label">Estado Prestamos</span></a>

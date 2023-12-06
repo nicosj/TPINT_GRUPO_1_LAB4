@@ -254,8 +254,7 @@
 
 </body>
 </html>
-
+<jsp:include page="./footer.jsp" />
 <% }else {
 	response.sendRedirect("../index.jsp");
 }%>
-		<jsp:include page="./footer.jsp" />

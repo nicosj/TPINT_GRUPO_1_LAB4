@@ -29,10 +29,10 @@ public class ReportePrestamosPendientesServlet extends HttpServlet {
 				Prestamo_NegocioImp negocio = new Prestamo_NegocioImp();
 				ArrayList <Prestamo> listado = negocio.listarPrestamosFiltrado(montoMax);
 				request.setAttribute("listadoPrestamos", listado);
-				request.getRequestDispatcher("/admin/ReportePrestamosPendientes.jsp").forward(request, response);				
+
 			}
 		}
-		
+		request.getRequestDispatcher("/admin/ReportePrestamosPendientes.jsp").forward(request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
