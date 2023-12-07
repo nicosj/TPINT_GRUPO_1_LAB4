@@ -2,12 +2,15 @@ package servlets;
 
 
 
+import Negocio_Implementacion.MovimientoNegocio_Imp;
 import dominio.Cliente;
 import dominio.Cuenta;
 
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import Negocio_Implementacion.Cliente_NegocioImp;
 import Negocio_Implementacion.Cuenta_NegocioImp;
+import dominio.Movimiento;
 
 /**
  * Servlet implementation class AltaCuentaServlet
@@ -113,7 +117,20 @@ public class AltaCuentaServlet extends HttpServlet {
             
             if (cuentaCount < 3) {
             try {
-                boolean rowsUpdated = cuentaN.insert(cuenta); 
+                boolean rowsUpdated = cuentaN.insert(cuenta);
+				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+				LocalDateTime now = LocalDateTime.now();
+				Movimiento movimiento = new Movimiento();
+				MovimientoNegocio_Imp movimientoN = new MovimientoNegocio_Imp();
+				movimiento.setCuenta(cuenta);
+				movimiento.setFechaMovimiento(dtf.format(now).toString());
+				movimiento.setDetalleConcepto("Deposito Inicial");
+				movimiento.setImporteMovimiento(saldo);
+				movimiento.setTipoMovimiento("Credito");
+
+				movimientoN.insert(movimiento);
+
+
                 request.setAttribute("rowsUpdated", rowsUpdated);
                 request.setAttribute("error", "Cuenta creada y asociada correctamente");
 				request.getRequestDispatcher("/admin/AltaCuenta.jsp").forward(request, response);
