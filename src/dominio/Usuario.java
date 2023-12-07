@@ -5,17 +5,19 @@ public class Usuario {
 	private String usuario;
 	private String Clave;
 	private int tipoUsuario;
-	private int IdCliente;
+
+	Cliente cliente;
+
 
 	public Usuario() {
 
 	}
-	public Usuario(int idUsuario, String usuario, String Clave, int tipoUsuario, int IdCliente){
+	public Usuario(int idUsuario, String usuario, String Clave, int tipoUsuario, Cliente cliente){
 		this.IdUsuario = idUsuario;
 		this.usuario = usuario;
 		this.Clave = Clave;
 		this.tipoUsuario = tipoUsuario;
-		this.IdCliente = IdCliente;
+		this.cliente = cliente;
 	}
 	public Usuario(String usuario, String Clave) {
 		this.usuario = usuario;
@@ -54,12 +56,11 @@ public class Usuario {
 		this.tipoUsuario = tipoUsuario;
 	}
 
-	public int getIdCliente() {
-		return IdCliente;
-	}
-
-	public void setIdCliente(int idCliente) {
-		IdCliente = idCliente;
-	}
+	public Cliente getCliente() {
+        return cliente;
+    }
+	public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
 
 }

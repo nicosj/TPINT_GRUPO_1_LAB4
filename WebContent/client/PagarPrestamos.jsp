@@ -102,6 +102,7 @@
                     <td><%= prestamoss.getFecha_Pago()!=null?prestamoss.getFecha_Pago():"No Pago" %></td>
                     <td><%= prestamoss.getImporte_cuota() %></td>
                     <td><%= prestamoss.getImporte_restante() %></td>
+                    <%%>
                     <td><%= prestamoss.getCuotas_restantes() %></td>
                         <form method="post" action="PagarPrestamosServlet">
                             <td>
