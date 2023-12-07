@@ -133,12 +133,12 @@
                             <td>
                             <input type="hidden" name="idEstePrestamo" value="<%= prestamoss.getIdPago()%>"/>
                                     <%if(prestamox.size() == 1){ %>
-                                <button type="submit" <%=prestamoss.getFecha_Pago() != null ? "class='btn btn-success' disabled" : "class='btn btn-warning'"%> name="pagarEstaCuota"> 💸 PagarEstaCuota
+                                <button   <%=prestamoss.getFecha_Pago() != null ? "class='btn btn-success' disabled" : " id='pagoCuota' class='btn btn-warning'"%> name="pagarEstaCuota"> 💸 PagarEstaCuota
                                 </button>
 
                                     <%} else{ %>
-                                <button type="submit"
-                                         <%=prestamoss.getFecha_Pago() != null ? "class='btn btn-success' disabled" : "class='btn btn-warning'"%>
+                                <button
+                                         <%=prestamoss.getFecha_Pago() != null ? "class='btn btn-success' disabled" : " id='pagoCuota' class='btn btn-warning'"%>
                                         name="pagarEstaCuota"> 💸 PagarEstaCuota
                                 </button>
                                     <%} %>
@@ -174,6 +174,30 @@
                 },
             }
         );
+
+        $('#pagoCuota').on("click", function (e) {
+            e.preventDefault();
+            var self = $(this);
+
+            Swal.fire({
+                title: '¿Estas seguro?',
+                text: "Usted esta por registrar un nuevo Pago!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Confirmar',
+
+
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    self.off("click").click();
+
+                }
+            },);
+
+
+        });
 
 
     });
