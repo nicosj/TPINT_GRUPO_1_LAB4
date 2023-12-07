@@ -7,7 +7,6 @@
 <script src="//cdn.datatables.net/plug-ins/1.13.7/sorting/datetime-moment.js"></script>
 
 
-
 <%--Codigo script personal--%>
 <script src="../assets/js/script.js"></script>
 

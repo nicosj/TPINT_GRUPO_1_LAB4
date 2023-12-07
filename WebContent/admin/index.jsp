@@ -32,14 +32,57 @@
 
 	<%
 	   String urlImagen = "https://cdn-icons-png.flaticon.com/512/3635/3635987.png";
+	   ArrayList<Integer> meses = (ArrayList<Integer>)session.getAttribute("graficosAdminMeses");
+	   ArrayList<Integer> cantPrestamos = (ArrayList<Integer>)session.getAttribute("graficosAdminCantPrestamos");
 	%>
 	
 	<div class="titulo">
 		<h1>BANCO FRGP</h1>
 	</div>
     <div class="icono">
-   		<img src="<%= urlImagen %>" alt="Descripción de la imagen">
+   		
     </div>
+    <div>
+	  <canvas id="myChart"></canvas>
+	</div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    
+    <script>
+	  const ctx = document.getElementById('myChart');
+	
+	  new Chart(ctx, {
+	    type: 'bar',
+	    data: {
+	      labels: [<%
+                    for (int i = 0; i < meses.size(); i++) {
+                        out.print(meses.get(i));
+                        if (i < meses.size() - 1) {
+                            out.print(", ");
+                        }
+                    }
+                %>],
+	      datasets: [{
+	        label: '# of Votes',
+	        data: [<%
+                for (int i = 0; i < cantPrestamos.size(); i++) {
+                    out.print(cantPrestamos.get(i));
+                    if (i < cantPrestamos.size() - 1) {
+                        out.print(", ");
+                    }
+                }
+            %>],
+	        borderWidth: 1
+	      }]
+	    },
+	    options: {
+	      scales: {
+	        y: {
+	          beginAtZero: true
+	        }
+	      }
+	    }
+	  });
+	</script>
 </body>
 
 

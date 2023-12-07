@@ -1,6 +1,11 @@
 package servlets;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,7 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import Negocio_Implementacion.Prestamo_NegocioImp;
 import Negocio_Implementacion.Usuario_NegocioImp;
+import dominio.Prestamo;
 import dominio.Usuario;
 
 /**
@@ -54,8 +61,42 @@ public class LoginServlet extends HttpServlet {
 			if (usuario.getTipoUsuario() == 2) {
 				session.setAttribute("client", usuario);
 				request.getRequestDispatcher("/client").forward(request, response);
+				
+			
 			} else {
 				session.setAttribute("admin", usuario);
+				Prestamo_NegocioImp prestamoNegocio = new Prestamo_NegocioImp();
+				ArrayList<Prestamo> prestamos =  prestamoNegocio.readAll();
+				ArrayList<Integer> meses = new ArrayList<>();
+				ArrayList<Integer> cantPrestamos = new ArrayList<>();
+				
+				System.out.println("hola");
+				
+				for(Prestamo prestamo : prestamos){
+					meses.add(LocalDate.parse(prestamo.getFechaPedido(), DateTimeFormatter.ISO_LOCAL_DATE).getMonthValue());
+					
+				}
+				Set<Integer> aux = new HashSet<>(meses);
+				
+				ArrayList<Integer> mesesSinRepetir = new ArrayList<>(aux);
+				
+				for(int i = 0; i < mesesSinRepetir.size(); i++) {
+					cantPrestamos.add(0);
+					
+				}
+				
+				for(Prestamo prestamo : prestamos) {
+					for(int i = 0; i < mesesSinRepetir.size(); i++) {
+						if(LocalDate.parse(prestamo.getFechaPedido(), DateTimeFormatter.ISO_LOCAL_DATE).getMonthValue() == mesesSinRepetir.get(i)) {
+							
+							cantPrestamos.set(i, cantPrestamos.get(i) + 1);
+						}
+						
+					}
+					
+				}
+				session.setAttribute("graficosAdminMeses", mesesSinRepetir);
+				session.setAttribute("graficosAdminCantPrestamos", cantPrestamos);
 				request.getRequestDispatcher("/admin").forward(request, response);
 			}
 

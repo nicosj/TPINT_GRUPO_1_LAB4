@@ -27,7 +27,7 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="glyphicon glyphicon-menu-hamburger"></span>
     </button>
-    <a class="navbar-brand" href="#">BANCO LABIV </a>
+    <a class="navbar-brand" href="index.jsp">BANCO LABIV </a>
     <div class="collapse navbar-collapse" id="navbar">
       <ul class="nav navbar-nav navbar-user  ml-auto">
         <li class="nav-item">
