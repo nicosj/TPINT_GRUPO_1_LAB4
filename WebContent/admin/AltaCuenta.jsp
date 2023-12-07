@@ -9,10 +9,10 @@
     <title>Alta de Cuenta</title>
 
     <style>
-        /* Estilo para el body */
+     
        
        
-        /* Estilo para el contenedor */
+        
          .containered {
             background-color: #ffffff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -23,7 +23,7 @@
             margin: auto;
         }
     
-        /* Estilo para el fieldset */
+       
         fieldset {
             border: 1px solid #ccc;
             padding: 10px;
@@ -31,7 +31,7 @@
             margin-bottom: 20px;
         }
 
-        /* Estilo para el botón "Crear Cuenta" */
+        
         .btn-create {
             background-color: #007bff;
             color: #fff;
@@ -98,7 +98,7 @@
                 <option value="CC">Cuenta Corriente</option>
             </select>
             </p>
-                    <p><!-- Keep the type attribute as "button" -->
+                    <p>
                     <button type="submit" id="btnCrearCuenta" name="btnCrearCuenta" class="btn btn-create" onclick="return confirmarCreacionCuenta()">Crear Cuenta</button>
                 </p>
                             <% if (request.getAttribute("error") != null) { %>
@@ -116,9 +116,9 @@ function confirmarCreacionCuenta() {
 var confirmarCrear = confirm("¿Desea crear una nueva cuenta?");
     
     if (confirmarCrear) {
-        return true; // Allow form submission
+        return true; 
     } else {
-        return false; // Prevent form submission
+        return false; 
     }
 }
 </script>

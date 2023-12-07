@@ -147,9 +147,7 @@
                                         </div>
 
                                 </div>
-                                <%--Borrar--%>
-                                <%--<input type="button" name="previous" class="previous action-button-previous"
-                                       value="volver"/>--%>
+                               
 
                             </fieldset>
                             <fieldset <% if(pasos== 2){ %> style="display: block;opacity: 1;"<% } else { %> class="desaTrans" <% } %> >
@@ -205,8 +203,7 @@
                                     </div>
                                 </div>
                             </fieldset>
-                            <%--<button type="button" name="previous" class="previous action-button-previous"
-                                   value="Volver"/>--%>
+                         
                             <div <% if(pasos>0 && pasos<=2){ %> style="display: block;opacity: 1;" <%}else{%>class="desaTrans" <% } %>>
                                 <a id="cancelarFId" class="previous action-button-previous" href="TransferenciasServlet"><span class="nav-label">Volver</span></a>
                             </div>

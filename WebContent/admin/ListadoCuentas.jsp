@@ -181,10 +181,10 @@ function populateEditModal(idCliente, FechaCreacion, TipoCuenta, CBU, Saldo, num
 
     var cuentaCountError = <%= request.getAttribute("cuentaCountError") %>;
     if (cuentaCountError) {
-        // Display error message in the modal
+        
         $('#editCuentaModal .error-message').html('Error:  El Cliente ya posee 3 cuentas asignadas.');
     } else {
-        // Clear any previous error messages
+        // limpa los mensajes
         $('#editCuentaModal .error-message').html('');
     }
     // Updatea el event listener para chequear los campos vacios antes del submit
@@ -245,7 +245,7 @@ $(document).ready(function () {
 </script>
 
 <%
-    // Check if there is an error message attribute
+    // se fija si hay algun error en el atributo
     String errorMessage = (String) request.getAttribute("errorMessage");
     if (errorMessage != null && !errorMessage.isEmpty()) {
 %>
@@ -259,7 +259,7 @@ $(document).ready(function () {
     </script>
 <%
     }
-    // Clear the error message attribute to avoid displaying it multiple times
+    // lo limpia para que no se muestre muchas vecess
     request.removeAttribute("errorMessage");
 %>
 
