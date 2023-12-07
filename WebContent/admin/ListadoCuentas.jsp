@@ -19,12 +19,14 @@
             <table id="tablaConPaginadorYFiltro"  class="display">
                 <thead>
                 <tr>
-                    <th>idCliente</th>
-                    <th>FechaCreacion</th>
-                    <th>TipoCuenta</th>
+                    <th>Nro. Cliente</th>
+                    <th>Nombre Apellido</th>
+                    <th>DNI</th>
+                    <th>Fecha de Creacion</th>
+                    <th>Tipo de Cuenta</th>
                     <th>CBU</th>
                     <th>Saldo</th>
-                    <th>numero_Cuenta</th>
+                    <th>Nro. de Cuenta</th>
                     <th>Estado</th>
                     <th>Acciones </th>
                 </tr>
@@ -45,6 +47,8 @@
                 <tr>
 				<form method="post" action="EditCuentaServlet">
 					<td><%=c.getCliente().getIdCLiente()%></td>
+					<td><%=c.getCliente().getNombreCompleto()%></td>
+					<td><%=c.getCliente().getDNI()%></td>
                     <td><%=c.getFecha_Creacion()%></td> 
                     <td><%=c.getTipo_Cuenta()%></td> 
                     <td><%=c.getCBU()%></td> 
@@ -100,15 +104,15 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="idCliente">idCliente</label>
+                        <label for="idCliente">Cliente Nro.</label>
                         <input type="text" class="form-control" name="idCliente" id="idCliente" placeholder="idCliente">
                     </div>
                     <div class="form-group">
-                        <label for="FechaCreacion">Fecha</label>
+                        <label for="FechaCreacion">Fecha Creacion</label>
                         <input type="date" class="form-control" name="FechaCreacion" id="FechaCreacion" max="<%= java.time.LocalDate.now() %>" placeholder="FechaCreacion">
                     </div>
                     <div class="form-group">
-				    <label for="TipoCuenta">TipoCuenta</label>
+				    <label for="TipoCuenta">Tipo de Cuenta</label>
  					   <select class="form-control" name="TipoCuenta" id="TipoCuenta">
 					        <option value="CC">CC</option>
  					       <option value="CA">CA</option>
@@ -123,13 +127,16 @@
                         <input type="text" class="form-control" name="Saldo" id="Saldo" placeholder="Saldo">
                     </div>
                     <div class="form-group">
-                        <label for="numero_Cuenta">numero_Cuenta</label>
+                        <label for="numero_Cuenta">Cuenta Nro.</label>
                         <input type="text" class="form-control" name="numero_Cuenta" id="numero_Cuenta" placeholder="numero_Cuenta" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="Estado">Estado</label>
-                        <input type="text" class="form-control" name="Estado" id="Estado" placeholder="Estado">
-                    </div>
+				    <label for="Estado">Estado</label>
+ 					   <select class="form-control" name="Estado" id="Estado">
+					        <option value="Activo">Activo</option>
+ 					       <option value="Inactivo">Inactivo</option>
+					    </select>
+					</div>
                     <div class="error-message" style="color: red;"></div>
                     </div>
                 <div class="modal-footer">
@@ -181,10 +188,10 @@ function populateEditModal(idCliente, FechaCreacion, TipoCuenta, CBU, Saldo, num
 
     var cuentaCountError = <%= request.getAttribute("cuentaCountError") %>;
     if (cuentaCountError) {
-        // Display error message in the modal
+        
         $('#editCuentaModal .error-message').html('Error:  El Cliente ya posee 3 cuentas asignadas.');
     } else {
-        // Clear any previous error messages
+        // limpa los mensajes
         $('#editCuentaModal .error-message').html('');
     }
     // Updatea el event listener para chequear los campos vacios antes del submit
@@ -245,7 +252,7 @@ $(document).ready(function () {
 </script>
 
 <%
-    // Check if there is an error message attribute
+    // se fija si hay algun error en el atributo
     String errorMessage = (String) request.getAttribute("errorMessage");
     if (errorMessage != null && !errorMessage.isEmpty()) {
 %>
@@ -259,7 +266,7 @@ $(document).ready(function () {
     </script>
 <%
     }
-    // Clear the error message attribute to avoid displaying it multiple times
+    // lo limpia para que no se muestre muchas vecess
     request.removeAttribute("errorMessage");
 %>
 
