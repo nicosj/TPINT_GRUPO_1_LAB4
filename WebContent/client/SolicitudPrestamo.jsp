@@ -34,6 +34,7 @@
                 <% ArrayList<Cuenta> cuentas = (ArrayList<Cuenta>)session.getAttribute("cuentas"); %>
                 <% for(Cuenta cuenta : cuentas) {%>
                 <option value="<%= cuenta.getNumero_Cuenta() %>">
+                
                     <strong>Cuenta $ <%= cuenta.getNumero_Cuenta() %></strong><br>
                     <span style="font-size: 12px; color: #555;">Saldo actual: <%= cuenta.getSaldo() %>$</span>
                 </option>

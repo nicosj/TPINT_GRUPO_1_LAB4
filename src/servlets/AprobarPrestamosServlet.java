@@ -71,6 +71,7 @@ public class AprobarPrestamosServlet extends HttpServlet {
 		if (idPrestamo != null) {
 
 			if (request.getParameter("aprobarPrestamo") != null) {
+				
 				System.out.println("Paso primero paso");
 				if ("0".equals(estadoPrestamo)) {
 					System.out.println("Paso segundo paso");
@@ -116,6 +117,7 @@ public class AprobarPrestamosServlet extends HttpServlet {
 					// idpago_prestamo numero_Cuenta Fecha_Pago Importe_Cuota Impote_Restante Cuotas_Restantes idPrestamo
 
 
+				}
 				} else if (request.getParameter("rechazarPrestamo") != null) {
 
 					if ("0".equals(estadoPrestamo)) {
@@ -123,13 +125,11 @@ public class AprobarPrestamosServlet extends HttpServlet {
 						prestamoDao.rechazarPrestamo(Integer.parseInt(idPrestamo));
 					}
 				}
+				
 			} else {
 				System.out.println("idPrestamo es nulo");
 			}
 
-
-
-		}
 		ClienteDao_Implement clienteDao = new ClienteDao_Implement();
 		ArrayList<Cliente> clientes = clienteDao.readAll();
 

@@ -82,7 +82,10 @@ public class SolicitudPrestamoServlet extends HttpServlet {
 		System.out.println("Llego solicitud de prestamo");
 		try {
 			Cuenta cuentaProbar = new Cuenta();
-			String cuenta = request.getParameter("cuenta");
+			
+			System.out.println(request.getParameter("cuenta"));
+			cuentaProbar.setNumero_Cuenta(request.getParameter("cuenta"));
+			
 			int cuotas = Integer.parseInt(request.getParameter("cantCuotas"));
 			double intereses = Double.parseDouble(request.getParameter("interes"));
 			double monto = Double.parseDouble(request.getParameter("monto"));
@@ -96,7 +99,7 @@ public class SolicitudPrestamoServlet extends HttpServlet {
 	        DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	        String fechaFormateada = fechaHoy.format(formato);
 	
-			prestamo.getCuenta().setNumero_Cuenta(cuenta);
+			prestamo.setCuenta(cuentaProbar);
 			prestamo.setTotalImporte(monto);
 			prestamo.setImporteCuota(importCuota);
 			prestamo.setFechaPedido(fechaFormateada);
