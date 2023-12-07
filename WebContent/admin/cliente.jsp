@@ -368,8 +368,8 @@
                                                                                placeholder="Nacionalidad">
                     </div>
                  <div class="form-group">
-    <label for="fechaNacimiento">Fecha de Nacimiento</label>
-    <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento" max="<%= java.time.LocalDate.now() %>" required>
+    <label for="fechaNacimientoe">Fecha de Nacimiento</label>
+    <input type="date" class="form-control" id="fechaNacimientoe" name="fechaNacimiento" max="<%= java.time.LocalDate.now() %>" required>
 </div>
 
                     <div class="form-group">
