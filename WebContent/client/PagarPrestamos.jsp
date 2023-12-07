@@ -104,9 +104,11 @@
 
                     <td><%= prestamoss.getImporte_cuota() %></td>
                     <td><%= prestamoss.getImporte_restante() %></td>
-                    <%%>
+
                     <td><%= prestamoss.getCuotas_restantes() %></td>
                         <form method="post" action="PagarPrestamosServlet">
+
+                                <% if(prestamoss.getFecha_Pago()==null){%>
                             <td>
                                 <Select id="cuotas" name="cuotas" class="form-control" required>
                                     <%
@@ -117,9 +119,14 @@
                                     <%
 
                                         }
+
                                     %>
                                 </Select>
                             </td>
+                                <%}else{%>
+                                    <td><h4>Pagado en: <%= prestamoss.getCuenta().getNumero_Cuenta() %></h4> </td>
+                                <%}%>
+
                             <td>
                             <input type="hidden" name="idEstePrestamo" value="<%= prestamoss.getIdPago()%>"/>
                                     <%if(prestamox.size() == 1){ %>

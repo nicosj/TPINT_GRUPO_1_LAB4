@@ -18,8 +18,8 @@ public class PagoPrestamo_NegocioImp implements PagoPrestamo_Negocio{
         return inserto;
     }
     @Override
-    public boolean update(int id) {
-        boolean upd = negocio.update(id);
+    public boolean update(int id, String cuenta) {
+        boolean upd = negocio.update(id , cuenta);
         return upd;
     }
     @Override
@@ -33,7 +33,7 @@ public class PagoPrestamo_NegocioImp implements PagoPrestamo_Negocio{
     @Override
     public ArrayList<PagoPrestamo> readAllByID(String IdPrestamo) {
         ArrayList<PagoPrestamo> listado=new ArrayList<>();
-        listado = negocio.readAll();
+        listado = negocio.readAllByID(IdPrestamo);
         return listado;
     }
 }

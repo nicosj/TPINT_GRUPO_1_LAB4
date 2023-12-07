@@ -98,47 +98,28 @@ public class PagarPrestamosServlet extends HttpServlet {
             ArrayList<PagoPrestamo> pprestamo = pagoT.readAllByID(request.getParameter("idPrestamo"));
 
 
-            for (PagoPrestamo prest : pprestamo) {
-
-                if (request.getParameter("idPrestamo").trim().equals(String.valueOf(prest.getPrestamo().getIdPrestamo()))) {
-                    /*pago de prestamo*/
-                    PagoPrestamo pago = new PagoPrestamo();
-
-                    pago.setIdPago(prest.getIdPago());
-                    pago.setCuenta(prest.getCuenta());
-                    pago.setFecha_Pago(prest.getFecha_Pago());
-                    pago.setImporte_cuota(prest.getImporte_cuota());
-                    pago.setImporte_restante(prest.getImporte_restante());
-                    pago.setCuotas_restantes(prest.getCuotas_restantes());
-                    pago.setPrestamo(prest.getPrestamo());
-                    filtrado.add(pago);
-                }
-
-            }
-
-
-            session.setAttribute("prestamoXU", filtrado);
+            session.setAttribute("prestamoXU", pprestamo);
 
 
         }
 
         if (request.getParameter("pagarEstaCuota") != null) {
 
-
+            System.out.println("entro a pagar esta cuota");
             ArrayList<PagoPrestamo> filtradox = (ArrayList<PagoPrestamo>) session.getAttribute("prestamoXU");
 
             Optional<PagoPrestamo> cuxOptional = filtradox.stream().filter(p -> p.getIdPago() == Integer.parseInt(request.getParameter("idEstePrestamo"))).findFirst();
 
 
             if (cuxOptional.isPresent()) {
-                request.getParameter("pagarEstaCuota");
+                System.out.println("entro a pagar esta cuota paso 2");
                 PagoPrestamo cux = cuxOptional.get();
 
                 Cuenta cufin = cuentaNegocio.obtenerCuenta(request.getParameter("cuotas"));
 
 
                 if (cufin.getSaldo() >= cux.getImporte_cuota() && cux.getCuotas_restantes() > 0) {
-
+                    System.out.println("entro a pagar esta cuota paso 3");
                     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
                     LocalDateTime now = LocalDateTime.now();
                     Movimiento movimiento = new Movimiento();
@@ -146,9 +127,9 @@ public class PagarPrestamosServlet extends HttpServlet {
                     PagoPrestamo pago = new PagoPrestamo();
 
 
-                    if (cux.getFecha_Pago() == null) {
-                        pagoT.update(cux.getIdPago());
+                    if (cux.getFecha_Pago() == null && pagoT.update(cux.getIdPago(),cufin.getNumero_Cuenta())){
 
+                        System.out.println("entro a pagar esta cuota paso 4: -"+cux.getIdPago());
                         cuentaNegocio.ajusteCuenta(cufin.getNumero_Cuenta(), -(cux.getImporte_cuota()));
                         MovimientoNegocio_Imp movimientoN = new MovimientoNegocio_Imp();
 
@@ -164,7 +145,7 @@ public class PagarPrestamosServlet extends HttpServlet {
                     }
                     if(cux.getCuotas_restantes() > 1 ){
                         // genera la proxima cuota
-                        pago.setIdPago(cux.getIdPago());
+                        System.out.println("entro a pagar esta cuota paso 5");
                         pago.setCuenta(cux.getCuenta());
                         pago.setFecha_Pago(null);
                         pago.setImporte_cuota(cux.getImporte_cuota());
