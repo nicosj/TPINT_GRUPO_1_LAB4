@@ -11,7 +11,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <div class="container">
-    <h1 class="mt-5">Solicitud de Prestamo</h1>
+    <h1 class="mt-5 marcoTitu">Solicitud de Prestamo</h1>
     <div class="marcoBott">
     <form id="loanForm" action="SolicitudPrestamoServlet" method="post">
         <div class="mb-3">
@@ -51,13 +51,13 @@
         </button>
         <button type="button" class="btn btn-secondary">Cancelar</button>
     </form>
-    </div>
+
     <div class="marcoTabla" >
 
         <%
             ArrayList<Prestamo> prestamos=(ArrayList<Prestamo>) session.getAttribute("prestamos");
             if(prestamos != null){
-                out.println("<h1 class='mt-5 marcoTitu'>Prestamos Pedidos</h1>");
+                out.println("<h3 class='mt-5 marcoTitu'>Prestamos Pedidos</h3>");
         %>
         <table id="tablaConPaginadorYFiltro" class="display">
             <thead>
@@ -85,6 +85,7 @@
         <%
             }
         %>
+    </div>
     </div>
 </div>
 
