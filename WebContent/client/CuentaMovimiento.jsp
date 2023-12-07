@@ -41,14 +41,16 @@
                     <%
                         if (session.getAttribute("movimientos") != null) {
                             ArrayList<Movimiento> movimientos = (ArrayList<Movimiento>) session.getAttribute("movimientos");
+
                     %>
-                    <%= movimientos.size()==0?"<thead><tr><td>Nada por aca</td></tr></thead>":" <thead> <tr> <th>Fecha</th> <th>Descripcion</th> <th>Debito</th> <th>Credito</th> </tr> </thead> <tbody>"%>
+                    <%= movimientos.size()==0?"<thead><tr><td>Nada por aca</td></tr></thead>":" <thead> <tr> <td style='display:none'> id </td> <th>Fecha</th> <th>Descripcion</th> <th>Debito</th> <th>Credito</th> </tr> </thead> <tbody>"%>
                     <%
 
                             for (Movimiento cuenta : movimientos) {
                     %>
                     <tr>
-
+                        <td style="display:none"><%= cuenta.getIdMovimiento() %>
+                        </td>
                         <td><%= cuenta.getFechaMovimiento() %>
                         </td>
                         <td><%= cuenta.getDetalleConcepto() %>
@@ -93,8 +95,11 @@
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
                 },
+                responsive: true,
+                order: [[0, 'desc']],
             }
         );
+
 
     });
 

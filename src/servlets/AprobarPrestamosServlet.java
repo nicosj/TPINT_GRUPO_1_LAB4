@@ -69,16 +69,20 @@ public class AprobarPrestamosServlet extends HttpServlet {
 		
 
 		if (idPrestamo != null) {
-		    if (request.getParameter("aprobarPrestamo") != null) {
-		        // Acciones para aprobar el pr�stamo
-		        if ("0".equals(estadoPrestamo)) {
-		            Prestamo_NegocioImp prestamoN = new Prestamo_NegocioImp();
-		            prestamoN.aprobarPrestamo(Integer.parseInt(idPrestamo));
-					ArrayList<Prestamo> prestamos = (ArrayList<Prestamo>)session.getAttribute("prestamos");
+
+			if (request.getParameter("aprobarPrestamo") != null) {
+				System.out.println("Paso primero paso");
+				if ("0".equals(estadoPrestamo)) {
+					System.out.println("Paso segundo paso");
+					PrestamoDao_Implement prestamoDao = new PrestamoDao_Implement();
+					prestamoDao.aprobarPrestamo(Integer.parseInt(idPrestamo));
+					ArrayList<Prestamo> prestamos = (ArrayList<Prestamo>) session.getAttribute("prestamos");
+
 					/* Actualiza el credito a cuenta*/
 					Cuenta_NegocioImp cuentaN = new Cuenta_NegocioImp();
 					cuentaN.ajusteCuenta(prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo)).findFirst().get().getCuenta().getNumero_Cuenta(), prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo)).findFirst().get().getTotalImporte());
 					/* Genera el movimiento */
+					System.out.println("Paso tercero paso");
 					Movimiento movimiento = new Movimiento();
 					Cuenta cuenta = new Cuenta();
 					cuenta.setNumero_Cuenta((prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo))).findFirst().get().getCuenta().getNumero_Cuenta());
@@ -94,6 +98,7 @@ public class AprobarPrestamosServlet extends HttpServlet {
 					movimiento.setImporteMovimiento((prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo)).findFirst().get().getTotalImporte()));
 					movimiento.setTipoMovimiento("Credito");
 					movimientoN.insert(movimiento);
+					System.out.println("Paso cuarto paso");
 					/* Actualiza el prestamo */
 					PagoPrestamo_NegocioImp pagoN = new PagoPrestamo_NegocioImp();
 					PagoPrestamo pago = new PagoPrestamo();
@@ -106,33 +111,28 @@ public class AprobarPrestamosServlet extends HttpServlet {
 					pago.setCuotas_restantes(prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo)).findFirst().get().getCuotas());
 					pago.setPrestamo(prestamoAPago);
 					pagoN.insert(pago);//aca no habra que llamar al negocio?
-
+					System.out.println("Final");
 					//Asi estan las columnas tal cual en la base de datos
 					// idpago_prestamo numero_Cuenta Fecha_Pago Importe_Cuota Impote_Restante Cuotas_Restantes idPrestamo
 
 
+				} else if (request.getParameter("rechazarPrestamo") != null) {
 
-				} else {
-		            System.out.println("Nulidad al aprobar");
-		        }
+					if ("0".equals(estadoPrestamo)) {
+						PrestamoDao_Implement prestamoDao = new PrestamoDao_Implement();
+						prestamoDao.rechazarPrestamo(Integer.parseInt(idPrestamo));
+					}
+				}
+			} else {
+				System.out.println("idPrestamo es nulo");
+			}
 
-		    } else if (request.getParameter("rechazarPrestamo") != null) {
-		        // Acciones para rechazar el pr�stamo
-		        if ("0".equals(estadoPrestamo)) {
-		        	Prestamo_NegocioImp prestamoN = new Prestamo_NegocioImp();
-		            prestamoN.rechazarPrestamo(Integer.parseInt(idPrestamo));
-		        } else {
-		            System.out.println("Nulidad al rechazar");
-		        }
-		    }
-		} else {
-		    System.out.println("idPrestamo es nulo");
+
+
 		}
-		
+		ClienteDao_Implement clienteDao = new ClienteDao_Implement();
+		ArrayList<Cliente> clientes = clienteDao.readAll();
 
-		
-		Cliente_NegocioImp clienteN = new Cliente_NegocioImp();
-		ArrayList<Cliente> clientes = clienteN.listarClientes();
 		
 		
 		Cuenta_NegocioImp cuentaN = new Cuenta_NegocioImp();

@@ -10,11 +10,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class PagoPrestamoDao_Implement implements PagoPrestamoDao {
     private static final String insert = "INSERT INTO pago_prestamo (numero_Cuenta, Fecha_Pago, importe_cuota, impote_restante, cuotas_restantes, idPrestamo) VALUES (?,?,?,?,?,?)";
     private static final String readall = "SELECT * FROM pago_prestamo";
+    private static final String readallByCuentaX = "SELECT * FROM pago_prestamo where idPrestamo = ?";
+    private static final String update = "Update pago_prestamo set Fecha_Pago=?  where idpago_prestamo = ?";
 
     private static final String readallByCuenta = "SELECT * FROM PagoPrestamo WHERE numero_Cuenta = ?";
 
@@ -65,6 +69,29 @@ public class PagoPrestamoDao_Implement implements PagoPrestamoDao {
         System.out.println("asdasd"+lista);
         return lista;
     }
+    @Override
+    public ArrayList<PagoPrestamo> readAllByID(String IdPrestamo) {
+
+        PreparedStatement ps;
+        ResultSet rs;
+        ArrayList<PagoPrestamo> lista = new ArrayList<>();
+        DB conexion = DB.getConexion();
+        try {
+            System.out.println("asdasd1");
+            ps = conexion.getSQLConexion().prepareStatement(readallByCuentaX);
+            ps.setString(1, IdPrestamo);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                lista.add(obtenerPrestamo(rs));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("asdasd"+lista);
+        return lista;
+
+    }
+
     private PagoPrestamo obtenerPrestamo(ResultSet resultSet) throws SQLException
     {
 
@@ -81,5 +108,31 @@ public class PagoPrestamoDao_Implement implements PagoPrestamoDao {
             int estado = resultSet.getInt("IdPrestamo");
 
             return new PagoPrestamo(estado, cuenta, fechaPedido, importeCuota, totalImporte, cuotas, prestamo);
+    }
+
+    @Override
+    public boolean update(int id) {
+        PreparedStatement ps;
+        Connection conexion = DB.getConexion().getSQLConexion();
+        boolean actualizacionExitosa = false;
+        try
+        {
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+            LocalDateTime now = LocalDateTime.now();
+
+            ps =  conexion.prepareStatement(update);
+            ps.setString(1, dtf.format(now).toString());
+            ps.setInt(2, id);
+            if(ps.executeUpdate() > 0)
+            {
+                ((Connection) conexion).commit();
+                actualizacionExitosa = true;
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return actualizacionExitosa;
+
     }
 }

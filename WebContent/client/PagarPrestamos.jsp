@@ -95,10 +95,13 @@
                     if(prestamox != null){
                     for (PagoPrestamo prestamoss : prestamox) {
 
+
                 %>
                 <tr>
-                    <td><%= prestamoss.getIdPago() %></td>
-                    <td><%= prestamoss.getFecha_Pago() %></td>
+
+                    <td><%= prestamoss.getIdPrestamo() %></td>
+                    <td><%= prestamoss.getFecha_Pago()!=null?prestamoss.getFecha_Pago():"No Pago" %></td>
+
                     <td><%= prestamoss.getImporte_cuota() %></td>
                     <td><%= prestamoss.getImporte_restante() %></td>
                     <td><%= prestamoss.getCuotas_restantes() %></td>
@@ -118,7 +121,16 @@
                             </td>
                             <td>
                             <input type="hidden" name="idEstePrestamo" value="<%= prestamoss.getIdPago()%>"/>
-                            <button type="submit" class="btn btn-success" <%=prestamoss.getFecha_Pago()!=null ?"disabled":""%>  name="pagarEstaCuota" > 💸 PagarEstaCuota </button>
+                                    <%if(prestamox.size() == 1){ %>
+                                <button type="submit" <%=prestamoss.getFecha_Pago() != null ? "class='btn btn-success' disabled" : "class='btn btn-warning'"%> name="pagarEstaCuota"> 💸 PagarEstaCuota
+                                </button>
+
+                                    <%} else{ %>
+                                <button type="submit"
+                                         <%=prestamoss.getFecha_Pago() != null ? "class='btn btn-success' disabled" : "class='btn btn-warning'"%>
+                                        name="pagarEstaCuota"> 💸 PagarEstaCuota
+                                </button>
+                                    <%} %>
                         </form>
                     </td>
                 </tr>
