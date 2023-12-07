@@ -79,12 +79,13 @@ public class altaClienteServlet extends HttpServlet {
 			String contrasena = request.getParameter("contrasena");
 			boolean estado = true;
 
-			/*if(!esNumero(cuil) || !esNumero(dni) || !esNumero(telefono) || !esTexto(nombre) || 
+			if(!esNumero(cuil) || !esNumero(dni) || !esNumero(telefono) || !esTexto(nombre) || 
 			  !esTexto(apellido) || !esTexto(nacionalidad) || !esTexto(localidad) ) {
+				System.out.println("Entrando a la wea");
 	        	 request.setAttribute("errorMessage", "Alguno de los datos cargados era incorrecto. Recuerde completar los campos que se exigen.");
 		         request.getRequestDispatcher("/admin/cliente.jsp").forward(request, response);
 		         return;
-			}*/
+			}
 
 			// Validando espacios vacios
 	        if (dni.trim().isEmpty() || cuil.trim().isEmpty() || nombre.trim().isEmpty()

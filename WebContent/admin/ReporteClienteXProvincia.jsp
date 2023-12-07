@@ -167,7 +167,7 @@
 		
 		<p>Seleccione el género que desea contabilizar</p>
             <div class="input-group">
-                <input type="radio" name="radioGenero"  value="M">
+                <input type="radio" name="radioGenero" checked  value="M">
                 <label class="form-check-label">Masculino</label>
             </div>
             <div class="input-group">
