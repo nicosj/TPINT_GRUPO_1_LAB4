@@ -17,6 +17,8 @@
                     </div>
                 </div>
             </div>
+            <%    ArrayList<PagoPrestamo> prestamox = (ArrayList<PagoPrestamo>)session.getAttribute("prestamoXU");%>
+            <div <%= prestamox == null?"class='container' style='display:block;'":"style='display:none;'"%>>
             <table id="tablaConPaginadorYFiltro" class="display">
                 <thead>
                     <tr>
@@ -53,7 +55,7 @@
                             montoIntereses = (prestamo.getTotalImporte()*intereses[pos])+prestamo.getTotalImporte();
                     %>
                         <tr>
-                             <td><%= prestamo.getCuenta().getNumero_Cuenta() %></td>
+                             <td><%= prestamo.getIdPrestamo() %></td>
                              <td><%= prestamo.getTotalImporte() %></td>
                              <td><%= prestamo.getFechaPedido() %></td>
                                 <td><%= prestamo.getCuotas() %></td>
@@ -70,8 +72,9 @@
                     %>
                 </tbody>
             </table>
+            </div>
         </div>
-        <%    ArrayList<PagoPrestamo> prestamox = (ArrayList<PagoPrestamo>)session.getAttribute("prestamoXU");%>
+
         <div <%=prestamox != null?"class='container' style='display:block;'":"style='display:none;'"%> >
             <h2 class="marcoTitu">Tabla de Pago de prestamos</h2>
             <table id="tablaConPaginadorYFiltroo" class="display">
@@ -104,9 +107,11 @@
 
                     <td><%= prestamoss.getImporte_cuota() %></td>
                     <td><%= prestamoss.getImporte_restante() %></td>
-                    <%%>
+
                     <td><%= prestamoss.getCuotas_restantes() %></td>
                         <form method="post" action="PagarPrestamosServlet">
+
+                                <% if(prestamoss.getFecha_Pago()==null){%>
                             <td>
                                 <Select id="cuotas" name="cuotas" class="form-control" required>
                                     <%
@@ -117,18 +122,23 @@
                                     <%
 
                                         }
+
                                     %>
                                 </Select>
                             </td>
+                                <%}else{%>
+                                    <td><h4>Pagado en: <%= prestamoss.getCuenta().getNumero_Cuenta() %></h4> </td>
+                                <%}%>
+
                             <td>
                             <input type="hidden" name="idEstePrestamo" value="<%= prestamoss.getIdPago()%>"/>
                                     <%if(prestamox.size() == 1){ %>
-                                <button type="submit" <%=prestamoss.getFecha_Pago() != null ? "class='btn btn-success' disabled" : "class='btn btn-warning'"%> name="pagarEstaCuota"> 💸 PagarEstaCuota
+                                <button   <%=prestamoss.getFecha_Pago() != null ? "class='btn btn-success' disabled" : " id='pagoCuota' class='btn btn-warning'"%> name="pagarEstaCuota"> 💸 PagarEstaCuota
                                 </button>
 
                                     <%} else{ %>
-                                <button type="submit"
-                                         <%=prestamoss.getFecha_Pago() != null ? "class='btn btn-success' disabled" : "class='btn btn-warning'"%>
+                                <button
+                                         <%=prestamoss.getFecha_Pago() != null ? "class='btn btn-success' disabled" : " id='pagoCuota' class='btn btn-warning'"%>
                                         name="pagarEstaCuota"> 💸 PagarEstaCuota
                                 </button>
                                     <%} %>
@@ -142,6 +152,7 @@
                 </tbody>
 
             </table>
+            <a id="cancelarFId" class="previous action-button-previous" href="PagarPrestamosServlet"><span class="nav-label">Volver</span></a>
         </div>
     </div>
 </div>
@@ -163,6 +174,32 @@
                 },
             }
         );
+
+        $('#pagoCuota').on("click", function (e) {
+            e.preventDefault();
+            var self = $(this);
+
+            Swal.fire({
+                title: '¿Estas seguro?',
+                text: "Usted esta por registrar un nuevo Pago!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Confirmar',
+
+
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    self.off("click").click();
+
+                }
+            },);
+
+
+        });
+
+
     });
 
 </script>

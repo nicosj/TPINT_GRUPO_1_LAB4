@@ -18,7 +18,7 @@ public class PagoPrestamoDao_Implement implements PagoPrestamoDao {
     private static final String insert = "INSERT INTO pago_prestamo (numero_Cuenta, Fecha_Pago, importe_cuota, impote_restante, cuotas_restantes, idPrestamo) VALUES (?,?,?,?,?,?)";
     private static final String readall = "SELECT * FROM pago_prestamo";
     private static final String readallByCuentaX = "SELECT * FROM pago_prestamo where idPrestamo = ?";
-    private static final String update = "Update pago_prestamo set Fecha_Pago=?  where idpago_prestamo = ?";
+    private static final String update = "Update pago_prestamo Set Fecha_Pago= ?, numero_cuenta= ? where idpago_prestamo = ?";
 
     private static final String readallByCuenta = "SELECT * FROM PagoPrestamo WHERE numero_Cuenta = ?";
 
@@ -95,7 +95,7 @@ public class PagoPrestamoDao_Implement implements PagoPrestamoDao {
     private PagoPrestamo obtenerPrestamo(ResultSet resultSet) throws SQLException
     {
 
-            int idPrestamo = resultSet.getInt("idpago_prestamo"); // **VER
+            int idPrestamo = resultSet.getInt("idPrestamo"); // **VER
             Prestamo prestamo = new Prestamo();
             prestamo.setIdPrestamo(idPrestamo);
             String numero_Cuenta =resultSet.getString("numero_Cuenta");
@@ -105,13 +105,13 @@ public class PagoPrestamoDao_Implement implements PagoPrestamoDao {
             double importeCuota = resultSet.getDouble("Importe_Cuota");
             double totalImporte = resultSet.getDouble("Impote_Restante");
             int cuotas = resultSet.getInt("Cuotas_Restantes");
-            int estado = resultSet.getInt("IdPrestamo");
+            int idPago = resultSet.getInt("idpago_prestamo");
 
-            return new PagoPrestamo(estado, cuenta, fechaPedido, importeCuota, totalImporte, cuotas, prestamo);
+            return new PagoPrestamo(idPago, cuenta, fechaPedido, importeCuota, totalImporte, cuotas, prestamo);
     }
 
     @Override
-    public boolean update(int id) {
+    public boolean update(int id,String cuenta) {
         PreparedStatement ps;
         Connection conexion = DB.getConexion().getSQLConexion();
         boolean actualizacionExitosa = false;
@@ -119,10 +119,11 @@ public class PagoPrestamoDao_Implement implements PagoPrestamoDao {
         {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
             LocalDateTime now = LocalDateTime.now();
-
+            System.out.println(dtf.format(now).toString());
             ps =  conexion.prepareStatement(update);
             ps.setString(1, dtf.format(now).toString());
-            ps.setInt(2, id);
+            ps.setString(2, cuenta);
+            ps.setInt(3, id);
             if(ps.executeUpdate() > 0)
             {
                 ((Connection) conexion).commit();

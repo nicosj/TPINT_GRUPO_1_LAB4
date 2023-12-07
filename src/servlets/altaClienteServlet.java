@@ -79,12 +79,12 @@ public class altaClienteServlet extends HttpServlet {
 			String contrasena = request.getParameter("contrasena");
 			boolean estado = true;
 
-			if(!esNumero(cuil) || !esNumero(dni) || !esNumero(telefono) || !esTexto(nombre) || 
+			/*if(!esNumero(cuil) || !esNumero(dni) || !esNumero(telefono) || !esTexto(nombre) || 
 			  !esTexto(apellido) || !esTexto(nacionalidad) || !esTexto(localidad) ) {
 	        	 request.setAttribute("errorMessage", "Alguno de los datos cargados era incorrecto. Recuerde completar los campos que se exigen.");
 		         request.getRequestDispatcher("/admin/cliente.jsp").forward(request, response);
 		         return;
-			}
+			}*/
 
 			// Validando espacios vacios
 	        if (dni.trim().isEmpty() || cuil.trim().isEmpty() || nombre.trim().isEmpty()
@@ -101,7 +101,7 @@ public class altaClienteServlet extends HttpServlet {
 
 
 	        Cliente cliente = new Cliente(id, dni, cuil, nombre, apellido, sexo, nacionalidad, fechaNacimiento, direccion, localidad, provincia, correo, telefono, estado);
-	        System.out.println("Servlet");
+	        System.out.println("Cliente paso validaciones");
 	        System.out.println(cliente);
 
 	        Usuario_NegocioImp us = new Usuario_NegocioImp();
@@ -110,15 +110,17 @@ public class altaClienteServlet extends HttpServlet {
 	        try {
 	            // Se fija si el usuario ya existe
 	        		
-	            if (us.verificarNombreUsuario(usuario, id) && cli.existeDNI(dni, id)) {
+	            if (us.verificarNombreUsuario(usuario, id) || cli.existeDNI(dni, id)) {
 	               
 	                request.setAttribute("existeUsuario", true);
-	                request.setAttribute("errorMessage", "El nombre de usuario ya esta en uso. Por favor, elija otro.");
+	                request.setAttribute("errorMessage", "El nombre de usuario o DNI ya esta en uso. Por favor, elija otro.");
 	                request.getRequestDispatcher("/admin/cliente.jsp").forward(request, response);
 	                throw new ExcepcionDni();
 	            } else {
 	                // Si no existe, procedemos a crear el nuevo cliente
-	                cli.insertarCliente(cliente);
+	                id = cli.insertarCliente(cliente);
+	                System.out.println("Se crea cliente"+id);
+	                cliente.setIdCLiente(id);
 	                Usuario user = new Usuario(0, usuario, contrasena, 2, cliente);
 	                us.insertarUsuario(user);
 	                request.setAttribute("filas", true);

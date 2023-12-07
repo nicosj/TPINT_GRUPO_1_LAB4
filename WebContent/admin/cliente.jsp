@@ -1,6 +1,8 @@
 <% if (session.getAttribute("admin") != null) {%>
 <jsp:include page="./header.jsp"/>
 <%@page import="dominio.Cliente" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
 <%@page import="java.util.ArrayList" %>
 <%@ page import="dominio.Usuario" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -77,7 +79,7 @@
                     </td> <!-- Sexo -->
                     <td><%=c.getNacionalidad()%>
                     </td> <!-- Nacionalidad -->
-                    <td><%=c.getFechaNacimiento()%>
+                 <td><%=c.getFechaNacimiento()%>
                     </td> <!-- F. Nac. -->
                     <td><%=c.getDireccion()%>
                     </td> <!-- Direccion -->
@@ -462,6 +464,9 @@
     </div>
 </div>
 <script>
+
+
+
     document.addEventListener("DOMContentLoaded", function () {
         console.log("Script ejecutado");
 
