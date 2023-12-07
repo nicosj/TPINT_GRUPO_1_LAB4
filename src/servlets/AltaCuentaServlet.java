@@ -79,6 +79,13 @@ public class AltaCuentaServlet extends HttpServlet {
 		}
 		if(request.getParameter("btnCrearCuenta")!=null){
 
+			if(request.getParameter("idcliente")== null) {
+				
+				request.setAttribute("error", "No se selecciono Cliente");
+				request.getRequestDispatcher("/admin/AltaCuenta.jsp").forward(request, response);
+				
+			}
+			
 			System.out.println("Servletpost");
 			String numero_Cuenta = request.getParameter("numero_Cuenta");
 			int idCliente = Integer.parseInt(request.getParameter("idcliente"));
@@ -112,7 +119,7 @@ public class AltaCuentaServlet extends HttpServlet {
 				request.getRequestDispatcher("/admin/AltaCuenta.jsp").forward(request, response);
 
             	//request.getRequestDispatcher("/admin/ListadoCuentas.jsp").forward(request, response);
-
+            
             } catch (Exception e) {
                 e.printStackTrace();
             }

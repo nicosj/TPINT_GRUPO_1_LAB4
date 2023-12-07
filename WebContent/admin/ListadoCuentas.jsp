@@ -59,7 +59,7 @@
                     <td>
                     <form action="EditCuentaServlet" method="post">
 
-                        <a href="#editCuentaModal" class="edit" data-toggle="modal"
+                        <a  href="#editCuentaModal" class="edit" data-toggle="modal"
    onclick="populateEditModal(
        '<%=c.getCliente().getIdCLiente()%>',
        '<%=c.getFecha_Creacion()%>',
@@ -105,7 +105,7 @@
                     </div>
                     <div class="form-group">
                         <label for="FechaCreacion">Fecha</label>
-                        <input type="text" class="form-control" name="FechaCreacion" id="FechaCreacion" placeholder="FechaCreacion">
+                        <input type="date" class="form-control" name="FechaCreacion" id="FechaCreacion" max="<%= java.time.LocalDate.now() %>" placeholder="FechaCreacion">
                     </div>
                     <div class="form-group">
 				    <label for="TipoCuenta">TipoCuenta</label>

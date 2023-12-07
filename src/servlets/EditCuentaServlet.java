@@ -57,7 +57,10 @@ public class EditCuentaServlet extends HttpServlet {
 		//doGet(request, response);
 		Cuenta cuenta = new Cuenta();
 		String idCuenta = request.getParameter("numero_Cuenta");
-		if(request.getParameter("btnTraerid")!=null) {
+		Cuenta_NegocioImp accNegocio = new Cuenta_NegocioImp();
+		Cuenta cuentaAux= new Cuenta();
+    	cuentaAux= accNegocio.obtenerCuenta(idCuenta);
+		/*if(request.getParameter("btnTraerid")!=null) {
 			try {
             	Cuenta cuenta2= new Cuenta();
             	Cuenta_NegocioImp cuentaN = new Cuenta_NegocioImp();
@@ -68,10 +71,12 @@ public class EditCuentaServlet extends HttpServlet {
 				
 				// TODO: handle exception
 			}
-		}
+		}*/
+		
 	if(request.getParameter("btnEdit")!=null){
-		Cliente client = new Cliente();
-		cuenta.getCliente().setIdCLiente(Integer.parseInt(request.getParameter("idCliente")));
+		Cliente cliente = new Cliente();
+		cliente.setIdCLiente(Integer.parseInt(request.getParameter("idCliente")));
+		cuenta.setCliente(cliente);
 		cuenta.setNumero_Cuenta(request.getParameter("numero_Cuenta"));
 		cuenta.setFecha_Creacion(request.getParameter("FechaCreacion"));
 		cuenta.setTipo_Cuenta(request.getParameter("TipoCuenta"));
@@ -92,21 +97,32 @@ public class EditCuentaServlet extends HttpServlet {
 
             System.out.println("Servlet");
             System.out.println(cuenta);
-            Cuenta_NegocioImp accNegocio = new Cuenta_NegocioImp();
+            
             int cuentaCount = accNegocio.getCuentaCountByClientId(request.getParameter("idCliente"));
             try{
             	
-                
-                if (cuentaCount < 3) {
+            	System.out.println(cuentaAux.getCliente().getIdCLiente());
+            	System.out.println(Integer.parseInt(request.getParameter("idCliente")));
+                if(cuentaAux.getCliente().getIdCLiente() == Integer.parseInt(request.getParameter("idCliente"))) {
+                	
+                    boolean filas= accNegocio.update(cuenta);
+                    request.setAttribute("filas", filas);
+                    request.setAttribute("updateSuccess", true);   
+                    ArrayList<Cuenta> cuentas = accNegocio.listarCuentas();
+            		request.setAttribute("cuentas", cuentas);
+                    request.getRequestDispatcher("/admin/ListadoCuentas.jsp").forward(request, response);
+                }
             	
+                if (cuentaCount < 3) {
+                	System.out.println("uwu bueno");
             	Cuenta cuenta2= new Cuenta();
             	cuenta2= accNegocio.obtenerCuenta(idCuenta);
-                boolean filas= accNegocio.update(cuenta);
+                boolean filas= accNegocio.update(cuenta2);
                 request.setAttribute("filas", filas);
                 request.setAttribute("updateSuccess", true);                               
                 }
                 else {
-                	System.out.println("uwu");
+                	System.out.println("uwu malo");
                 	 request.setAttribute("errorMessage", "La cuenta no puede asociarse al nuevo cliente, ya posee 3 cuentas asociadas.");
                 }
                 ArrayList<Cuenta> cuentas = accNegocio.listarCuentas();
