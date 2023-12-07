@@ -60,7 +60,7 @@
                     if (clientes != null && usuario != null)
                         for (Cliente c : clientes) {
                             for (Usuario u : usuario) {
-                                if (u.getIdCliente() == c.getIdCLiente() && (u.getTipoUsuario() == 2) && c.isEstado()) {%>
+                                if (u.getCliente().getIdCLiente() == c.getIdCLiente() && (u.getTipoUsuario() == 2) && c.isEstado()) {%>
                 <tr class="clientRow">
 
                     <td><%=c.getIdCLiente()%>
@@ -645,7 +645,7 @@
                 if (result.isConfirmed) {
                     self.off("click").click();
                 }
-            }, );
+            },);
 
 
         });
@@ -667,7 +667,7 @@
             order: [[0, 'desc']],
 
         });
-
+    });
 
     function paramDel(id, nombre, apaellido) {
         $("#idClienteb").val(id);

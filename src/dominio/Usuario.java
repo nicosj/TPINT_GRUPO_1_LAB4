@@ -10,7 +10,6 @@ public class Usuario {
 
 
 	public Usuario() {
-
 	}
 	public Usuario(int idUsuario, String usuario, String Clave, int tipoUsuario, Cliente cliente){
 		this.IdUsuario = idUsuario;
@@ -57,10 +56,12 @@ public class Usuario {
 	}
 
 	public Cliente getCliente() {
+
         return cliente;
     }
 	public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
+
 
 }

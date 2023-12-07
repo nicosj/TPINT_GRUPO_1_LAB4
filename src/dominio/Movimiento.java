@@ -4,28 +4,29 @@ import java.sql.Date;
 
 public class Movimiento {
 
+	private String idMovimiento;
+	private Cuenta cuenta; 
+	private String fechaMovimiento;
+	private String detalleConcepto;
+	private double importeMovimiento;
+	private String tipoMovimiento;
+	
+	
+
   @Override
 	public String toString() {
-		return "Movimiento [idMovimiento=" + idMovimiento + ", numero_Cuenta=" + numero_Cuenta + ", fechaMovimiento="
+		return "Movimiento [idMovimiento=" + idMovimiento + ", numero_Cuenta=" + cuenta.getNumero_Cuenta() + ", fechaMovimiento="
 				+ fechaMovimiento + ", detalleConcepto=" + detalleConcepto + ", importeMovimiento=" + importeMovimiento
 				+ ", tipoMovimiento=" + tipoMovimiento + "]";
 	}
-private String idMovimiento;
-  private String numero_Cuenta;
-  private String fechaMovimiento;
-  private String detalleConcepto;
-  private double importeMovimiento;
-  private String tipoMovimiento;
-  
-  
   
 	  public Movimiento() {};
 	  
-	public Movimiento(String idMovimiento, String numero_Cuenta, String fechaMovimiento, String detalleConcepto,
+	public Movimiento(String idMovimiento, Cuenta cuenta, String fechaMovimiento, String detalleConcepto,
 			double importeMovimiento, String tipoMovimiento) {
 		super();
 		this.idMovimiento = idMovimiento;
-		this.numero_Cuenta = numero_Cuenta;
+		this.cuenta = cuenta;
 		this.fechaMovimiento = fechaMovimiento;
 		this.detalleConcepto = detalleConcepto;
 		this.importeMovimiento = importeMovimiento;
@@ -37,12 +38,14 @@ private String idMovimiento;
 	public void setIdMovimiento(String idMovimiento) {
 		this.idMovimiento = idMovimiento;
 	}
-	public String getNumero_Cuenta() {
-		return numero_Cuenta;
-	}
-	public void setNumero_Cuenta(String numero_Cuenta) {
-		this.numero_Cuenta = numero_Cuenta;
-	}
+    public Cuenta getCuenta() {
+        return cuenta;
+    }
+
+    public void setCuenta(Cuenta cuenta) {
+        this.cuenta = cuenta;
+    }
+
 	public String getFechaMovimiento() {
 		return fechaMovimiento;
 	}

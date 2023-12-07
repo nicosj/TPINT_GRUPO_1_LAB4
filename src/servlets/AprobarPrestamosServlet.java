@@ -62,13 +62,14 @@ public class AprobarPrestamosServlet extends HttpServlet {
 		
 		System.out.println("idPrestamo: " + idPrestamo);
 
-		System.out.println("estadoPrestamo: " + idPrestamo);
+		System.out.println("estadoPrestamo: " + estadoPrestamo);
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
 
 		
 
 		if (idPrestamo != null) {
+
 			if (request.getParameter("aprobarPrestamo") != null) {
 				System.out.println("Paso primero paso");
 				if ("0".equals(estadoPrestamo)) {
@@ -76,14 +77,22 @@ public class AprobarPrestamosServlet extends HttpServlet {
 					PrestamoDao_Implement prestamoDao = new PrestamoDao_Implement();
 					prestamoDao.aprobarPrestamo(Integer.parseInt(idPrestamo));
 					ArrayList<Prestamo> prestamos = (ArrayList<Prestamo>) session.getAttribute("prestamos");
+
 					/* Actualiza el credito a cuenta*/
-					CuentaDao_Implement cuentaDao = new CuentaDao_Implement();
-					cuentaDao.ajusteCuenta(prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo)).findFirst().get().getNumero_Cuenta(), prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo)).findFirst().get().getTotalImporte());
+					Cuenta_NegocioImp cuentaN = new Cuenta_NegocioImp();
+					cuentaN.ajusteCuenta(prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo)).findFirst().get().getCuenta().getNumero_Cuenta(), prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo)).findFirst().get().getTotalImporte());
 					/* Genera el movimiento */
 					System.out.println("Paso tercero paso");
 					Movimiento movimiento = new Movimiento();
+					Cuenta cuenta = new Cuenta();
+					cuenta.setNumero_Cuenta((prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo))).findFirst().get().getCuenta().getNumero_Cuenta());
 					MovimientoNegocio_Imp movimientoN = new MovimientoNegocio_Imp();
-					movimiento.setNumero_Cuenta(prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo)).findFirst().get().getNumero_Cuenta());
+					Prestamo prestamoAPago = new Prestamo();
+					prestamoAPago = (prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo))).findFirst().get();
+				
+					
+					movimiento.setCuenta(cuenta);
+					
 					movimiento.setFechaMovimiento(dtf.format(now).toString());
 					movimiento.setDetalleConcepto("Prestamo Nro: " + idPrestamo);
 					movimiento.setImporteMovimiento((prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo)).findFirst().get().getTotalImporte()));
@@ -93,12 +102,14 @@ public class AprobarPrestamosServlet extends HttpServlet {
 					/* Actualiza el prestamo */
 					PagoPrestamo_NegocioImp pagoN = new PagoPrestamo_NegocioImp();
 					PagoPrestamo pago = new PagoPrestamo();
-					pago.setNumero_Cuenta(prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo)).findFirst().get().getNumero_Cuenta());
+					//pago.setNumero_Cuenta(prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo)).findFirst().get().getNumero_Cuenta());
+					pago.setCuenta(cuenta);
+				
 					pago.setFecha_Pago(null);
 					pago.setImporte_cuota(prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo)).findFirst().get().getImporteCuota());
 					pago.setImporte_restante(prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo)).findFirst().get().getTotalImporte());
 					pago.setCuotas_restantes(prestamos.stream().filter(p -> p.getIdPrestamo() == Integer.parseInt(idPrestamo)).findFirst().get().getCuotas());
-					pago.setIdPrestamo(Integer.parseInt(idPrestamo));
+					pago.setPrestamo(prestamoAPago);
 					pagoN.insert(pago);//aca no habra que llamar al negocio?
 					System.out.println("Final");
 					//Asi estan las columnas tal cual en la base de datos
@@ -117,15 +128,19 @@ public class AprobarPrestamosServlet extends HttpServlet {
 			}
 
 
+
 		}
 		ClienteDao_Implement clienteDao = new ClienteDao_Implement();
 		ArrayList<Cliente> clientes = clienteDao.readAll();
+
 		
-		CuentaDao_Implement cuentaDao = new CuentaDao_Implement();
-		ArrayList<Cuenta> cuentas = cuentaDao.readAll();
 		
-		PrestamoDao_Implement prestamoDao = new PrestamoDao_Implement();
-		ArrayList<Prestamo> prestamos = prestamoDao.readAll();
+		Cuenta_NegocioImp cuentaN = new Cuenta_NegocioImp();
+		//CuentaDao_Implement cuentaDao = new CuentaDao_Implement();
+		ArrayList<Cuenta> cuentas = cuentaN.listarCuentas();
+		
+		Prestamo_NegocioImp prestamoN = new Prestamo_NegocioImp(); 
+		ArrayList<Prestamo> prestamos = prestamoN.readAll();
 		
 		System.out.println(prestamos + "Prestamosss");
 		System.out.println(clientes + "Clientesss");

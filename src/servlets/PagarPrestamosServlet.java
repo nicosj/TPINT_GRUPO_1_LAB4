@@ -23,6 +23,7 @@ import dao_Implement.ClienteDao_Implement;
 import dao_Implement.CuentaDao_Implement;
 import dao_Implement.PrestamoDao_Implement;
 import dominio.*;
+import negocio.*;
 import negocio.PagoPrestamo_Negocio;
 
 /**
@@ -52,7 +53,7 @@ public class PagarPrestamosServlet extends HttpServlet {
 
         Cuenta_NegocioImp cuentaNegocio = new Cuenta_NegocioImp();
 
-        ArrayList<Cuenta> cuentas = cuentaNegocio.obtenerCuentaByClientId(clix.getIdCliente());
+        ArrayList<Cuenta> cuentas = cuentaNegocio.obtenerCuentaByClientId(clix.getCliente().getIdCLiente());
         PrestamoDao_Implement prestamoDao = new PrestamoDao_Implement();
         ArrayList<Prestamo> prestamos = new ArrayList<>();
         for (Cuenta cuenta : cuentas) {
@@ -74,10 +75,10 @@ public class PagarPrestamosServlet extends HttpServlet {
 
         Usuario clix = (Usuario) session.getAttribute("client");
 
-        ArrayList<Cuenta> cuentas = cuentaNegocio.obtenerCuentaByClientId(clix.getIdCliente());
+        ArrayList<Cuenta> cuentas = cuentaNegocio.obtenerCuentaByClientId(clix.getCliente().getIdCLiente());
         PrestamoDao_Implement prestamoDao = new PrestamoDao_Implement();
 
-        ArrayList<Prestamo> prestamos = new ArrayList<>();
+        ArrayList<Prestamo> prestamos = new ArrayList<Prestamo>();
 
         for (Cuenta cuenta : cuentas) {
             prestamos.addAll(prestamoDao.readAllByCuenta(cuenta.getNumero_Cuenta()));
@@ -99,15 +100,17 @@ public class PagarPrestamosServlet extends HttpServlet {
 
             for (PagoPrestamo prest : pprestamo) {
 
-                if (request.getParameter("idPrestamo").trim().equals(String.valueOf(prest.getIdPrestamo()))) {
+                if (request.getParameter("idPrestamo").trim().equals(String.valueOf(prest.getPrestamo().getIdPrestamo()))) {
+                    /*pago de prestamo*/
                     PagoPrestamo pago = new PagoPrestamo();
+
                     pago.setIdPago(prest.getIdPago());
-                    pago.setNumero_Cuenta(prest.getNumero_Cuenta());
+                    pago.setCuenta(prest.getCuenta());
                     pago.setFecha_Pago(prest.getFecha_Pago());
                     pago.setImporte_cuota(prest.getImporte_cuota());
                     pago.setImporte_restante(prest.getImporte_restante());
                     pago.setCuotas_restantes(prest.getCuotas_restantes());
-                    pago.setIdPrestamo(prest.getIdPrestamo());
+                    pago.setPrestamo(prest.getPrestamo());
                     filtrado.add(pago);
                 }
 
@@ -142,12 +145,16 @@ public class PagarPrestamosServlet extends HttpServlet {
                     PagoPrestamo_NegocioImp pagoT = new PagoPrestamo_NegocioImp();
                     PagoPrestamo pago = new PagoPrestamo();
 
+
                     if (cux.getFecha_Pago() == null) {
                         pagoT.update(cux.getIdPago());
+
                         cuentaNegocio.ajusteCuenta(cufin.getNumero_Cuenta(), -(cux.getImporte_cuota()));
                         MovimientoNegocio_Imp movimientoN = new MovimientoNegocio_Imp();
+
                         //cuenta origen
-                        movimiento.setNumero_Cuenta(cufin.getNumero_Cuenta());
+                        movimiento.setCuenta(cufin);
+
                         movimiento.setFechaMovimiento(dtf.format(now).toString());
                         movimiento.setDetalleConcepto("Pago Cuota restantes: " + cux.getCuotas_restantes());
                         movimiento.setImporteMovimiento(-(cux.getImporte_cuota()));
@@ -158,12 +165,12 @@ public class PagarPrestamosServlet extends HttpServlet {
                     if(cux.getCuotas_restantes() > 1 ){
                         // genera la proxima cuota
                         pago.setIdPago(cux.getIdPago());
-                        pago.setNumero_Cuenta(cux.getNumero_Cuenta());
+                        pago.setCuenta(cux.getCuenta());
                         pago.setFecha_Pago(null);
                         pago.setImporte_cuota(cux.getImporte_cuota());
                         pago.setImporte_restante(cux.getImporte_restante() - cux.getImporte_cuota());
                         pago.setCuotas_restantes(cux.getCuotas_restantes() - 1);
-                        pago.setIdPrestamo(cux.getIdPrestamo());
+                        pago.setPrestamo(cux.getPrestamo());
                         pagoT.insert(pago);
 
                     }

@@ -165,7 +165,7 @@
                                         out.println("<h3>Numero de Cuenta: " + ((Cuenta)session.getAttribute("cuentaOrigen")).getNumero_Cuenta() + "</h3>");
                                         out.println("<h3>Saldo: $" + ((Cuenta)session.getAttribute("cuentaOrigen")).getSaldo()+ "</h3>");
                                         out.println("<h1>Cuenta Destino</h1>");
-                                        out.println("<h3>Numero de Cuenta: " + ((Cuenta)session.getAttribute("cuentaOrigen")).getNumero_Cuenta() + "</h3>");
+                                        out.println("<h3>Numero de Cuenta: " + ((Cuenta)session.getAttribute("cuentaDestino")).getNumero_Cuenta() + "</h3>");
                                         out.println("<h3>CBU: " + ((Cuenta)session.getAttribute("cuentaDestino")).getCBU() + "</h3>");
                                         %>
                                          <%= clix!=null? "<h2>Nombre y Apellido:"+ clix.getNombreCompleto()+"</h2>": "<h2>Cuenta Propia</h2>" %>

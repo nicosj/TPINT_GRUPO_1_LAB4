@@ -53,7 +53,7 @@
                             montoIntereses = (prestamo.getTotalImporte()*intereses[pos])+prestamo.getTotalImporte();
                     %>
                         <tr>
-                             <td><%= prestamo.getNumero_Cuenta() %></td>
+                             <td><%= prestamo.getCuenta().getNumero_Cuenta() %></td>
                              <td><%= prestamo.getTotalImporte() %></td>
                              <td><%= prestamo.getFechaPedido() %></td>
                                 <td><%= prestamo.getCuotas() %></td>
@@ -98,8 +98,10 @@
 
                 %>
                 <tr>
-                    <td><%= prestamoss.getIdPrestamo() %></td>
+
+                    <td><%= prestamoss.getPrestamo().getIdPrestamo() %></td>
                     <td><%= prestamoss.getFecha_Pago()!=null?prestamoss.getFecha_Pago():"No Pago" %></td>
+
                     <td><%= prestamoss.getImporte_cuota() %></td>
                     <td><%= prestamoss.getImporte_restante() %></td>
                     <%%>

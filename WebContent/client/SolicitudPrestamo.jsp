@@ -71,7 +71,7 @@
             <tbody>
                 <% for(Prestamo prestamo : prestamos) {%>
                 <tr>
-                    <td><%= prestamo.getNumero_Cuenta()%></td>
+                    <td><%= prestamo.getCuenta().getNumero_Cuenta()%></td>
                     <td><%= prestamo.getTotalImporte() %></td>
                     <td><%= prestamo.getFechaPedido() %></td>
                     <td><%= prestamo.getCuotas() %></td>

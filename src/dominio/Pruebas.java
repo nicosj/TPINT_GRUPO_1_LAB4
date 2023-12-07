@@ -15,7 +15,7 @@ public class Pruebas {
 			ArrayList<Movimiento> listado = movimientos.readAll();
 			ArrayList<Movimiento> filtrado = new ArrayList<Movimiento>();
 			for(Movimiento mov : listado) {
-				if(mov.getNumero_Cuenta().equals("12")) {
+				if(mov.getCuenta().getNumero_Cuenta().equals("12")) {
 					filtrado.add(mov);
 				}
 			}

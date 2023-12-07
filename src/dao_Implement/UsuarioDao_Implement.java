@@ -6,6 +6,7 @@ import java.util.List;
 
 import dao.DB;
 import dao.UsuarioDao_Interfaz;
+import dominio.Cliente;
 import dominio.Usuario;
 
 public class UsuarioDao_Implement implements UsuarioDao_Interfaz  {
@@ -29,7 +30,7 @@ public class UsuarioDao_Implement implements UsuarioDao_Interfaz  {
             statement.setString(1, usuario.getUsuario());
             statement.setString(2, usuario.getClave());
             statement.setInt(3, usuario.getTipoUsuario());
-            statement.setInt(4, usuario.getIdCliente());
+            statement.setInt(4, usuario.getCliente().getIdCLiente());
             
             if(statement.executeUpdate() > 0)
             {
@@ -133,7 +134,7 @@ public class UsuarioDao_Implement implements UsuarioDao_Interfaz  {
 		            usuario.setUsuario(resultado.getString("usuario"));
 		            usuario.setClave(resultado.getString("clave"));
 		            usuario.setTipoUsuario(resultado.getInt("tipoUsuario"));
-		            usuario.setIdCliente(resultado.getInt("idCliente"));
+		            usuario.getCliente().setIdCLiente(resultado.getInt("idCliente"));
 
 		        }  
 		        
@@ -163,7 +164,9 @@ public class UsuarioDao_Implement implements UsuarioDao_Interfaz  {
 				aux.setUsuario(result.getString("usuario"));
 				aux.setClave(result.getString("clave"));
 				aux.setTipoUsuario(result.getInt("tipoUsuario"));
-				aux.setIdCliente(result.getInt("idCliente"));
+				Cliente cliente = new Cliente();
+				cliente.setIdCLiente(result.getInt("idCliente"));
+				aux.setCliente(cliente);
 				System.out.println(aux.getUsuario());
 			}
 			
@@ -181,8 +184,8 @@ public class UsuarioDao_Implement implements UsuarioDao_Interfaz  {
 		String usuario = resultSet.getString("usuario");
 		String clave = resultSet.getString("clave");
 		int tipoUsuario = resultSet.getInt("tipoUsuario");
-		int idCliente = resultSet.getInt("idCliente");      
-        
+		Cliente idCliente= new Cliente();
+		idCliente.setIdCLiente(resultSet.getInt("idCliente"));
         
 		return new Usuario(idUsuario, usuario, clave, tipoUsuario, idCliente);
 	}

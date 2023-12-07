@@ -28,10 +28,11 @@ public class PrestamoDao_Implement implements PrestamoDao_Interfaz{
 		PreparedStatement statement;
         Connection conexion = DB.getConexion().getSQLConexion();
         boolean insercionExitosa = false;
+        
         try
         {
             statement =  conexion.prepareStatement(insert);
-            statement.setString(1, prestamo.getNumero_Cuenta());
+            statement.setString(1, prestamo.getCuenta().getNumero_Cuenta());
             statement.setDouble(2, prestamo.getImporteCuota());
             statement.setString(3, prestamo.getFechaPedido());
             statement.setDouble(4, prestamo.getTotalImporte());
@@ -87,6 +88,8 @@ public class PrestamoDao_Implement implements PrestamoDao_Interfaz{
 
 		 int idPrestamo = resultSet.getInt("idPrestamo");
 		 String numero_Cuenta =resultSet.getString("numero_Cuenta");
+		 Cuenta cuenta = new Cuenta();
+		 cuenta.setNumero_Cuenta(numero_Cuenta);
 		 String fechaPedido = resultSet.getString("Fecha_Pedido");
 		 double importeCuota = resultSet.getDouble("Importe_Cuota");
 		 double totalImporte = resultSet.getDouble("Importe_Total");
@@ -94,7 +97,7 @@ public class PrestamoDao_Implement implements PrestamoDao_Interfaz{
 		 int estado = resultSet.getInt("estado");
 				
 		
-		return new Prestamo(idPrestamo, numero_Cuenta, fechaPedido, importeCuota, totalImporte, cuotas, estado);
+		return new Prestamo(idPrestamo, cuenta, fechaPedido, importeCuota, totalImporte, cuotas, estado);
 	}
 
 
@@ -102,13 +105,15 @@ public class PrestamoDao_Implement implements PrestamoDao_Interfaz{
 	{
 		 int idPrestamo = resultSet.getInt("idPrestamo");
 		 String numero_Cuenta =resultSet.getString("numero_Cuenta");
+		 Cuenta cuenta = new Cuenta();
+		 cuenta.setNumero_Cuenta(numero_Cuenta);
 		 String fechaPedido = resultSet.getString("Fecha_Pedido");
 		 double importeCuota = resultSet.getDouble("Importe_Cuota");
 		 double totalImporte = resultSet.getDouble("Importe_Total");
 		 int cuotas = resultSet.getInt("Cuotas");
 		 int estado = resultSet.getInt("estado");
 		
-		 return new Prestamo(idPrestamo, numero_Cuenta, fechaPedido, importeCuota, totalImporte, cuotas, estado);
+		 return new Prestamo(idPrestamo, cuenta, fechaPedido, importeCuota, totalImporte, cuotas, estado);
 	}
 	public ArrayList<Prestamo> readAll() {
 		PreparedStatement statement;

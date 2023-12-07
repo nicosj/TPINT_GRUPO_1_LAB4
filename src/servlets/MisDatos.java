@@ -33,7 +33,7 @@ public class MisDatos extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session;
 		session = request.getSession();
-		int idCliente = ((Usuario)session.getAttribute("client")).getIdCliente();
+		int idCliente = ((Usuario)session.getAttribute("client")).getCliente().getIdCLiente();
 		Cliente cliente = new Cliente();
 		Cliente_NegocioImp clienteImpl = new Cliente_NegocioImp();
 		

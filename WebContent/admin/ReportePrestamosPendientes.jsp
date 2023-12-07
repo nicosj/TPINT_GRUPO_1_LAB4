@@ -127,7 +127,7 @@
                             %>
                             <tr>     
                                 <td><%=prestamo.getIdPrestamo()%></td>
-                                <td><%=prestamo.getNumero_Cuenta()%></td>
+                                <td><%=prestamo.getCuenta().getNumero_Cuenta()%></td>
                                 <td><%=prestamo.getFechaPedido()%></td>
                                 <td><%=prestamo.getImporteCuota()%></td>
                                 <td><%=prestamo.getTotalImporte()%></td>   

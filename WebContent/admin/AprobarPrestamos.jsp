@@ -66,13 +66,13 @@
             <tr>
                 <form method="post" action="AprobarPrestamosServlet">
                     <td><%=p.getIdPrestamo()%></td>
-                    <td><%=p.getNumero_Cuenta()%></td>
+                    <td><%=p.getCuenta().getNumero_Cuenta()%></td>
                     <%
    
                         for(Cuenta c : cuentas){
-                            if(Objects.equals(c.getNumero_Cuenta(), p.getNumero_Cuenta())){
+                            if(Objects.equals(c.getNumero_Cuenta(), p.getCuenta().getNumero_Cuenta())){
                                 for(Cliente cl : clientes){
-                                    if(Objects.equals(cl.getIdCLiente(), Integer.parseInt(c.getIdCliente()))){
+                                    if(Objects.equals(cl.getIdCLiente(), c.getCliente().getIdCLiente())){
                                         %>
                                         <td><%=cl.getNombreCompleto()%></td>
                                         <%

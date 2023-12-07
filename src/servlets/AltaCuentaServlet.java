@@ -81,21 +81,22 @@ public class AltaCuentaServlet extends HttpServlet {
 
 			System.out.println("Servletpost");
 			String numero_Cuenta = request.getParameter("numero_Cuenta");
-			String idCliente= request.getParameter("idcliente");
+			int idCliente = Integer.parseInt(request.getParameter("idcliente"));
 			String TipoCuenta = request.getParameter("tipoCuenta");
 			String CBU = request.getParameter("cbu");
 			Double saldo = Double.parseDouble(request.getParameter("saldo"));
 			String FechaCreacion= LocalDate.now().toString();
 			Boolean Estado = true;
 
-			 
+			  Cliente cliente = new Cliente();
+			  cliente.setIdCLiente(idCliente);
 			
 			//** --- Tener cuidado de no intentar leer las propiedades con un tipo de dato diferente al de la DB
 			//** ---- o saltan las excepciones. Saldo en la DB es decimal
 	
 			
 			
-            Cuenta cuenta = new Cuenta(idCliente, Cuenta.generarCuenta() , TipoCuenta, FechaCreacion,CBU, saldo, Estado);
+            Cuenta cuenta = new Cuenta(Cuenta.generarCuenta(), cliente , TipoCuenta, FechaCreacion,CBU, saldo, Estado);
             
             System.out.println(cuenta);     
             Cuenta_NegocioImp cuentaN = new Cuenta_NegocioImp();
@@ -105,7 +106,7 @@ public class AltaCuentaServlet extends HttpServlet {
             
             if (cuentaCount < 3) {
             try {
-                boolean rowsUpdated = cuentaN.insert(cuenta); // Implement the update method in your DAO
+                boolean rowsUpdated = cuentaN.insert(cuenta); 
                 request.setAttribute("rowsUpdated", rowsUpdated);
                 request.setAttribute("error", "Cuenta creada y asociada correctamente");
 				request.getRequestDispatcher("/admin/AltaCuenta.jsp").forward(request, response);

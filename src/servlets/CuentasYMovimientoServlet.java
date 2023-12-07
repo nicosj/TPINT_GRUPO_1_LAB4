@@ -47,7 +47,7 @@ public class CuentasYMovimientoServlet extends HttpServlet {
 
    
         Cuenta_NegocioImp cuentaN = new Cuenta_NegocioImp();
-        ArrayList<Cuenta> cuentas = cuentaN.readAllByID(client.getIdCliente());
+        ArrayList<Cuenta> cuentas = cuentaN.readAllByID(client.getCliente().getIdCLiente());
 
         session.setAttribute("cuentas", cuentas);
         session.setAttribute("movimientos", null);

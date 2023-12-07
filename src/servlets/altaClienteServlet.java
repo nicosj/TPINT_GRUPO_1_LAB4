@@ -118,8 +118,8 @@ public class altaClienteServlet extends HttpServlet {
 	                throw new ExcepcionDni();
 	            } else {
 	                // Si no existe, procedemos a crear el nuevo cliente
-	                int idCliente = cli.insertarCliente(cliente);
-	                Usuario user = new Usuario(0, usuario, contrasena, 2, idCliente);
+	                cli.insertarCliente(cliente);
+	                Usuario user = new Usuario(0, usuario, contrasena, 2, cliente);
 	                us.insertarUsuario(user);
 	                request.setAttribute("filas", true);
 	                request.getRequestDispatcher("/admin/cliente.jsp").forward(request, response);

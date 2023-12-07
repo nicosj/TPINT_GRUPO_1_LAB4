@@ -2,6 +2,7 @@ package dao_Implement;
 
 import dao.DB;
 import dao.PagoPrestamoDao;
+import dominio.Cuenta;
 import dominio.PagoPrestamo;
 import dominio.Prestamo;
 
@@ -31,12 +32,12 @@ public class PagoPrestamoDao_Implement implements PagoPrestamoDao {
         {
 
             ps =  conexion.prepareStatement(insert);
-            ps.setString(1, pagoPrestamo.getNumero_Cuenta());
+            ps.setString(1, pagoPrestamo.getCuenta().getNumero_Cuenta());
             ps.setString(2, pagoPrestamo.getFecha_Pago());
             ps.setDouble(3, pagoPrestamo.getImporte_cuota());
             ps.setDouble(4, pagoPrestamo.getImporte_restante());
             ps.setInt(5, pagoPrestamo.getCuotas_restantes());
-            ps.setInt(6, pagoPrestamo.getIdPrestamo());
+            ps.setInt(6, pagoPrestamo.getPrestamo().getIdPrestamo());
             if(ps.executeUpdate() > 0)
             {
                 ((Connection) conexion).commit();
@@ -94,15 +95,19 @@ public class PagoPrestamoDao_Implement implements PagoPrestamoDao {
     private PagoPrestamo obtenerPrestamo(ResultSet resultSet) throws SQLException
     {
 
-            int idPrestamo = resultSet.getInt("idpago_prestamo");
+            int idPrestamo = resultSet.getInt("idpago_prestamo"); // **VER
+            Prestamo prestamo = new Prestamo();
+            prestamo.setIdPrestamo(idPrestamo);
             String numero_Cuenta =resultSet.getString("numero_Cuenta");
+            Cuenta cuenta = new Cuenta();
+            cuenta.setNumero_Cuenta(numero_Cuenta);
             String fechaPedido = resultSet.getString("Fecha_Pago");
             double importeCuota = resultSet.getDouble("Importe_Cuota");
             double totalImporte = resultSet.getDouble("Impote_Restante");
             int cuotas = resultSet.getInt("Cuotas_Restantes");
             int estado = resultSet.getInt("IdPrestamo");
 
-            return new PagoPrestamo(idPrestamo, numero_Cuenta, fechaPedido, importeCuota, totalImporte, cuotas, estado);
+            return new PagoPrestamo(estado, cuenta, fechaPedido, importeCuota, totalImporte, cuotas, prestamo);
     }
 
     @Override

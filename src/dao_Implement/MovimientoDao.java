@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import dao.DB;
 import dao.MovimientoDao_Imp;
+import dominio.Cuenta;
 import dominio.Movimiento;
 
 public class MovimientoDao implements MovimientoDao_Imp {
@@ -24,11 +25,13 @@ public class MovimientoDao implements MovimientoDao_Imp {
         PreparedStatement statement;
         Connection conexion = DB.getConexion().getSQLConexion();
         boolean insercionExitosa = false;
+        
+        
 		System.out.println(movimiento.toString());
         try
         {
             statement =  conexion.prepareStatement(insert);
-            statement.setString(1, movimiento.getNumero_Cuenta());
+            statement.setString(1, movimiento.getCuenta().getNumero_Cuenta());
             statement.setString(2, movimiento.getFechaMovimiento());
             statement.setString(3, movimiento.getDetalleConcepto());
             statement.setDouble(4, movimiento.getImporteMovimiento());
@@ -60,7 +63,7 @@ public class MovimientoDao implements MovimientoDao_Imp {
             statement = conexion.prepareStatement(update);
 
             statement.setString(1, movimiento_a_modificar.getIdMovimiento());
-            statement.setString(2, movimiento_a_modificar.getNumero_Cuenta());
+            statement.setString(2, movimiento_a_modificar.getCuenta().getNumero_Cuenta());
             statement.setString(3, movimiento_a_modificar.getFechaMovimiento());
             statement.setString(4, movimiento_a_modificar.getDetalleConcepto());
             statement.setDouble(5, movimiento_a_modificar.getImporteMovimiento());
@@ -122,12 +125,14 @@ public class MovimientoDao implements MovimientoDao_Imp {
 		String fecha = resultSet.getString("Fecha");
 		String detalleConcepto = resultSet.getString("Detalle_Concepto");
 		String numCuenta = resultSet.getString("numero_Cuenta");
+		Cuenta cuenta = new Cuenta();
+		cuenta.setNumero_Cuenta(numCuenta);
 		String tipoMovimiento = resultSet.getString("Tipo_Movimiento");
 		double importe = resultSet.getDouble("Importe");
 
 		
 		
-		return new Movimiento(idMovimiento, numCuenta, fecha, detalleConcepto, importe, tipoMovimiento);
+		return new Movimiento(idMovimiento, cuenta, fecha, detalleConcepto, importe, tipoMovimiento);
 	}
 
 
@@ -146,7 +151,7 @@ public class MovimientoDao implements MovimientoDao_Imp {
 
 		        if (resultado.next()) {
 		        	movimiento.setIdMovimiento(resultado.getString("idMovimiento"));
-		        	movimiento.setNumero_Cuenta(resultado.getString("numero_Cuenta"));
+		        	movimiento.getCuenta().setNumero_Cuenta(resultado.getString("numero_Cuenta"));
 		        	movimiento.setFechaMovimiento(resultado.getString("Fecha"));
 		        	movimiento.setDetalleConcepto(resultado.getString("Detalle_Concepto"));
 		        	movimiento.setImporteMovimiento(resultado.getDouble("Importe"));
@@ -201,7 +206,7 @@ public class MovimientoDao implements MovimientoDao_Imp {
 	            while (resultado.next()) {
 	                Movimiento movimiento = new Movimiento();
 		        	movimiento.setIdMovimiento(resultado.getString("idMovimiento"));
-		        	movimiento.setNumero_Cuenta(resultado.getString("numero_Cuenta"));
+		        	movimiento.getCuenta().setNumero_Cuenta(resultado.getString("numero_Cuenta"));
 		        	movimiento.setFechaMovimiento(resultado.getString("Fecha"));
 		        	movimiento.setDetalleConcepto(resultado.getString("Detalle_Concepto"));
 		        	movimiento.setImporteMovimiento(resultado.getDouble("Importe"));
