@@ -23,10 +23,10 @@
                     Cuenta cux= (Cuenta) session.getAttribute("cuentatrans");
                     String error=(String)session.getAttribute("error");
 
-
+                    ArrayList<Cuenta> cuentas = (ArrayList<Cuenta>) session.getAttribute("cuentas");
                 %>
 
-                <div class="row">
+                <div    <%= cuentas!=null?"class='row activeTrans' " :"  class='row desaTrans'" %>>
                     <div class="col-md-12 mx-0">
                         <div id="msform">
                             <!-- progressbar -->
@@ -45,7 +45,7 @@
                                         <label class="pay">Cuenta Origen</label>
                                         <select class="tipoTrans "  name="cuentasel" id=pay>
                                             <%
-                                                ArrayList<Cuenta> cuentas = (ArrayList<Cuenta>) session.getAttribute("cuentas");
+
 
                                                 if (cuentas != null) {
                                                     for (Cuenta cu : cuentas) {
@@ -210,6 +210,9 @@
                         </div>
                     </div>
                 </div>
+                 <div <%= cuentas==null?"class=' row activeTrans'" :"class=' row desaTrans'" %>>>
+                     <h3>Sin Cunenta: comunicarse con administrador</h3>
+                 </div>
             </div>
         </div>
     </div>

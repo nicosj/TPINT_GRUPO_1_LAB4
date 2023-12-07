@@ -20,13 +20,12 @@ public class CuentaDao_Implement implements CuentaDao_Interfaz {
 	private static final String delete = "UPDATE cuenta SET estado = 0 where numero_Cuenta = ? ";
 	private static final String readall = "SELECT * FROM cuenta";	
 	private static final String readallById = "SELECT * FROM cuenta where idCliente = ? ";
-
 	private static final String update = "update cuenta set idCliente= ?, FechaCreacion = ?, TipoCuenta = ?, CBU=?, Saldo=?, estado = ?   where numero_Cuenta = ?";
 	private static final String query = "Select * FROM cuenta WHERE numero_Cuenta = ?";
 	private static final String queryCbu = "Select * FROM cuenta WHERE CBU = ?";
 	private static final String queryGetAcountByClientId = "Select * FROM cuenta c inner join cliente cu on cu.idCliente = c.idCliente WHERE c.idCliente = ?";
 
-	private static final String CuentaCountByIdCliente = "SELECT COUNT(*) AS cuenta_count FROM cuenta WHERE idCliente = ? AND estado = 1;";
+	private static final String CuentaCountByIdCliente = "SELECT COUNT(*) AS cuenta_count FROM cuenta WHERE idCliente = ?;";
 	@Override
 	public boolean insert(Cuenta cuenta) {
 	    PreparedStatement statement;

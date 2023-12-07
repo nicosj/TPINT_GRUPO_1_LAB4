@@ -162,6 +162,7 @@ public class UsuarioDao_Implement implements UsuarioDao_Interfaz  {
 			while(result.next()) {
 				aux.setIdUsuario(result.getInt("idUsuario"));
 				aux.setUsuario(result.getString("usuario"));
+				System.out.println(aux.getUsuario());
 				aux.setClave(result.getString("clave"));
 				aux.setTipoUsuario(result.getInt("tipoUsuario"));
 				Cliente cliente = new Cliente();

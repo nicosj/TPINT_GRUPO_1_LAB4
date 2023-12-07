@@ -7,13 +7,18 @@ import dominio.Cuenta;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.Map;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 //import javax.xml.bind.ParseConversionEvent;
+
+import Negocio_Implementacion.Cliente_NegocioImp;
 
 //import org.omg.PortableServer.ID_ASSIGNMENT_POLICY_ID;
 
@@ -35,18 +40,27 @@ public class EditCuentaServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	Cuenta_NegocioImp negocio = new Cuenta_NegocioImp();
-	
-	ArrayList<Cuenta> listaCuentas = new ArrayList<Cuenta>();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
-		Cuenta_NegocioImp cuenta = new Cuenta_NegocioImp();
-		ArrayList<Cuenta> cuentas = cuenta.listarCuentas();
-		request.setAttribute("cuentas", cuentas);
-		request.getRequestDispatcher("/admin/ListadoCuentas.jsp").forward(request, response);
-		
+	    Cuenta_NegocioImp cuentaNegocio = new Cuenta_NegocioImp();
+	    ArrayList<Cuenta> cuentas = cuentaNegocio.listarCuentas();
+	    Cliente_NegocioImp clienteNegocio = new Cliente_NegocioImp();
+	    ArrayList<Cliente> clientes = clienteNegocio.listarClientes();
+	    // Crear un mapa para asociar clientes por idCliente
+	    Map<Integer, Cliente> clientesMap = new HashMap<>();
+	    for (Cliente cliente : clientes) {
+	        clientesMap.put(cliente.getIdCLiente(), cliente);
+	    }
+
+	    // Asociar clientes a cuentas mediante idCliente
+	    for (Cuenta cuenta : cuentas) {
+	        int idCliente = cuenta.getCliente().getIdCLiente();
+	        Cliente clienteAsociado = clientesMap.get(idCliente);
+	        cuenta.setCliente(clienteAsociado);
+	    }
+
+	    request.setAttribute("cuentas", cuentas);
+	    request.getRequestDispatcher("/admin/ListadoCuentas.jsp").forward(request, response);
 	}
 
 	/**
@@ -60,6 +74,7 @@ public class EditCuentaServlet extends HttpServlet {
 		Cuenta_NegocioImp accNegocio = new Cuenta_NegocioImp();
 		Cuenta cuentaAux= new Cuenta();
     	cuentaAux= accNegocio.obtenerCuenta(idCuenta);
+    	boolean banderita= false;
 		/*if(request.getParameter("btnTraerid")!=null) {
 			try {
             	Cuenta cuenta2= new Cuenta();
@@ -100,24 +115,44 @@ public class EditCuentaServlet extends HttpServlet {
             
             int cuentaCount = accNegocio.getCuentaCountByClientId(request.getParameter("idCliente"));
             try{
-            	
-            	System.out.println(cuentaAux.getCliente().getIdCLiente());
-            	System.out.println(Integer.parseInt(request.getParameter("idCliente")));
+            	System.out.println("cantidad cuentas "+accNegocio.getCuentaCountByClientId(request.getParameter("idCliente")));
+            	System.out.println("idcliente original "+cuentaAux.getCliente().getIdCLiente());
+            	System.out.println("nuevo id cliente "+Integer.parseInt(request.getParameter("idCliente")));
                 if(cuentaAux.getCliente().getIdCLiente() == Integer.parseInt(request.getParameter("idCliente"))) {
                 	
+                	banderita= true;
                     boolean filas= accNegocio.update(cuenta);
                     request.setAttribute("filas", filas);
                     request.setAttribute("updateSuccess", true);   
-                    ArrayList<Cuenta> cuentas = accNegocio.listarCuentas();
-            		request.setAttribute("cuentas", cuentas);
-                    request.getRequestDispatcher("/admin/ListadoCuentas.jsp").forward(request, response);
+                    
+                    //Copia doGet para cargar tablas
+                    Cuenta_NegocioImp cuentaNegocio = new Cuenta_NegocioImp();
+            	    ArrayList<Cuenta> cuentas = cuentaNegocio.listarCuentas();
+            	    Cliente_NegocioImp clienteNegocio = new Cliente_NegocioImp();
+            	    ArrayList<Cliente> clientes = clienteNegocio.listarClientes();
+            	    // Crear un mapa para asociar clientes por idCliente
+            	    Map<Integer, Cliente> clientesMap = new HashMap<>();
+            	    for (Cliente clienteget : clientes) {
+            	        clientesMap.put(clienteget.getIdCLiente(), clienteget);
+            	    }
+
+            	    // Asociar clientes a cuentas mediante idCliente
+            	    for (Cuenta cuentaget : cuentas) {
+            	        int idCliente = cuentaget.getCliente().getIdCLiente();
+            	        Cliente clienteAsociado = clientesMap.get(idCliente);
+            	        cuentaget.setCliente(clienteAsociado);
+            	    }
+
+            	    request.setAttribute("cuentas", cuentas);
+            	    request.getRequestDispatcher("/admin/ListadoCuentas.jsp").forward(request, response);
+                    
                 }
             	
                 if (cuentaCount < 3) {
                 	System.out.println("uwu bueno");
-            	Cuenta cuenta2= new Cuenta();
-            	cuenta2= accNegocio.obtenerCuenta(idCuenta);
-                boolean filas= accNegocio.update(cuenta2);
+            	
+            	
+                boolean filas= accNegocio.update(cuenta);
                 request.setAttribute("filas", filas);
                 request.setAttribute("updateSuccess", true);                               
                 }
@@ -125,10 +160,28 @@ public class EditCuentaServlet extends HttpServlet {
                 	System.out.println("uwu malo");
                 	 request.setAttribute("errorMessage", "La cuenta no puede asociarse al nuevo cliente, ya posee 3 cuentas asociadas.");
                 }
-                ArrayList<Cuenta> cuentas = accNegocio.listarCuentas();
-        		request.setAttribute("cuentas", cuentas);
-                request.getRequestDispatcher("/admin/ListadoCuentas.jsp").forward(request, response);
                 
+                if(!banderita) {
+                Cuenta_NegocioImp cuentaNegocio = new Cuenta_NegocioImp();
+        	    ArrayList<Cuenta> cuentas = cuentaNegocio.listarCuentas();
+        	    Cliente_NegocioImp clienteNegocio = new Cliente_NegocioImp();
+        	    ArrayList<Cliente> clientes = clienteNegocio.listarClientes();
+        	    // Crear un mapa para asociar clientes por idCliente
+        	    Map<Integer, Cliente> clientesMap = new HashMap<>();
+        	    for (Cliente clienteget : clientes) {
+        	        clientesMap.put(clienteget.getIdCLiente(), clienteget);
+        	    }
+
+        	    // Asociar clientes a cuentas mediante idCliente
+        	    for (Cuenta cuentaget : cuentas) {
+        	        int idCliente = cuentaget.getCliente().getIdCLiente();
+        	        Cliente clienteAsociado = clientesMap.get(idCliente);
+        	        cuentaget.setCliente(clienteAsociado);
+        	    }
+
+        	    request.setAttribute("cuentas", cuentas);
+        	    request.getRequestDispatcher("/admin/ListadoCuentas.jsp").forward(request, response);
+                }
                 
             } catch (Exception e) {
                 e.printStackTrace();
