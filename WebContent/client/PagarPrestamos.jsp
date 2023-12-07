@@ -17,6 +17,8 @@
                     </div>
                 </div>
             </div>
+            <%    ArrayList<PagoPrestamo> prestamox = (ArrayList<PagoPrestamo>)session.getAttribute("prestamoXU");%>
+            <div <%= prestamox == null?"class='container' style='display:block;'":"style='display:none;'"%>>
             <table id="tablaConPaginadorYFiltro" class="display">
                 <thead>
                     <tr>
@@ -53,7 +55,7 @@
                             montoIntereses = (prestamo.getTotalImporte()*intereses[pos])+prestamo.getTotalImporte();
                     %>
                         <tr>
-                             <td><%= prestamo.getCuenta().getNumero_Cuenta() %></td>
+                             <td><%= prestamo.getIdPrestamo() %></td>
                              <td><%= prestamo.getTotalImporte() %></td>
                              <td><%= prestamo.getFechaPedido() %></td>
                                 <td><%= prestamo.getCuotas() %></td>
@@ -70,8 +72,9 @@
                     %>
                 </tbody>
             </table>
+            </div>
         </div>
-        <%    ArrayList<PagoPrestamo> prestamox = (ArrayList<PagoPrestamo>)session.getAttribute("prestamoXU");%>
+
         <div <%=prestamox != null?"class='container' style='display:block;'":"style='display:none;'"%> >
             <h2 class="marcoTitu">Tabla de Pago de prestamos</h2>
             <table id="tablaConPaginadorYFiltroo" class="display">
@@ -149,6 +152,7 @@
                 </tbody>
 
             </table>
+            <a id="cancelarFId" class="previous action-button-previous" href="PagarPrestamosServlet"><span class="nav-label">Volver</span></a>
         </div>
     </div>
 </div>
@@ -170,6 +174,8 @@
                 },
             }
         );
+
+
     });
 
 </script>

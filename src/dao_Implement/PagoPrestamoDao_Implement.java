@@ -18,7 +18,7 @@ public class PagoPrestamoDao_Implement implements PagoPrestamoDao {
     private static final String insert = "INSERT INTO pago_prestamo (numero_Cuenta, Fecha_Pago, importe_cuota, impote_restante, cuotas_restantes, idPrestamo) VALUES (?,?,?,?,?,?)";
     private static final String readall = "SELECT * FROM pago_prestamo";
     private static final String readallByCuentaX = "SELECT * FROM pago_prestamo where idPrestamo = ?";
-    private static final String update = "Update pago_prestamo Set Fecha_Pago= ? numero_cuenta= ? where idpago_prestamo = ?";
+    private static final String update = "Update pago_prestamo Set Fecha_Pago= ?, numero_cuenta= ? where idpago_prestamo = ?";
 
     private static final String readallByCuenta = "SELECT * FROM PagoPrestamo WHERE numero_Cuenta = ?";
 

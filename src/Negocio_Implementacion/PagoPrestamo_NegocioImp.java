@@ -19,8 +19,8 @@ public class PagoPrestamo_NegocioImp implements PagoPrestamo_Negocio{
     }
     @Override
     public boolean update(int id, String cuenta) {
-        boolean upd = negocio.update(id , cuenta);
-        return upd;
+
+        return negocio.update(id , cuenta);
     }
     @Override
     public ArrayList<PagoPrestamo> readAll() {
